@@ -282,8 +282,8 @@ class CompleteDataSeeder extends Seeder
             // إضافة المهارات
             foreach ($skillsArray as $skill) {
                 MaidSkill::updateOrCreate(
-                    ['maid_id' => $maid->id, 'skill' => $skill],
-                    ['skill' => $skill]
+                    ['maid_id' => $maid->id, 'skill_name' => $skill],
+                    ['skill_name' => $skill, 'description' => 'مهارة في ' . $skill]
                 );
             }
 
@@ -292,10 +292,17 @@ class CompleteDataSeeder extends Seeder
                 WorkExperience::updateOrCreate(
                     [
                         'maid_id' => $maid->id,
-                        'company' => $experience['company'],
+                        'company_name' => $experience['company'],
                         'position' => $experience['position']
                     ],
-                    $experience
+                    [
+                        'maid_id' => $maid->id,
+                        'company_name' => $experience['company'],
+                        'position' => $experience['position'],
+                        'start_date' => now()->subYears(rand(1, 5)),
+                        'end_date' => now()->subMonths(rand(1, 12)),
+                        'description' => $experience['description']
+                    ]
                 );
             }
         }
