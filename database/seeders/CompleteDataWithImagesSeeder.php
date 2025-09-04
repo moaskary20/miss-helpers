@@ -34,16 +34,19 @@ class CompleteDataWithImagesSeeder extends Seeder
     
     private function createUsers()
     {
-        User::create([
-            'name' => 'محمد العسكري',
-            'username' => 'admin',
-            'email' => 'mo.askary@gmail.com',
-            'password' => Hash::make('newpassword'),
-            'phone' => '+971501234567',
-            'role' => 'super_admin',
-            'status' => 'active',
-            'email_verified_at' => now(),
-        ]);
+        // إنشاء المستخدم الإداري إذا لم يكن موجوداً
+        User::firstOrCreate(
+            ['email' => 'mo.askary@gmail.com'],
+            [
+                'name' => 'محمد العسكري',
+                'username' => 'admin',
+                'password' => Hash::make('newpassword'),
+                'phone' => '+971501234567',
+                'role' => 'super_admin',
+                'status' => 'active',
+                'email_verified_at' => now(),
+            ]
+        );
     }
     
     private function createCategories()
@@ -56,7 +59,10 @@ class CompleteDataWithImagesSeeder extends Seeder
         ];
         
         foreach ($categories as $category) {
-            Category::create($category);
+            Category::firstOrCreate(
+                ['slug' => $category['slug']],
+                $category
+            );
         }
     }
     
@@ -124,16 +130,22 @@ class CompleteDataWithImagesSeeder extends Seeder
         ];
         
         foreach ($maidsData as $maidData) {
-            $maid = Maid::create($maidData);
+            $maid = Maid::firstOrCreate(
+                ['name' => $maidData['name']],
+                $maidData
+            );
             
-            $skills = [
-                ['skill_name' => 'تنظيف المنزل', 'description' => 'تنظيف شامل للمنزل'],
-                ['skill_name' => 'الطبخ', 'description' => 'إعداد وجبات متنوعة'],
-                ['skill_name' => 'العناية بالأطفال', 'description' => 'رعاية الأطفال والتعليم'],
-            ];
-            
-            foreach ($skills as $skill) {
-                $maid->skills()->create($skill);
+            // إضافة المهارات إذا لم تكن موجودة
+            if ($maid->skills()->count() == 0) {
+                $skills = [
+                    ['skill_name' => 'تنظيف المنزل', 'description' => 'تنظيف شامل للمنزل'],
+                    ['skill_name' => 'الطبخ', 'description' => 'إعداد وجبات متنوعة'],
+                    ['skill_name' => 'العناية بالأطفال', 'description' => 'رعاية الأطفال والتعليم'],
+                ];
+                
+                foreach ($skills as $skill) {
+                    $maid->skills()->create($skill);
+                }
             }
         }
     }
@@ -171,7 +183,10 @@ class CompleteDataWithImagesSeeder extends Seeder
         
         foreach ($postsData as $postData) {
             $postData['category_id'] = $category->id;
-            Post::create($postData);
+            Post::firstOrCreate(
+                ['slug' => $postData['slug']],
+                $postData
+            );
         }
     }
     
@@ -190,7 +205,10 @@ class CompleteDataWithImagesSeeder extends Seeder
         ];
         
         foreach ($reviewsData as $reviewData) {
-            CustomerReview::create($reviewData);
+            CustomerReview::firstOrCreate(
+                ['customer_email' => $reviewData['customer_email']],
+                $reviewData
+            );
         }
     }
     
@@ -208,31 +226,39 @@ class CompleteDataWithImagesSeeder extends Seeder
         ];
         
         foreach ($requestsData as $requestData) {
-            ServiceRequest::create($requestData);
+            ServiceRequest::firstOrCreate(
+                ['email' => $requestData['email']],
+                $requestData
+            );
         }
     }
     
     private function createChatData()
     {
-        $chatRoom = ChatRoom::create([
-            'visitor_name' => 'زائر',
-            'visitor_email' => 'visitor@example.com',
-            'status' => 'active',
-            'unread_messages_count' => 0,
-        ]);
-        
-        $messages = [
+        $chatRoom = ChatRoom::firstOrCreate(
+            ['visitor_email' => 'visitor@example.com'],
             [
-                'chat_room_id' => $chatRoom->id,
-                'sender_type' => 'visitor',
-                'sender_name' => 'زائر',
-                'message' => 'مرحباً، أريد الاستفسار عن الخدمات',
-                'is_read' => false,
-            ],
-        ];
+                'visitor_name' => 'زائر',
+                'status' => 'active',
+                'unread_messages_count' => 0,
+            ]
+        );
         
-        foreach ($messages as $message) {
-            ChatMessage::create($message);
+        // إضافة رسائل إذا لم تكن موجودة
+        if ($chatRoom->messages()->count() == 0) {
+            $messages = [
+                [
+                    'chat_room_id' => $chatRoom->id,
+                    'sender_type' => 'visitor',
+                    'sender_name' => 'زائر',
+                    'message' => 'مرحباً، أريد الاستفسار عن الخدمات',
+                    'is_read' => false,
+                ],
+            ];
+            
+            foreach ($messages as $message) {
+                ChatMessage::create($message);
+            }
         }
     }
 }
