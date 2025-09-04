@@ -16,6 +16,17 @@
             background: #f8f9fa;
         }
         
+        /* Header */
+        .site-header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid #f1f1f1}
+        .header-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
+        .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+        .brand img{height:34px}
+        .brand .title{font-weight:800;color:#1c1c1c;letter-spacing:.5px}
+        .nav-links a{color:#1c1c1c;text-decoration:none;padding:10px 14px;border-radius:12px;font-weight:600}
+        .nav-links a:hover{background:#f6f7fb}
+        .cta-btn{background:#0d6efd;color:#fff;border:none;border-radius:18px;padding:10px 18px;font-weight:800}
+        .auth a{color:#1c1c1c;text-decoration:none;margin-inline-start:14px}
+        
         .blog-header {
             background: linear-gradient(135deg, #23336b 0%, #6f42c1 100%);
             color: white;
@@ -305,6 +316,28 @@
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="{{ url('/') }}" class="brand">
+                <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
+            </a>
+            <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
+                <a href="{{ url('/') }}">الرئيسية</a>
+                <a href="{{ route('about.index') }}">عنا</a>
+                <a href="{{ route('service.index') }}">الخدمات</a>
+                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
+            </nav>
+            <div class="d-flex align-items-center gap-3">
+                <a href="{{ route('contact.index') }}" class="cta-btn">احصل على خادمة الآن</a>
+                <div class="auth d-none d-md-flex">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">إنشاء حساب</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <!-- رأس المدونة -->
     <header class="blog-header">
         <div class="container">
