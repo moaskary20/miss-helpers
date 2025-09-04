@@ -514,21 +514,18 @@ class CompleteDataSeeder extends Seeder
                 'name' => 'نصائح التنظيف',
                 'slug' => 'cleaning-tips',
                 'description' => 'نصائح ومعلومات مفيدة للتنظيف',
-                'color' => '#6c5ce7',
                 'is_active' => true,
             ],
             [
                 'name' => 'الطبخ',
                 'slug' => 'cooking',
                 'description' => 'وصفات ونصائح الطبخ',
-                'color' => '#ff7b8a',
                 'is_active' => true,
             ],
             [
                 'name' => 'رعاية الأطفال',
                 'slug' => 'childcare',
                 'description' => 'نصائح رعاية الأطفال',
-                'color' => '#20bf6b',
                 'is_active' => true,
             ],
         ];
@@ -546,18 +543,22 @@ class CompleteDataSeeder extends Seeder
                     'slug' => 'best-kitchen-cleaning-methods',
                     'excerpt' => 'نصائح مفيدة لتنظيف المطبخ بفعالية',
                     'content' => 'هذا المقال يحتوي على نصائح مفيدة لتنظيف المطبخ بفعالية وأمان...',
-                    'featured_image' => 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                    'thumbnail' => 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
                     'status' => 'published',
-                    'is_featured' => true,
+                    'author_id' => 1,
+                    'tags' => json_encode(['تنظيف', 'مطبخ', 'نصائح']),
+                    'reading_time' => 5,
                 ],
                 [
                     'title' => 'تنظيف السجاد بطرق طبيعية',
                     'slug' => 'natural-carpet-cleaning',
                     'excerpt' => 'طرق طبيعية لتنظيف السجاد بدون مواد كيميائية',
                     'content' => 'هذا المقال يحتوي على طرق طبيعية لتنظيف السجاد بدون مواد كيميائية...',
-                    'featured_image' => 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                    'thumbnail' => 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
                     'status' => 'published',
-                    'is_featured' => false,
+                    'author_id' => 1,
+                    'tags' => json_encode(['تنظيف', 'سجاد', 'طبيعي']),
+                    'reading_time' => 7,
                 ],
             ];
 
@@ -569,7 +570,6 @@ class CompleteDataSeeder extends Seeder
                     ],
                     array_merge($postData, [
                         'published_at' => now()->subDays(rand(1, 30)),
-                        'views_count' => rand(10, 200),
                     ])
                 );
             }
