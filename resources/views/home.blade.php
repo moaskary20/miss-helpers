@@ -1576,26 +1576,48 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         
                         <div class="reviewer-profile">
-                            <div class="profile-image">
+                            @if(isset($customerReviews[0]) && $customerReviews[0]->customer_photo)
+                                @php
+                                    $img = $customerReviews[0]->customer_photo;
+                                    if (str_starts_with($img, 'http')) {
+                                        $img = $img;
+                                    } else {
+                                        $img = asset('storage/' . $img);
+                                    }
+                                @endphp
+                                <img src="{{ $img }}" alt="{{ $customerReviews[0]->customer_name }}" class="profile-image" 
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            @endif
+                            <div class="profile-image" style="{{ isset($customerReviews[0]) && $customerReviews[0]->customer_photo ? 'display: none;' : '' }}">
                                 <i class="bi bi-person-circle"></i>
                             </div>
                             <div class="rating-overlay">
                                 <div class="stars">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
+                                    @if(isset($customerReviews[0]))
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= $customerReviews[0]->rating)
+                                                <i class="bi bi-star-fill"></i>
+                                            @else
+                                                <i class="bi bi-star"></i>
+                                            @endif
+                                        @endfor
+                                    @else
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                         
                         <div class="reviewer-info">
-                            <div class="reviewer-name">فاطمة من الرياض</div>
+                            <div class="reviewer-name">{{ $customerReviews[0]->customer_name ?? 'عميل راضي' }}</div>
                         </div>
                         
                         <div class="review-text">
-                            موقع محترم وخدمة العملاء متعاونين جداً. ساعدوني في اختيار خادمة تناسب احتياجات عائلتي، وتم إنهاء الأوراق في وقت قياسي. أشكرهم على المهنية والالتزام.
+                            {{ $customerReviews[0]->description ?? 'موقع محترم وخدمة العملاء متعاونين جداً. ساعدوني في اختيار خادمة تناسب احتياجات عائلتي، وتم إنهاء الأوراق في وقت قياسي. أشكرهم على المهنية والالتزام.' }}
                         </div>
                     </div>
                 </div>
@@ -1605,20 +1627,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="side-review">
                         <div class="review-content">
                             <p class="review-text-side">
-                                موقع محترم وخدمة العملاء متعاونين جداً. ساعدوني في اختيار خادمة تناسب احتياجات عائلتي، وتم إنهاء الأوراق في وقت قياسي. أشكرهم على المهنية والالتزام.
+                                {{ $customerReviews[0]->description ?? 'موقع محترم وخدمة العملاء متعاونين جداً. ساعدوني في اختيار خادمة تناسب احتياجات عائلتي، وتم إنهاء الأوراق في وقت قياسي. أشكرهم على المهنية والالتزام.' }}
                             </p>
                             
                             <div class="rating-stars">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
+                                @if(isset($customerReviews[0]))
+                                    @for($i = 1; $i <= 5; $i++)
+                                        @if($i <= $customerReviews[0]->rating)
+                                            <i class="bi bi-star-fill"></i>
+                                        @else
+                                            <i class="bi bi-star"></i>
+                                        @endif
+                                    @endfor
+                                @else
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                @endif
                             </div>
                             
                             <div class="reviewer-details">
-                                <div class="reviewer-name-side">Fatima A. - Dubai</div>
-                                <div class="reviewer-title">Business Owner</div>
+                                <div class="reviewer-name-side">{{ $customerReviews[0]->customer_name ?? 'عميل راضي' }} - {{ $customerReviews[0]->customer_location ?? 'الرياض' }}</div>
+                                <div class="reviewer-title">عميل راضي</div>
                             </div>
                         </div>
                         
@@ -1629,6 +1661,15 @@ document.addEventListener('DOMContentLoaded', function() {
                             <button class="nav-btn" onclick="changeReview('next')">
                                 <i class="bi bi-chevron-right"></i>
                             </button>
+                        </div>
+                        
+                        <!-- مؤشرات التنقل -->
+                        <div class="review-indicators">
+                            @if(count($customerReviews) > 1)
+                                @for($i = 0; $i < min(3, count($customerReviews)); $i++)
+                                    <button class="indicator {{ $i === 0 ? 'active' : '' }}" onclick="showReview({{ $i }})"></button>
+                                @endfor
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -1723,6 +1764,14 @@ document.addEventListener('DOMContentLoaded', function() {
     font-size: 2.5rem;
     color: #6f42c1;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .rating-overlay {
@@ -1847,6 +1896,29 @@ document.addEventListener('DOMContentLoaded', function() {
     background: #5a32a3;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(111, 66, 193, 0.3);
+}
+
+/* مؤشرات التنقل */
+.review-indicators {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: #6f42c1;
+    transform: scale(1.2);
 }
 
 .nav-btn:active {
@@ -3851,6 +3923,100 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('DOMContentLoaded', function() {
             new ChatWidget();
         });
+
+        // Customer Reviews Navigation
+        let currentReviewIndex = 0;
+        const reviews = @json($customerReviews);
+
+        function changeReview(direction) {
+            if (reviews.length <= 1) return;
+            
+            if (direction === 'next') {
+                currentReviewIndex = (currentReviewIndex + 1) % reviews.length;
+            } else {
+                currentReviewIndex = (currentReviewIndex - 1 + reviews.length) % reviews.length;
+            }
+            
+            showReview(currentReviewIndex);
+        }
+
+        function showReview(index) {
+            if (!reviews[index]) return;
+            
+            currentReviewIndex = index;
+            const review = reviews[index];
+            
+            // Update profile image
+            const profileImg = document.querySelector('.reviewer-profile img');
+            const profileIcon = document.querySelector('.reviewer-profile .profile-image');
+            
+            if (review.customer_photo) {
+                let imgSrc = review.customer_photo;
+                if (!imgSrc.startsWith('http')) {
+                    imgSrc = '{{ asset("storage/") }}/' + imgSrc;
+                }
+                if (profileImg) {
+                    profileImg.src = imgSrc;
+                    profileImg.style.display = 'block';
+                    profileIcon.style.display = 'none';
+                }
+            } else {
+                if (profileImg) profileImg.style.display = 'none';
+                profileIcon.style.display = 'flex';
+            }
+            
+            // Update reviewer name
+            const reviewerName = document.querySelector('.reviewer-name');
+            if (reviewerName) {
+                reviewerName.textContent = review.customer_name || 'عميل راضي';
+            }
+            
+            // Update review text
+            const reviewText = document.querySelector('.review-text');
+            if (reviewText) {
+                reviewText.textContent = review.description || 'موقع محترم وخدمة العملاء متعاونين جداً.';
+            }
+            
+            // Update side review
+            const sideReviewText = document.querySelector('.review-text-side');
+            if (sideReviewText) {
+                sideReviewText.textContent = review.description || 'موقع محترم وخدمة العملاء متعاونين جداً.';
+            }
+            
+            // Update rating stars
+            updateStars(review.rating || 5);
+            
+            // Update reviewer details
+            const reviewerNameSide = document.querySelector('.reviewer-name-side');
+            if (reviewerNameSide) {
+                reviewerNameSide.textContent = `${review.customer_name || 'عميل راضي'} - ${review.customer_location || 'الرياض'}`;
+            }
+            
+            // Update indicators
+            updateIndicators(index);
+        }
+
+        function updateStars(rating) {
+            const starElements = document.querySelectorAll('.rating-overlay .stars i, .rating-stars i');
+            starElements.forEach((star, index) => {
+                if (index < rating) {
+                    star.className = 'bi bi-star-fill';
+                } else {
+                    star.className = 'bi bi-star';
+                }
+            });
+        }
+
+        function updateIndicators(activeIndex) {
+            const indicators = document.querySelectorAll('.indicator');
+            indicators.forEach((indicator, index) => {
+                if (index === activeIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
     </script>
 </body>
 </html>
