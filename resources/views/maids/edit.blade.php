@@ -138,7 +138,7 @@
                                            id="image" name="image" accept="image/*">
                                     @if($maid->image_path)
                                         <small class="text-muted">الصورة الحالية: 
-                                            <a href="{{ asset('storage/' . $maid->image_path) }}" target="_blank">عرض الصورة</a>
+                                            <a href="{{ Storage::url($maid->image_path) }}" target="_blank">عرض الصورة</a>
                                         </small>
                                     @endif
                                     @error('image')
@@ -152,7 +152,7 @@
                                            id="video" name="video" accept="video/*">
                                     @if($maid->video_path)
                                         <small class="text-muted">الفيديو الحالي: 
-                                            <a href="{{ asset('storage/' . $maid->video_path) }}" target="_blank">عرض الفيديو</a>
+                                            <a href="{{ Storage::url($maid->video_path) }}" target="_blank">عرض الفيديو</a>
                                         </small>
                                     @endif
                                     @error('video')
