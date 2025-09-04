@@ -91,7 +91,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label fw-bold">تاريخ الميلاد:</label>
-                            <p class="form-control-plaintext">{{ $maid->birth_date->format('Y-m-d') }}</p>
+                            <p class="form-control-plaintext">{{ $maid->birth_date ? $maid->birth_date->format('Y-m-d') : 'غير محدد' }}</p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -272,7 +272,7 @@
                                 <tr>
                                     <td><strong>{{ $work->company_name }}</strong></td>
                                     <td>{{ $work->position }}</td>
-                                    <td>{{ $work->start_date->format('Y-m-d') }}</td>
+                                    <td>{{ $work->start_date ? $work->start_date->format('Y-m-d') : 'غير محدد' }}</td>
                                     <td>{{ $work->end_date ? $work->end_date->format('Y-m-d') : 'حتى الآن' }}</td>
                                     <td>{{ $work->description ?: 'لا يوجد وصف' }}</td>
                                 </tr>

@@ -127,7 +127,7 @@
                             <div class="mb-3">
                                 <label for="birth_date" class="form-label">تاريخ الميلاد <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control @error('birth_date') is-invalid @enderror" 
-                                       id="birth_date" name="birth_date" value="{{ old('birth_date', $maid->birth_date->format('Y-m-d')) }}" required>
+                                       id="birth_date" name="birth_date" value="{{ old('birth_date', $maid->birth_date ? $maid->birth_date->format('Y-m-d') : '') }}" required>
                                 @error('birth_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -376,7 +376,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <input type="date" class="form-control" name="work_experiences[{{ $index }}][start_date]" 
-                                               value="{{ $work->start_date->format('Y-m-d') }}">
+                                               value="{{ $work->start_date ? $work->start_date->format('Y-m-d') : '' }}">
                                     </div>
                                     <div class="col-md-2">
                                         <input type="date" class="form-control" name="work_experiences[{{ $index }}][end_date]" 
