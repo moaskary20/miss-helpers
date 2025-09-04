@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Maid;
-use App\Models\BlogPost;
+use App\Models\Post;
 use App\Models\CustomerReview;
 use Illuminate\Http\Request;
 
@@ -23,7 +23,7 @@ class HomeController extends Controller
         
         try {
             // جلب أحدث 4 مواضيع من المدونة
-            $latestPosts = BlogPost::with('category')
+            $latestPosts = Post::with('category')
                 ->where('status', 'published')
                 ->latest()
                 ->take(4)
@@ -42,6 +42,6 @@ class HomeController extends Controller
             $customerReviews = collect();
         }
         
-        return view('home', compact('latestMaids', 'latestPosts', 'customerReviews'));
+        return view('home', compact('latestMaids', 'posts' => $latestPosts, 'customerReviews'));
     }
 }
