@@ -315,59 +315,59 @@ class CompleteDataSeeder extends Seeder
         $reviews = [
             [
                 'customer_name' => 'أحمد محمد',
-                'customer_email' => 'ahmed@example.com',
                 'rating' => 5,
-                'review_text' => 'خدمة ممتازة! الخادمة كانت محترفة جداً ونظيفة. أنصح بالتعامل معهم.',
-                'maid_id' => 1,
-                'status' => 'approved',
+                'description' => 'خدمة ممتازة! الخادمة كانت محترفة جداً ونظيفة. أنصح بالتعامل معهم.',
+                'customer_photo' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'customer_location' => 'الرياض، المملكة العربية السعودية',
+                'status' => 'active',
             ],
             [
                 'customer_name' => 'فاطمة علي',
-                'customer_email' => 'fatima@example.com',
                 'rating' => 5,
-                'review_text' => 'أفضل خدمة تنظيف في الرياض. الخادمة كانت سريعة ودقيقة.',
-                'maid_id' => 2,
-                'status' => 'approved',
+                'description' => 'أفضل خدمة تنظيف في الرياض. الخادمة كانت سريعة ودقيقة.',
+                'customer_photo' => 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'customer_location' => 'جدة، المملكة العربية السعودية',
+                'status' => 'active',
             ],
             [
                 'customer_name' => 'محمد أحمد',
-                'customer_email' => 'mohamed@example.com',
                 'rating' => 4,
-                'review_text' => 'خدمة جيدة جداً. الخادمة كانت مهذبة ومحترفة.',
-                'maid_id' => 3,
-                'status' => 'approved',
+                'description' => 'خدمة جيدة جداً. الخادمة كانت مهذبة ومحترفة.',
+                'customer_photo' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'customer_location' => 'الدمام، المملكة العربية السعودية',
+                'status' => 'active',
             ],
             [
                 'customer_name' => 'سارة محمد',
-                'customer_email' => 'sara@example.com',
                 'rating' => 5,
-                'review_text' => 'خدمة رائعة! الخادمة كانت نظيفة جداً وطبخت أكل لذيذ.',
-                'maid_id' => 4,
-                'status' => 'approved',
+                'description' => 'خدمة رائعة! الخادمة كانت نظيفة جداً وطبخت أكل لذيذ.',
+                'customer_photo' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'customer_location' => 'الرياض، المملكة العربية السعودية',
+                'status' => 'active',
             ],
             [
                 'customer_name' => 'خالد علي',
-                'customer_email' => 'khalid@example.com',
                 'rating' => 5,
-                'review_text' => 'أفضل خدمة في المنطقة. أنصح الجميع بالتعامل معهم.',
-                'maid_id' => 5,
-                'status' => 'approved',
+                'description' => 'أفضل خدمة في المنطقة. أنصح الجميع بالتعامل معهم.',
+                'customer_photo' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'customer_location' => 'أبوظبي، الإمارات العربية المتحدة',
+                'status' => 'active',
             ],
             [
                 'customer_name' => 'نور الدين',
-                'customer_email' => 'nour@example.com',
                 'rating' => 4,
-                'review_text' => 'خدمة ممتازة وسعر مناسب. الخادمة كانت مهذبة ومحترفة.',
-                'maid_id' => 1,
-                'status' => 'approved',
+                'description' => 'خدمة ممتازة وسعر مناسب. الخادمة كانت مهذبة ومحترفة.',
+                'customer_photo' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'customer_location' => 'دبي، الإمارات العربية المتحدة',
+                'status' => 'active',
             ],
         ];
 
         foreach ($reviews as $review) {
             CustomerReview::updateOrCreate(
                 [
-                    'customer_email' => $review['customer_email'],
-                    'maid_id' => $review['maid_id']
+                    'customer_name' => $review['customer_name'],
+                    'description' => $review['description']
                 ],
                 $review
             );
