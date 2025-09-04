@@ -282,8 +282,13 @@ class CompleteDataWithImagesSeeder extends Seeder
             ['visitor_email' => 'visitor@example.com'],
             [
                 'visitor_name' => 'زائر',
+                'visitor_phone' => '+971501234567',
+                'session_id' => 'demo_session_' . time(),
                 'status' => 'active',
-                'unread_messages_count' => 0,
+                'type' => 'live_chat',
+                'initial_message' => 'مرحباً، أريد الاستفسار عن الخدمات',
+                'is_read' => false,
+                'last_activity' => now(),
             ]
         );
         
@@ -295,6 +300,20 @@ class CompleteDataWithImagesSeeder extends Seeder
                     'sender_type' => 'visitor',
                     'sender_name' => 'زائر',
                     'message' => 'مرحباً، أريد الاستفسار عن الخدمات',
+                    'is_read' => false,
+                ],
+                [
+                    'chat_room_id' => $chatRoom->id,
+                    'sender_type' => 'admin',
+                    'sender_name' => 'المدير',
+                    'message' => 'مرحباً بك، كيف يمكنني مساعدتك؟',
+                    'is_read' => true,
+                ],
+                [
+                    'chat_room_id' => $chatRoom->id,
+                    'sender_type' => 'visitor',
+                    'sender_name' => 'زائر',
+                    'message' => 'أريد معرفة أسعار الخدمات',
                     'is_read' => false,
                 ],
             ];
