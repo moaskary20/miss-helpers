@@ -70,6 +70,9 @@ class AuthController extends Controller
                 // Activities table doesn't exist, skip logging
             }
 
+            // Debug: Log successful login
+            \Log::info('Login successful for user: ' . $user->email);
+            
             return redirect()->route('admin.dashboard');
         }
 
