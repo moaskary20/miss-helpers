@@ -14,8 +14,7 @@ class CustomerReviewController extends Controller
      */
     public function index()
     {
-        $reviews = CustomerReview::orderBy('sort_order')
-            ->orderBy('created_at', 'desc')
+        $reviews = CustomerReview::orderBy('created_at', 'desc')
             ->paginate(15);
         
         return view('admin.customer-reviews.index', compact('reviews'));
@@ -41,13 +40,11 @@ class CustomerReviewController extends Controller
             'job_title' => 'required|string|max:255',
             'service_received' => 'required|string|max:255',
             'description' => 'required|string',
-            'is_active' => 'boolean',
-            'sort_order' => 'nullable|integer|min:0',
+            'status' => 'nullable|string|in:active,inactive',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
-        $data['sort_order'] = $request->sort_order ?? 0;
+        $data['status'] = $request->status ?? 'active';
 
         if ($request->hasFile('customer_image')) {
             $data['customer_image'] = $request->file('customer_image')->store('reviews/images', 'public');
@@ -91,13 +88,11 @@ class CustomerReviewController extends Controller
             'job_title' => 'required|string|max:255',
             'service_received' => 'required|string|max:255',
             'description' => 'required|string',
-            'is_active' => 'boolean',
-            'sort_order' => 'nullable|integer|min:0',
+            'status' => 'nullable|string|in:active,inactive',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
-        $data['sort_order'] = $request->sort_order ?? 0;
+        $data['status'] = $request->status ?? 'active';
 
         if ($request->hasFile('customer_image')) {
             if ($review->customer_image) {
