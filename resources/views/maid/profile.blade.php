@@ -413,8 +413,9 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3 text-center">
-                    <img src="{{ $maid->photo ? asset('storage/' . $maid->photo) : asset('/images/default-maid.jpg') }}" 
-                         alt="{{ $maid->name }}" class="profile-avatar">
+                    <img src="{{ $maid->image_path ? asset('storage/' . $maid->image_path) : asset('/images/default-maid.jpg') }}" 
+                         alt="{{ $maid->name }}" class="profile-avatar"
+                         onerror="this.src='{{ asset('images/default-maid.jpg') }}'">
                 </div>
                 <div class="col-lg-6">
                     <h1 class="display-5 fw-bold mb-3">{{ $maid->name }}</h1>

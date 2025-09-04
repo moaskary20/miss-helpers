@@ -398,8 +398,9 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="maid-card">
                             <div class="maid-image-wrapper">
-                                <img src="{{ $maid->photo ? asset('storage/' . $maid->photo) : asset('/images/default-maid.jpg') }}" 
-                                     alt="{{ $maid->name }}" class="maid-image">
+                                <img src="{{ $maid->image_path ? asset('storage/' . $maid->image_path) : asset('/images/default-maid.jpg') }}" 
+                                     alt="{{ $maid->name }}" class="maid-image"
+                                     onerror="this.src='{{ asset('images/default-maid.jpg') }}'">
                                 <div class="maid-overlay">
                                     <div class="maid-actions">
                                         <button class="btn btn-light btn-sm like-btn" data-maid-id="{{ $maid->id }}">
