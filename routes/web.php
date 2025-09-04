@@ -74,7 +74,7 @@ Route::get('/chat/{sessionId}', [PublicChatController::class, 'show'])->name('ch
 
 // Auth routes (Admin)
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
     Route::post('/login', [AuthController::class, 'login'])->name('doLogin');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

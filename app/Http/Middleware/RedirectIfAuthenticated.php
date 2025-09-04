@@ -21,7 +21,12 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // If trying to access admin login while authenticated, redirect to admin dashboard
+                if ($request->is('admin/login')) {
+                    return redirect()->route('admin.dashboard');
+                }
+                // For other routes, redirect to home
+                return redirect('/');
             }
         }
 
