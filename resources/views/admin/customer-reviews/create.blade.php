@@ -50,13 +50,13 @@
                         
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="customer_image" class="form-label">صورة العميل</label>
+                                <label for="customer_photo" class="form-label">صورة العميل</label>
                                 <input type="file" 
-                                       class="form-control @error('customer_image') is-invalid @enderror" 
-                                       id="customer_image" 
-                                       name="customer_image" 
+                                       class="form-control @error('customer_photo') is-invalid @enderror" 
+                                       id="customer_photo" 
+                                       name="customer_photo" 
                                        accept="image/*">
-                                @error('customer_image')
+                                @error('customer_photo')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                                 <small class="form-text text-muted">الأبعاد المفضلة: 200×200 بكسل</small>
@@ -65,6 +65,21 @@
                     </div>
                     
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="customer_location" class="form-label">موقع العميل</label>
+                                <input type="text" 
+                                       class="form-control @error('customer_location') is-invalid @enderror" 
+                                       id="customer_location" 
+                                       name="customer_location" 
+                                       value="{{ old('customer_location') }}" 
+                                       placeholder="مثال: الرياض، جدة">
+                                @error('customer_location')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="rating" class="form-label">التقييم <span class="text-danger">*</span></label>

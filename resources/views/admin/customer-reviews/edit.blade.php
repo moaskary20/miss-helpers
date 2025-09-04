@@ -51,22 +51,30 @@
                         
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="customer_image" class="form-label">صورة العميل</label>
-                                @if($review->customer_image)
+                                <label for="customer_photo" class="form-label">صورة العميل</label>
+                                @if($review->customer_photo)
                                     <div class="mb-2">
-                                        <img src="{{ url('/storage/' .$review->customer_image) }}" 
+                                        @php
+                                            if (str_starts_with($review->customer_photo, 'http')) {
+                                                $currentImg = $review->customer_photo;
+                                            } else {
+                                                $currentImg = url('/storage/' . $review->customer_photo);
+                                            }
+                                        @endphp
+                                        <img src="{{ $currentImg }}" 
                                              alt="الصورة الحالية" 
                                              class="img-thumbnail" 
-                                             style="max-width: 100px;">
+                                             style="max-width: 100px;"
+                                             onerror="this.src='{{ asset('images/hero-bg.jpg') }}'">
                                         <small class="d-block text-muted">الصورة الحالية</small>
                                     </div>
                                 @endif
                                 <input type="file" 
-                                       class="form-control @error('customer_image') is-invalid @enderror" 
-                                       id="customer_image" 
-                                       name="customer_image" 
+                                       class="form-control @error('customer_photo') is-invalid @enderror" 
+                                       id="customer_photo" 
+                                       name="customer_photo" 
                                        accept="image/*">
-                                @error('customer_image')
+                                @error('customer_photo')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                                 <small class="form-text text-muted">الأبعاد المفضلة: 200×200 بكسل</small>
@@ -75,6 +83,21 @@
                     </div>
                     
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="customer_location" class="form-label">موقع العميل</label>
+                                <input type="text" 
+                                       class="form-control @error('customer_location') is-invalid @enderror" 
+                                       id="customer_location" 
+                                       name="customer_location" 
+                                       value="{{ old('customer_location', $review->customer_location) }}" 
+                                       placeholder="مثال: الرياض، جدة">
+                                @error('customer_location')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="rating" class="form-label">التقييم <span class="text-danger">*</span></label>

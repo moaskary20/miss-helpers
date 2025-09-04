@@ -50,18 +50,25 @@
                                 @foreach($reviews as $review)
                                     <tr>
                                         <td>
-                                            @if($review->customer_image)
-                                                <img src="{{ url('/storage/' .$review->customer_image) }}" 
+                                            @if($review->customer_photo)
+                                                @php
+                                                    if (str_starts_with($review->customer_photo, 'http')) {
+                                                        $img = $review->customer_photo;
+                                                    } else {
+                                                        $img = url('/storage/' . $review->customer_photo);
+                                                    }
+                                                @endphp
+                                                <img src="{{ $img }}" 
                                                      alt="{{ $review->customer_name }}" 
                                                      class="rounded-circle" 
                                                      width="50" height="50" 
-                                                     style="object-fit: cover;">
-                                            @else
-                                                <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" 
-                                                     style="width: 50px; height: 50px;">
-                                                    <i class="bi bi-person text-white"></i>
-                                                </div>
+                                                     style="object-fit: cover;"
+                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                             @endif
+                                            <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" 
+                                                 style="width: 50px; height: 50px; {{ $review->customer_photo ? 'display: none;' : '' }}">
+                                                <i class="bi bi-person text-white"></i>
+                                            </div>
                                         </td>
                                         <td>
                                             <strong>{{ $review->customer_name }}</strong>

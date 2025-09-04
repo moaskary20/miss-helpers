@@ -35,10 +35,9 @@ class CustomerReviewController extends Controller
     {
         $request->validate([
             'customer_name' => 'required|string|max:255',
-            'customer_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'customer_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'customer_location' => 'nullable|string|max:255',
             'rating' => 'required|integer|min:1|max:5',
-            'job_title' => 'required|string|max:255',
-            'service_received' => 'required|string|max:255',
             'description' => 'required|string',
             'status' => 'nullable|string|in:active,inactive',
         ]);
@@ -46,8 +45,8 @@ class CustomerReviewController extends Controller
         $data = $request->all();
         $data['status'] = $request->status ?? 'active';
 
-        if ($request->hasFile('customer_image')) {
-            $data['customer_image'] = $request->file('customer_image')->store('reviews/images', 'public');
+        if ($request->hasFile('customer_photo')) {
+            $data['customer_photo'] = $request->file('customer_photo')->store('reviews/images', 'public');
         }
 
         CustomerReview::create($data);
@@ -83,10 +82,9 @@ class CustomerReviewController extends Controller
         
         $request->validate([
             'customer_name' => 'required|string|max:255',
-            'customer_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'customer_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'customer_location' => 'nullable|string|max:255',
             'rating' => 'required|integer|min:1|max:5',
-            'job_title' => 'required|string|max:255',
-            'service_received' => 'required|string|max:255',
             'description' => 'required|string',
             'status' => 'nullable|string|in:active,inactive',
         ]);
@@ -94,11 +92,11 @@ class CustomerReviewController extends Controller
         $data = $request->all();
         $data['status'] = $request->status ?? 'active';
 
-        if ($request->hasFile('customer_image')) {
-            if ($review->customer_image) {
-                Storage::disk('public')->delete($review->customer_image);
+        if ($request->hasFile('customer_photo')) {
+            if ($review->customer_photo) {
+                Storage::disk('public')->delete($review->customer_photo);
             }
-            $data['customer_image'] = $request->file('customer_image')->store('reviews/images', 'public');
+            $data['customer_photo'] = $request->file('customer_photo')->store('reviews/images', 'public');
         }
 
         $review->update($data);
@@ -114,8 +112,8 @@ class CustomerReviewController extends Controller
     {
         $review = CustomerReview::findOrFail($id);
         
-        if ($review->customer_image) {
-            Storage::disk('public')->delete($review->customer_image);
+        if ($review->customer_photo) {
+            Storage::disk('public')->delete($review->customer_photo);
         }
         
         $review->delete();

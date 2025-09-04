@@ -490,18 +490,25 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                @if($review->customer_image)
-                                                    <img src="{{ url('/storage/' . $review->customer_image) }}" 
+                                                @if($review->customer_photo)
+                                                    @php
+                                                        if (str_starts_with($review->customer_photo, 'http')) {
+                                                            $img = $review->customer_photo;
+                                                        } else {
+                                                            $img = url('/storage/' . $review->customer_photo);
+                                                        }
+                                                    @endphp
+                                                    <img src="{{ $img }}" 
                                                          alt="{{ $review->customer_name }}" 
                                                          class="rounded-circle me-2" 
                                                          width="30" height="30" 
-                                                         style="object-fit: cover;">
-                                                @else
-                                                    <div class="bg-secondary rounded-circle me-2 d-flex align-items-center justify-content-center" 
-                                                         style="width: 30px; height: 30px;">
-                                                        <i class="bi bi-person text-white"></i>
-                                                    </div>
+                                                         style="object-fit: cover;"
+                                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                                 @endif
+                                                <div class="bg-secondary rounded-circle me-2 d-flex align-items-center justify-content-center" 
+                                                     style="width: 30px; height: 30px; {{ $review->customer_photo ? 'display: none;' : '' }}">
+                                                    <i class="bi bi-person text-white"></i>
+                                                </div>
                                                 <span>{{ Str::limit($review->customer_name, 20) }}</span>
                                             </div>
                                         </td>

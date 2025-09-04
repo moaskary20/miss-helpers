@@ -36,18 +36,25 @@
                 </h5>
             </div>
             <div class="card-body text-center">
-                @if($review->customer_image)
-                    <img src="{{ url('/storage/' .$review->customer_image) }}" 
+                @if($review->customer_photo)
+                    @php
+                        if (str_starts_with($review->customer_photo, 'http')) {
+                            $img = $review->customer_photo;
+                        } else {
+                            $img = url('/storage/' . $review->customer_photo);
+                        }
+                    @endphp
+                    <img src="{{ $img }}" 
                          alt="{{ $review->customer_name }}" 
                          class="rounded-circle mb-3" 
                          width="150" height="150" 
-                         style="object-fit: cover;">
-                @else
-                    <div class="bg-secondary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" 
-                         style="width: 150px; height: 150px;">
-                        <i class="bi bi-person text-white" style="font-size: 4rem;"></i>
-                    </div>
+                         style="object-fit: cover;"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 @endif
+                <div class="bg-secondary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" 
+                     style="width: 150px; height: 150px; {{ $review->customer_photo ? 'display: none;' : '' }}">
+                    <i class="bi bi-person text-white" style="font-size: 4rem;"></i>
+                </div>
                 
                 <h4 class="mb-2">{{ $review->customer_name }}</h4>
                 <p class="text-muted mb-2">{{ $review->job_title }}</p>
