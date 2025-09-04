@@ -72,10 +72,28 @@
             margin-bottom: 40px;
         }
         
-        .post-image {
+        .post-image-container {
             width: 100%;
             height: 400px;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .post-image {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .post-image:hover {
+            transform: scale(1.05);
         }
         
         .post-header {
@@ -329,16 +347,22 @@
             </div>
             
             <div class="post-container">
-                @if($post->featured_image)
-                    @php 
-                        if (str_starts_with($post->featured_image, 'http')) {
-                            $img = $post->featured_image;
-                        } else {
-                            $img = asset('storage/' . $post->featured_image);
-                        }
-                    @endphp
-                    <img src="{{ $img }}" alt="{{ $post->title }}" class="post-image" onerror="this.src='https://via.placeholder.com/800x400/23336b/ffffff?text=Blog+Image'">
-                @endif
+                <div class="post-image-container">
+                    @if($post->featured_image)
+                        @php 
+                            if (str_starts_with($post->featured_image, 'http')) {
+                                $img = $post->featured_image;
+                            } else {
+                                $img = asset('storage/' . $post->featured_image);
+                            }
+                        @endphp
+                        <img src="{{ $img }}" alt="{{ $post->title }}" class="post-image" 
+                             onerror="this.src='{{ asset('images/hero-bg.jpg') }}'; this.onerror=null;"
+                             loading="lazy">
+                    @else
+                        <img src="{{ asset('images/hero-bg.jpg') }}" alt="{{ $post->title }}" class="post-image">
+                    @endif
+                </div>
                 
                 <div class="post-header">
                     <div class="post-category">{{ $post->category->name ?? 'عام' }}</div>
