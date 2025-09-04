@@ -50,7 +50,7 @@
                                     <tr>
                                         <td>
                                             @if($post->featured_image)
-                                                <img src="{{ url('storage/' .$post->featured_image) }}" 
+                                                <img src="{{ asset('storage/' .$post->featured_image) }}" 
                                                      alt="{{ $post->title }}" 
                                                      class="rounded" 
                                                      width="60" height="40" 

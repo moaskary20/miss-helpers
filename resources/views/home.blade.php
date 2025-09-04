@@ -563,7 +563,7 @@
         <div class="blog-slider" id="blogSlider">
             <div class="blog-track">
                 @foreach($posts as $post)
-                    @php $img = $post->featured_image ? url('storage/' . $post->featured_image) : asset('/images/hero-bg.jpg'); @endphp
+                    @php $img = $post->featured_image ? asset('storage/' . $post->featured_image) : asset('/images/hero-bg.jpg'); @endphp
                     <div class="blog-card-wrap">
                         <a href="{{ route('admin.blog.show', $post->id) }}" class="text-decoration-none">
                             <div class="blog-card shadow-sm">
@@ -963,7 +963,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="col-lg-4 col-md-6">
                     <div class="maid-card h-100">
                         <div class="maid-image-wrapper">
-                            <img src="{{ $maid->photo ? url('storage/' . $maid->photo) : asset('/images/default-maid.jpg') }}" 
+                            <img src="{{ $maid->photo ? asset('storage/' . $maid->photo) : asset('/images/default-maid.jpg') }}" 
                                  alt="{{ $maid->name }}" class="maid-image">
                             <div class="maid-overlay">
                                 <div class="maid-actions">

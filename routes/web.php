@@ -17,6 +17,23 @@ use App\Http\Controllers\AuthController as PublicAuthController;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
 
+// Route for serving storage files
+Route::get('/storage/{path}', function ($path) {
+    $filePath = storage_path('app/public/' . $path);
+    
+    if (!file_exists($filePath)) {
+        abort(404);
+    }
+    
+    $mimeType = mime_content_type($filePath);
+    $fileSize = filesize($filePath);
+    
+    return response()->file($filePath, [
+        'Content-Type' => $mimeType,
+        'Content-Length' => $fileSize,
+    ]);
+})->where('path', '.*');
+
 // Routes for Maids
 Route::get('/maids', [App\Http\Controllers\MaidController::class, 'index'])->name('maids.all');
 Route::get('/maids/search', [App\Http\Controllers\MaidController::class, 'search'])->name('maids.search');

@@ -147,7 +147,7 @@
             <div class="card-body">
                 @if($post->featured_image)
                     <div class="text-center mb-4">
-                        <img src="{{ url('storage/' .$post->featured_image) }}" 
+                        <img src="{{ asset('storage/' .$post->featured_image) }}" 
                              alt="{{ $post->title }}" 
                              class="img-fluid rounded" 
                              style="max-height: 300px;">

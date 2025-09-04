@@ -398,7 +398,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="maid-card">
                             <div class="maid-image-wrapper">
-                                <img src="{{ $maid->photo ? url('storage/' . $maid->photo) : asset('/images/default-maid.jpg') }}" 
+                                <img src="{{ $maid->photo ? asset('storage/' . $maid->photo) : asset('/images/default-maid.jpg') }}" 
                                      alt="{{ $maid->name }}" class="maid-image">
                                 <div class="maid-overlay">
                                     <div class="maid-actions">
