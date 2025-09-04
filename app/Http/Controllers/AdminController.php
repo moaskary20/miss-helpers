@@ -21,6 +21,9 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
+        // Debug: Log dashboard access
+        \Log::info('Admin dashboard accessed by user: ' . auth()->user()->email);
+        
         $maidsCount = Maid::count();
         $recentMaids = Maid::latest()->take(5)->get();
         

@@ -16,8 +16,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next, $permission = null, $action = 'view'): Response
     {
+        // Debug: Log middleware access
+        \Log::info('AdminMiddleware: Checking access for ' . $request->path());
+        
         // Check if user is authenticated
         if (!Auth::check()) {
+            \Log::info('AdminMiddleware: User not authenticated, redirecting to login');
             return redirect()->route('admin.login');
         }
 

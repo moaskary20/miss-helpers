@@ -70,6 +70,8 @@ class AuthController extends Controller
                 // Activities table doesn't exist, skip logging
             }
 
+            // Debug: Log the redirect
+            \Log::info('Admin login successful, redirecting to dashboard');
             return redirect()->route('admin.dashboard');
         }
 
