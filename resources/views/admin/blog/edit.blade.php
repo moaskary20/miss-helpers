@@ -101,10 +101,18 @@
                                 <label for="featured_image" class="form-label">الصورة المميزة</label>
                                 @if($post->featured_image)
                                     <div class="mb-2">
-                                        <img src="{{ url('/storage/' .$post->featured_image) }}" 
+                                        @php
+                                            if (str_starts_with($post->featured_image, 'http')) {
+                                                $currentImg = $post->featured_image;
+                                            } else {
+                                                $currentImg = url('/storage/' . $post->featured_image);
+                                            }
+                                        @endphp
+                                        <img src="{{ $currentImg }}" 
                                              alt="الصورة الحالية" 
                                              class="img-thumbnail" 
-                                             style="max-height: 100px;">
+                                             style="max-height: 100px;"
+                                             onerror="this.src='{{ asset('images/hero-bg.jpg') }}'">
                                         <small class="d-block text-muted">الصورة الحالية</small>
                                     </div>
                                 @endif

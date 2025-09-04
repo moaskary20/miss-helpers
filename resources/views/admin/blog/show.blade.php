@@ -147,10 +147,18 @@
             <div class="card-body">
                 @if($post->featured_image)
                     <div class="text-center mb-4">
-                        <img src="{{ url('/storage/' .$post->featured_image) }}" 
+                        @php
+                            if (str_starts_with($post->featured_image, 'http')) {
+                                $img = $post->featured_image;
+                            } else {
+                                $img = url('/storage/' . $post->featured_image);
+                            }
+                        @endphp
+                        <img src="{{ $img }}" 
                              alt="{{ $post->title }}" 
                              class="img-fluid rounded" 
-                             style="max-height: 300px;">
+                             style="max-height: 300px;"
+                             onerror="this.src='{{ asset('images/hero-bg.jpg') }}'">
                     </div>
                 @endif
                 

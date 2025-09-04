@@ -50,17 +50,24 @@
                                     <tr>
                                         <td>
                                             @if($post->featured_image)
-                                                <img src="{{ url('/storage/' .$post->featured_image) }}" 
+                                                @php
+                                                    if (str_starts_with($post->featured_image, 'http')) {
+                                                        $img = $post->featured_image;
+                                                    } else {
+                                                        $img = url('/storage/' . $post->featured_image);
+                                                    }
+                                                @endphp
+                                                <img src="{{ $img }}" 
                                                      alt="{{ $post->title }}" 
                                                      class="rounded" 
                                                      width="60" height="40" 
-                                                     style="object-fit: cover;">
-                                            @else
-                                                <div class="bg-secondary rounded d-flex align-items-center justify-content-center" 
-                                                     style="width: 60px; height: 40px;">
-                                                    <i class="bi bi-image text-white"></i>
-                                                </div>
+                                                     style="object-fit: cover;"
+                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                             @endif
+                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center" 
+                                                 style="width: 60px; height: 40px; {{ $post->featured_image ? 'display: none;' : '' }}">
+                                                <i class="bi bi-image text-white"></i>
+                                            </div>
                                         </td>
                                         <td>
                                             <div>
