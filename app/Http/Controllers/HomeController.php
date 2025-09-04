@@ -42,6 +42,6 @@ class HomeController extends Controller
             $customerReviews = collect();
         }
         
-        return view('home', compact('latestMaids', 'posts' => $latestPosts, 'customerReviews'));
+        return view('home', compact('latestMaids', 'customerReviews') + ['posts' => $latestPosts]);
     }
 }
