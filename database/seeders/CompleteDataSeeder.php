@@ -429,62 +429,72 @@ class CompleteDataSeeder extends Seeder
         // إنشاء غرف الشات
         $chatRooms = [
             [
-                'name' => 'الدعم الفني',
-                'description' => 'غرفة الدعم الفني للعملاء',
-                'type' => 'support',
+                'visitor_name' => 'أحمد محمد',
+                'visitor_email' => 'ahmed@example.com',
+                'visitor_phone' => '0501234567',
+                'session_id' => 'session_' . uniqid(),
                 'status' => 'active',
+                'type' => 'live_chat',
+                'initial_message' => 'مرحباً، أريد الاستفسار عن خدماتكم',
+                'assigned_admin' => 'mo.askary@gmail.com',
+                'is_read' => true,
+                'last_activity' => now(),
             ],
             [
-                'name' => 'الاستفسارات العامة',
-                'description' => 'غرفة الاستفسارات العامة',
-                'type' => 'general',
+                'visitor_name' => 'فاطمة علي',
+                'visitor_email' => 'fatima@example.com',
+                'visitor_phone' => '0501234568',
+                'session_id' => 'session_' . uniqid(),
                 'status' => 'active',
+                'type' => 'live_chat',
+                'initial_message' => 'أريد حجز خادمة لتنظيف المنزل',
+                'assigned_admin' => 'mo.askary@gmail.com',
+                'is_read' => false,
+                'last_activity' => now()->subHours(2),
+            ],
+            [
+                'visitor_name' => 'محمد أحمد',
+                'visitor_email' => 'mohamed@example.com',
+                'visitor_phone' => '0501234569',
+                'session_id' => 'session_' . uniqid(),
+                'status' => 'closed',
+                'type' => 'leave_message',
+                'initial_message' => 'شكراً لكم على الخدمة الممتازة',
+                'assigned_admin' => 'mo.askary@gmail.com',
+                'is_read' => true,
+                'last_activity' => now()->subDays(1),
             ],
         ];
 
         foreach ($chatRooms as $roomData) {
             $room = ChatRoom::updateOrCreate(
-                ['name' => $roomData['name']],
+                ['session_id' => $roomData['session_id']],
                 $roomData
             );
 
             // إضافة رسائل تجريبية
             $messages = [
                 [
-                    'room_id' => $room->id,
-                    'sender_name' => 'أحمد محمد',
-                    'sender_email' => 'ahmed@example.com',
-                    'message' => 'مرحباً، أريد الاستفسار عن خدماتكم',
-                    'sender_type' => 'customer',
+                    'chat_room_id' => $room->id,
+                    'sender_name' => $room->visitor_name,
+                    'message' => $room->initial_message,
+                    'sender_type' => 'visitor',
+                    'is_read' => true,
                 ],
                 [
-                    'room_id' => $room->id,
+                    'chat_room_id' => $room->id,
                     'sender_name' => 'محمد عسكري',
-                    'sender_email' => 'mo.askary@gmail.com',
-                    'message' => 'مرحباً أحمد، كيف يمكنني مساعدتك؟',
+                    'message' => 'مرحباً، كيف يمكنني مساعدتك؟',
                     'sender_type' => 'admin',
-                ],
-                [
-                    'room_id' => $room->id,
-                    'sender_name' => 'أحمد محمد',
-                    'sender_email' => 'ahmed@example.com',
-                    'message' => 'أريد حجز خادمة لتنظيف المنزل',
-                    'sender_type' => 'customer',
-                ],
-                [
-                    'room_id' => $room->id,
-                    'sender_name' => 'محمد عسكري',
-                    'sender_email' => 'mo.askary@gmail.com',
-                    'message' => 'ممتاز! يمكنك حجز الخادمة من خلال صفحة الخادمات',
-                    'sender_type' => 'admin',
+                    'is_read' => true,
                 ],
             ];
 
             foreach ($messages as $message) {
                 ChatMessage::updateOrCreate(
                     [
-                        'room_id' => $message['room_id'],
-                        'sender_email' => $message['sender_email'],
+                        'chat_room_id' => $message['chat_room_id'],
+                        'sender_name' => $message['sender_name'],
                         'message' => $message['message'],
                         'created_at' => now()->subHours(rand(1, 24))
                     ],
