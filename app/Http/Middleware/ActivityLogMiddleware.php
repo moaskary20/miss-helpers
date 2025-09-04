@@ -18,22 +18,26 @@ class ActivityLogMiddleware
     {
         $response = $next($request);
 
-        // Log activity for authenticated users
-        if (Auth::check() && $request->isMethod('POST') || $request->isMethod('PUT') || $request->isMethod('DELETE')) {
-            $user = Auth::user();
-            
-            $action = $this->determineAction($request);
-            $module = $this->determineModule($request);
-            $description = $this->generateDescription($request, $action);
-            
-            $user->activities()->create([
-                'action' => $action,
-                'module' => $module,
-                'description' => $description,
-                'details' => $this->getRequestDetails($request),
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent()
-            ]);
+        // Log activity for authenticated users (if activities table exists)
+        if (Auth::check() && ($request->isMethod('POST') || $request->isMethod('PUT') || $request->isMethod('DELETE'))) {
+            try {
+                $user = Auth::user();
+                
+                $action = $this->determineAction($request);
+                $module = $this->determineModule($request);
+                $description = $this->generateDescription($request, $action);
+                
+                $user->activities()->create([
+                    'action' => $action,
+                    'module' => $module,
+                    'description' => $description,
+                    'details' => $this->getRequestDetails($request),
+                    'ip_address' => $request->ip(),
+                    'user_agent' => $request->userAgent()
+                ]);
+            } catch (\Exception $e) {
+                // Activities table doesn't exist, skip logging
+            }
         }
 
         return $response;
