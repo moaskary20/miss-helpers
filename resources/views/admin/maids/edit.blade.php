@@ -293,7 +293,7 @@
                                 </div>
                             @endforeach
                         @else
-                            @foreach($maid->skills as $index => $skill)
+                            @foreach($maid->skills() as $index => $skill)
                                 <div class="skill-item row mb-3">
                                     <div class="col-md-5">
                                         <input type="text" class="form-control" name="skills[{{ $index }}][skill_name]" 
@@ -364,7 +364,7 @@
                                 </div>
                             @endforeach
                         @else
-                            @foreach($maid->workExperiences as $index => $work)
+                            @foreach($maid->workExperiences() as $index => $work)
                                 <div class="work-experience-item row mb-3">
                                     <div class="col-md-3">
                                         <input type="text" class="form-control" name="work_experiences[{{ $index }}][company_name]" 

@@ -225,7 +225,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    @foreach($maid->skills as $skill)
+                    @foreach($maid->skills() as $skill)
                         <div class="col-md-6 mb-3">
                             <div class="card border-primary">
                                 <div class="card-body">
@@ -268,7 +268,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($maid->workExperiences as $work)
+                            @foreach($maid->workExperiences() as $work)
                                 <tr>
                                     <td><strong>{{ $work->company_name }}</strong></td>
                                     <td>{{ $work->position }}</td>

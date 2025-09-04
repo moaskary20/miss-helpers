@@ -165,7 +165,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        @foreach($maid->skills as $skill)
+                                        @foreach($maid->skills() as $skill)
                                             <div class="col-md-6 mb-3">
                                                 <div class="border rounded p-3">
                                                     <h6 class="text-primary mb-2">
@@ -197,7 +197,7 @@
                                     </h5>
                                 </div>
                                 <div class="card-body">
-                                    @foreach($maid->workExperiences as $experience)
+                                    @foreach($maid->workExperiences() as $experience)
                                         <div class="border rounded p-3 mb-3">
                                             <div class="row">
                                                 <div class="col-md-4">

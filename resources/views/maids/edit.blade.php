@@ -231,7 +231,7 @@
                         </div>
                         <div class="card-body">
                             <div id="skills-container">
-                                @foreach($maid->skills as $index => $skill)
+                                @foreach($maid->skills() as $index => $skill)
                                     <div class="skill-item row mb-3">
                                         <div class="col-md-5">
                                             <label class="form-label">اسم المهارة</label>
@@ -285,7 +285,7 @@
                         </div>
                         <div class="card-body">
                             <div id="experiences-container">
-                                @foreach($maid->workExperiences as $index => $experience)
+                                @foreach($maid->workExperiences() as $index => $experience)
                                     <div class="experience-item row mb-3">
                                         <div class="col-md-3">
                                             <label class="form-label">اسم الشركة/المكان</label>
