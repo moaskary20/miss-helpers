@@ -51,7 +51,7 @@ class BlogController extends Controller
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
-        $data['is_featured'] = $request->has('is_featured');
+        $data['is_featured'] = $request->boolean('is_featured');
         
         if ($request->status === 'published') {
             $data['published_at'] = now();
@@ -107,7 +107,7 @@ class BlogController extends Controller
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
-        $data['is_featured'] = $request->has('is_featured');
+        $data['is_featured'] = $request->boolean('is_featured');
         
         if ($request->status === 'published' && !$post->published_at) {
             $data['published_at'] = now();
