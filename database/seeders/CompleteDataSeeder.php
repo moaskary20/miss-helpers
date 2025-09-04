@@ -530,14 +530,9 @@ class CompleteDataSeeder extends Seeder
             ],
         ];
 
-        foreach ($categories as $categoryData) {
-            $category = BlogCategory::updateOrCreate(
-                ['slug' => $categoryData['slug']],
-                $categoryData
-            );
-
-            // إنشاء مواضيع لكل قسم
-            $posts = [
+        // إنشاء المواضيع لكل قسم بشكل منفصل
+        $categoryPosts = [
+            'cleaning-tips' => [
                 [
                     'title' => 'أفضل طرق تنظيف المطبخ',
                     'slug' => 'best-kitchen-cleaning-methods',
@@ -560,18 +555,54 @@ class CompleteDataSeeder extends Seeder
                     'tags' => json_encode(['تنظيف', 'سجاد', 'طبيعي']),
                     'reading_time' => 7,
                 ],
-            ];
+            ],
+            'cooking' => [
+                [
+                    'title' => 'وصفات سهلة للعشاء',
+                    'slug' => 'easy-dinner-recipes',
+                    'excerpt' => 'وصفات سهلة وسريعة لعشاء لذيذ',
+                    'content' => 'هذا المقال يحتوي على وصفات سهلة وسريعة لعشاء لذيذ...',
+                    'thumbnail' => 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                    'status' => 'published',
+                    'author_id' => 1,
+                    'tags' => json_encode(['طبخ', 'وصفات', 'عشاء']),
+                    'reading_time' => 6,
+                ],
+            ],
+            'childcare' => [
+                [
+                    'title' => 'أفضل طرق تهدئة الأطفال',
+                    'slug' => 'calming-children-methods',
+                    'excerpt' => 'طرق فعالة لتهدئة الأطفال',
+                    'content' => 'هذا المقال يحتوي على طرق فعالة لتهدئة الأطفال...',
+                    'thumbnail' => 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                    'status' => 'published',
+                    'author_id' => 1,
+                    'tags' => json_encode(['أطفال', 'رعاية', 'تهدئة']),
+                    'reading_time' => 8,
+                ],
+            ],
+        ];
 
-            foreach ($posts as $postData) {
-                BlogPost::updateOrCreate(
-                    [
-                        'category_id' => $category->id,
-                        'slug' => $postData['slug']
-                    ],
-                    array_merge($postData, [
-                        'published_at' => now()->subDays(rand(1, 30)),
-                    ])
-                );
+        foreach ($categories as $categoryData) {
+            $category = BlogCategory::updateOrCreate(
+                ['slug' => $categoryData['slug']],
+                $categoryData
+            );
+
+            // إنشاء مواضيع لكل قسم
+            if (isset($categoryPosts[$categoryData['slug']])) {
+                foreach ($categoryPosts[$categoryData['slug']] as $postData) {
+                    BlogPost::updateOrCreate(
+                        [
+                            'category_id' => $category->id,
+                            'slug' => $postData['slug']
+                        ],
+                        array_merge($postData, [
+                            'published_at' => now()->subDays(rand(1, 30)),
+                        ])
+                    );
+                }
             }
         }
     }
