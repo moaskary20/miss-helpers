@@ -367,8 +367,21 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="blog-card">
                         <div class="blog-image">
-                            <img src="{{ $post->thumbnail ?? 'https://via.placeholder.com/400x250/23336b/ffffff?text=Blog+Image' }}" 
-                                 alt="{{ $post->title }}" class="img-fluid">
+                            @php 
+                                if ($post->featured_image) {
+                                    if (str_starts_with($post->featured_image, 'http')) {
+                                        $img = $post->featured_image;
+                                    } else {
+                                        $img = asset('storage/' . $post->featured_image);
+                                    }
+                                } else {
+                                    $img = 'https://via.placeholder.com/400x250/23336b/ffffff?text=Blog+Image';
+                                }
+                            @endphp
+                            <img src="{{ $img }}" 
+                                 alt="{{ $post->title }}" 
+                                 class="img-fluid"
+                                 onerror="this.src='https://via.placeholder.com/400x250/23336b/ffffff?text=Blog+Image'">
                             <div class="blog-category">{{ $post->category->name ?? 'عام' }}</div>
                             <div class="blog-date">
                                 {{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('F d, Y') : 'قريباً' }}

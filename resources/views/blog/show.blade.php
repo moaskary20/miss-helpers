@@ -296,8 +296,15 @@
             </div>
             
             <div class="post-container">
-                @if($post->thumbnail)
-                <img src="{{ $post->thumbnail }}" alt="{{ $post->title }}" class="post-image">
+                @if($post->featured_image)
+                    @php 
+                        if (str_starts_with($post->featured_image, 'http')) {
+                            $img = $post->featured_image;
+                        } else {
+                            $img = asset('storage/' . $post->featured_image);
+                        }
+                    @endphp
+                    <img src="{{ $img }}" alt="{{ $post->title }}" class="post-image" onerror="this.src='https://via.placeholder.com/800x400/23336b/ffffff?text=Blog+Image'">
                 @endif
                 
                 <div class="post-header">
@@ -323,8 +330,15 @@
                     @foreach($relatedPosts as $relatedPost)
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="related-card">
-                            @if($relatedPost->thumbnail)
-                            <img src="{{ $relatedPost->thumbnail }}" alt="{{ $relatedPost->title }}" class="related-image">
+                            @if($relatedPost->featured_image)
+                                @php 
+                                    if (str_starts_with($relatedPost->featured_image, 'http')) {
+                                        $img = $relatedPost->featured_image;
+                                    } else {
+                                        $img = asset('storage/' . $relatedPost->featured_image);
+                                    }
+                                @endphp
+                                <img src="{{ $img }}" alt="{{ $relatedPost->title }}" class="related-image" onerror="this.src='https://via.placeholder.com/300x200/23336b/ffffff?text=Blog+Image'">
                             @endif
                             <h3 class="related-title-small">{{ $relatedPost->title }}</h3>
                             <p class="related-excerpt">{{ Str::limit($relatedPost->excerpt ?? $relatedPost->content, 100) }}</p>

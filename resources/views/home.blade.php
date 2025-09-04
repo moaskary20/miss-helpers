@@ -563,11 +563,21 @@
         <div class="blog-slider" id="blogSlider">
             <div class="blog-track">
                 @foreach($posts as $post)
-                    @php $img = $post->featured_image ? asset('storage/' . $post->featured_image) : asset('/images/hero-bg.jpg'); @endphp
+                    @php 
+                        if ($post->featured_image) {
+                            if (str_starts_with($post->featured_image, 'http')) {
+                                $img = $post->featured_image;
+                            } else {
+                                $img = asset('storage/' . $post->featured_image);
+                            }
+                        } else {
+                            $img = asset('/images/hero-bg.jpg');
+                        }
+                    @endphp
                     <div class="blog-card-wrap">
                         <a href="{{ route('admin.blog.show', $post->id) }}" class="text-decoration-none">
                             <div class="blog-card shadow-sm">
-                                <img src="{{ $img }}" alt="{{ $post->title }}">
+                                <img src="{{ $img }}" alt="{{ $post->title }}" onerror="this.src='{{ asset('images/hero-bg.jpg') }}'">
                                 <div class="blog-overlay"></div>
                                 <div class="blog-caption">{{ $post->title }}</div>
                             </div>
