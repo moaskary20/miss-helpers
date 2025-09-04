@@ -52,7 +52,7 @@
                                             <tr>
                                                 <td>
                                                     @if($maid->image_path)
-                                                        <img src="{{ url('/storage/' . $maid->image_path) }}" 
+                                                        <img src="{{ asset('storage/' . $maid->image_path) }}" 
                                                              alt="{{ $maid->name }}" 
                                                              class="rounded-circle" 
                                                              width="50" height="50" 

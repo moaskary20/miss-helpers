@@ -40,7 +40,7 @@
                             </div>
                             <div class="card-body text-center">
                                 @if($maid->image_path)
-                                    <img src="{{ url('/storage/' . $maid->image_path) }}" 
+                                    <img src="{{ asset('storage/' . $maid->image_path) }}" 
                                          alt="{{ $maid->name }}" 
                                          class="img-fluid rounded mb-3" 
                                          style="max-height: 300px; object-fit: cover;"
