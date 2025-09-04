@@ -40,7 +40,7 @@
                             </div>
                             <div class="card-body text-center">
                                 @if($maid->image_path)
-                                    <img src="{{ Storage::url($maid->image_path) }}" 
+                                    <img src="{{ url('storage/' . $maid->image_path) }}" 
                                          alt="{{ $maid->name }}" 
                                          class="img-fluid rounded mb-3" 
                                          style="max-height: 300px; object-fit: cover;">
@@ -54,7 +54,7 @@
                                 @if($maid->video_path)
                                     <div class="mt-3">
                                         <video controls class="w-100" style="max-height: 200px;">
-                                            <source src="{{ Storage::url($maid->video_path) }}" type="video/mp4">
+                                            <source src="{{ url('storage/' . $maid->video_path) }}" type="video/mp4">
                                             متصفحك لا يدعم تشغيل الفيديو.
                                         </video>
                                     </div>

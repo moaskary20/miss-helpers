@@ -51,7 +51,7 @@
                                     <tr>
                                         <td>
                                             @if($review->customer_image)
-                                                <img src="{{ Storage::url($review->customer_image) }}" 
+                                                <img src="{{ url('storage/' .$review->customer_image) }}" 
                                                      alt="{{ $review->customer_name }}" 
                                                      class="rounded-circle" 
                                                      width="50" height="50" 
