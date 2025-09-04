@@ -251,7 +251,7 @@
                                     </div>
                                 @endforeach
                                 
-                                @if($maid->skills->count() == 0)
+                                @if($maid->skills()->count() == 0)
                                     <div class="skill-item row mb-3">
                                         <div class="col-md-5">
                                             <label class="form-label">اسم المهارة</label>
@@ -315,7 +315,7 @@
                                     </div>
                                 @endforeach
                                 
-                                @if($maid->workExperiences->count() == 0)
+                                @if($maid->workExperiences()->count() == 0)
                                     <div class="experience-item row mb-3">
                                         <div class="col-md-3">
                                             <label class="form-label">اسم الشركة/المكان</label>
@@ -365,8 +365,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        let skillIndex = {{ $maid->skills->count() }};
-        let experienceIndex = {{ $maid->workExperiences->count() }};
+        let skillIndex = {{ $maid->skills()->count() }};
+        let experienceIndex = {{ $maid->workExperiences()->count() }};
 
         function addSkill() {
             const container = document.getElementById('skills-container');

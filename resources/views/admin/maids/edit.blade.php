@@ -426,8 +426,8 @@
 
 @section('scripts')
 <script>
-    let skillIndex = {{ old('skills') ? count(old('skills')) : $maid->skills->count() }};
-    let workExperienceIndex = {{ old('work_experiences') ? count(old('work_experiences')) : $maid->workExperiences->count() }};
+    let skillIndex = {{ old('skills') ? count(old('skills')) : $maid->skills()->count() }};
+    let workExperienceIndex = {{ old('work_experiences') ? count(old('work_experiences')) : $maid->workExperiences()->count() }};
 
     function addSkill() {
         const container = document.getElementById('skills-container');

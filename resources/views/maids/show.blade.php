@@ -153,7 +153,7 @@
                 </div>
 
                 <!-- المهارات -->
-                @if($maid->skills->count() > 0)
+                @if($maid->skills()->count() > 0)
                     <div class="row mb-4">
                         <div class="col-12">
                             <div class="card">
@@ -186,7 +186,7 @@
                 @endif
 
                 <!-- الخبرات العملية -->
-                @if($maid->workExperiences->count() > 0)
+                @if($maid->workExperiences()->count() > 0)
                     <div class="row mb-4">
                         <div class="col-12">
                             <div class="card">

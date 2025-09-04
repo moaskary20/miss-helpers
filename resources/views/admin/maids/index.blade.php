@@ -83,8 +83,8 @@
                                             <strong class="text-success">{{ number_format($maid->contract_fees, 2) }} ريال</strong>
                                         </td>
                                         <td>
-                                            @if($maid->skills->count() > 0)
-                                                <span class="badge bg-info">{{ $maid->skills->count() }} مهارة</span>
+                                            @if($maid->skills()->count() > 0)
+                                                <span class="badge bg-info">{{ $maid->skills()->count() }} مهارة</span>
                                             @else
                                                 <span class="text-muted">لا توجد مهارات</span>
                                             @endif
