@@ -195,18 +195,39 @@ class CompleteDataWithImagesSeeder extends Seeder
         $reviewsData = [
             [
                 'customer_name' => 'أحمد محمد',
-                'customer_email' => 'ahmed@example.com',
-                'customer_phone' => '+971501234567',
                 'rating' => 5,
-                'review_text' => 'خدمة ممتازة ومهنية عالية',
-                'status' => 'active',
+                'description' => 'خدمة ممتازة ومهنية عالية',
+                'job_title' => 'مهندس',
+                'service_received' => 'خادمة منزلية',
+                'is_active' => true,
+                'sort_order' => 1,
+                'customer_image' => 'maids/images/SGZ8T2FkpanC3YaQWx6N3jmJ3YoQzErG3e5EBC47.jpg',
+            ],
+            [
+                'customer_name' => 'فاطمة علي',
+                'rating' => 4,
+                'description' => 'خدمة جيدة جداً، أنصح بها',
+                'job_title' => 'معلمة',
+                'service_received' => 'خادمة للطبخ',
+                'is_active' => true,
+                'sort_order' => 2,
+                'customer_image' => 'maids/images/SGZ8T2FkpanC3YaQWx6N3jmJ3YoQzErG3e5EBC47.jpg',
+            ],
+            [
+                'customer_name' => 'محمد حسن',
+                'rating' => 5,
+                'description' => 'أفضل خدمة في المنطقة',
+                'job_title' => 'طبيب',
+                'service_received' => 'خادمة للعناية بالأطفال',
+                'is_active' => true,
+                'sort_order' => 3,
                 'customer_image' => 'maids/images/SGZ8T2FkpanC3YaQWx6N3jmJ3YoQzErG3e5EBC47.jpg',
             ],
         ];
         
         foreach ($reviewsData as $reviewData) {
             CustomerReview::firstOrCreate(
-                ['customer_email' => $reviewData['customer_email']],
+                ['customer_name' => $reviewData['customer_name']],
                 $reviewData
             );
         }
@@ -217,17 +238,29 @@ class CompleteDataWithImagesSeeder extends Seeder
         $requestsData = [
             [
                 'name' => 'أحمد محمد',
-                'email' => 'ahmed@example.com',
                 'phone' => '+971501234567',
-                'service_type' => 'خادمة منزلية',
-                'message' => 'أحتاج خادمة منزلية للتنظيف والطبخ',
-                'status' => 'pending',
+                'service_type' => 'خادمه منزليه',
+                'nationality' => 'سيرلنكا',
+                'emirate' => 'دبي',
+                'notes' => 'أحتاج خادمة منزلية للتنظيف والطبخ',
+                'status' => 'تحت المراجعه',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'فاطمة علي',
+                'phone' => '+971501234568',
+                'service_type' => 'جليسه اطفال',
+                'nationality' => 'كينيا',
+                'emirate' => 'ابوظبي',
+                'notes' => 'أحتاج جليسة أطفال محترفة',
+                'status' => 'تحت المراجعه',
+                'is_active' => true,
             ],
         ];
         
         foreach ($requestsData as $requestData) {
             ServiceRequest::firstOrCreate(
-                ['email' => $requestData['email']],
+                ['name' => $requestData['name'], 'phone' => $requestData['phone']],
                 $requestData
             );
         }
