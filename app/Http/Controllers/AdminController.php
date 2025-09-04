@@ -32,7 +32,7 @@ class AdminController extends Controller
         
         // إحصائيات آراء العملاء
         $reviewsCount = CustomerReview::count();
-        $activeReviewsCount = CustomerReview::where('is_active', true)->count();
+        $activeReviewsCount = CustomerReview::where('status', 'active')->count();
         $averageRating = CustomerReview::avg('rating');
         $recentReviews = CustomerReview::latest()->take(5)->get();
         
@@ -45,7 +45,14 @@ class AdminController extends Controller
         // إحصائيات الشات
         $chatRoomsCount = ChatRoom::count();
         $activeChatRoomsCount = ChatRoom::where('status', 'active')->count();
-        $unreadMessagesCount = ChatRoom::sum('unread_messages_count');
+        
+        // Check if unread_messages_count column exists
+        try {
+            $unreadMessagesCount = ChatRoom::sum('unread_messages_count');
+        } catch (\Exception $e) {
+            $unreadMessagesCount = 0; // Default value if column doesn't exist
+        }
+        
         $recentChatRooms = ChatRoom::with(['messages' => function($query) {
             $query->latest();
         }])->latest()->take(5)->get();
