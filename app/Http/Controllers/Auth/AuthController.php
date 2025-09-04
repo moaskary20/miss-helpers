@@ -70,7 +70,7 @@ class AuthController extends Controller
                 // Activities table doesn't exist, skip logging
             }
 
-            return redirect()->intended(route('admin.dashboard'));
+            return redirect()->route('admin.dashboard');
         }
 
         return redirect()->back()->with('error', 'البيانات غير صحيحة. يرجى المحاولة مرة أخرى.');
