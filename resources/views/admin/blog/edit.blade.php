@@ -101,7 +101,7 @@
                                 <label for="featured_image" class="form-label">الصورة المميزة</label>
                                 @if($post->featured_image)
                                     <div class="mb-2">
-                                        <img src="{{ asset('storage/' .$post->featured_image) }}" 
+                                        <img src="{{ url('/storage/' .$post->featured_image) }}" 
                                              alt="الصورة الحالية" 
                                              class="img-thumbnail" 
                                              style="max-height: 100px;">

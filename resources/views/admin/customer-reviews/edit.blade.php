@@ -54,7 +54,7 @@
                                 <label for="customer_image" class="form-label">صورة العميل</label>
                                 @if($review->customer_image)
                                     <div class="mb-2">
-                                        <img src="{{ asset('storage/' .$review->customer_image) }}" 
+                                        <img src="{{ url('/storage/' .$review->customer_image) }}" 
                                              alt="الصورة الحالية" 
                                              class="img-thumbnail" 
                                              style="max-width: 100px;">

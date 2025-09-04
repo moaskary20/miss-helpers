@@ -52,11 +52,12 @@
                                             <tr>
                                                 <td>
                                                     @if($maid->image_path)
-                                                        <img src="{{ asset('storage/' . $maid->image_path) }}" 
+                                                        <img src="{{ url('/storage/' . $maid->image_path) }}" 
                                                              alt="{{ $maid->name }}" 
                                                              class="rounded-circle" 
                                                              width="50" height="50" 
-                                                             style="object-fit: cover;">
+                                                             style="object-fit: cover;"
+                                                             onerror="this.src='{{ asset('images/default-maid.jpg') }}'">
                                                     @else
                                                         <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" 
                                                              style="width: 50px; height: 50px;">

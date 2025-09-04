@@ -40,10 +40,11 @@
                             </div>
                             <div class="card-body text-center">
                                 @if($maid->image_path)
-                                    <img src="{{ asset('storage/' . $maid->image_path) }}" 
+                                    <img src="{{ url('/storage/' . $maid->image_path) }}" 
                                          alt="{{ $maid->name }}" 
                                          class="img-fluid rounded mb-3" 
-                                         style="max-height: 300px; object-fit: cover;">
+                                         style="max-height: 300px; object-fit: cover;"
+                                         onerror="this.src='{{ asset('images/default-maid.jpg') }}'">
                                 @else
                                     <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-3" 
                                          style="height: 300px;">

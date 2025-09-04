@@ -37,7 +37,7 @@
             </div>
             <div class="card-body text-center">
                 @if($review->customer_image)
-                    <img src="{{ asset('storage/' .$review->customer_image) }}" 
+                    <img src="{{ url('/storage/' .$review->customer_image) }}" 
                          alt="{{ $review->customer_name }}" 
                          class="rounded-circle mb-3" 
                          width="150" height="150" 

@@ -57,7 +57,7 @@
                             <div class="mt-2">
                                 <small class="text-muted">الفيديو الحالي:</small>
                                 <video controls class="w-100 mt-1" style="max-height: 150px;">
-                                    <source src="{{ asset('storage/' . $maid->video_path) }}" type="video/mp4">
+                                    <source src="{{ url('/storage/' . $maid->video_path) }}" type="video/mp4">
                                 </video>
                             </div>
                         @endif
@@ -74,7 +74,7 @@
                         @if($maid->image_path)
                             <div class="mt-2">
                                 <small class="text-muted">الصورة الحالية:</small>
-                                <img src="{{ asset('storage/' . $maid->image_path) }}" 
+                                <img src="{{ url('/storage/' . $maid->image_path) }}" 
                                      alt="{{ $maid->name }}" 
                                      class="img-thumbnail mt-1" 
                                      style="max-height: 150px;">

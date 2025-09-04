@@ -312,7 +312,7 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 @if($maid->image_path)
-                                                    <img src="{{ asset('storage/' . $maid->image_path) }}" 
+                                                    <img src="{{ url('/storage/' . $maid->image_path) }}" 
                                                          alt="{{ $maid->name }}" 
                                                          class="rounded-circle me-2" 
                                                          width="40" height="40" 
@@ -491,7 +491,7 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 @if($review->customer_image)
-                                                    <img src="{{ asset('storage/' . $review->customer_image) }}" 
+                                                    <img src="{{ url('/storage/' . $review->customer_image) }}" 
                                                          alt="{{ $review->customer_name }}" 
                                                          class="rounded-circle me-2" 
                                                          width="30" height="30" 

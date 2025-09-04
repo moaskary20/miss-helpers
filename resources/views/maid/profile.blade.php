@@ -413,7 +413,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3 text-center">
-                    <img src="{{ $maid->photo ? asset('storage/' . $maid->photo) : asset('/images/default-maid.jpg') }}" 
+                    <img src="{{ $maid->photo ? url('/storage/' . $maid->photo) : asset('/images/default-maid.jpg') }}" 
                          alt="{{ $maid->name }}" class="profile-avatar">
                 </div>
                 <div class="col-lg-6">
