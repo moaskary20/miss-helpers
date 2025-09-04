@@ -22,6 +22,20 @@ class Maid extends Model
         'job_title',
         'contract_type',
         'contract_fees',
+        'nationality',
+        'service_type',
+        'experience_years',
+        'status',
+        'rating',
+        'views_count',
+        'reviews_count',
+        'marital_status',
+        'children_count',
+        'work_type',
+        'languages',
+        'skills',
+        'previous_experience',
+        'photo',
     ];
 
     protected $casts = [
