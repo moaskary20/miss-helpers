@@ -8,19 +8,15 @@ class CustomerReview extends Model
 {
     protected $fillable = [
         'customer_name',
-        'customer_image',
+        'customer_photo',
+        'customer_location',
         'rating',
-        'job_title',
-        'service_received',
         'description',
-        'is_active',
-        'sort_order'
+        'status'
     ];
 
     protected $casts = [
-        'rating' => 'integer',
-        'is_active' => 'boolean',
-        'sort_order' => 'integer'
+        'rating' => 'integer'
     ];
 
     public function getRatingStarsAttribute()
