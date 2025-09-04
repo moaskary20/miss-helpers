@@ -39,14 +39,18 @@ class AdminMiddleware
             return redirect()->route('admin.dashboard')->with('error', 'ليس لديك صلاحية للوصول لهذا القسم.');
         }
 
-        // Log activity
-        $user->activities()->create([
-            'action' => 'view',
-            'module' => $request->route()->getName() ?? 'unknown',
-            'description' => 'زيارة صفحة: ' . $request->path(),
-            'ip_address' => $request->ip(),
-            'user_agent' => $request->userAgent()
-        ]);
+        // Log activity (if activities table exists)
+        try {
+            $user->activities()->create([
+                'action' => 'view',
+                'module' => $request->route()->getName() ?? 'unknown',
+                'description' => 'زيارة صفحة: ' . $request->path(),
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent()
+            ]);
+        } catch (\Exception $e) {
+            // Activities table doesn't exist, skip logging
+        }
 
         return $next($request);
     }

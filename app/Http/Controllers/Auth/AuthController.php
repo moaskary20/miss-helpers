@@ -57,14 +57,18 @@ class AuthController extends Controller
             // Update last login
             $user->updateLastLogin($request->ip());
 
-            // Log login activity
-            $user->activities()->create([
-                'action' => 'login',
-                'module' => 'auth',
-                'description' => 'تسجيل دخول للوحة الإدارة',
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent()
-            ]);
+            // Log login activity (if activities table exists)
+            try {
+                $user->activities()->create([
+                    'action' => 'login',
+                    'module' => 'auth',
+                    'description' => 'تسجيل دخول للوحة الإدارة',
+                    'ip_address' => $request->ip(),
+                    'user_agent' => $request->userAgent()
+                ]);
+            } catch (\Exception $e) {
+                // Activities table doesn't exist, skip logging
+            }
 
             return redirect()->intended(route('admin.dashboard'));
         }
@@ -80,14 +84,18 @@ class AuthController extends Controller
         $user = Auth::user();
 
         if ($user) {
-            // Log logout activity
-            $user->activities()->create([
-                'action' => 'logout',
-                'module' => 'auth',
-                'description' => 'تسجيل خروج من لوحة الإدارة',
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent()
-            ]);
+            // Log logout activity (if activities table exists)
+            try {
+                $user->activities()->create([
+                    'action' => 'logout',
+                    'module' => 'auth',
+                    'description' => 'تسجيل خروج من لوحة الإدارة',
+                    'ip_address' => $request->ip(),
+                    'user_agent' => $request->userAgent()
+                ]);
+            } catch (\Exception $e) {
+                // Activities table doesn't exist, skip logging
+            }
         }
 
         Auth::logout();
@@ -161,14 +169,18 @@ class AuthController extends Controller
 
         $user->update($data);
 
-        // Log activity
-        $user->activities()->create([
-            'action' => 'update',
-            'module' => 'profile',
-            'description' => 'تحديث الملف الشخصي',
-            'ip_address' => $request->ip(),
-            'user_agent' => $request->userAgent()
-        ]);
+        // Log activity (if activities table exists)
+        try {
+            $user->activities()->create([
+                'action' => 'update',
+                'module' => 'profile',
+                'description' => 'تحديث الملف الشخصي',
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent()
+            ]);
+        } catch (\Exception $e) {
+            // Activities table doesn't exist, skip logging
+        }
 
         return redirect()->back()->with('success', 'تم تحديث الملف الشخصي بنجاح.');
     }
