@@ -576,7 +576,7 @@
                         // echo "<!-- Debug: Post ID: {$post->id}, Image: {$img} -->";
                     @endphp
                     <div class="blog-card-wrap">
-                        <a href="{{ route('admin.blog.show', $post->id) }}" class="text-decoration-none">
+                        <a href="{{ route('blog.show', $post->slug) }}" class="text-decoration-none">
                             <div class="blog-card shadow-sm">
                                 <img src="{{ $img }}" alt="{{ $post->title }}" onerror="this.src='{{ asset('images/hero-bg.jpg') }}'">
                                 <div class="blog-overlay"></div>
@@ -2851,6 +2851,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="blog-content">
                         <h3 class="blog-title">{{ $post->title }}</h3>
                         <p class="blog-excerpt">{{ Str::limit($post->excerpt ?? $post->content, 120) }}</p>
+                        <a href="{{ route('blog.show', $post->slug) }}" class="read-more">
+                            اقرأ المزيد
+                            <i class="bi bi-arrow-left"></i>
+                        </a>
                     </div>
                 </div>
             </div>
