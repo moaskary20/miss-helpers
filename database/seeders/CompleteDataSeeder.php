@@ -639,14 +639,9 @@ class CompleteDataSeeder extends Seeder
             ],
         ];
 
-        foreach ($categories as $categoryData) {
-            $category = Category::updateOrCreate(
-                ['slug' => $categoryData['slug']],
-                $categoryData
-            );
-
-            // إنشاء مواضيع لكل قسم
-            $posts = [
+        // إنشاء المواضيع لكل قسم بشكل منفصل
+        $categoryPosts = [
+            'cooking' => [
                 [
                     'title' => 'وصفات سهلة لعشاء سريع',
                     'slug' => 'easy-dinner-recipes',
@@ -656,6 +651,8 @@ class CompleteDataSeeder extends Seeder
                     'status' => 'published',
                     'is_featured' => true,
                 ],
+            ],
+            'childcare' => [
                 [
                     'title' => 'أفضل طرق تهدئة الأطفال',
                     'slug' => 'calming-children-methods',
@@ -665,6 +662,8 @@ class CompleteDataSeeder extends Seeder
                     'status' => 'published',
                     'is_featured' => false,
                 ],
+            ],
+            'home-tips' => [
                 [
                     'title' => 'تنظيم المنزل بخطوات بسيطة',
                     'slug' => 'simple-home-organization',
@@ -674,19 +673,29 @@ class CompleteDataSeeder extends Seeder
                     'status' => 'published',
                     'is_featured' => true,
                 ],
-            ];
+            ],
+        ];
 
-            foreach ($posts as $postData) {
-                Post::updateOrCreate(
-                    [
-                        'category_id' => $category->id,
-                        'slug' => $postData['slug']
-                    ],
-                    array_merge($postData, [
-                        'published_at' => now()->subDays(rand(1, 30)),
-                        'views_count' => rand(10, 200),
-                    ])
-                );
+        foreach ($categories as $categoryData) {
+            $category = Category::updateOrCreate(
+                ['slug' => $categoryData['slug']],
+                $categoryData
+            );
+
+            // إنشاء مواضيع لكل قسم
+            if (isset($categoryPosts[$categoryData['slug']])) {
+                foreach ($categoryPosts[$categoryData['slug']] as $postData) {
+                    Post::updateOrCreate(
+                        [
+                            'category_id' => $category->id,
+                            'slug' => $postData['slug']
+                        ],
+                        array_merge($postData, [
+                            'published_at' => now()->subDays(rand(1, 30)),
+                            'views_count' => rand(10, 200),
+                        ])
+                    );
+                }
             }
         }
     }
