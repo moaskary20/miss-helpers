@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>جميع الخادمات | ميس هيلبرز</title>
+    <title>{{ __('messages.view_all_maids') }} | {{ config('app.name', 'Miss Helpers') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     
@@ -280,27 +280,39 @@
                 <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
             </a>
             <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
-                <a href="{{ route('welcome') }}">الرئيسية</a>
-                <a href="{{ route('about.index') }}">عنا</a>
-                <a href="{{ route('service.index') }}">الخدمات</a>
-                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
+                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
             </nav>
             <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">احصل على خادمة الآن</a>
-                <a href="#" class="text-decoration-none">English</a>
+                <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
+                <form action="{{ route('language.switch') }}" method="POST" class="d-inline">
+                    @csrf
+                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
+                    <button type="submit" class="btn btn-link text-decoration-none p-0">
+                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                    </button>
+                </form>
                 <div class="auth d-none d-md-inline"><a href="{{ route('admin.login') }}">Login / Register</a></div>
                 <button class="btn btn-outline-secondary d-md-none" data-bs-toggle="collapse" data-bs-target="#mnav"><i class="bi bi-list"></i></button>
             </div>
         </div>
         <div id="mnav" class="collapse border-top d-md-none">
             <div class="container py-2 nav-links">
-                <a href="{{ route('welcome') }}">الرئيسية</a>
-                <a href="{{ route('about.index') }}">عنا</a>
-                <a href="{{ route('service.index') }}">الخدمات</a>
-                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
-                <a href="#">English</a>
+                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
+                <form action="{{ route('language.switch') }}" method="POST" class="d-inline w-100">
+                    @csrf
+                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
+                    <button type="submit" class="btn btn-link text-decoration-none p-0 w-100 text-start">
+                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                    </button>
+                </form>
                 <a href="{{ route('admin.login') }}">Login / Register</a>
-                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">احصل على خادمة الآن</a>
+                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
             </div>
         </div>
     </header>
@@ -308,8 +320,8 @@
     <!-- Page Header -->
     <div class="page-header">
         <div class="container">
-            <h1 class="display-4 fw-bold mb-3">جميع الخادمات</h1>
-            <p class="lead">ابحث عن الخادمة المناسبة لمنزلك من بين مجموعة واسعة من الخيارات</p>
+            <h1 class="display-4 fw-bold mb-3">{{ __('messages.view_all_maids') }}</h1>
+            <p class="lead">{{ __('messages.find_perfect_maid') }}</p>
         </div>
     </div>
 
@@ -336,7 +348,7 @@
                         <div class="filter-group">
                             <label class="filter-label">نوع الخدمة</label>
                             <select name="service" class="form-select filter-select">
-                                <option value="">جميع الخدمات</option>
+                                <option value="">{{ __('messages.our_services') }}</option>
                                 <option value="خادمة منزلية" {{ request('service') == 'خادمة منزلية' ? 'selected' : '' }}>خادمة منزلية</option>
                                 <option value="خادمة للطبخ" {{ request('service') == 'خادمة للطبخ' ? 'selected' : '' }}>خادمة للطبخ</option>
                                 <option value="خادمة للتنظيف" {{ request('service') == 'خادمة للتنظيف' ? 'selected' : '' }}>خادمة للتنظيف</option>
@@ -453,10 +465,10 @@
             <div class="no-results">
                 <i class="bi bi-search"></i>
                 <h3>لا توجد نتائج</h3>
-                <p>جرب تغيير معايير البحث أو إعادة تعيين الفلاتر</p>
+                <p>{{ __('messages.search_placeholder') }}</p>
                 <a href="{{ route('maids.all') }}" class="btn btn-primary">
                     <i class="bi bi-arrow-clockwise me-2"></i>
-                    إعادة تعيين البحث
+                    {{ __('messages.search_now') }}
                 </a>
             </div>
         @endif

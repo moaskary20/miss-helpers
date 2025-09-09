@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Miss Helpers') }}</title>
+    <title>{{ __('messages.welcome_title') }} - {{ config('app.name', 'Miss Helpers') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -323,23 +323,29 @@
             <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
          </a>
         <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
-            <a href="{{ route('welcome') }}">الرئيسية</a>
-            <a href="{{ route('about.index') }}">عنا</a>
-            <a href="{{ route('service.index') }}">الخدمات</a>
-            <a href="{{ route('contact.index') }}">الاتصال بنا</a>
+            <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+            <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
+            <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
+            <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
         </nav>
         <div class="d-flex align-items-center gap-3">
-            <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">احصل على خادمة الآن</a>
-            <a href="#" class="text-decoration-none">English</a>
+            <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
+            <form action="{{ route('language.switch') }}" method="POST" class="d-inline">
+                @csrf
+                <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
+                <button type="submit" class="btn btn-link text-decoration-none p-0">
+                    {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                </button>
+            </form>
             <div class="auth d-none d-md-inline">
                 @guest
-                    <button type="button" class="btn btn-outline-secondary me-3" data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</button>
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#registerModal">إنشاء حساب</button>
+                    <button type="button" class="btn btn-outline-secondary me-3" data-bs-toggle="modal" data-bs-target="#loginModal">{{ __('messages.login') }}</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#registerModal">{{ __('messages.register') }}</button>
                 @else
                     <span class="me-3">{{ Auth::user()->name }}</span>
                     <form method="POST" action="{{ route('auth.logout') }}" class="d-inline">
                         @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm">تسجيل الخروج</button>
+                        <button type="submit" class="btn btn-outline-danger btn-sm">{{ __('messages.logout') }}</button>
                     </form>
                 @endguest
             </div>
@@ -348,22 +354,28 @@
     </div>
             <div id="mnav" class="collapse border-top d-md-none">
             <div class="container py-2 nav-links">
-                <a href="{{ route('welcome') }}">الرئيسية</a>
-                <a href="{{ route('about.index') }}">عنا</a>
-                <a href="{{ route('service.index') }}">الخدمات</a>
-                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
-                <a href="#">English</a>
+                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
+                <form action="{{ route('language.switch') }}" method="POST" class="d-inline w-100">
+                    @csrf
+                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
+                    <button type="submit" class="btn btn-link text-decoration-none p-0 w-100 text-start">
+                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                    </button>
+                </form>
                 @guest
-                    <button type="button" class="btn btn-outline-secondary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</button>
-                    <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#registerModal">إنشاء حساب</button>
+                    <button type="button" class="btn btn-outline-secondary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#loginModal">{{ __('messages.login') }}</button>
+                    <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#registerModal">{{ __('messages.register') }}</button>
                 @else
                     <span class="d-block py-2">{{ Auth::user()->name }}</span>
                     <form method="POST" action="{{ route('auth.logout') }}">
                         @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm w-100">تسجيل الخروج</button>
+                        <button type="submit" class="btn btn-outline-danger btn-sm w-100">{{ __('messages.logout') }}</button>
                     </form>
                 @endguest
-                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">احصل على خادمة الآن</a>
+                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
             </div>
         </div>
 </header>
@@ -374,10 +386,10 @@
     <div class="container hero-content">
         <div class="row align-items-center g-4">
             <div class="col-lg-6">
-                <h1 class="hero-title">احصل على خادمة الآن</h1>
+                <h1 class="hero-title">{{ __('messages.get_maid_now') }}</h1>
                 <div class="actions d-flex gap-3">
-                    <a href="https://misshelpers.com/%d8%a8%d8%a7%d9%82%d8%a7%d8%aa-%d8%a7%d9%84%d8%ae%d8%a7%d8%af%d9%85%d8%a7%d8%aa/" class="btn btn-classic" target="_blank">الباقة التقليدية</a>
-                    <a href="https://misshelpers.com/%d8%a8%d8%a7%d9%82%d8%a7%d8%aa-%d8%a7%d9%84%d8%ae%d8%a7%d8%af%d9%85%d8%a7%d8%aa/" class="btn btn-monthly" target="_blank">الباقة الشهرية</a>
+                    <a href="https://misshelpers.com/%d8%a8%d8%a7%d9%82%d8%a7%d8%aa-%d8%a7%d9%84%d8%ae%d8%a7%d8%af%d9%85%d8%a7%d8%aa/" class="btn btn-classic" target="_blank">{{ __('messages.traditional_package') }}</a>
+                    <a href="https://misshelpers.com/%d8%a8%d8%a7%d9%82%d8%a7%d8%aa-%d8%a7%d9%84%d8%ae%d8%a7%d8%af%d9%85%d8%a7%d8%aa/" class="btn btn-monthly" target="_blank">{{ __('messages.monthly_package') }}</a>
                 </div>
             </div>
             <div class="col-lg-6 stack-right">
@@ -394,7 +406,7 @@
                                 </div>
                                 <div class="top-arrow"><i class="bi bi-arrow-up-right"></i></div>
                             </div>
-                            <div class="fw-bold" style="font-size:18px">3.5K+ العملاء السعداء</div>
+                            <div class="fw-bold" style="font-size:18px">3.5K+ {{ __('messages.happy_customers') }}</div>
                         </div>
                         <div class="avatars mt-3">
                             <img src="https://i.pravatar.cc/64?img=1" alt="">
@@ -409,9 +421,9 @@
                             <div class="top-arrow" style="background:#f3f4f6;color:#1c1c1c"><i class="bi bi-arrow-up-right"></i></div>
                         </div>
                         <div class="arch mb-3 flex-grow-1 d-flex align-items-center justify-content-center">
-                            <img class="maid-photo" src="/images/maid.png" alt="الخادمة">
+                            <img class="maid-photo" src="/images/maid.png" alt="{{ __('messages.maid_alt') }}">
                         </div>
-                        <div class="caption text-center">الخدمات الأعلى تقييماً</div>
+                        <div class="caption text-center">{{ __('messages.top_rated_services') }}</div>
                     </div>
                 </div>
             </div>
@@ -424,17 +436,16 @@
     <div class="container">
         <div class="row align-items-center g-4">
             <div class="col-lg-6">
-                <h2 class="fw-bold" style="color:#23336b">مركز <span style="color:#ff7b8a">ميس</span> هيلبرز</h2>
+                <h2 class="fw-bold" style="color:#23336b">{{ __('messages.miss_helpers_center') }}</h2>
                 <p class="mt-3" style="color:#3a3a3a;line-height:1.9">
-                    ميس هيلبرز منصة موثوقة لتوظيف عاملات المنازل. نربط العائلات بخيارات موثوقة وسريعة من
-                    جنسيات متعددة، مع تبسيط إجراءات التوظيف لتكون سهلة وآمنة.
+                    {{ __('messages.miss_helpers_description') }}
                 </p>
-                <a href="{{ route('about.index') }}" class="btn btn-primary px-4">المزيد عنا</a>
+                <a href="{{ route('about.index') }}" class="btn btn-primary px-4">{{ __('messages.learn_more_about_us') }}</a>
             </div>
             <div class="col-lg-6">
                 <video class="w-100 rounded-3 shadow" controls preload="metadata" poster="/images/hero-bg.jpg">
                     <source src="https://misshelpers.com/wp-content/uploads/2025/05/ei.mp4" type="video/mp4">
-                    متصفحك لا يدعم تشغيل الفيديو.
+                    {{ __('messages.video_not_supported') }}
                 </video>
             </div>
         </div>
@@ -445,8 +456,8 @@
 <section class="py-5 bg-white">
     <div class="container">
         <div class="text-center mb-4">
-            <div class="text-danger fw-bold mb-2" style="letter-spacing:.5px">خدمات مساعدات السيدات</div>
-            <h2 class="fw-bolder" style="color:#23336b">نحن نساعد العائلات على توظيف</h2>
+            <div class="text-danger fw-bold mb-2" style="letter-spacing:.5px">{{ __('messages.lady_helpers_services') }}</div>
+                <h2 class="fw-bolder" style="color:#23336b">{{ __('messages.welcome_subtitle') }}</h2>
         </div>
 
         @php
@@ -631,66 +642,66 @@
             <!-- Central Circle with Dynamic Content -->
             <div class="central-circle">
                 <div class="central-content" id="centralContent">
-                    <h3>اختر إحدى الميزات</h3>
-                    <p>اضغط على أي من الدوائر المحيطة لمعرفة المزيد</p>
+                    <h3>{{ __('messages.choose_feature') }}</h3>
+                    <p>{{ __('messages.click_circles') }}</p>
                 </div>
             </div>
             
             <!-- Orbital Features -->
-            <div class="orbital-feature feature-1" data-content="التوظيف القانوني" data-description="نضمن لك التوظيف القانوني الكامل مع جميع الأوراق والمستندات المطلوبة">
+            <div class="orbital-feature feature-1" data-content="{{ __('messages.legal_employment') }}" data-description="{{ __('messages.legal_employment_desc') }}">
                 <div class="feature-icon">
                     <i class="bi bi-shield-lock"></i>
                 </div>
-                <span class="feature-label">التوظيف القانوني</span>
+                <span class="feature-label">{{ __('messages.legal_employment') }}</span>
             </div>
             
-            <div class="orbital-feature feature-2" data-content="الموظفين المدربين" data-description="جميع موظفينا مدربون تدريباً احترافياً في مختلف المجالات">
+            <div class="orbital-feature feature-2" data-content="{{ __('messages.trained_staff') }}" data-description="{{ __('messages.trained_staff_desc') }}">
                 <div class="feature-icon">
                     <i class="bi bi-person-badge"></i>
                 </div>
-                <span class="feature-label">الموظفين المدربين</span>
+                <span class="feature-label">{{ __('messages.trained_staff') }}</span>
             </div>
             
-            <div class="orbital-feature feature-3" data-content="خطوات سهله" data-description="إجراءات بسيطة وسريعة للحصول على الخدمة المطلوبة">
+            <div class="orbital-feature feature-3" data-content="{{ __('messages.easy_steps') }}" data-description="{{ __('messages.easy_steps_desc') }}">
                 <div class="feature-icon">
                     <i class="bi bi-hourglass-split"></i>
                 </div>
-                <span class="feature-label">خطوات سهله</span>
+                <span class="feature-label">{{ __('messages.easy_steps') }}</span>
             </div>
             
-            <div class="orbital-feature feature-4" data-content="توصيل" data-description="خدمة توصيل سريعة وآمنة لجميع أنحاء الدولة">
+            <div class="orbital-feature feature-4" data-content="{{ __('messages.delivery') }}" data-description="{{ __('messages.delivery_desc') }}">
                 <div class="feature-icon">
                     <i class="bi bi-clock"></i>
                 </div>
-                <span class="feature-label">توصيل</span>
+                <span class="feature-label">{{ __('messages.delivery') }}</span>
             </div>
             
-            <div class="orbital-feature feature-5" data-content="دعم ما بعد البيع" data-description="دعم مستمر وخدمة عملاء على مدار الساعة">
+            <div class="orbital-feature feature-5" data-content="{{ __('messages.after_sales_support') }}" data-description="{{ __('messages.after_sales_support_desc') }}">
                 <div class="feature-icon">
                     <i class="bi bi-chat-dots"></i>
                 </div>
-                <span class="feature-label">دعم ما بعد البيع</span>
+                <span class="feature-label">{{ __('messages.after_sales_support') }}</span>
             </div>
             
-            <div class="orbital-feature feature-6" data-content="الدفع الأمن" data-description="أنظمة دفع آمنة ومتعددة الخيارات">
+            <div class="orbital-feature feature-6" data-content="{{ __('messages.secure_payment') }}" data-description="{{ __('messages.secure_payment_desc') }}">
                 <div class="feature-icon">
                     <i class="bi bi-credit-card"></i>
                 </div>
-                <span class="feature-label">الدفع الأمن</span>
+                <span class="feature-label">{{ __('messages.secure_payment') }}</span>
             </div>
             
-            <div class="orbital-feature feature-7" data-content="عقد قانوني" data-description="عقود قانونية واضحة تحمي حقوق جميع الأطراف">
+            <div class="orbital-feature feature-7" data-content="{{ __('messages.legal_contract') }}" data-description="{{ __('messages.legal_contract_desc') }}">
                 <div class="feature-icon">
                     <i class="bi bi-file-text"></i>
                 </div>
-                <span class="feature-label">عقد قانوني</span>
+                <span class="feature-label">{{ __('messages.legal_contract') }}</span>
             </div>
             
-            <div class="orbital-feature feature-8" data-content="جنسية" data-description="خيارات متنوعة من الجنسيات المختلفة">
+            <div class="orbital-feature feature-8" data-content="{{ __('messages.nationality') }}" data-description="{{ __('messages.nationality_desc') }}">
                 <div class="feature-icon">
                     <i class="bi bi-globe"></i>
                 </div>
-                <span class="feature-label">جنسية</span>
+                <span class="feature-label">{{ __('messages.nationality') }}</span>
             </div>
         </div>
     </div>
@@ -703,72 +714,72 @@
             <!-- النموذج على اليسار -->
             <div class="col-lg-6">
                 <div class="contact-form-wrapper">
-                    <h2 class="fw-bolder mb-4" style="color: #23336b; font-size: 2.5rem;">احصل على خادمة الآن</h2>
+                    <h2 class="fw-bolder mb-4" style="color: #23336b; font-size: 2.5rem;">{{ __('messages.find_perfect_maid') }}</h2>
                     
                     <form id="maidRequestForm" method="POST" action="{{ route('admin.service-requests.store') }}">
                         @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label fw-semibold" style="color: #23336b;">الاسم</label>
+                            <label for="name" class="form-label fw-semibold" style="color: #23336b;">{{ __('messages.name') }}</label>
                             <input type="text" class="form-control form-control-lg" id="name" name="name" required 
                                    style="border: 2px solid #e9ecef; border-radius: 12px; padding: 15px;">
                         </div>
                         
                         <div class="mb-3">
-                            <label for="phone" class="form-label fw-semibold" style="color: #23336b;">الهاتف</label>
+                            <label for="phone" class="form-label fw-semibold" style="color: #23336b;">{{ __('messages.phone') }}</label>
                             <input type="tel" class="form-control form-control-lg" id="phone" name="phone" required 
                                    style="border: 2px solid #e9ecef; border-radius: 12px; padding: 15px;">
                         </div>
                         
                         <div class="mb-3">
-                            <label for="service" class="form-label fw-semibold" style="color: #23336b;">اختر الخدمة</label>
+                            <label for="service" class="form-label fw-semibold" style="color: #23336b;">{{ __('messages.choose_service') }}</label>
                             <select class="form-select form-select-lg" id="service" name="service" required 
                                     style="border: 2px solid #e9ecef; border-radius: 12px; padding: 15px;">
-                                <option value="">اختر الخدمة</option>
-                                <option value="خادمة منزلية" selected>خادمة منزلية</option>
-                                <option value="خادمة للطبخ">خادمة للطبخ</option>
-                                <option value="خادمة للتنظيف">خادمة للتنظيف</option>
-                                <option value="خادمة للعناية بالأطفال">خادمة للعناية بالأطفال</option>
+                                <option value="">{{ __('messages.choose_service') }}</option>
+                                <option value="خادمة منزلية" selected>{{ __('messages.domestic_maid') }}</option>
+                                <option value="خادمة للطبخ">{{ __('messages.cooking_maid') }}</option>
+                                <option value="خادمة للتنظيف">{{ __('messages.cleaning_maid') }}</option>
+                                <option value="خادمة للعناية بالأطفال">{{ __('messages.childcare_maid') }}</option>
                             </select>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="nationality" class="form-label fw-semibold" style="color: #23336b;">اختر الجنسية</label>
+                            <label for="nationality" class="form-label fw-semibold" style="color: #23336b;">{{ __('messages.choose_nationality') }}</label>
                             <select class="form-select form-select-lg" id="nationality" name="nationality" required 
                                     style="border: 2px solid #e9ecef; border-radius: 12px; padding: 15px;">
-                                <option value="">اختر الجنسية</option>
-                                <option value="سريلانكا" selected>سريلانكا</option>
-                                <option value="الفلبين">الفلبين</option>
+                                <option value="">{{ __('messages.choose_nationality') }}</option>
+                                <option value="سريلانكا" selected>{{ __('messages.sri_lankan') }}</option>
+                                <option value="الفلبين">{{ __('messages.filipino') }}</option>
                                 <option value="إندونيسيا">إندونيسيا</option>
-                                <option value="الهند">الهند</option>
+                                <option value="الهند">{{ __('messages.indian') }}</option>
                                 <option value="باكستان">باكستان</option>
                             </select>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="emirate" class="form-label fw-semibold" style="color: #23336b;">اختر الإمارة</label>
+                            <label for="emirate" class="form-label fw-semibold" style="color: #23336b;">{{ __('messages.choose_emirate') }}</label>
                             <select class="form-select form-select-lg" id="emirate" name="emirate" required 
                                     style="border: 2px solid #e9ecef; border-radius: 12px; padding: 15px;">
-                                <option value="">اختر الإمارة</option>
-                                <option value="رأس الخيمة" selected>رأس الخيمة</option>
-                                <option value="دبي">دبي</option>
-                                <option value="أبو ظبي">أبو ظبي</option>
-                                <option value="الشارقة">الشارقة</option>
-                                <option value="عجمان">عجمان</option>
-                                <option value="أم القيوين">أم القيوين</option>
-                                <option value="الفجيرة">الفجيرة</option>
+                                <option value="">{{ __('messages.choose_emirate') }}</option>
+                                <option value="رأس الخيمة" selected>{{ __('messages.ras_al_khaimah') }}</option>
+                                <option value="دبي">{{ __('messages.dubai') }}</option>
+                                <option value="أبو ظبي">{{ __('messages.abu_dhabi') }}</option>
+                                <option value="الشارقة">{{ __('messages.sharjah') }}</option>
+                                <option value="عجمان">{{ __('messages.ajman') }}</option>
+                                <option value="أم القيوين">{{ __('messages.umm_al_quwain') }}</option>
+                                <option value="الفجيرة">{{ __('messages.fujairah') }}</option>
                             </select>
                             </div>
                         
                         <div class="mb-4">
-                            <label for="message" class="form-label fw-semibold" style="color: #23336b;">ملحوظة</label>
+                            <label for="message" class="form-label fw-semibold" style="color: #23336b;">{{ __('messages.note') }}</label>
                             <textarea class="form-control" id="message" name="message" rows="4" 
                                       style="border: 2px solid #e9ecef; border-radius: 12px; padding: 15px; resize: none;"
-                                      placeholder="اكتب رسالتك هنا..."></textarea>
+                                      placeholder="{{ __('messages.write_message_here') }}"></textarea>
                         </div>
                         
                         <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold" 
                                 style="background: #23336b; border: none; border-radius: 12px; padding: 18px; font-size: 1.1rem;">
-                            ارسال
+                            {{ __('messages.submit_request') }}
                         </button>
                     </form>
                 </div>
@@ -789,7 +800,7 @@
                     <div class="tablet tablet-2">
                         <div class="tablet-screen">
                             <div class="review-content text-center p-3">
-                                <h6 class="mb-2" style="color: #333;">reviews: 458</h6>
+                                <h6 class="mb-2" style="color: #333;">{{ __('messages.reviews') }}: 458</h6>
                                 <div class="stars mb-2">
                                     <i class="bi bi-star-fill text-warning"></i>
                                     <i class="bi bi-star-fill text-warning"></i>
@@ -954,13 +965,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <section class="py-5" style="background: #f8f9fa;">
     <div class="container">
         <div class="text-center mb-5">
-            <div class="text-pink fw-bold mb-2" style="color: #e91e63; letter-spacing: 0.5px;">ابحث عن الخادمة المناسبة لمنزلك</div>
+            <div class="text-pink fw-bold mb-2" style="color: #e91e63; letter-spacing: 0.5px;">{{ __('messages.find_perfect_maid') }}</div>
             <h2 class="fw-bolder mb-3" style="color: #23336b; font-size: 2.5rem;">
-                الخادمات متاحات للحجز
+                {{ __('messages.maids_available') }}
                 <i class="bi bi-person-wearing-hijab text-purple ms-2" style="color: #6f42c1;"></i>
             </h2>
             <p class="text-muted mx-auto" style="max-width: 600px; font-size: 1.1rem; line-height: 1.6;">
-                في "ميس هيلبرز"، نوفر لكم تشكيلة واسعة من الخادمات الموثوقات ذوات الخبرة لتلبية احتياجات عائلتكم اليومية. 
+                {{ __('messages.maids_description') }} 
                 سواء كنتم تبحثون عن خادمة بدوام كامل أو جزئي، أو مقيمة معكم أو خارج منزلكم، فلدينا الخيار الأمثل.
             </p>
         </div>
@@ -999,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         @endif
                                     @endfor
                                 </div>
-                                <small class="text-muted">({{ $maid->reviews_count ?? 0 }} تقييم)</small>
+                                <small class="text-muted">({{ $maid->reviews_count ?? 0 }} {{ __('messages.reviews') }})</small>
                             </div>
                             
                             <div class="maid-stats d-flex justify-content-between align-items-center mb-3">
@@ -1024,7 +1035,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="text-center">
             <a href="{{ route('maids.all') }}" class="btn btn-outline-primary btn-lg px-5 py-3 fw-bold">
                 <i class="bi bi-grid-3x3-gap me-2"></i>
-                استكشف الخادمات
+                {{ __('messages.explore_maids') }}
             </a>
         </div>
     </div>
@@ -1266,8 +1277,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- الجزء الأيمن: النص -->
             <div class="col-lg-6">
                 <div class="excellence-content">
-                    <h2 class="main-title">التميز الذي يمكنك الوثوق به</h2>
-                    <h3 class="subtitle">نحن لا نقدم العاملين فحسب، بل نقدم أيضاً راحة البال</h3>
+                    <h2 class="main-title">{{ __('messages.why_choose_us') }}</h2>
+                    <h3 class="subtitle">{{ __('messages.quality_guarantee') }}</h3>
                     
                     <div class="features-list">
                         <div class="feature-item">
@@ -1284,7 +1295,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
                             <div class="feature-text">
-                                <p>مرشحين تم فحصهم بعناية والتحقق من خلفياتهم</p>
+                                <p>{{ __('messages.carefully_screened') }}</p>
                             </div>
                         </div>
                         
@@ -1560,7 +1571,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <section class="customer-reviews-section py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="section-title">آراء عملائنا</h2>
+            <h2 class="section-title">{{ __('messages.customer_reviews') }}</h2>
         </div>
         
         <div class="reviews-container">
@@ -1613,11 +1624,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         
                         <div class="reviewer-info">
-                            <div class="reviewer-name">{{ $customerReviews[0]->customer_name ?? 'عميل راضي' }}</div>
+                            <div class="reviewer-name">{{ $customerReviews[0]->customer_name ?? __('messages.satisfied_customer') }}</div>
                         </div>
                         
                         <div class="review-text">
-                            {{ $customerReviews[0]->description ?? 'موقع محترم وخدمة العملاء متعاونين جداً. ساعدوني في اختيار خادمة تناسب احتياجات عائلتي، وتم إنهاء الأوراق في وقت قياسي. أشكرهم على المهنية والالتزام.' }}
+                            {{ $customerReviews[0]->description ?? __('messages.default_review_text') }}
                         </div>
                     </div>
                 </div>
@@ -1627,7 +1638,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="side-review">
                         <div class="review-content">
                             <p class="review-text-side">
-                                {{ $customerReviews[0]->description ?? 'موقع محترم وخدمة العملاء متعاونين جداً. ساعدوني في اختيار خادمة تناسب احتياجات عائلتي، وتم إنهاء الأوراق في وقت قياسي. أشكرهم على المهنية والالتزام.' }}
+                                {{ $customerReviews[0]->description ?? __('messages.default_review_text') }}
                             </p>
                             
                             <div class="rating-stars">
@@ -1649,8 +1660,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             
                             <div class="reviewer-details">
-                                <div class="reviewer-name-side">{{ $customerReviews[0]->customer_name ?? 'عميل راضي' }} - {{ $customerReviews[0]->customer_location ?? 'الرياض' }}</div>
-                                <div class="reviewer-title">عميل راضي</div>
+                                <div class="reviewer-name-side">{{ $customerReviews[0]->customer_name ?? __('messages.satisfied_customer') }} - {{ $customerReviews[0]->customer_location ?? __('messages.riyadh') }}</div>
+                                <div class="reviewer-title">{{ __('messages.satisfied_customer') }}</div>
                             </div>
                         </div>
                         
@@ -1987,70 +1998,70 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="faq-item active">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span class="faq-icon">-</span>
-                            <h4>كيف يمكنني حجز مساعد من خلال Miss Helpers؟</h4>
+                            <h4>{{ __('messages.faq_question_1') }}</h4>
                         </div>
                         <div class="faq-answer">
-                            <p>تصفح المرشحين المتاحين، اختر مساعدك المفضل، املأ نموذج الحجز وقع العقد عبر الإنترنت، ثم ادفع. سيتولى فريقنا الباقي.</p>
+                            <p>{{ __('messages.faq_answer_1') }}</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span class="faq-icon">+</span>
-                            <h4>هل تم تدريب المساعدين والتحقق منهم؟</h4>
+                            <h4>{{ __('messages.faq_question_2') }}</h4>
                         </div>
                         <div class="faq-answer">
-                            <p>نعم، جميع المساعدين لدينا يتم تدريبهم بشكل احترافي والتحقق من خلفياتهم بعناية. نضمن لك أعلى معايير الجودة والأمان.</p>
+                            <p>{{ __('messages.faq_answer_2') }}</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span class="faq-icon">+</span>
-                            <h4>هل يمكنني اختيار جنسية المساعد؟</h4>
+                            <h4>{{ __('messages.faq_question_3') }}</h4>
                         </div>
                         <div class="faq-answer">
-                            <p>نعم، يمكنك اختيار جنسية المساعد حسب تفضيلاتك. لدينا مساعدين من مختلف الجنسيات مع خبرات متنوعة.</p>
+                            <p>{{ __('messages.faq_answer_3') }}</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span class="faq-icon">+</span>
-                            <h4>هل عملية التوظيف قانونية ومتوافقة مع قوانين دولة الإمارات العربية المتحدة؟</h4>
+                            <h4>{{ __('messages.faq_question_4') }}</h4>
                         </div>
                         <div class="faq-answer">
-                            <p>نعم، نحن نلتزم تماماً بقوانين العمل في دولة الإمارات العربية المتحدة. جميع عمليات التوظيف تتم وفقاً للوائح القانونية المعمول بها.</p>
+                            <p>{{ __('messages.faq_answer_4') }}</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span class="faq-icon">+</span>
-                            <h4>ماذا يحدث إذا لم أكن راضياً عن المساعد؟</h4>
+                            <h4>{{ __('messages.faq_question_5') }}</h4>
                         </div>
                         <div class="faq-answer">
-                            <p>نحن نضمن رضاك التام. إذا لم تكن راضياً عن المساعد، يمكننا استبداله بآخر أو إعادة المبلغ المدفوع حسب شروط الضمان.</p>
+                            <p>{{ __('messages.faq_answer_5') }}</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span class="faq-icon">+</span>
-                            <h4>هل توفرون خيارات الإقامة الداخلية والخارجية؟</h4>
+                            <h4>{{ __('messages.faq_question_6') }}</h4>
                         </div>
                         <div class="faq-answer">
-                            <p>نعم، نوفر كلا الخيارين. يمكن للمساعد الإقامة في منزلك أو في سكن منفصل حسب تفضيلاتك واحتياجاتك.</p>
+                            <p>{{ __('messages.faq_answer_6') }}</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span class="faq-icon">+</span>
-                            <h4>كم من الوقت تستغرق العملية؟</h4>
+                            <h4>{{ __('messages.faq_question_7') }}</h4>
                         </div>
                         <div class="faq-answer">
-                            <p>العملية تستغرق عادةً من 3 إلى 7 أيام عمل، من لحظة التقديم حتى وصول المساعد إلى منزلك. نعمل على تسريع العملية قدر الإمكان.</p>
+                            <p>{{ __('messages.faq_answer_7') }}</p>
                         </div>
                     </div>
                 </div>
@@ -2059,13 +2070,13 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- القسم الأيمن: المقدمة وزر الاتصال -->
             <div class="col-lg-6">
                 <div class="faq-intro">
-                    <div class="subtitle">تحدث إلى الدعم</div>
-                    <h2 class="main-title">الأسئلة الشائعة</h2>
+                    <div class="subtitle">{{ __('messages.talk_to_support') }}</div>
+                    <h2 class="main-title">{{ __('messages.frequently_asked_questions') }}</h2>
                     <div class="description">
-                        <p>نؤمن بالشفافية التامة والدعم. في قسم الأسئلة الشائعة لدينا هنا لمساعدتك على فهم كل خطوة من خطوات عملية التوظيف، بدءًا من حجز مساعدة، مرورًا بالامتثال القانوني، والتدريب. ودعم ما بعد التوظيف استكشف الأسئلة الأكثر شيوعًا التي يطرحها عملاؤنا، واحصل على التوضيح اللازم قبل اتخاذ القرار.</p>
+                        <p>{{ __('messages.faq_description') }}</p>
                     </div>
                     <div class="contact-action">
-                        <a href="{{ route('contact.index') }}" class="contact-btn">اتصل بنا الآن</a>
+                        <a href="{{ route('contact.index') }}" class="contact-btn">{{ __('messages.contact_us_now') }}</a>
                     </div>
                 </div>
             </div>
@@ -2896,7 +2907,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="section-header text-center mb-5">
             <h2 class="main-title">
                 <span class="title-main">Miss Helpers</span>
-                <span class="title-sub">المدونات</span>
+                <span class="title-sub">{{ __('messages.blogs') }}</span>
             </h2>
         </div>
         
@@ -2917,14 +2928,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                         @endphp
                         <img src="{{ $img }}" alt="{{ $post->title }}" class="img-fluid" onerror="this.src='https://via.placeholder.com/400x250/23336b/ffffff?text=Blog+Image'">
-                        <div class="blog-category">{{ $post->category->name ?? 'عام' }}</div>
-                        <div class="blog-date">{{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('F d, Y') : 'قريباً' }}</div>
+                        <div class="blog-category">{{ $post->category->name ?? __('messages.general') }}</div>
+                        <div class="blog-date">{{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('F d, Y') : __('messages.coming_soon') }}</div>
                     </div>
                     <div class="blog-content">
                         <h3 class="blog-title">{{ $post->title }}</h3>
                         <p class="blog-excerpt">{{ Str::limit($post->excerpt ?? $post->content, 120) }}</p>
                         <a href="{{ route('blog.show', $post->slug) }}" class="read-more">
-                            اقرأ المزيد
+                            {{ __('messages.read_more') }}
                             <i class="bi bi-arrow-left"></i>
                         </a>
                     </div>
@@ -2934,8 +2945,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="col-12 text-center">
                 <div class="no-posts">
                     <i class="bi bi-journal-text"></i>
-                    <h3>لا توجد مقالات حالياً</h3>
-                    <p>سيتم إضافة مقالات جديدة قريباً</p>
+                    <h3>{{ __('messages.no_articles_currently') }}</h3>
+                    <p>{{ __('messages.new_articles_coming_soon') }}</p>
                 </div>
             </div>
             @endforelse
@@ -2944,7 +2955,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="text-center mt-5">
             <a href="{{ route('blog.index') }}" class="explore-btn">
                 <i class="bi bi-arrow-left"></i>
-                استكشف المزيد
+                {{ __('messages.explore_more') }}
             </a>
         </div>
     </div>
@@ -2964,7 +2975,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span class="logo-text">MISS HELPERS</span>
                     </div>
                     <p class="company-description">
-                        أن نصبح وكالة توظيف العمالة المنزلية الأكثر ثقة وتركيزا على العملاء في دولة الإمارات العربية المتحدة
+                        {{ __('messages.company_mission') }}
                     </p>
                 </div>
             </div>
@@ -2974,23 +2985,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="row">
                     <div class="col-6">
                         <div class="footer-links">
-                            <h4>الفئات الأعلى تقييما</h4>
+                            <h4>{{ __('messages.top_rated_categories') }}</h4>
                             <ul>
-                                <li><a href="{{ route('welcome') }}">الرئيسية</a></li>
-                                <li><a href="{{ route('about.index') }}">عنا</a></li>
-                                <li><a href="#contact">الاتصال بنا</a></li>
+                                <li><a href="{{ route('welcome') }}">{{ __('messages.home') }}</a></li>
+                                <li><a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a></li>
+                                <li><a href="#contact">{{ __('messages.contact_us') }}</a></li>
                                 <li><a href="{{ route('admin.login') }}">Login / Register</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="footer-links">
-                            <h4>الخدمات</h4>
+                            <h4>{{ __('messages.services') }}</h4>
                             <ul>
-                                <li><a href="{{ route('welcome') }}">الرئيسية</a></li>
-                                <li><a href="{{ route('maids.all') }}">الخادمات</a></li>
-                                <li><a href="{{ route('blog.index') }}">المدونة</a></li>
-                                <li><a href="#services">الخدمات</a></li>
+                                <li><a href="{{ route('welcome') }}">{{ __('messages.home') }}</a></li>
+                                <li><a href="{{ route('maids.all') }}">{{ __('messages.maids') }}</a></li>
+                                <li><a href="{{ route('blog.index') }}">{{ __('messages.blogs') }}</a></li>
+                                <li><a href="#services">{{ __('messages.services') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -3000,7 +3011,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- معلومات الاتصال -->
             <div class="col-lg-4 mb-4">
                 <div class="contact-info">
-                    <h4>لا تتردد في مشاركة سؤالك</h4>
+                    <h4>{{ __('messages.dont_hesitate_to_share') }}</h4>
                     
                     <div class="contact-item">
                         <div class="contact-icon">
@@ -3008,7 +3019,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="contact-details">
                             <div class="contact-value">04 343 0391</div>
-                            <div class="contact-hours">من الإثنين إلى الأحد من الساعة 9 صباحًا حتى 11 مساءً</div>
+                            <div class="contact-hours">{{ __('messages.working_hours') }}</div>
                         </div>
                     </div>
                     
@@ -3027,7 +3038,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="contact-details">
                             <div class="contact-value">04 343 0391</div>
-                            <div class="contact-hours">من الإثنين إلى الأحد من الساعة 9 صباحًا حتى 11 مساءً</div>
+                            <div class="contact-hours">{{ __('messages.working_hours') }}</div>
                         </div>
                     </div>
                 </div>
@@ -3046,11 +3057,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="col-md-6">
                     <div class="footer-bottom-links">
-                        <a href="{{ route('about.index') }}">عنا</a>
+                        <a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a>
                         <span class="separator">|</span>
-                        <a href="{{ route('welcome') }}">الرئيسية</a>
+                        <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
                         <span class="separator">|</span>
-                        <a href="#contact">الاتصال بنا</a>
+                        <a href="#contact">{{ __('messages.contact_us') }}</a>
                     </div>
                 </div>
             </div>

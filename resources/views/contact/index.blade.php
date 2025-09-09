@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>الاتصال بنا - Miss Helpers</title>
+    <title>{{ __('messages.contact') }} - {{ config('app.name', 'Miss Helpers') }}</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -235,96 +235,108 @@
                 <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
             </a>
             <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
-                <a href="{{ route('welcome') }}">الرئيسية</a>
-                <a href="{{ route('about.index') }}">عنا</a>
-                <a href="{{ route('service.index') }}">الخدمات</a>
-                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
+                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
             </nav>
             <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">احصل على خادمة الآن</a>
-                <a href="#" class="text-decoration-none">English</a>
+                <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
+                <form action="{{ route('language.switch') }}" method="POST" class="d-inline">
+                    @csrf
+                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
+                    <button type="submit" class="btn btn-link text-decoration-none p-0">
+                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                    </button>
+                </form>
                 <div class="auth d-none d-md-inline"><a href="{{ route('admin.login') }}">Login / Register</a></div>
                 <button class="btn btn-outline-secondary d-md-none" data-bs-toggle="collapse" data-bs-target="#mnav"><i class="bi bi-list"></i></button>
             </div>
         </div>
         <div id="mnav" class="collapse border-top d-md-none">
             <div class="container py-2 nav-links">
-                <a href="{{ route('welcome') }}">الرئيسية</a>
-                <a href="{{ route('about.index') }}">عنا</a>
-                <a href="{{ route('service.index') }}">الخدمات</a>
-                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
-                <a href="#">English</a>
+                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
+                <form action="{{ route('language.switch') }}" method="POST" class="d-inline w-100">
+                    @csrf
+                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
+                    <button type="submit" class="btn btn-link text-decoration-none p-0 w-100 text-start">
+                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                    </button>
+                </form>
                 <a href="{{ route('admin.login') }}">Login / Register</a>
-                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">احصل على خادمة الآن</a>
+                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
             </div>
         </div>
     </header>
 
     <div class="contact-page">
         <div class="container">
-            <h1 class="page-title">الاتصال بنا</h1>
+            <h1 class="page-title">{{ __('messages.contact') }}</h1>
             
             <div class="contact-container">
                 <div class="row g-0">
                     <!-- قسم النموذج -->
                     <div class="col-lg-6">
                         <div class="form-section">
-                            <h2 class="form-title">احصل على خادمة الآن</h2>
+                            <h2 class="form-title">{{ __('messages.get_maid_now_title') }}</h2>
                             
                             <form id="contactForm">
                                 <div class="form-group">
-                                    <label class="form-label">الاسم</label>
-                                    <input type="text" class="form-control" placeholder="أدخل اسمك الكامل" required>
+                                    <label class="form-label">{{ __('messages.full_name') }}</label>
+                                    <input type="text" class="form-control" placeholder="{{ __('messages.enter_full_name') }}" required>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">الهاتف</label>
-                                    <input type="tel" class="form-control" placeholder="أدخل رقم هاتفك" required>
+                                    <label class="form-label">{{ __('messages.phone_number') }}</label>
+                                    <input type="tel" class="form-control" placeholder="{{ __('messages.enter_phone_number') }}" required>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">اختر الخدمة</label>
+                                    <label class="form-label">{{ __('messages.select_service') }}</label>
                                     <select class="form-select" required>
-                                        <option value="">اختر الخدمة</option>
-                                        <option value="housemaid" selected>خادمة منزلية</option>
-                                        <option value="cook">طباخة</option>
-                                        <option value="driver">سائق</option>
-                                        <option value="nanny">مربية أطفال</option>
+                                        <option value="">{{ __('messages.select_service') }}</option>
+                                        <option value="housemaid" selected>{{ __('messages.housemaid') }}</option>
+                                        <option value="cook">{{ __('messages.cook') }}</option>
+                                        <option value="driver">{{ __('messages.driver') }}</option>
+                                        <option value="nanny">{{ __('messages.nanny') }}</option>
                                     </select>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">اختر الجنسية</label>
+                                    <label class="form-label">{{ __('messages.select_nationality') }}</label>
                                     <select class="form-select" required>
-                                        <option value="">اختر الجنسية</option>
-                                        <option value="sri_lanka" selected>سريلانكا</option>
-                                        <option value="philippines">الفلبين</option>
-                                        <option value="indonesia">إندونيسيا</option>
-                                        <option value="ethiopia">إثيوبيا</option>
-                                        <option value="kenya">كينيا</option>
+                                        <option value="">{{ __('messages.select_nationality') }}</option>
+                                        <option value="sri_lanka" selected>{{ __('messages.sri_lanka') }}</option>
+                                        <option value="philippines">{{ __('messages.philippines') }}</option>
+                                        <option value="indonesia">{{ __('messages.indonesia') }}</option>
+                                        <option value="ethiopia">{{ __('messages.ethiopia') }}</option>
+                                        <option value="kenya">{{ __('messages.kenya') }}</option>
                                     </select>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">اختر الإمارة</label>
+                                    <label class="form-label">{{ __('messages.select_emirate') }}</label>
                                     <select class="form-select" required>
-                                        <option value="">اختر الإمارة</option>
-                                        <option value="ras_al_khaimah" selected>رأس الخيمة</option>
-                                        <option value="dubai">دبي</option>
-                                        <option value="abu_dhabi">أبو ظبي</option>
-                                        <option value="sharjah">الشارقة</option>
-                                        <option value="ajman">عجمان</option>
-                                        <option value="umm_al_quwain">أم القيوين</option>
-                                        <option value="fujairah">الفجيرة</option>
+                                        <option value="">{{ __('messages.select_emirate') }}</option>
+                                        <option value="ras_al_khaimah" selected>{{ __('messages.ras_al_khaimah') }}</option>
+                                        <option value="dubai">{{ __('messages.dubai') }}</option>
+                                        <option value="abu_dhabi">{{ __('messages.abu_dhabi') }}</option>
+                                        <option value="sharjah">{{ __('messages.sharjah') }}</option>
+                                        <option value="ajman">{{ __('messages.ajman') }}</option>
+                                        <option value="umm_al_quwain">{{ __('messages.umm_al_quwain') }}</option>
+                                        <option value="fujairah">{{ __('messages.fujairah') }}</option>
                                     </select>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">الرسالة</label>
-                                    <textarea class="form-control form-textarea" placeholder="اكتب رسالتك هنا..." required></textarea>
+                                    <label class="form-label">{{ __('messages.message') }}</label>
+                                    <textarea class="form-control form-textarea" placeholder="{{ __('messages.write_message_here_contact') }}" required></textarea>
                                 </div>
                                 
-                                <button type="submit" class="submit-btn">إرسال</button>
+                                <button type="submit" class="submit-btn">{{ __('messages.send') }}</button>
                             </form>
                         </div>
                     </div>
@@ -333,12 +345,12 @@
                     <div class="col-lg-6">
                         <div class="info-section">
                             <div class="info-item">
-                                <div class="info-label">البريد الإلكتروني</div>
+                                <div class="info-label">{{ __('messages.email') }}</div>
                                 <p class="info-value">Support@Misshelpers.com</p>
                             </div>
                             
                             <div class="info-item">
-                                <div class="info-label">رقم الهاتف</div>
+                                <div class="info-label">{{ __('messages.phone') }}</div>
                                 <p class="info-value">04 343 0391</p>
                             </div>
                             
@@ -372,7 +384,7 @@
             e.preventDefault();
             
             // هنا يمكن إضافة كود إرسال البيانات
-            alert('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.');
+            alert('{{ __('messages.message_sent_successfully') }}');
             
             // إعادة تعيين النموذج
             this.reset();

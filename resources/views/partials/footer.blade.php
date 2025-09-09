@@ -12,7 +12,7 @@
                         <span class="logo-text">MISS HELPERS</span>
                     </div>
                     <p class="company-description">
-                        أن نصبح وكالة توظيف العمالة المنزلية الأكثر ثقة وتركيزا على العملاء في دولة الإمارات العربية المتحدة
+                        {{ __('messages.company_mission') }}
                     </p>
                 </div>
             </div>
@@ -22,16 +22,16 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="footer-links">
-                            <h4>الفئات الأعلى تقييما</h4>
+                            <h4>{{ __('messages.top_rated_categories') }}</h4>
                             <ul>
-                                <li><a href="{{ route('welcome') }}">الرئيسية</a></li>
-                                <li><a href="{{ route('about.index') }}">عنا</a></li>
-                                <li><a href="{{ route('contact.index') }}">الاتصال بنا</a></li>
+                                <li><a href="{{ route('welcome') }}">{{ __('messages.home') }}</a></li>
+                                <li><a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a></li>
+                                <li><a href="{{ route('contact.index') }}">{{ __('messages.contact_us') }}</a></li>
                                 @guest
-                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a></li>
-                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">إنشاء حساب</a></li>
+                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">{{ __('messages.login') }}</a></li>
+                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">{{ __('messages.register') }}</a></li>
                                 @else
-                                    <li><a href="{{ route('auth.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">تسجيل الخروج</a></li>
+                                    <li><a href="{{ route('auth.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('messages.logout') }}</a></li>
                                     <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -41,12 +41,12 @@
                     </div>
                     <div class="col-6">
                         <div class="footer-links">
-                            <h4>الخدمات</h4>
+                            <h4>{{ __('messages.services') }}</h4>
                             <ul>
-                                <li><a href="{{ route('welcome') }}">الرئيسية</a></li>
-                                <li><a href="{{ route('maids.all') }}">الخادمات</a></li>
-                                <li><a href="{{ route('blog.index') }}">المدونة</a></li>
-                                <li><a href="{{ route('service.index') }}">الخدمات</a></li>
+                                <li><a href="{{ route('welcome') }}">{{ __('messages.home') }}</a></li>
+                                <li><a href="{{ route('maids.all') }}">{{ __('messages.maids') }}</a></li>
+                                <li><a href="{{ route('blog.index') }}">{{ __('messages.blogs') }}</a></li>
+                                <li><a href="{{ route('service.index') }}">{{ __('messages.services') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
             <!-- معلومات الاتصال -->
             <div class="col-lg-4 mb-4">
                 <div class="contact-info">
-                    <h4>لا تتردد في مشاركة سؤالك</h4>
+                    <h4>{{ __('messages.dont_hesitate_to_share') }}</h4>
                     
                     <div class="contact-item">
                         <div class="contact-icon">
@@ -64,7 +64,7 @@
                         </div>
                         <div class="contact-details">
                             <div class="contact-value">04 343 0391</div>
-                            <div class="contact-hours">من الإثنين إلى الأحد من الساعة 9 صباحًا حتى 11 مساءً</div>
+                            <div class="contact-hours">{{ __('messages.working_hours') }}</div>
                         </div>
                     </div>
                     
@@ -83,7 +83,7 @@
                         </div>
                         <div class="contact-details">
                             <div class="contact-value">04 343 0391</div>
-                            <div class="contact-hours">من الإثنين إلى الأحد من الساعة 9 صباحًا حتى 11 مساءً</div>
+                            <div class="contact-hours">{{ __('messages.working_hours') }}</div>
                         </div>
                     </div>
                 </div>
@@ -102,11 +102,11 @@
                 </div>
                 <div class="col-md-6">
                     <div class="footer-bottom-links">
-                        <a href="{{ route('about.index') }}">عنا</a>
+                        <a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a>
                         <span class="separator">|</span>
-                        <a href="{{ route('welcome') }}">الرئيسية</a>
+                        <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
                         <span class="separator">|</span>
-                        <a href="{{ route('service.index') }}">الخدمات</a>
+                        <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
                     </div>
                 </div>
             </div>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>عنا - Miss Helpers</title>
+    <title>{{ __('messages.about') }} - {{ config('app.name', 'Miss Helpers') }}</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -527,14 +527,20 @@
                 <span class="title">Miss Helpers</span>
             </a>
             <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
-                <a href="{{ route('welcome') }}">الرئيسية</a>
-                <a href="{{ route('about.index') }}" class="active">عنا</a>
-                <a href="{{ route('service.index') }}">الخدمات</a>
-                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
+                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                <a href="{{ route('about.index') }}" class="active">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
             </nav>
             <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">احصل على خادمة الآن</a>
-                <a href="#" class="text-decoration-none">English</a>
+                <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
+                <form action="{{ route('language.switch') }}" method="POST" class="d-inline">
+                    @csrf
+                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
+                    <button type="submit" class="btn btn-link text-decoration-none p-0">
+                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                    </button>
+                </form>
                 <div class="auth d-none d-md-inline">
                     <a href="{{ route('admin.login') }}">Login / Register</a>
                 </div>
@@ -545,13 +551,19 @@
         </div>
         <div id="mnav" class="collapse border-top d-md-none">
             <div class="container py-2 nav-links">
-                <a href="{{ route('welcome') }}">الرئيسية</a>
-                <a href="{{ route('about.index') }}" class="active">عنا</a>
-                <a href="{{ route('service.index') }}">الخدمات</a>
-                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
-                <a href="#">English</a>
+                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                <a href="{{ route('about.index') }}" class="active">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
+                <form action="{{ route('language.switch') }}" method="POST" class="d-inline w-100">
+                    @csrf
+                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
+                    <button type="submit" class="btn btn-link text-decoration-none p-0 w-100 text-start">
+                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                    </button>
+                </form>
                 <a href="{{ route('admin.login') }}">Login / Register</a>
-                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">احصل على خادمة الآن</a>
+                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
             </div>
         </div>
     </header>
@@ -569,14 +581,14 @@
                 <!-- Right Side - Text Content -->
                 <div class="about-text">
                     <span class="company-name">Miss Helpers</span>
-                    <h1 class="main-title">شريكك الموثوق في الدعم المنزلي</h1>
+                    <h1 class="main-title">{{ __('messages.trusted_partner') }}</h1>
                     
                     <p class="about-description">
-                        نحن نؤمن بأن كل منزل يستحق مساعدة موثوقة ومتعاطفة ومهنية. في Miss Helpers، مهمتنا في الإمارات العربية المتحدة هي تسهيل التوظيف الآمن والمخصص للعمالة المنزلية لتلبية احتياجاتك المحددة.
+                        {{ __('messages.about_description_1') }}
                     </p>
                     
                     <p class="about-description">
-                        مع سنوات من الخبرة في التوظيف، نتخصص في ربط العائلات بالعمالة المنزلية المؤهلة من مصادر دولية موثوقة. نقدم مجموعة شاملة من الخدمات تشمل المربية والخادمة ومقدم الرعاية والمساعد المتخصص، مع ضمان أن جميع المرشحين يخضعون لفحص شامل وتدريب صارم، مستعدون للخدمة بإخلاص.
+                        {{ __('messages.about_description_2') }}
                     </p>
                 </div>
             </div>
@@ -590,7 +602,7 @@
                 <!-- Left Side - Text Content -->
                 <div class="why-choose-text">
                     <h2 class="section-title">Miss Helpers</h2>
-                    <h3 class="section-subtitle">لماذا تختار Miss Helpers</h3>
+                    <h3 class="section-subtitle">{{ __('messages.why_choose_miss_helpers') }}</h3>
                     
                     <div class="features-list">
                         <div class="feature-item">
@@ -598,9 +610,9 @@
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
                             <div class="feature-content">
-                                <h4 class="feature-title">عملية توظيف شفافة</h4>
+                                <h4 class="feature-title">{{ __('messages.transparent_process') }}</h4>
                                 <p class="feature-description">
-                                    نحن نعمل على تبسيط كل شيء - من تصفح المرشحين إلى توقيع العقود وإجراء المدفوعات الآمنة عبر الإنترنت
+                                    {{ __('messages.transparent_process_desc') }}
                                 </p>
                             </div>
                         </div>
@@ -610,9 +622,9 @@
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
                             <div class="feature-content">
-                                <h4 class="feature-title">التوظيف القانوني والأخلاقي</h4>
+                                <h4 class="feature-title">{{ __('messages.legal_ethical') }}</h4>
                                 <p class="feature-description">
-                                    جميع عملياتنا تتوافق مع قوانين العمل في دولة الإمارات العربية المتحدة ومعايير التوظيف الدولية
+                                    {{ __('messages.legal_ethical_desc') }}
                                 </p>
                             </div>
                         </div>
@@ -622,9 +634,9 @@
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
                             <div class="feature-content">
-                                <h4 class="feature-title">المرشحون متعددو الجنسيات</h4>
+                                <h4 class="feature-title">{{ __('messages.multinational_candidates') }}</h4>
                                 <p class="feature-description">
-                                    اختر من بين مجموعة واسعة من الجنسيات والخلفيات والمجموعات المهارية للعثور على الشخص المثالي لعائلتك
+                                    {{ __('messages.multinational_candidates_desc') }}
                                 </p>
                             </div>
                         </div>
@@ -634,9 +646,9 @@
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
                             <div class="feature-content">
-                                <h4 class="feature-title">دعم ما بعد البيع</h4>
+                                <h4 class="feature-title">{{ __('messages.after_sales_support') }}</h4>
                                 <p class="feature-description">
-                                    نبقى معكم حتى بعد التعاقد. فريقنا جاهز دائمًا لمساعدتكم في عمليات المتابعة والتجديد وأي دعم قد تحتاجونه
+                                    {{ __('messages.after_sales_support_desc') }}
                                 </p>
                             </div>
                         </div>
@@ -644,7 +656,7 @@
                     
                     <a href="#" class="read-more-link">
                         <i class="bi bi-link-45deg"></i>
-                        Read more
+                        {{ __('messages.read_more') }}
                     </a>
                 </div>
                 
@@ -660,7 +672,7 @@
     <!-- Vision and Mission Section -->
     <section class="vision-mission">
         <div class="container">
-            <h2 class="section-main-title">الرؤية والرسالة</h2>
+            <h2 class="section-main-title">{{ __('messages.vision_mission') }}</h2>
             
             <div class="vision-mission-cards">
                 <!-- Vision Card -->
@@ -668,9 +680,9 @@
                     <div class="card-icon">
                         <i class="bi bi-eye"></i>
                     </div>
-                    <h3 class="card-title">رؤيتنا</h3>
+                    <h3 class="card-title">{{ __('messages.our_vision') }}</h3>
                     <p class="card-description">
-                        أن نصبح وكالة توظيف العمالة المنزلية الأكثر ثقة وتركيزا على العملاء في دولة الإمارات العربية المتحدة
+                        {{ __('messages.our_vision_desc') }}
                     </p>
                 </div>
                 
@@ -679,9 +691,9 @@
                     <div class="card-icon">
                         <i class="bi bi-bullseye"></i>
                     </div>
-                    <h3 class="card-title">مهمتنا</h3>
+                    <h3 class="card-title">{{ __('messages.our_mission') }}</h3>
                     <p class="card-description">
-                        تمكين الأسر من خلال توفير مساعدين منزليين مؤهلين ومتعاطفين من خلال عملية خالية من المتاعب وشفافة
+                        {{ __('messages.our_mission_desc') }}
                     </p>
                 </div>
             </div>
@@ -700,42 +712,42 @@
                 
                 <!-- Right Side - Text Content -->
                 <div class="training-text">
-                    <span class="training-subtitle">تمكين المساعدين لخدمتكم بشكل أفضل</span>
-                    <h2 class="training-title">ندعم التدريب وتطوير المهارات</h2>
+                    <span class="training-subtitle">{{ __('messages.empowering_helpers') }}</span>
+                    <h2 class="training-title">{{ __('messages.support_training_development') }}</h2>
                     
                     <div class="training-features">
                         <div class="training-feature">
                             <div class="training-feature-icon">
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
-                            <p class="training-feature-text">الإرشاد قبل المغادرة والتوعية الثقافية</p>
+                            <p class="training-feature-text">{{ __('messages.pre_departure_orientation') }}</p>
                         </div>
                         
                         <div class="training-feature">
                             <div class="training-feature-icon">
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
-                            <p class="training-feature-text">التدريب العملي في إدارة المنزل ورعاية الأطفال وكبار السن</p>
+                            <p class="training-feature-text">{{ __('messages.practical_training') }}</p>
                         </div>
                         
                         <div class="training-feature">
                             <div class="training-feature-icon">
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
-                            <p class="training-feature-text">مهارات التواصل ودروس اللغة الإنجليزية الأساسية</p>
+                            <p class="training-feature-text">{{ __('messages.communication_skills') }}</p>
                         </div>
                         
                         <div class="training-feature">
                             <div class="training-feature-icon">
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
-                            <p class="training-feature-text">التدريب المستمر والدعم أثناء العمل</p>
+                            <p class="training-feature-text">{{ __('messages.continuous_training') }}</p>
                         </div>
                     </div>
                     
                     <a href="{{ route('contact.index') }}" class="book-now-btn">
                         <i class="bi bi-paperclip"></i>
-                        Book Now
+                        {{ __('messages.book_now') }}
                     </a>
                 </div>
             </div>
@@ -1081,7 +1093,7 @@
                                     </div>
                                     <div class="chat-title">
                                         <h6>Miss Helpers Support</h6>
-                                        <span class="chat-status">متاح الآن</span>
+                                        <span class="chat-status">{{ __('messages.available_now') }}</span>
                                     </div>
                                 </div>
                                 <div class="chat-controls">
@@ -1094,7 +1106,7 @@
                             <div class="chat-messages" id="chat-messages">
                                 <div class="message bot-message">
                                     <div class="message-content">
-                                        <p>مرحباً! أنا هنا لمساعدتك. كيف يمكنني مساعدتك اليوم؟</p>
+                                        <p>{{ __('messages.chat_welcome') }}</p>
                                         <span class="message-time">الآن</span>
                                     </div>
                                 </div>
@@ -1102,13 +1114,13 @@
 
                             <div class="chat-input-container">
                                 <div class="chat-input">
-                                    <input type="text" id="chat-input" placeholder="اكتب رسالتك هنا..." />
+                                    <input type="text" id="chat-input" placeholder="{{ __('messages.write_message_here_chat') }}" />
                                     <button id="chat-send" class="chat-send-btn">
                                         <i class="bi bi-send"></i>
                                     </button>
                                 </div>
                                 <div class="chat-footer">
-                                    <small>مدعوم بـ Miss Helpers</small>
+                                    <small>{{ __('messages.powered_by') }}</small>
                                 </div>
                             </div>
                         </div>
@@ -1171,7 +1183,7 @@
                     input.value = '';
                     
                     setTimeout(() => {
-                        this.addMessage("شكراً لرسالتك! سأقوم بالرد عليك قريباً.", 'bot');
+                        this.addMessage("{{ __('messages.thank_you_message') }}", 'bot');
                     }, 1000);
                 }
             }

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>الخدمات - Miss Helpers</title>
+    <title>{{ __('messages.services') }} - {{ config('app.name', 'Miss Helpers') }}</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -269,27 +269,39 @@
                 <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
             </a>
             <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
-                <a href="{{ route('welcome') }}">الرئيسية</a>
-                <a href="{{ route('about.index') }}">عنا</a>
-                <a href="{{ route('service.index') }}">الخدمات</a>
-                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
+                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
             </nav>
             <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">احصل على خادمة الآن</a>
-                <a href="#" class="text-decoration-none">English</a>
+                <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
+                <form action="{{ route('language.switch') }}" method="POST" class="d-inline">
+                    @csrf
+                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
+                    <button type="submit" class="btn btn-link text-decoration-none p-0">
+                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                    </button>
+                </form>
                 <div class="auth d-none d-md-inline"><a href="{{ route('admin.login') }}">Login / Register</a></div>
                 <button class="btn btn-outline-secondary d-md-none" data-bs-toggle="collapse" data-bs-target="#mnav"><i class="bi bi-list"></i></button>
             </div>
         </div>
         <div id="mnav" class="collapse border-top d-md-none">
             <div class="container py-2 nav-links">
-                <a href="{{ route('welcome') }}">الرئيسية</a>
-                <a href="{{ route('about.index') }}">عنا</a>
-                <a href="{{ route('service.index') }}">الخدمات</a>
-                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
-                <a href="#">English</a>
+                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
+                <form action="{{ route('language.switch') }}" method="POST" class="d-inline w-100">
+                    @csrf
+                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
+                    <button type="submit" class="btn btn-link text-decoration-none p-0 w-100 text-start">
+                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                    </button>
+                </form>
                 <a href="{{ route('admin.login') }}">Login / Register</a>
-                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">احصل على خادمة الآن</a>
+                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
             </div>
         </div>
     </header>
@@ -297,7 +309,7 @@
     <div class="services-page">
         <div class="container">
             <h1 class="page-title">
-                <span class="title-highlight">اختر</span> من الباقات
+                <span class="title-highlight">{{ __('messages.choose') }}</span> {{ __('messages.choose_from_packages') }}
             </h1>
             
             <div class="packages-container">
@@ -305,13 +317,13 @@
                     <!-- الباقة الشهرية -->
                     <div class="package-card">
                         <div class="package-header">
-                            <h2 class="package-title">الباقة الشهرية</h2>
-                            <p class="package-subtitle">حل توظيف شهري مرن</p>
+                            <h2 class="package-title">{{ __('messages.our_services') }}</h2>
+                            <p class="package-subtitle">{{ __('messages.monthly_solution') }}</p>
                         </div>
                         
                         <div class="package-price">
-                            <span class="price-currency">درهم إماراتي</span>
-                            <span class="price-period">شهريا</span>
+                            <span class="price-currency">{{ __('messages.aed_currency') }}</span>
+                            <span class="price-period">{{ __('messages.monthly') }}</span>
                         </div>
                         
                         <div class="package-features">
@@ -319,40 +331,40 @@
                                 <div class="feature-icon">
                                     <i class="bi bi-check"></i>
                                 </div>
-                                <p class="feature-text">يبقى العامل تحت كفالة المركز للحصول على التأشيرة</p>
+                                <p class="feature-text">{{ __('messages.monthly_feature_1') }}</p>
                             </div>
                             
                             <div class="feature-item">
                                 <div class="feature-icon">
                                     <i class="bi bi-check"></i>
                                 </div>
-                                <p class="feature-text">عقد شهري - لا يوجد التزام طويل الأجل</p>
+                                <p class="feature-text">{{ __('messages.monthly_feature_2') }}</p>
                             </div>
                             
                             <div class="feature-item">
                                 <div class="feature-icon">
                                     <i class="bi bi-check"></i>
                                 </div>
-                                <p class="feature-text">يوفر المركز الراتب والتأمين الصحي وأوراق الإقامة</p>
+                                <p class="feature-text">{{ __('messages.monthly_feature_3') }}</p>
                             </div>
                             
                             <div class="feature-item">
                                 <div class="feature-icon">
                                     <i class="bi bi-check"></i>
                                 </div>
-                                <p class="feature-text">عملية خالية من المتاعب للعميل</p>
+                                <p class="feature-text">{{ __('messages.monthly_feature_4') }}</p>
                             </div>
                             
                             <div class="feature-item">
                                 <div class="feature-icon">
                                     <i class="bi bi-check"></i>
                                 </div>
-                                <p class="feature-text">مثالية لفترات قصيرة أو تجريبية</p>
+                                <p class="feature-text">{{ __('messages.monthly_feature_5') }}</p>
                             </div>
                         </div>
                         
                         <div class="package-action">
-                            <a href="{{ route('maids.all') }}" class="choose-btn">اختر الباقة</a>
+                            <a href="{{ route('maids.all') }}" class="choose-btn">{{ __('messages.choose_package') }}</a>
                         </div>
                         
                         <div class="package-footer">
@@ -362,16 +374,16 @@
                     
                     <!-- الباقة الرئيسية -->
                     <div class="package-card">
-                        <div class="recommended-ribbon">RECOMMENDED</div>
+                        <div class="recommended-ribbon">{{ __('messages.recommended') }}</div>
                         
                         <div class="package-header">
-                            <h2 class="package-title">الباقة الرئيسية</h2>
-                            <p class="package-subtitle">حل توظيف طويل الأمد وفعال من حيث التكلفة</p>
+                            <h2 class="package-title">{{ __('messages.our_services') }}</h2>
+                            <p class="package-subtitle">{{ __('messages.long_term_solution') }}</p>
                         </div>
                         
                         <div class="package-price">
-                            <span class="price-currency">درهم إماراتي</span>
-                            <span class="price-period">لمرة واحدة</span>
+                            <span class="price-currency">{{ __('messages.aed_currency') }}</span>
+                            <span class="price-period">{{ __('messages.one_time') }}</span>
                         </div>
                         
                         <div class="package-features">
@@ -379,47 +391,47 @@
                                 <div class="feature-icon">
                                     <i class="bi bi-check"></i>
                                 </div>
-                                <p class="feature-text">دفعة توظيف لمرة واحدة</p>
+                                <p class="feature-text">{{ __('messages.main_feature_1') }}</p>
                             </div>
                             
                             <div class="feature-item">
                                 <div class="feature-icon">
                                     <i class="bi bi-check"></i>
                                 </div>
-                                <p class="feature-text">العامل تحت كفالة التأشيرة الشخصية للعميل</p>
+                                <p class="feature-text">{{ __('messages.main_feature_2') }}</p>
                             </div>
                             
                             <div class="feature-item">
                                 <div class="feature-icon">
                                     <i class="bi bi-check"></i>
                                 </div>
-                                <p class="feature-text">عقد لمدة عامين</p>
+                                <p class="feature-text">{{ __('messages.main_feature_3') }}</p>
                             </div>
                             
                             <div class="feature-item">
                                 <div class="feature-icon">
                                     <i class="bi bi-check"></i>
                                 </div>
-                                <p class="feature-text">ضمان لمدة عامين ضد الهروب أو رفض العمل</p>
+                                <p class="feature-text">{{ __('messages.main_feature_4') }}</p>
                             </div>
                             
                             <div class="feature-item">
                                 <div class="feature-icon">
                                     <i class="bi bi-check"></i>
                                 </div>
-                                <p class="feature-text">فعالة من حيث التكلفة على المدى الطويل</p>
+                                <p class="feature-text">{{ __('messages.main_feature_5') }}</p>
                             </div>
                             
                             <div class="feature-item">
                                 <div class="feature-icon">
                                     <i class="bi bi-check"></i>
                                 </div>
-                                <p class="feature-text">دعم كامل للنقل القانوني والتوثيق</p>
+                                <p class="feature-text">{{ __('messages.main_feature_6') }}</p>
                             </div>
                         </div>
                         
                         <div class="package-action">
-                            <a href="{{ route('maids.all') }}" class="choose-btn">اختر الباقة</a>
+                            <a href="{{ route('maids.all') }}" class="choose-btn">{{ __('messages.choose_package') }}</a>
                         </div>
                         
                         <div class="package-footer">
