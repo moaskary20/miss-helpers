@@ -69,11 +69,12 @@
                                     <select class="form-select @error('language') is-invalid @enderror" 
                                             id="language" name="language" required>
                                         <option value="">اختر اللغة</option>
-                                        <option value="عربية" {{ old('language', $maid->language) == 'عربية' ? 'selected' : '' }}>عربية</option>
-                                        <option value="إنجليزية" {{ old('language', $maid->language) == 'إنجليزية' ? 'selected' : '' }}>إنجليزية</option>
-                                        <option value="فرنسية" {{ old('language', $maid->language) == 'فرنسية' ? 'selected' : '' }}>فرنسية</option>
-                                        <option value="أردية" {{ old('language', $maid->language) == 'أردية' ? 'selected' : '' }}>أردية</option>
-                                        <option value="فلبينية" {{ old('language', $maid->language) == 'فلبينية' ? 'selected' : '' }}>فلبينية</option>
+                                        <option value="English" {{ old('language', $maid->language) == 'English' ? 'selected' : '' }}>English</option>
+                                        <option value="Little English" {{ old('language', $maid->language) == 'Little English' ? 'selected' : '' }}>Little English</option>
+                                        <option value="Arabic" {{ old('language', $maid->language) == 'Arabic' ? 'selected' : '' }}>Arabic</option>
+                                        <option value="Little Arabic" {{ old('language', $maid->language) == 'Little Arabic' ? 'selected' : '' }}>Little Arabic</option>
+                                        <option value="English & L.Arabic" {{ old('language', $maid->language) == 'English & L.Arabic' ? 'selected' : '' }}>English & L.Arabic</option>
+                                        <option value="Arabic & L.English" {{ old('language', $maid->language) == 'Arabic & L.English' ? 'selected' : '' }}>Arabic & L.English</option>
                                     </select>
                                     @error('language')
                                         <div class="invalid-feedback">{{ $message }}</div>

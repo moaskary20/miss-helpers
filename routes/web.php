@@ -14,8 +14,13 @@ use App\Http\Controllers\ChatController as PublicChatController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController as PublicAuthController;
+use App\Http\Controllers\LanguageController;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
+
+// Language switching routes
+Route::post('/language/switch', [LanguageController::class, 'switch'])->name('language.switch');
+Route::get('/language/current', [LanguageController::class, 'getCurrentLanguage'])->name('language.current');
 
 // Route for serving storage files
 Route::get('/storage/{path}', function ($path) {

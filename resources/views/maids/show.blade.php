@@ -54,10 +54,21 @@
 
                                 @if($maid->video_path)
                                     <div class="mt-3">
-                                        <video controls class="w-100" style="max-height: 200px;">
+                                        <h6 class="text-muted mb-2">
+                                            <i class="fas fa-video me-2"></i>
+                                            فيديو الخادمة
+                                        </h6>
+                                        <video controls class="w-100 rounded shadow" style="max-height: 250px;">
                                             <source src="{{ asset('storage/' . $maid->video_path) }}" type="video/mp4">
                                             متصفحك لا يدعم تشغيل الفيديو.
                                         </video>
+                                    </div>
+                                @else
+                                    <div class="mt-3 text-center">
+                                        <p class="text-muted">
+                                            <i class="fas fa-video-slash me-2"></i>
+                                            لا يوجد فيديو متاح
+                                        </p>
                                     </div>
                                 @endif
                             </div>
@@ -78,6 +89,12 @@
                                     <div class="col-md-6 mb-3">
                                         <strong>الاسم:</strong>
                                         <p class="text-muted">{{ $maid->name }}</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <strong>الجنسية:</strong>
+                                        <p class="text-muted">
+                                            <span class="badge bg-info">{{ $maid->nationality ?? 'غير محدد' }}</span>
+                                        </p>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <strong>العمر:</strong>
@@ -116,6 +133,28 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- فيديو الخادمة -->
+                @if($maid->video_path)
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-video me-2"></i>
+                                        فيديو الخادمة
+                                    </h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <video controls class="w-100 rounded shadow" style="max-height: 400px;">
+                                        <source src="{{ asset('storage/' . $maid->video_path) }}" type="video/mp4">
+                                        متصفحك لا يدعم تشغيل الفيديو.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
                 <!-- معلومات العقد -->
                 <div class="row mb-4">
@@ -201,31 +240,49 @@
                                     @foreach($maid->workExperiences() as $experience)
                                         <div class="border rounded p-3 mb-3">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <strong>اسم الشركة/المكان:</strong>
                                                     <p class="text-muted">{{ $experience->company_name }}</p>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <strong>المنصب:</strong>
                                                     <p class="text-muted">{{ $experience->position }}</p>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
+                                                    <strong>البلد:</strong>
+                                                    <p class="text-muted">{{ $experience->country ?? 'غير محدد' }}</p>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <strong>نوع العمل:</strong>
+                                                    <p class="text-muted">{{ $experience->work_type ?? 'غير محدد' }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <strong>المدة:</strong>
+                                                    <p class="text-muted">{{ $experience->duration ?? 'غير محدد' }}</p>
+                                                </div>
+                                                <div class="col-md-3">
                                                     <strong>فترة العمل:</strong>
                                                     <p class="text-muted">
-                                                        {{ $experience->start_date->format('Y-m-d') }}
-                                                        @if($experience->end_date)
-                                                            - {{ $experience->end_date->format('Y-m-d') }}
+                                                        @if($experience->start_date)
+                                                            {{ $experience->start_date->format('Y-m-d') }}
+                                                            @if($experience->end_date)
+                                                                - {{ $experience->end_date->format('Y-m-d') }}
+                                                            @else
+                                                                - حتى الآن
+                                                            @endif
                                                         @else
-                                                            - حتى الآن
+                                                            غير محدد
                                                         @endif
                                                     </p>
                                                 </div>
-                                                @if($experience->description)
-                                                    <div class="col-12">
+                                                <div class="col-md-6">
+                                                    @if($experience->description)
                                                         <strong>الوصف:</strong>
                                                         <p class="text-muted">{{ $experience->description }}</p>
-                                                    </div>
-                                                @endif
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach

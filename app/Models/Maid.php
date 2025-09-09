@@ -33,7 +33,6 @@ class Maid extends Model
         'children_count',
         'work_type',
         'languages',
-        'skills',
         'previous_experience',
         'photo',
     ];

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $maid->name }} - الملف الشخصي | ميس هيلبرز</title>
+    <title>{{ $maid->name }} - {{ __('messages.maid_profile') }} | Miss Helpers</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     
@@ -46,12 +46,87 @@
         }
         
         .profile-avatar {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             border: 5px solid white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             object-fit: cover;
+        }
+        
+        /* Mobile View - Larger Profile Image */
+        @media (max-width: 768px) {
+            .profile-avatar {
+                width: 330px;
+                height: 330px;
+                border: 8px solid white;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            }
+            
+            /* Keep stats in one row on tablet */
+            .profile-stats .row {
+                flex-direction: row !important;
+            }
+            
+            .profile-stats .col-4 {
+                flex: 0 0 33.333333%;
+                max-width: 33.333333%;
+                padding: 15px 10px;
+            }
+            
+            .profile-stats .stat-item {
+                padding: 15px 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .profile-avatar {
+                width: 375px;
+                height: 375px;
+                border: 10px solid white;
+                box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            }
+            
+            /* Adjust profile header for larger image */
+            .profile-header {
+                padding: 40px 0;
+            }
+            
+            .profile-header .row {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-header .col-lg-3 {
+                margin-bottom: 20px;
+            }
+            
+            .profile-header .col-lg-6 {
+                margin-bottom: 20px;
+            }
+            
+            /* Keep stats in one row on mobile */
+            .profile-stats .row {
+                flex-direction: row !important;
+            }
+            
+            .profile-stats .col-4 {
+                flex: 0 0 33.333333%;
+                max-width: 33.333333%;
+                padding: 10px 5px;
+            }
+            
+            .profile-stats .stat-item {
+                padding: 10px 5px;
+            }
+            
+            .profile-stats .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .profile-stats .stat-label {
+                font-size: 0.8rem;
+            }
         }
         
         .profile-stats {
@@ -217,6 +292,64 @@
             font-size: 0.9rem;
         }
         
+        /* Image Modal Styles */
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+        
+        #imageModal .modal-content {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        #imageModal .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+        
+        #imageModal .modal-body {
+            background: #f8f9fa;
+        }
+        
+        #imageModal .modal-footer {
+            background: #f8f9fa;
+            border: none;
+        }
+        
+        /* Mobile Modal Improvements */
+        @media (max-width: 768px) {
+            #imageModal .modal-dialog {
+                margin: 10px;
+                max-width: calc(100% - 20px);
+            }
+            
+            #imageModal .modal-body img {
+                max-height: 70vh;
+            }
+            
+            #imageModal .modal-header h5 {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            #imageModal .modal-dialog {
+                margin: 5px;
+                max-width: calc(100% - 10px);
+            }
+            
+            #imageModal .modal-body img {
+                max-height: 60vh;
+            }
+            
+            #imageModal .modal-header h5 {
+                font-size: 1rem;
+            }
+        }
+        
         .review-text {
             color: #495057;
             line-height: 1.6;
@@ -356,70 +489,23 @@
     </style>
 </head>
 <body>
-<!-- Header -->
-<header class="site-header">
-    <div class="container header-inner">
-        <a href="{{ url('/') }}" class="brand">
-            <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
-            <span class="title">Miss Helpers</span>
-        </a>
-        <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
-            <a href="{{ route('welcome') }}">الرئيسية</a>
-            <a href="{{ route('about.index') }}">عنا</a>
-            <a href="{{ route('service.index') }}">الخدمات</a>
-            <a href="{{ route('contact.index') }}">الاتصال بنا</a>
-        </nav>
-        <div class="d-flex align-items-center gap-3">
-            <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">احصل على خادمة الآن</a>
-            <a href="#" class="text-decoration-none">English</a>
-            <div class="auth d-none d-md-inline">
-                @guest
-                    <button type="button" class="btn btn-outline-secondary me-3" data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</button>
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#registerModal">إنشاء حساب</button>
-                @else
-                    <span class="me-3">{{ Auth::user()->name }}</span>
-                    <form method="POST" action="{{ route('auth.logout') }}" class="d-inline">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm">تسجيل الخروج</button>
-                    </form>
-                @endguest
-            </div>
-            <button class="btn btn-outline-secondary d-md-none" data-bs-toggle="collapse" data-bs-target="#mnav"><i class="bi bi-list"></i></button>
-        </div>
-    </div>
-    <div id="mnav" class="collapse border-top d-md-none">
-        <div class="container py-2 nav-links">
-            <a href="{{ route('welcome') }}">الرئيسية</a>
-            <a href="{{ route('about.index') }}">عنا</a>
-            <a href="{{ route('service.index') }}">الخدمات</a>
-            <a href="{{ route('contact.index') }}">الاتصال بنا</a>
-            <a href="#">English</a>
-            @guest
-                <button type="button" class="btn btn-outline-secondary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</button>
-                <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#registerModal">إنشاء حساب</button>
-            @else
-                <span class="d-block py-2">{{ Auth::user()->name }}</span>
-                <form method="POST" action="{{ route('auth.logout') }}">
-                    @csrf
-                    <button type="submit" class="btn btn-outline-danger btn-sm w-100">تسجيل الخروج</button>
-                </form>
-            @endguest
-            <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">احصل على خادمة الآن</a>
-        </div>
-    </div>
-</header>
+@include('partials.header')
     <!-- Profile Header -->
     <div class="profile-header">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3 text-center">
                     <img src="{{ $maid->image_path ? asset('storage/' . $maid->image_path) : asset('/images/default-maid.jpg') }}" 
-                         alt="{{ $maid->name }}" class="profile-avatar"
+                         alt="{{ $maid->name }}" class="profile-avatar" 
+                         style="cursor: pointer;"
+                         data-bs-toggle="modal" 
+                         data-bs-target="#imageModal"
                          onerror="this.src='{{ asset('images/default-maid.jpg') }}'">
+                    
                 </div>
                 <div class="col-lg-6">
                     <h1 class="display-5 fw-bold mb-3">{{ $maid->name }}</h1>
-                    <p class="lead mb-4">{{ $maid->nationality }} • {{ $maid->age ?? 'غير محدد' }} سنة</p>
+                    <p class="lead mb-4">{{ $maid->nationality }} • {{ $maid->age ?? __('messages.not_specified') }} {{ __('messages.years') }}</p>
                     <div class="rating-stars mb-3">
                         @for($i = 1; $i <= 5; $i++)
                             @if($i <= ($maid->rating ?? 0))
@@ -428,7 +514,7 @@
                                 <i class="bi bi-star"></i>
                             @endif
                         @endfor
-                        <span class="ms-2">({{ $maid->reviews_count ?? 0 }} تقييم)</span>
+                        <span class="ms-2">({{ $maid->reviews_count ?? 0 }} {{ __('messages.ratings') }})</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -437,19 +523,19 @@
                             <div class="col-4">
                                 <div class="stat-item">
                                     <div class="stat-number">{{ $maid->views_count ?? rand(100, 500) }}</div>
-                                    <div class="stat-label">مشاهدة</div>
+                                    <div class="stat-label">{{ __('messages.views') }}</div>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="stat-item">
                                     <div class="stat-number">{{ $maid->reviews_count ?? 0 }}</div>
-                                    <div class="stat-label">تقييم</div>
+                                    <div class="stat-label">{{ __('messages.reviews') }}</div>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="stat-item">
                                     <div class="stat-number">{{ $maid->experience_years ?? rand(2, 8) }}</div>
-                                    <div class="stat-label">سنوات خبرة</div>
+                                    <div class="stat-label">{{ __('messages.years_experience') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -467,69 +553,128 @@
                 <div class="profile-card">
                     <h3 class="section-title">
                         <i class="bi bi-person-circle"></i>
-                        المعلومات الشخصية
+                        {{ __('messages.personal_information') }}
                     </h3>
                     <div class="info-grid">
                         <div class="info-item">
-                            <div class="info-label">الاسم الكامل</div>
+                            <div class="info-label">{{ __('messages.full_name') }}</div>
                             <div class="info-value">{{ $maid->name }}</div>
                         </div>
                         <div class="info-item">
-                            <div class="info-label">الجنسية</div>
+                            <div class="info-label">{{ __('messages.nationality') }}</div>
                             <div class="info-value">{{ $maid->nationality }}</div>
                         </div>
                         <div class="info-item">
-                            <div class="info-label">العمر</div>
-                            <div class="info-value">{{ $maid->age ?? 'غير محدد' }} سنة</div>
+                            <div class="info-label">{{ __('messages.age') }}</div>
+                            <div class="info-value">{{ $maid->age ?? __('messages.not_specified') }} {{ __('messages.years') }}</div>
                         </div>
                         <div class="info-item">
-                            <div class="info-label">الحالة الاجتماعية</div>
-                            <div class="info-value">{{ $maid->marital_status ?? 'غير محدد' }}</div>
+                            <div class="info-label">{{ __('messages.marital_status') }}</div>
+                            <div class="info-value">{{ $maid->marital_status ?? __('messages.not_specified') }}</div>
                         </div>
                         <div class="info-item">
-                            <div class="info-label">عدد الأطفال</div>
+                            <div class="info-label">{{ __('messages.children_count') }}</div>
                             <div class="info-value">{{ $maid->children_count ?? '0' }}</div>
                         </div>
                         <div class="info-item">
-                            <div class="info-label">سنوات الخبرة</div>
-                            <div class="info-value">{{ $maid->experience_years ?? 'غير محدد' }} سنوات</div>
+                            <div class="info-label">{{ __('messages.experience_years') }}</div>
+                            <div class="info-value">{{ $maid->experience_years ?? __('messages.not_specified') }} {{ __('messages.years') }}</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Skills & Experience -->
-                <div class="profile-card">
-                    <h3 class="section-title">
-                        <i class="bi bi-award"></i>
-                        المهارات والخبرات
-                    </h3>
-                    <div class="skills-grid">
-                        <div class="skill-tag">تنظيف المنزل</div>
-                        <div class="skill-tag">الطبخ</div>
-                        <div class="skill-tag">العناية بالأطفال</div>
-                        <div class="skill-tag">غسيل الملابس</div>
-                        <div class="skill-tag">التسوق</div>
-                        <div class="skill-tag">العناية بالحديقة</div>
+                <!-- Skills -->
+                @if($maid->skills()->count() > 0)
+                    <div class="profile-card">
+                        <h3 class="section-title">
+                            <i class="bi bi-award"></i>
+                            {{ __('messages.skills') }}
+                        </h3>
+                        <div class="skills-grid">
+                            @foreach($maid->skills()->get() as $skill)
+                                <div class="skill-tag">
+                                    {{ $skill->skill_name }}
+                                    @if($skill->description)
+                                        <small class="d-block text-muted">{{ $skill->description }}</small>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                    
-                    <div class="mt-4">
-                        <h5 class="mb-3">الخبرات السابقة:</h5>
-                        <p class="text-muted">{{ $maid->previous_experience ?? 'خادمة منزلية مع خبرة في التنظيف والطبخ والعناية بالأطفال. عملت مع عائلات مختلفة في الإمارات العربية المتحدة.' }}</p>
+                @endif
+
+                <!-- Work Experience -->
+                @if($maid->workExperiences()->count() > 0)
+                    <div class="profile-card">
+                        <h3 class="section-title">
+                            <i class="bi bi-briefcase"></i>
+                            {{ __('messages.work_experience') }}
+                        </h3>
+                        @foreach($maid->workExperiences()->get() as $experience)
+                            <div class="experience-item mb-3 p-3 border rounded">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="fw-bold">{{ $experience->company_name }}</h6>
+                                        <p class="text-muted mb-1">{{ $experience->position }}</p>
+                                        @if($experience->country)
+                                            <p class="text-muted mb-1"><i class="bi bi-geo-alt"></i> {{ $experience->country }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        @if($experience->work_type)
+                                            <span class="badge bg-primary">{{ $experience->work_type }}</span>
+                                        @endif
+                                        @if($experience->duration)
+                                            <span class="badge bg-info">{{ $experience->duration }}</span>
+                                        @endif
+                                        @if($experience->start_date)
+                                            <p class="text-muted mb-0">
+                                                {{ $experience->start_date->format('Y-m') }}
+                                                @if($experience->end_date)
+                                                    - {{ $experience->end_date->format('Y-m') }}
+                                                @else
+                                                    - حتى الآن
+                                                @endif
+                                            </p>
+                                        @endif
+                                    </div>
+                                </div>
+                                @if($experience->description)
+                                    <p class="text-muted mt-2">{{ $experience->description }}</p>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                </div>
+                @endif
+
+                <!-- فيديو الخادمة -->
+                @if($maid->video_path)
+                    <div class="profile-card">
+                        <h3 class="section-title">
+                            <i class="bi bi-camera-video"></i>
+                            {{ __('messages.maid_video') }}
+                        </h3>
+                        <div class="text-center">
+                            <video controls class="w-100 rounded shadow" style="max-height: 400px;">
+                                <source src="{{ asset('storage/' . $maid->video_path) }}" type="video/mp4">
+                                {{ __('messages.browser_not_support_video') }}
+                            </video>
+                        </div>
+                    </div>
+                @endif
 
                 <!-- Reviews -->
                 <div class="profile-card">
                     <h3 class="section-title">
                         <i class="bi bi-star"></i>
-                        التقييمات والمراجعات
+                        {{ __('messages.reviews_ratings') }}
                     </h3>
                     <div class="reviews-section">
                         @if($maid->reviews_count > 0)
                             @foreach(range(1, min(3, $maid->reviews_count)) as $index)
                                 <div class="review-item">
                                     <div class="review-header">
-                                        <div class="reviewer-name">عميل {{ $index }}</div>
+                                        <div class="reviewer-name">{{ __('messages.client') }} {{ $index }}</div>
                                         <div class="review-date">{{ now()->subDays(rand(1, 30))->format('Y-m-d') }}</div>
                                     </div>
                                     <div class="rating-stars mb-2">
@@ -542,12 +687,12 @@
                                         @endfor
                                     </div>
                                     <div class="review-text">
-                                        {{ ['خدمة ممتازة ومهنية عالية', 'خادمة مجتهدة ونظيفة', 'أداء رائع وتعامُل محترم'][$index - 1] ?? 'تقييم إيجابي للخدمة المقدمة' }}
+                                        {{ [__('messages.excellent_service'), __('messages.hardworking_clean'), __('messages.great_performance')][$index - 1] ?? __('messages.positive_review') }}
                                     </div>
                                 </div>
                             @endforeach
                         @else
-                            <p class="text-muted text-center py-4">لا توجد تقييمات بعد</p>
+                            <p class="text-muted text-center py-4">{{ __('messages.no_reviews_yet') }}</p>
                         @endif
                     </div>
                 </div>
@@ -558,48 +703,60 @@
                 <div class="profile-card">
                     <h3 class="section-title">
                         <i class="bi bi-telephone"></i>
-                        التواصل والحجز
+                        {{ __('messages.contact_booking') }}
                     </h3>
                     
                     <div class="d-grid gap-3 mb-4">
                         <a href="{{ route('contact.index') }}" class="btn contact-btn">
                             <i class="bi bi-telephone me-2"></i>
-                            اتصل الآن
+                            {{ __('messages.call_now') }}
                         </a>
                     </div>
 
                     <div class="text-center">
                         <a href="{{ route('maids.all') }}" class="btn back-btn">
                             <i class="bi bi-arrow-right me-2"></i>
-                            العودة لقائمة الخادمات
+                            {{ __('messages.back_to_maids_list') }}
                         </a>
                     </div>
                 </div>
 
-                <!-- Additional Info -->
+                <!-- Contract Information -->
                 <div class="profile-card">
                     <h3 class="section-title">
-                        <i class="bi bi-info-circle"></i>
-                        معلومات إضافية
+                        <i class="bi bi-file-earmark-text"></i>
+                        {{ __('messages.contract_information') }}
                     </h3>
                     
                     <div class="info-grid">
                         <div class="info-item">
-                            <div class="info-label">الراتب الشهري</div>
-                            <div class="info-value">{{ number_format(rand(1500, 3000)) }} درهم</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">نوع العمل</div>
-                            <div class="info-value">{{ $maid->work_type ?? 'دوام كامل' }}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">اللغة</div>
-                            <div class="info-value">{{ $maid->languages ?? 'العربية، الإنجليزية' }}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">الحالة</div>
+                            <div class="info-label">{{ __('messages.package_type') }}</div>
                             <div class="info-value">
-                                <span class="badge bg-success">متاحة</span>
+                                <span class="badge bg-primary">{{ $maid->package_type ?? __('messages.not_specified') }}</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">{{ __('messages.job_title') }}</div>
+                            <div class="info-value">{{ $maid->job_title ?? __('messages.not_specified') }}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">{{ __('messages.contract_type') }}</div>
+                            <div class="info-value">{{ $maid->contract_type ?? __('messages.not_specified') }}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">{{ __('messages.contract_fees') }}</div>
+                            <div class="info-value">
+                                <span class="text-success fw-bold">{{ number_format($maid->contract_fees ?? 0) }} {{ __('messages.riyal') }}</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">{{ __('messages.language') }}</div>
+                            <div class="info-value">{{ $maid->language ?? __('messages.not_specified') }}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">{{ __('messages.status') }}</div>
+                            <div class="info-value">
+                                <span class="badge bg-success">{{ $maid->status ?? __('messages.available') }}</span>
                             </div>
                         </div>
                     </div>
@@ -610,175 +767,7 @@
 
     @include('partials.footer')
 
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">تسجيل الدخول</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @if($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form id="loginForm" method="POST" action="{{ route('auth.login') }}">
-                        @csrf
-                        
-                        <div class="mb-3">
-                            <label for="modal_login_email" class="form-label">البريد الإلكتروني</label>
-                            <input type="email" 
-                                   class="form-control @error('email') is-invalid @enderror" 
-                                   id="modal_login_email" 
-                                   name="email" 
-                                   value="{{ old('email') }}" 
-                                   required 
-                                   placeholder="أدخل بريدك الإلكتروني">
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modal_login_password" class="form-label">كلمة المرور</label>
-                            <input type="password" 
-                                   class="form-control @error('password') is-invalid @enderror" 
-                                   id="modal_login_password" 
-                                   name="password" 
-                                   required 
-                                   placeholder="أدخل كلمة المرور">
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-box-arrow-in-right"></i> تسجيل الدخول
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <p class="mb-0">ليس لديك حساب؟ <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">إنشاء حساب جديد</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Register Modal -->
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">إنشاء حساب جديد</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    @if($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form id="registerForm" method="POST" action="{{ route('auth.register') }}">
-                        @csrf
-                        
-                        <div class="mb-3">
-                            <label for="modal_name" class="form-label">الاسم الكامل</label>
-                            <input type="text" 
-                                   class="form-control @error('name') is-invalid @enderror" 
-                                   id="modal_name" 
-                                   name="name" 
-                                   value="{{ old('name') }}" 
-                                   required 
-                                   placeholder="أدخل اسمك الكامل">
-                            @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modal_email" class="form-label">البريد الإلكتروني</label>
-                            <input type="email" 
-                                   class="form-control @error('email') is-invalid @enderror" 
-                                   id="modal_email" 
-                                   name="email" 
-                                   value="{{ old('email') }}" 
-                                   required 
-                                   placeholder="أدخل بريدك الإلكتروني">
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modal_phone" class="form-label">رقم الهاتف</label>
-                            <input type="tel" 
-                                   class="form-control @error('phone') is-invalid @enderror" 
-                                   id="modal_phone" 
-                                   name="phone" 
-                                   value="{{ old('phone') }}" 
-                                   required 
-                                   placeholder="أدخل رقم هاتفك">
-                            @error('phone')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modal_password" class="form-label">كلمة المرور</label>
-                            <input type="password" 
-                                   class="form-control @error('password') is-invalid @enderror" 
-                                   id="modal_password" 
-                                   name="password" 
-                                   required 
-                                   placeholder="أدخل كلمة المرور">
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modal_password_confirmation" class="form-label">تأكيد كلمة المرور</label>
-                            <input type="password" 
-                                   class="form-control" 
-                                   id="modal_password_confirmation" 
-                                   name="password_confirmation" 
-                                   required 
-                                   placeholder="أعد إدخال كلمة المرور">
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-person-plus"></i> إنشاء الحساب
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <p class="mb-0">لديك حساب بالفعل؟ <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">تسجيل الدخول</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
+@include('partials.modals')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -786,119 +775,27 @@
     <link rel="stylesheet" href="{{ asset('css/chat-widget.css') }}">
     <script src="{{ asset('js/chat-widget.js') }}"></script>
 
-    <script>
-        // Handle register form submission and modal behavior
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            
-            fetch('{{ route("auth.register") }}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Show success message
-                    const modalBody = document.querySelector('#registerModal .modal-body');
-                    modalBody.innerHTML = `
-                        <div class="alert alert-success text-center">
-                            <i class="bi bi-check-circle-fill fs-1 text-success"></i>
-                            <h5 class="mt-3">تم إنشاء الحساب بنجاح!</h5>
-                            <p>مرحباً بك في Miss Helpers</li>
-                        </div>
-                    `;
-                    
-                    // Reload page after 2 seconds
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000);
-                } else {
-                    // Show error message
-                    const modalBody = document.querySelector('#registerModal .modal-body');
-                    const form = document.getElementById('registerForm');
-                    modalBody.insertBefore(
-                        document.createElement('div').innerHTML = `
-                            <div class="alert alert-danger">
-                                ${data.message || 'حدث خطأ أثناء إنشاء الحساب'}
-                            </div>
-                        `,
-                        form
-                    );
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                const modalBody = document.querySelector('#registerModal .modal-body');
-                const form = document.getElementById('registerForm');
-                modalBody.insertBefore(
-                    document.createElement('div').innerHTML = `
-                        <div class="alert alert-danger">
-                            حدث خطأ أثناء إنشاء الحساب
-                        </div>
-                    `,
-                    form
-                );
-            });
-        });
 
-        // Handle login form submission and modal behavior
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            
-            fetch('{{ route("auth.login") }}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-            .then(response => {
-                if (response.redirected) {
-                    // Redirect to the intended page
-                    window.location.href = response.url;
-                } else {
-                    return response.json();
-                }
-            })
-            .then(data => {
-                if (data && !data.success) {
-                    // Show error message
-                    const modalBody = document.querySelector('#loginModal .modal-body');
-                    const form = document.getElementById('loginForm');
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'alert alert-danger';
-                    errorDiv.innerHTML = data.message || 'بيانات الدخول غير صحيحة';
-                    modalBody.insertBefore(errorDiv, form);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                const modalBody = document.querySelector('#loginModal .modal-body');
-                const form = document.getElementById('loginForm');
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'alert alert-danger';
-                errorDiv.innerHTML = 'حدث خطأ أثناء تسجيل الدخول';
-                modalBody.insertBefore(errorDiv, form);
-            });
-        });
-
-        // Clear error messages when modals are opened
-        document.getElementById('loginModal').addEventListener('show.bs.modal', function() {
-            const alerts = this.querySelectorAll('.alert');
-            alerts.forEach(alert => alert.remove());
-        });
-
-        document.getElementById('registerModal').addEventListener('show.bs.modal', function() {
-            const alerts = this.querySelectorAll('.alert');
-            alerts.forEach(alert => alert.remove());
-        });
-    </script>
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">{{ $maid->name }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-0">
+                    <img src="{{ $maid->image_path ? asset('storage/' . $maid->image_path) : asset('/images/default-maid.jpg') }}" 
+                         alt="{{ $maid->name }}" 
+                         class="img-fluid rounded"
+                         style="max-height: 80vh; width: 100%; object-fit: contain;"
+                         onerror="this.src='{{ asset('images/default-maid.jpg') }}'">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('messages.close') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

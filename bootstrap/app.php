@@ -18,6 +18,12 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => \App\Http\Middleware\PermissionMiddleware::class,
             'activity.log' => \App\Http\Middleware\ActivityLogMiddleware::class,
             'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+            'setlocale' => \App\Http\Middleware\SetLocale::class,
+        ]);
+        
+        // Global middleware
+        $middleware->web(append: [
+            \App\Http\Middleware\SetLocale::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

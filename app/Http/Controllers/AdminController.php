@@ -106,7 +106,8 @@ class AdminController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:10240', // 10MB max
+            'nationality' => 'required|string|max:255',
+            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:61440', // 60MB max
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
             'religion' => 'required|string|max:255',
             'language' => 'required|string|max:255',
@@ -119,14 +120,17 @@ class AdminController extends Controller
             'job_title' => 'required|string|max:255',
             'contract_type' => 'required|string|max:255',
             'contract_fees' => 'required|numeric|min:0',
-            'skills' => 'array',
+            'skills' => 'required|array|min:1',
             'skills.*.skill_name' => 'required|string|max:255',
             'skills.*.description' => 'nullable|string',
-            'work_experiences' => 'array',
+            'work_experiences' => 'required|array|min:1',
             'work_experiences.*.company_name' => 'required|string|max:255',
             'work_experiences.*.position' => 'required|string|max:255',
+            'work_experiences.*.country' => 'required|string|max:255',
+            'work_experiences.*.work_type' => 'required|string|max:255',
+            'work_experiences.*.duration' => 'required|string|max:255',
             'work_experiences.*.start_date' => 'required|date',
-            'work_experiences.*.end_date' => 'nullable|date|after:work_experiences.*.start_date',
+            'work_experiences.*.end_date' => 'nullable|date',
             'work_experiences.*.description' => 'nullable|string',
         ]);
 
@@ -136,7 +140,24 @@ class AdminController extends Controller
                 ->withInput();
         }
 
+        // التحقق من أن تاريخ النهاية بعد تاريخ البداية
+        if ($request->has('work_experiences')) {
+            foreach ($request->work_experiences as $index => $workData) {
+                if (!empty($workData['start_date']) && !empty($workData['end_date'])) {
+                    if (strtotime($workData['end_date']) <= strtotime($workData['start_date'])) {
+                        return redirect()->back()
+                            ->withErrors(['work_experiences.' . $index . '.end_date' => 'تاريخ النهاية يجب أن يكون بعد تاريخ البداية'])
+                            ->withInput();
+                    }
+                }
+            }
+        }
+
         $data = $request->all();
+
+        // إزالة المهارات وخبرات العمل من البيانات قبل إنشاء الخادمة
+        unset($data['skills']);
+        unset($data['work_experiences']);
 
         // رفع الفيديو
         if ($request->hasFile('video')) {
@@ -164,8 +185,22 @@ class AdminController extends Controller
 
         // إضافة خبرات العمل
         if ($request->has('work_experiences')) {
-            foreach ($request->work_experiences as $workData) {
+            foreach ($request->work_experiences as $index => $workData) {
+                
                 if (!empty($workData['company_name'])) {
+                    // التأكد من وجود البيانات المطلوبة
+                    $workData['start_date'] = $workData['start_date'] ?? null;
+                    $workData['end_date'] = $workData['end_date'] ?? null;
+                    $workData['description'] = $workData['description'] ?? null;
+                    $workData['country'] = $workData['country'] ?? null;
+                    $workData['work_type'] = $workData['work_type'] ?? null;
+                    $workData['duration'] = $workData['duration'] ?? null;
+                    
+                    // إذا لم يكن هناك start_date، استخدم تاريخ اليوم
+                    if (empty($workData['start_date'])) {
+                        $workData['start_date'] = now()->format('Y-m-d');
+                    }
+                    
                     $maid->workExperiences()->create($workData);
                 }
             }
@@ -202,7 +237,8 @@ class AdminController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:10240',
+            'nationality' => 'required|string|max:255',
+            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:61440', // 60MB max
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'religion' => 'required|string|max:255',
             'language' => 'required|string|max:255',
@@ -215,14 +251,17 @@ class AdminController extends Controller
             'job_title' => 'required|string|max:255',
             'contract_type' => 'required|string|max:255',
             'contract_fees' => 'required|numeric|min:0',
-            'skills' => 'array',
+            'skills' => 'required|array|min:1',
             'skills.*.skill_name' => 'required|string|max:255',
             'skills.*.description' => 'nullable|string',
-            'work_experiences' => 'array',
+            'work_experiences' => 'required|array|min:1',
             'work_experiences.*.company_name' => 'required|string|max:255',
             'work_experiences.*.position' => 'required|string|max:255',
+            'work_experiences.*.country' => 'required|string|max:255',
+            'work_experiences.*.work_type' => 'required|string|max:255',
+            'work_experiences.*.duration' => 'required|string|max:255',
             'work_experiences.*.start_date' => 'required|date',
-            'work_experiences.*.end_date' => 'nullable|date|after:work_experiences.*.start_date',
+            'work_experiences.*.end_date' => 'nullable|date',
             'work_experiences.*.description' => 'nullable|string',
         ]);
 
@@ -232,7 +271,24 @@ class AdminController extends Controller
                 ->withInput();
         }
 
+        // التحقق من أن تاريخ النهاية بعد تاريخ البداية
+        if ($request->has('work_experiences')) {
+            foreach ($request->work_experiences as $index => $workData) {
+                if (!empty($workData['start_date']) && !empty($workData['end_date'])) {
+                    if (strtotime($workData['end_date']) <= strtotime($workData['start_date'])) {
+                        return redirect()->back()
+                            ->withErrors(['work_experiences.' . $index . '.end_date' => 'تاريخ النهاية يجب أن يكون بعد تاريخ البداية'])
+                            ->withInput();
+                    }
+                }
+            }
+        }
+
         $data = $request->all();
+
+        // إزالة المهارات وخبرات العمل من البيانات قبل تحديث الخادمة
+        unset($data['skills']);
+        unset($data['work_experiences']);
 
         // رفع فيديو جديد
         if ($request->hasFile('video')) {
@@ -270,8 +326,22 @@ class AdminController extends Controller
         // تحديث خبرات العمل
         $maid->workExperiences()->delete();
         if ($request->has('work_experiences')) {
-            foreach ($request->work_experiences as $workData) {
+            foreach ($request->work_experiences as $index => $workData) {
+                
                 if (!empty($workData['company_name'])) {
+                    // التأكد من وجود البيانات المطلوبة
+                    $workData['start_date'] = $workData['start_date'] ?? null;
+                    $workData['end_date'] = $workData['end_date'] ?? null;
+                    $workData['description'] = $workData['description'] ?? null;
+                    $workData['country'] = $workData['country'] ?? null;
+                    $workData['work_type'] = $workData['work_type'] ?? null;
+                    $workData['duration'] = $workData['duration'] ?? null;
+                    
+                    // إذا لم يكن هناك start_date، استخدم تاريخ اليوم
+                    if (empty($workData['start_date'])) {
+                        $workData['start_date'] = now()->format('Y-m-d');
+                    }
+                    
                     $maid->workExperiences()->create($workData);
                 }
             }

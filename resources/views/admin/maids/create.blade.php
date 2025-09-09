@@ -43,6 +43,25 @@
                     </div>
                     
                     <div class="mb-3">
+                        <label for="nationality" class="form-label">الجنسية <span class="text-danger">*</span></label>
+                        <select class="form-select @error('nationality') is-invalid @enderror" 
+                                id="nationality" name="nationality" required>
+                            <option value="">اختر الجنسية</option>
+                            <option value="الفلبين" {{ old('nationality') == 'الفلبين' ? 'selected' : '' }}>الفلبين</option>
+                            <option value="ميانمار" {{ old('nationality') == 'ميانمار' ? 'selected' : '' }}>ميانمار</option>
+                            <option value="إثيوبيا" {{ old('nationality') == 'إثيوبيا' ? 'selected' : '' }}>إثيوبيا</option>
+                            <option value="سريلانكا" {{ old('nationality') == 'سريلانكا' ? 'selected' : '' }}>سريلانكا</option>
+                            <option value="أوغندا" {{ old('nationality') == 'أوغندا' ? 'selected' : '' }}>أوغندا</option>
+                            <option value="كينيا" {{ old('nationality') == 'كينيا' ? 'selected' : '' }}>كينيا</option>
+                            <option value="مدغشقر" {{ old('nationality') == 'مدغشقر' ? 'selected' : '' }}>مدغشقر</option>
+                            <option value="إندونيسيا" {{ old('nationality') == 'إندونيسيا' ? 'selected' : '' }}>إندونيسيا</option>
+                        </select>
+                        @error('nationality')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-3">
                         <label for="video" class="form-label">فيديو الخادمة</label>
                         <input type="file" class="form-control @error('video') is-invalid @enderror" 
                                id="video" name="video" accept="video/*">
@@ -84,12 +103,12 @@
                                 <select class="form-select @error('language') is-invalid @enderror" 
                                         id="language" name="language" required>
                                     <option value="">اختر اللغة</option>
-                                    <option value="عربية" {{ old('language') == 'عربية' ? 'selected' : '' }}>عربية</option>
-                                    <option value="إنجليزية" {{ old('language') == 'إنجليزية' ? 'selected' : '' }}>إنجليزية</option>
-                                    <option value="فرنسية" {{ old('language') == 'فرنسية' ? 'selected' : '' }}>فرنسية</option>
-                                    <option value="أردو" {{ old('language') == 'أردو' ? 'selected' : '' }}>أردو</option>
-                                    <option value="فلبينية" {{ old('language') == 'فلبينية' ? 'selected' : '' }}>فلبينية</option>
-                                    <option value="أخرى" {{ old('language') == 'أخرى' ? 'selected' : '' }}>أخرى</option>
+                                    <option value="English" {{ old('language') == 'English' ? 'selected' : '' }}>English</option>
+                                    <option value="Little English" {{ old('language') == 'Little English' ? 'selected' : '' }}>Little English</option>
+                                    <option value="Arabic" {{ old('language') == 'Arabic' ? 'selected' : '' }}>Arabic</option>
+                                    <option value="Little Arabic" {{ old('language') == 'Little Arabic' ? 'selected' : '' }}>Little Arabic</option>
+                                    <option value="English & L.Arabic" {{ old('language') == 'English & L.Arabic' ? 'selected' : '' }}>English & L.Arabic</option>
+                                    <option value="Arabic & L.English" {{ old('language') == 'Arabic & L.English' ? 'selected' : '' }}>Arabic & L.English</option>
                                 </select>
                                 @error('language')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -178,10 +197,8 @@
                         <select class="form-select @error('package_type') is-invalid @enderror" 
                                 id="package_type" name="package_type" required>
                             <option value="">اختر نوع الباقة</option>
-                            <option value="باقة أساسية" {{ old('package_type') == 'باقة أساسية' ? 'selected' : '' }}>باقة أساسية</option>
-                            <option value="باقة متقدمة" {{ old('package_type') == 'باقة متقدمة' ? 'selected' : '' }}>باقة متقدمة</option>
-                            <option value="باقة مميزة" {{ old('package_type') == 'باقة مميزة' ? 'selected' : '' }}>باقة مميزة</option>
-                            <option value="باقة VIP" {{ old('package_type') == 'باقة VIP' ? 'selected' : '' }}>باقة VIP</option>
+                            <option value="الباقة التقليدية" {{ old('package_type') == 'الباقة التقليدية' ? 'selected' : '' }}>الباقة التقليدية</option>
+                            <option value="الباقة المرنة" {{ old('package_type') == 'الباقة المرنة' ? 'selected' : '' }}>الباقة المرنة</option>
                         </select>
                         @error('package_type')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -193,12 +210,20 @@
                         <select class="form-select @error('job_title') is-invalid @enderror" 
                                 id="job_title" name="job_title" required>
                             <option value="">اختر الوظيفة</option>
-                            <option value="خادمة منزلية" {{ old('job_title') == 'خادمة منزلية' ? 'selected' : '' }}>خادمة منزلية</option>
-                            <option value="طباخة" {{ old('job_title') == 'طباخة' ? 'selected' : '' }}>طباخة</option>
-                            <option value="مربية أطفال" {{ old('job_title') == 'مربية أطفال' ? 'selected' : '' }}>مربية أطفال</option>
-                            <option value="ممرضة" {{ old('job_title') == 'ممرضة' ? 'selected' : '' }}>ممرضة</option>
-                            <option value="سائق" {{ old('job_title') == 'سائق' ? 'selected' : '' }}>سائق</option>
-                            <option value="حارس" {{ old('job_title') == 'حارس' ? 'selected' : '' }}>حارس</option>
+                            <optgroup label="الباقة التقليدية">
+                                <option value="عاملة منزلية" {{ old('job_title') == 'عاملة منزلية' ? 'selected' : '' }}>عاملة منزلية</option>
+                                <option value="مربية أطفال" {{ old('job_title') == 'مربية أطفال' ? 'selected' : '' }}>مربية أطفال</option>
+                                <option value="رعاية كبار السن" {{ old('job_title') == 'رعاية كبار السن' ? 'selected' : '' }}>رعاية كبار السن</option>
+                                <option value="طباخة" {{ old('job_title') == 'طباخة' ? 'selected' : '' }}>طباخة</option>
+                                <option value="سائقة" {{ old('job_title') == 'سائقة' ? 'selected' : '' }}>سائقة</option>
+                            </optgroup>
+                            <optgroup label="الباقة المرنة">
+                                <option value="عاملة منزلية" {{ old('job_title') == 'عاملة منزلية' ? 'selected' : '' }}>عاملة منزلية</option>
+                                <option value="مربية أطفال" {{ old('job_title') == 'مربية أطفال' ? 'selected' : '' }}>مربية أطفال</option>
+                                <option value="رعاية كبار السن" {{ old('job_title') == 'رعاية كبار السن' ? 'selected' : '' }}>رعاية كبار السن</option>
+                                <option value="طباخة" {{ old('job_title') == 'طباخة' ? 'selected' : '' }}>طباخة</option>
+                                <option value="سائقة" {{ old('job_title') == 'سائقة' ? 'selected' : '' }}>سائقة</option>
+                            </optgroup>
                         </select>
                         @error('job_title')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -210,10 +235,8 @@
                         <select class="form-select @error('contract_type') is-invalid @enderror" 
                                 id="contract_type" name="contract_type" required>
                             <option value="">اختر نوع العقد</option>
-                            <option value="عقد سنوي" {{ old('contract_type') == 'عقد سنوي' ? 'selected' : '' }}>عقد سنوي</option>
-                            <option value="عقد نصف سنوي" {{ old('contract_type') == 'عقد نصف سنوي' ? 'selected' : '' }}>عقد نصف سنوي</option>
+                            <option value="عقد سنتين" {{ old('contract_type') == 'عقد سنتين' ? 'selected' : '' }}>عقد سنتين</option>
                             <option value="عقد شهري" {{ old('contract_type') == 'عقد شهري' ? 'selected' : '' }}>عقد شهري</option>
-                            <option value="عقد مؤقت" {{ old('contract_type') == 'عقد مؤقت' ? 'selected' : '' }}>عقد مؤقت</option>
                         </select>
                         @error('contract_type')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -252,12 +275,20 @@
                     <div id="skills-container">
                         <div class="skill-item row mb-3">
                             <div class="col-md-5">
-                                <input type="text" class="form-control" name="skills[0][skill_name]" 
-                                       placeholder="اسم المهارة" value="{{ old('skills.0.skill_name') }}">
+                                <input type="text" class="form-control @error('skills.0.skill_name') is-invalid @enderror" 
+                                       name="skills[0][skill_name]" placeholder="اسم المهارة" 
+                                       value="{{ old('skills.0.skill_name') }}" required>
+                                @error('skills.0.skill_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="skills[0][description]" 
-                                       placeholder="وصف المهارة" value="{{ old('skills.0.description') }}">
+                                <input type="text" class="form-control @error('skills.0.description') is-invalid @enderror" 
+                                       name="skills[0][description]" placeholder="وصف المهارة" 
+                                       value="{{ old('skills.0.description') }}">
+                                @error('skills.0.description')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-1">
                                 <button type="button" class="btn btn-outline-danger" onclick="removeSkill(this)">
@@ -288,30 +319,85 @@
                 <div class="card-body">
                     <div id="work-experiences-container">
                         <div class="work-experience-item row mb-3">
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="work_experiences[0][company_name]" 
-                                       placeholder="اسم الشركة" value="{{ old('work_experiences.0.company_name') }}">
+                            <div class="col-md-2">
+                                <label class="form-label">اسم الشركة</label>
+                                <input type="text" class="form-control @error('work_experiences.0.company_name') is-invalid @enderror" 
+                                       name="work_experiences[0][company_name]" placeholder="اسم الشركة" 
+                                       value="{{ old('work_experiences.0.company_name') }}" required>
+                                @error('work_experiences.0.company_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" name="work_experiences[0][position]" 
-                                       placeholder="المنصب" value="{{ old('work_experiences.0.position') }}">
+                                <label class="form-label">المنصب</label>
+                                <input type="text" class="form-control @error('work_experiences.0.position') is-invalid @enderror" 
+                                       name="work_experiences[0][position]" placeholder="المنصب" 
+                                       value="{{ old('work_experiences.0.position') }}" required>
+                                @error('work_experiences.0.position')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-2">
-                                <input type="date" class="form-control" name="work_experiences[0][start_date]" 
-                                       value="{{ old('work_experiences.0.start_date') }}">
+                                <label class="form-label">البلد</label>
+                                <input type="text" class="form-control @error('work_experiences.0.country') is-invalid @enderror" 
+                                       name="work_experiences[0][country]" placeholder="البلد" 
+                                       value="{{ old('work_experiences.0.country') }}">
+                                @error('work_experiences.0.country')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-2">
-                                <input type="date" class="form-control" name="work_experiences[0][end_date]" 
-                                       value="{{ old('work_experiences.0.end_date') }}">
+                                <label class="form-label">نوع العمل</label>
+                                <input type="text" class="form-control @error('work_experiences.0.work_type') is-invalid @enderror" 
+                                       name="work_experiences[0][work_type]" placeholder="نوع العمل" 
+                                       value="{{ old('work_experiences.0.work_type') }}">
+                                @error('work_experiences.0.work_type')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" name="work_experiences[0][description]" 
-                                       placeholder="الوصف" value="{{ old('work_experiences.0.description') }}">
+                                <label class="form-label">المدة</label>
+                                <input type="text" class="form-control @error('work_experiences.0.duration') is-invalid @enderror" 
+                                       name="work_experiences[0][duration]" placeholder="المدة" 
+                                       value="{{ old('work_experiences.0.duration') }}">
+                                @error('work_experiences.0.duration')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-1">
-                                <button type="button" class="btn btn-outline-danger" onclick="removeWorkExperience(this)">
+                                <label class="form-label">&nbsp;</label>
+                                <button type="button" class="btn btn-outline-danger d-block" onclick="removeWorkExperience(this)">
                                     <i class="bi bi-trash"></i>
                                 </button>
+                            </div>
+                        </div>
+                        <div class="work-experience-item row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">تاريخ البداية</label>
+                                <input type="date" class="form-control @error('work_experiences.0.start_date') is-invalid @enderror" 
+                                       name="work_experiences[0][start_date]" 
+                                       value="{{ old('work_experiences.0.start_date') }}" required>
+                                @error('work_experiences.0.start_date')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">تاريخ النهاية</label>
+                                <input type="date" class="form-control @error('work_experiences.0.end_date') is-invalid @enderror" 
+                                       name="work_experiences[0][end_date]" 
+                                       value="{{ old('work_experiences.0.end_date') }}">
+                                @error('work_experiences.0.end_date')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">الوصف</label>
+                                <textarea class="form-control @error('work_experiences.0.description') is-invalid @enderror" 
+                                          name="work_experiences[0][description]" placeholder="وصف العمل" 
+                                          rows="2">{{ old('work_experiences.0.description') }}</textarea>
+                                @error('work_experiences.0.description')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -352,7 +438,7 @@
         skillItem.innerHTML = `
             <div class="col-md-5">
                 <input type="text" class="form-control" name="skills[${skillIndex}][skill_name]" 
-                       placeholder="اسم المهارة">
+                       placeholder="اسم المهارة" required>
             </div>
             <div class="col-md-6">
                 <input type="text" class="form-control" name="skills[${skillIndex}][description]" 
@@ -374,40 +460,115 @@
 
     function addWorkExperience() {
         const container = document.getElementById('work-experiences-container');
-        const workItem = document.createElement('div');
-        workItem.className = 'work-experience-item row mb-3';
-        workItem.innerHTML = `
-            <div class="col-md-3">
+        
+        // إضافة صف المعلومات الأساسية
+        const workItem1 = document.createElement('div');
+        workItem1.className = 'work-experience-item row mb-3';
+        workItem1.innerHTML = `
+            <div class="col-md-2">
+                <label class="form-label">اسم الشركة</label>
                 <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][company_name]" 
-                       placeholder="اسم الشركة">
+                       placeholder="اسم الشركة" required>
             </div>
             <div class="col-md-2">
+                <label class="form-label">المنصب</label>
                 <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][position]" 
-                       placeholder="المنصب">
+                       placeholder="المنصب" required>
             </div>
             <div class="col-md-2">
-                <input type="date" class="form-control" name="work_experiences[${workExperienceIndex}][start_date]">
+                <label class="form-label">البلد</label>
+                <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][country]" 
+                       placeholder="البلد">
             </div>
             <div class="col-md-2">
-                <input type="date" class="form-control" name="work_experiences[${workExperienceIndex}][end_date]">
+                <label class="form-label">نوع العمل</label>
+                <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][work_type]" 
+                       placeholder="نوع العمل">
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][description]" 
-                       placeholder="الوصف">
+                <label class="form-label">المدة</label>
+                <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][duration]" 
+                       placeholder="المدة">
             </div>
             <div class="col-md-1">
-                <button type="button" class="btn btn-outline-danger" onclick="removeWorkExperience(this)">
+                <label class="form-label">&nbsp;</label>
+                <button type="button" class="btn btn-outline-danger d-block" onclick="removeWorkExperience(this)">
                     <i class="bi bi-trash"></i>
                 </button>
             </div>
         `;
-        container.appendChild(workItem);
+        
+        // إضافة صف التواريخ والوصف
+        const workItem2 = document.createElement('div');
+        workItem2.className = 'work-experience-item row mb-3';
+        workItem2.innerHTML = `
+            <div class="col-md-3">
+                <label class="form-label">تاريخ البداية</label>
+                <input type="date" class="form-control" name="work_experiences[${workExperienceIndex}][start_date]" required>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">تاريخ النهاية</label>
+                <input type="date" class="form-control" name="work_experiences[${workExperienceIndex}][end_date]">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">الوصف</label>
+                <textarea class="form-control" name="work_experiences[${workExperienceIndex}][description]" 
+                          placeholder="وصف العمل" rows="2"></textarea>
+            </div>
+        `;
+        
+        container.appendChild(workItem1);
+        container.appendChild(workItem2);
         workExperienceIndex++;
     }
 
     function removeWorkExperience(button) {
-        button.closest('.work-experience-item').remove();
+        // إزالة الصفين المرتبطين بخبرة العمل الواحدة
+        const workItem1 = button.closest('.work-experience-item');
+        const workItem2 = workItem1.nextElementSibling;
+        
+        workItem1.remove();
+        if (workItem2 && workItem2.classList.contains('work-experience-item')) {
+            workItem2.remove();
+        }
     }
+
+    // إضافة validation للتواريخ
+    function validateWorkExperienceDates() {
+        const startDates = document.querySelectorAll('input[name*="[start_date]"]');
+        const endDates = document.querySelectorAll('input[name*="[end_date]"]');
+        
+        for (let i = 0; i < startDates.length; i++) {
+            const startDate = startDates[i];
+            const endDate = endDates[i];
+            
+            if (startDate.value && endDate.value) {
+                if (new Date(endDate.value) <= new Date(startDate.value)) {
+                    endDate.setCustomValidity('تاريخ النهاية يجب أن يكون بعد تاريخ البداية');
+                    endDate.reportValidity();
+                    return false;
+                } else {
+                    endDate.setCustomValidity('');
+                }
+            }
+        }
+        return true;
+    }
+
+    // إضافة event listeners للتواريخ
+    document.addEventListener('change', function(e) {
+        if (e.target.name && e.target.name.includes('[start_date]') || e.target.name.includes('[end_date]')) {
+            validateWorkExperienceDates();
+        }
+    });
+
+    // إضافة validation قبل إرسال الـ form
+    document.querySelector('form').addEventListener('submit', function(e) {
+        if (!validateWorkExperienceDates()) {
+            e.preventDefault();
+            return false;
+        }
+    });
 
     // حساب العمر تلقائياً عند تغيير تاريخ الميلاد
     document.getElementById('birth_date').addEventListener('change', function() {

@@ -81,8 +81,25 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
+                            <label class="form-label fw-bold">الجنسية:</label>
+                            <p class="form-control-plaintext">
+                                <span class="badge bg-info">{{ $maid->nationality ?? 'غير محدد' }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
                             <label class="form-label fw-bold">العمر:</label>
                             <p class="form-control-plaintext">{{ $maid->age }} سنة</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">تاريخ الميلاد:</label>
+                            <p class="form-control-plaintext">{{ $maid->birth_date ? $maid->birth_date->format('Y-m-d') : 'غير محدد' }}</p>
                         </div>
                     </div>
                 </div>
