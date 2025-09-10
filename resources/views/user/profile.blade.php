@@ -386,6 +386,11 @@
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">
+                        <i class="bi bi-star"></i> {{ __('messages.my_reviews') }}
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab">
                         <i class="bi bi-lock"></i> {{ __('messages.change_password') }}
                     </button>
@@ -463,6 +468,116 @@
                     </div>
                 </div>
 
+                <!-- Reviews Tab -->
+                <div class="tab-pane fade" id="reviews" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">{{ __('messages.my_reviews') }}</h5>
+                            @if($userMaids && $userMaids->count() > 0)
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addReviewModal">
+                                    <i class="bi bi-plus-circle"></i> {{ __('messages.add_review') }}
+                                </button>
+                            @endif
+                        </div>
+                        <div class="card-body">
+                            @if($userMaids && $userMaids->count() > 0)
+                                <!-- Display Maids -->
+                                <div class="mb-4">
+                                    <h6 class="mb-3">{{ __('messages.maids_you_worked_with') }}</h6>
+                                    <div class="row">
+                                        @foreach($userMaids as $maid)
+                                            <div class="col-md-6 mb-3">
+                                                <div class="card border">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center mb-2">
+                                                            @if($maid->image_path)
+                                                                <img src="{{ asset('storage/' . $maid->image_path) }}" 
+                                                                     alt="{{ $maid->name }}" 
+                                                                     class="rounded-circle me-3" 
+                                                                     style="width: 50px; height: 50px; object-fit: cover;">
+                                                            @else
+                                                                <div class="rounded-circle bg-secondary me-3 d-flex align-items-center justify-content-center" 
+                                                                     style="width: 50px; height: 50px;">
+                                                                    <i class="bi bi-person text-white"></i>
+                                                                </div>
+                                                            @endif
+                                                            <div>
+                                                                <h6 class="mb-0">{{ $maid->name }}</h6>
+                                                                <small class="text-muted">{{ $maid->job_title }}</small>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text-muted small mb-2">{{ Str::limit($maid->description, 100) }}</p>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <small class="text-muted">{{ $maid->age }} {{ __('messages.years_old') }}</small>
+                                                            <a href="{{ route('maid.profile', $maid->id) }}" class="btn btn-sm btn-outline-primary">
+                                                                {{ __('messages.view_profile') }}
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+
+                            <!-- Display Reviews -->
+                            @if($userReviews && $userReviews->count() > 0)
+                                <div class="mb-4">
+                                    <h6 class="mb-3">{{ __('messages.your_reviews') }}</h6>
+                                    <div class="row">
+                                        @foreach($userReviews as $review)
+                                            <div class="col-md-6 mb-3">
+                                                <div class="card border">
+                                                    <div class="card-body">
+                                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                                            <h6 class="card-title mb-0">{{ $review->title }}</h6>
+                                                            <div class="rating">
+                                                                @for($i = 1; $i <= 5; $i++)
+                                                                    @if($i <= $review->rating)
+                                                                        <i class="bi bi-star-fill text-warning"></i>
+                                                                    @else
+                                                                        <i class="bi bi-star text-muted"></i>
+                                                                    @endif
+                                                                @endfor
+                                                            </div>
+                                                        </div>
+                                                        @if($review->maid)
+                                                            <p class="text-primary small mb-2">
+                                                                <i class="bi bi-person"></i> {{ $review->maid->name }}
+                                                            </p>
+                                                        @endif
+                                                        <p class="card-text text-muted small">{{ $review->comment }}</p>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <small class="text-muted">{{ $review->created_at->format('M d, Y') }}</small>
+                                                            <span class="badge bg-{{ $review->status === 'approved' ? 'success' : ($review->status === 'pending' ? 'warning' : 'danger') }}">
+                                                                {{ __('messages.' . $review->status) }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @else
+                                <div class="text-center py-5">
+                                    <i class="bi bi-star display-1 text-muted"></i>
+                                    <h5 class="mt-3 text-muted">{{ __('messages.no_reviews_yet') }}</h5>
+                                    <p class="text-muted">{{ __('messages.share_your_experience') }}</p>
+                                    @if($userMaids && $userMaids->count() > 0)
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReviewModal">
+                                            <i class="bi bi-plus-circle"></i> {{ __('messages.add_review') }}
+                                        </button>
+                                    @else
+                                        <p class="text-muted">{{ __('messages.work_with_maid_first') }}</p>
+                                    @endif
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Password Tab -->
                 <div class="tab-pane fade" id="password" role="tabpanel">
                     <div class="card">
@@ -512,6 +627,107 @@
         </div>
     </div>
 
+    <!-- Add Review Modal -->
+    <div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="addReviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addReviewModalLabel">{{ __('messages.add_review') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" action="{{ route('user.reviews.store') }}">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="maid_id" class="form-label">{{ __('messages.select_maid') }} <span class="text-danger">*</span></label>
+                            <select class="form-control @error('maid_id') is-invalid @enderror" 
+                                    id="maid_id" name="maid_id" required>
+                                <option value="">{{ __('messages.choose_maid') }}</option>
+                                @if($userMaids && $userMaids->count() > 0)
+                                    @foreach($userMaids as $maid)
+                                        <option value="{{ $maid->id }}" {{ old('maid_id') == $maid->id ? 'selected' : '' }}>
+                                            {{ $maid->name }} - {{ $maid->job_title }}
+                                        </option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            @error('maid_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="title" class="form-label">{{ __('messages.review_title') }} <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" 
+                                   id="title" name="title" value="{{ old('title') }}" required>
+                            @error('title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">{{ __('messages.rating') }} <span class="text-danger">*</span></label>
+                            <div class="rating-input">
+                                @for($i = 1; $i <= 5; $i++)
+                                    <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" {{ old('rating') == $i ? 'checked' : '' }}>
+                                    <label for="star{{ $i }}" class="star-label">
+                                        <i class="bi bi-star"></i>
+                                    </label>
+                                @endfor
+                            </div>
+                            @error('rating')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">{{ __('messages.comment') }} <span class="text-danger">*</span></label>
+                            <textarea class="form-control @error('comment') is-invalid @enderror" 
+                                      id="comment" name="comment" rows="4" required>{{ old('comment') }}</textarea>
+                            @error('comment')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('messages.submit_review') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .rating-input {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .rating-input input[type="radio"] {
+            display: none;
+        }
+        
+        .rating-input .star-label {
+            font-size: 1.5rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .rating-input .star-label:hover,
+        .rating-input .star-label:hover ~ .star-label {
+            color: #ffc107;
+        }
+        
+        .rating-input input[type="radio"]:checked ~ .star-label {
+            color: #ffc107;
+        }
+        
+        .rating-input input[type="radio"]:checked + .star-label {
+            color: #ffc107;
+        }
+    </style>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

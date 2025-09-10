@@ -232,6 +232,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get user reviews
+     */
+    public function reviews()
+    {
+        return $this->hasMany(CustomerReview::class);
+    }
+
+    /**
      * Set password with hashing
      */
     public function setPasswordAttribute($value)

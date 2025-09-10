@@ -76,6 +76,12 @@ Route::get('/profile', [UserProfileController::class, 'index'])->name('user.prof
 Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update')->middleware('auth');
 Route::post('/profile/password', [UserProfileController::class, 'updatePassword'])->name('user.profile.password')->middleware('auth');
 
+// User Reviews routes
+Route::post('/reviews', [UserProfileController::class, 'storeReview'])->name('user.reviews.store')->middleware('auth');
+Route::get('/reviews/{id}/edit', [UserProfileController::class, 'editReview'])->name('user.reviews.edit')->middleware('auth');
+Route::put('/reviews/{id}', [UserProfileController::class, 'updateReview'])->name('user.reviews.update')->middleware('auth');
+Route::delete('/reviews/{id}', [UserProfileController::class, 'deleteReview'])->name('user.reviews.delete')->middleware('auth');
+
 // routes الشات
 Route::get('/chat', [PublicChatController::class, 'start'])->name('chat.start');
 Route::post('/chat/start', [PublicChatController::class, 'startChat'])->name('chat.startChat');

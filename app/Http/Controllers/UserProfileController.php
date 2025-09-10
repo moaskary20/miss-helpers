@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Maid;
+use App\Models\ServiceRequest;
 
 class UserProfileController extends Controller
 {
@@ -23,7 +25,19 @@ class UserProfileController extends Controller
         if (!$user) {
             return redirect()->route('auth.login');
         }
-        return view('user.profile', compact('user'));
+        
+        // جلب الخادمات المرتبطة بالعميل من خلال طلبات الخدمة
+        $userMaids = ServiceRequest::where('user_id', $user->id)
+            ->with('maid')
+            ->get()
+            ->pluck('maid')
+            ->unique('id')
+            ->filter();
+            
+        // جلب آراء العميل
+        $userReviews = $user->reviews()->with('maid')->get();
+        
+        return view('user.profile', compact('user', 'userMaids', 'userReviews'));
     }
 
     /**
@@ -85,5 +99,101 @@ class UserProfileController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'تم تحديث كلمة المرور بنجاح');
+    }
+
+    /**
+     * إضافة رأي جديد
+     */
+    public function storeReview(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'maid_id' => 'required|exists:maids,id',
+            'title' => 'required|string|max:255',
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'required|string|max:1000',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $user = Auth::user();
+        
+        // التحقق من أن العميل تعامل مع هذه الخادمة
+        $hasServiceRequest = ServiceRequest::where('user_id', $user->id)
+            ->where('maid_id', $request->maid_id)
+            ->exists();
+            
+        if (!$hasServiceRequest) {
+            return redirect()->back()
+                ->withErrors(['maid_id' => 'لم تتعامل مع هذه الخادمة من قبل'])
+                ->withInput();
+        }
+        
+        $review = $user->reviews()->create([
+            'maid_id' => $request->maid_id,
+            'title' => $request->title,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+            'status' => 'pending',
+        ]);
+
+        return redirect()->back()->with('success', 'تم إرسال رأيك بنجاح، سيتم مراجعته قريباً');
+    }
+
+    /**
+     * عرض صفحة تعديل الرأي
+     */
+    public function editReview($id)
+    {
+        $user = Auth::user();
+        $review = $user->reviews()->findOrFail($id);
+        
+        return view('user.review-edit', compact('review'));
+    }
+
+    /**
+     * تحديث الرأي
+     */
+    public function updateReview(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'required|string|max:1000',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $user = Auth::user();
+        $review = $user->reviews()->findOrFail($id);
+        
+        $review->update([
+            'title' => $request->title,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+            'status' => 'pending', // إعادة تعيين الحالة للانتظار
+        ]);
+
+        return redirect()->route('user.profile')->with('success', 'تم تحديث رأيك بنجاح');
+    }
+
+    /**
+     * حذف الرأي
+     */
+    public function deleteReview($id)
+    {
+        $user = Auth::user();
+        $review = $user->reviews()->findOrFail($id);
+        
+        $review->delete();
+
+        return redirect()->back()->with('success', 'تم حذف رأيك بنجاح');
     }
 }

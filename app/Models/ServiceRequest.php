@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class ServiceRequest extends Model
 {
     protected $fillable = [
+        'user_id',
+        'maid_id',
         'name',
         'phone',
         'service_type',
@@ -80,5 +82,21 @@ class ServiceRequest extends Model
     public function getStatusTextAttribute()
     {
         return $this->status;
+    }
+
+    /**
+     * Get the user that owns the service request
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the maid associated with the service request
+     */
+    public function maid()
+    {
+        return $this->belongsTo(Maid::class);
     }
 }

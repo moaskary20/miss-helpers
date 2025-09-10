@@ -486,6 +486,25 @@ return [
     'phone' => 'رقم الهاتف',
     'order_history' => 'تاريخ الطلبات',
     'request_new_service' => 'طلب خدمة جديدة',
+    'save_changes' => 'حفظ التغييرات',
+    
+    // Reviews
+    'my_reviews' => 'آرائي',
+    'add_review' => 'إضافة رأي',
+    'review_title' => 'عنوان الرأي',
+    'rating' => 'التقييم',
+    'comment' => 'التعليق',
+    'submit_review' => 'إرسال الرأي',
+    'share_your_experience' => 'شاركنا تجربتك معنا',
+    'approved' => 'موافق عليه',
+    'pending' => 'في الانتظار',
+    'rejected' => 'مرفوض',
+    'maids_you_worked_with' => 'الخادمات التي تعاملت معها',
+    'your_reviews' => 'آراؤك',
+    'select_maid' => 'اختر الخادمة',
+    'choose_maid' => 'اختر الخادمة',
+    'work_with_maid_first' => 'يجب أن تتعامل مع خادمة أولاً قبل إضافة رأي',
+    'view_profile' => 'عرض الملف الشخصي',
     
     // Meta
     'meta_description' => 'اعثر على خادمات محترفات ومساعدات منزلية في المملكة العربية السعودية. خدمة موثوقة مع حجز سهل وموظفين موثوقين.',

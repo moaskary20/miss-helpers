@@ -8,7 +8,7 @@ return [
     'contact' => 'Contact Us',
     'get_maid_now' => 'Get a Maid Now',
     'english' => 'English',
-    'arabic' => 'العربية',
+    'arabic' => 'العربية',ء ا
     
     // Home Page
     'welcome_title' => 'Welcome to Miss Helpers',
@@ -486,6 +486,25 @@ return [
     'phone' => 'Phone',
     'order_history' => 'Order History',
     'request_new_service' => 'Request New Service',
+    'save_changes' => 'Save Changes',
+    
+    // Reviews
+    'my_reviews' => 'My Reviews',
+    'add_review' => 'Add Review',
+    'review_title' => 'Review Title',
+    'rating' => 'Rating',
+    'comment' => 'Comment',
+    'submit_review' => 'Submit Review',
+    'share_your_experience' => 'Share your experience with us',
+    'approved' => 'Approved',
+    'pending' => 'Pending',
+    'rejected' => 'Rejected',
+    'maids_you_worked_with' => 'Maids You Worked With',
+    'your_reviews' => 'Your Reviews',
+    'select_maid' => 'Select Maid',
+    'choose_maid' => 'Choose Maid',
+    'work_with_maid_first' => 'You must work with a maid first before adding a review',
+    'view_profile' => 'View Profile',
     
     // Meta
     'meta_description' => 'Find professional maids and domestic helpers in Saudi Arabia. Trusted service with easy booking and reliable staff.',

@@ -7,17 +7,33 @@ use Illuminate\Database\Eloquent\Model;
 class CustomerReview extends Model
 {
     protected $fillable = [
-        'customer_name',
-        'customer_photo',
-        'customer_location',
+        'user_id',
+        'maid_id',
+        'title',
         'rating',
-        'description',
+        'comment',
         'status'
     ];
 
     protected $casts = [
         'rating' => 'integer'
     ];
+
+    /**
+     * Get the user that owns the review
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the maid that this review is for
+     */
+    public function maid()
+    {
+        return $this->belongsTo(Maid::class);
+    }
 
     public function getRatingStarsAttribute()
     {
