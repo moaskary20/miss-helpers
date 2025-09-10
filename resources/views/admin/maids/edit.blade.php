@@ -375,7 +375,7 @@
                                 </div>
                             @endforeach
                         @else
-                            @foreach($maid->skills() as $index => $skill)
+                            @foreach($maid->skills()->get() as $index => $skill)
                                 <div class="skill-item row mb-3">
                                     <div class="col-md-5">
                                         <input type="text" class="form-control @error('skills.'.$index.'.skill_name') is-invalid @enderror" 
@@ -509,7 +509,7 @@
                                 </div>
                             @endforeach
                         @else
-                            @foreach($maid->workExperiences() as $index => $work)
+                            @foreach($maid->workExperiences()->get() as $index => $work)
                                 <div class="work-experience-item row mb-3">
                                     <div class="col-md-2">
                                         <input type="text" class="form-control @error('work_experiences.'.$index.'.company_name') is-invalid @enderror" 

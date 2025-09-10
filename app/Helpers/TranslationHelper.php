@@ -155,6 +155,20 @@ class TranslationHelper
             return __('messages.indonesia');
         }
         
+        // Marital Status
+        if ($value === 'متزوج/متزوجة') {
+            return __('messages.married');
+        }
+        if ($value === 'أعزب/عزباء') {
+            return __('messages.single');
+        }
+        if ($value === 'مطلق/مطلقة') {
+            return __('messages.divorced');
+        }
+        if ($value === 'أرمل/أرملة') {
+            return __('messages.widowed');
+        }
+        
         // If no translation found, return original value
         return $value;
     }

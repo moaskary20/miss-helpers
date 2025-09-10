@@ -570,7 +570,7 @@
                         </div>
                         <div class="info-item">
                             <div class="info-label">{{ __('messages.marital_status') }}</div>
-                            <div class="info-value">{{ $maid->marital_status ?? __('messages.not_specified') }}</div>
+                            <div class="info-value">{{ \App\Helpers\TranslationHelper::translateMaidValue($maid->marital_status) }}</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">{{ __('messages.children_count') }}</div>

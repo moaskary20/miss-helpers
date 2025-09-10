@@ -32,20 +32,18 @@
         
         /* Header Styles */
         .site-header {
-            background: #fff;
-            border-bottom: 1px solid #e9ecef;
-            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
+            background: #fff;
+            border-bottom: 1px solid #f1f1f1;
         }
         
         .header-inner {
+            height: 64px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            width: 100%;
-            padding: 0 15px;
+            justify-content: space-between;
         }
         
         .brand {
@@ -53,50 +51,37 @@
             align-items: center;
             gap: 10px;
             text-decoration: none;
-            color: #333;
         }
         
         .brand img {
-            height: 40px;
-            width: auto;
+            height: 34px;
         }
         
         .brand .title {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: #333;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
+            font-weight: 800;
+            color: #1c1c1c;
+            letter-spacing: .5px;
         }
         
         .nav-links a {
+            color: #1c1c1c;
             text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 600;
         }
         
         .nav-links a:hover {
-            color: #007bff;
+            background: #f6f7fb;
         }
         
         .cta-btn {
-            background: #007bff;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-        
-        .cta-btn:hover {
-            background: #0056b3;
-            color: white;
+            background: #0d6efd;
+            color: #fff;
+            border: none;
+            border-radius: 18px;
+            padding: 10px 18px;
+            font-weight: 800;
         }
         
         /* Main Content */
@@ -304,17 +289,6 @@
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .header-inner {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .nav-links {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-            
             .brand .title {
                 font-size: 1.2rem;
             }
