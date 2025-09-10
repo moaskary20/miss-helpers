@@ -317,8 +317,7 @@
                     <!-- الباقة المرنة -->
                     <div class="package-card">
                         <div class="package-header">
-                            <h2 class="package-title">{{ __('messages.our_services') }}</h2>
-                            <p class="package-subtitle">الباقة المرنة</p>
+                            <h2 class="package-title">الباقة المرنة</h2>
                         </div>
                         
                         <div class="package-price">
@@ -377,8 +376,7 @@
                         <div class="recommended-ribbon">{{ __('messages.recommended') }}</div>
                         
                         <div class="package-header">
-                            <h2 class="package-title">{{ __('messages.our_services') }}</h2>
-                            <p class="package-subtitle">الباقة التقليدية</p>
+                            <h2 class="package-title">الباقة التقليدية</h2>
                         </div>
                         
                         <div class="package-price">
