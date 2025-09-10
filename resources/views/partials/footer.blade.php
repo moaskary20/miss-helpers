@@ -114,6 +114,13 @@
     </div>
 </footer>
 
+<!-- WhatsApp Floating Button -->
+<div class="whatsapp-float">
+    <a href="https://wa.me/97143430391" target="_blank" class="whatsapp-btn" title="تواصل معنا عبر واتساب">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+</div>
+
 <style>
 /* Footer */
 .footer-section {
@@ -353,6 +360,72 @@
     .footer-bottom-links a {
         font-size: 0.9rem;
         margin: 0 8px;
+    }
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 1000;
+    animation: pulse 2s infinite;
+}
+
+.whatsapp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    font-size: 28px;
+}
+
+.whatsapp-btn:hover {
+    background: #128C7E;
+    color: white;
+    text-decoration: none;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-btn i {
+    font-size: 28px;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+/* Mobile Responsive for WhatsApp Button */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        bottom: 80px;
+        right: 15px;
+    }
+    
+    .whatsapp-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+    
+    .whatsapp-btn i {
+        font-size: 24px;
     }
 }
 </style>
