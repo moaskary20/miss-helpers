@@ -192,7 +192,7 @@ return [
     'select_emirate' => 'Select Emirate',
     'message' => 'Message',
     'write_message_here_contact' => 'Write your message here...',
-    'send' => 'Send',
+    'send' => 'Book Now',
     'email' => 'Email',
     'phone' => 'Phone Number',
     'message_sent_successfully' => 'Your message has been sent successfully! We will contact you soon.',
@@ -362,7 +362,7 @@ return [
     'send_message' => 'Send Message',
     'message' => 'Message',
     'subject' => 'Subject',
-    'send' => 'Send',
+    'send' => 'Book Now',
     'message_sent_successfully' => 'Message sent successfully!',
     
     // Blog

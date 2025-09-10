@@ -192,7 +192,7 @@ return [
     'select_emirate' => 'اختر الإمارة',
     'message' => 'الرسالة',
     'write_message_here_contact' => 'اكتب رسالتك هنا...',
-    'send' => 'إرسال',
+    'send' => 'احجز الآن',
     'email' => 'البريد الإلكتروني',
     'phone' => 'رقم الهاتف',
     'message_sent_successfully' => 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.',
@@ -362,7 +362,7 @@ return [
     'send_message' => 'إرسال رسالة',
     'message' => 'الرسالة',
     'subject' => 'الموضوع',
-    'send' => 'إرسال',
+    'send' => 'احجز الآن',
     'message_sent_successfully' => 'تم إرسال الرسالة بنجاح!',
     
     // Blog
