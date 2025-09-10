@@ -12,17 +12,13 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        $packageType = $request->get('package', 'all');
+        $packageType = $request->get('package');
         
-        // جلب الخادمات حسب نوع الباقة
-        $query = Maid::query();
-        
-        if ($packageType !== 'all') {
-            $query->where('package_type', $packageType);
+        // إذا تم اختيار باقة، توجيه إلى صفحة الخادمات مع الفلتر
+        if ($packageType) {
+            return redirect()->route('maids.all', ['package_type' => $packageType]);
         }
         
-        $maids = $query->with(['skills', 'workExperiences'])->get();
-        
-        return view('service.index', compact('maids', 'packageType'));
+        return view('service.index');
     }
 }

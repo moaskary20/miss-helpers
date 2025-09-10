@@ -42,6 +42,11 @@ class MaidController extends Controller
             }
         }
 
+        // فلترة حسب نوع الباقة
+        if ($request->filled('package_type')) {
+            $query->where('package_type', $request->package_type);
+        }
+
         // فلترة حسب الحالة
         if ($request->filled('status')) {
             $query->where('status', $request->status);

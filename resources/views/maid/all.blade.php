@@ -372,6 +372,17 @@
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
+                            <label class="filter-label">{{ __('messages.package_type') }}</label>
+                            <select name="package_type" class="form-select filter-select">
+                                <option value="">{{ __('messages.all_packages') }}</option>
+                                <option value="الباقة المرنة" {{ request('package_type') == 'الباقة المرنة' ? 'selected' : '' }}>{{ __('messages.flexible_package') }}</option>
+                                <option value="الباقة التقليدية" {{ request('package_type') == 'الباقة التقليدية' ? 'selected' : '' }}>{{ __('messages.traditional_package') }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="filter-group">
                             <label class="filter-label">{{ __('messages.status') }}</label>
                             <select name="status" class="form-select filter-select">
                                 <option value="">{{ __('messages.all_statuses') }}</option>

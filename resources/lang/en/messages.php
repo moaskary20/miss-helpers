@@ -506,6 +506,7 @@ return [
     'work_with_maid_first' => 'You must work with a maid first before adding a review',
     'view_profile' => 'View Profile',
     'no_maids_available' => 'No maids available in',
+    'all_packages' => 'All Packages',
     
     // Meta
     'meta_description' => 'Find professional maids and domestic helpers in Saudi Arabia. Trusted service with easy booking and reliable staff.',
