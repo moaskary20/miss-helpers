@@ -22,6 +22,7 @@ class Maid extends Model
         'job_title',
         'contract_type',
         'contract_fees',
+        'monthly_salary',
         'nationality',
         'service_type',
         'experience_years',
@@ -42,6 +43,7 @@ class Maid extends Model
         'height' => 'decimal:2',
         'weight' => 'decimal:2',
         'contract_fees' => 'decimal:2',
+        'monthly_salary' => 'decimal:2',
     ];
 
     // العلاقة مع المهارات

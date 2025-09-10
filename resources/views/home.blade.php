@@ -342,7 +342,7 @@
                     <button type="button" class="btn btn-outline-secondary me-3" data-bs-toggle="modal" data-bs-target="#loginModal">{{ __('messages.login') }}</button>
                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#registerModal">{{ __('messages.register') }}</button>
                 @else
-                    <span class="me-3">{{ Auth::user()->name }}</span>
+                    <a href="{{ route('user.profile') }}" class="me-3 text-decoration-none text-primary fw-bold">{{ Auth::user()->name }}</a>
                     <form method="POST" action="{{ route('auth.logout') }}" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-outline-danger btn-sm">{{ __('messages.logout') }}</button>
@@ -369,7 +369,7 @@
                     <button type="button" class="btn btn-outline-secondary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#loginModal">{{ __('messages.login') }}</button>
                     <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#registerModal">{{ __('messages.register') }}</button>
                 @else
-                    <span class="d-block py-2">{{ Auth::user()->name }}</span>
+                    <a href="{{ route('user.profile') }}" class="d-block py-2 text-decoration-none text-primary fw-bold">{{ Auth::user()->name }}</a>
                     <form method="POST" action="{{ route('auth.logout') }}">
                         @csrf
                         <button type="submit" class="btn btn-outline-danger btn-sm w-100">{{ __('messages.logout') }}</button>

@@ -116,6 +116,14 @@
                                         <strong>التعليم:</strong>
                                         <p class="text-muted">{{ $maid->education }}</p>
                                     </div>
+                                    <div class="col-md-6 mb-3">
+                                        <strong>الحالة الاجتماعية:</strong>
+                                        <p class="text-muted">{{ $maid->marital_status ?? 'غير محدد' }}</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <strong>عدد الأطفال:</strong>
+                                        <p class="text-muted">{{ $maid->children_count ?? '0' }}</p>
+                                    </div>
                                     @if($maid->height)
                                         <div class="col-md-6 mb-3">
                                             <strong>الطول:</strong>
@@ -184,7 +192,11 @@
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <strong>رسوم العقد:</strong>
-                                        <p class="text-success fw-bold fs-5">{{ number_format($maid->contract_fees) }} ريال</p>
+                                        <p class="text-success fw-bold fs-5">{{ number_format($maid->contract_fees) }} درهم إماراتي</p>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <strong>الراتب الشهري:</strong>
+                                        <p class="text-primary fw-bold fs-5">{{ number_format($maid->monthly_salary) }} درهم إماراتي</p>
                                     </div>
                                 </div>
                             </div>

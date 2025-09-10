@@ -39,7 +39,19 @@ return [
     
     // Home Page Additional
     'traditional_package' => 'الباقة التقليدية',
+    'flexible_package' => 'الباقة المرنة',
     'monthly_package' => 'الباقة الشهرية',
+    
+    // Job Titles
+    'housemaid' => 'عاملة منزلية',
+    'nanny' => 'مربية أطفال',
+    'elderly_care' => 'رعاية كبار السن',
+    'cook' => 'طباخة',
+    'driver' => 'سائقة',
+    
+    // Contract Types
+    'two_year_contract' => 'عقد سنتين',
+    'monthly_contract' => 'عقد شهري',
     'happy_customers' => 'العملاء السعداء',
     'maid_alt' => 'الخادمة',
     'miss_helpers_center' => 'مركز ميس هيلبرز',
@@ -192,11 +204,14 @@ return [
     'nanny' => 'مربية أطفال',
     
     // Nationality Options
-    'sri_lanka' => 'سريلانكا',
+    'myanmar' => 'ميانمار',
     'philippines' => 'الفلبين',
-    'indonesia' => 'إندونيسيا',
     'ethiopia' => 'إثيوبيا',
+    'sri_lanka' => 'سريلانكا',
+    'uganda' => 'أوغندا',
     'kenya' => 'كينيا',
+    'madagascar' => 'مدغشقر',
+    'indonesia' => 'إندونيسيا',
     
     // Customer Reviews Section
     'customer_reviews' => 'آراء عملائنا',
@@ -274,10 +289,12 @@ return [
     'job_title' => 'الوظيفة',
     'contract_type' => 'نوع العقد',
     'contract_fees' => 'رسوم العقد',
+    'monthly_salary' => 'الراتب الشهري',
     'language' => 'اللغة',
     'status' => 'الحالة',
     'available' => 'متاحة',
-    'riyal' => 'ريال',
+    'unavailable' => 'غير متاحة',
+    'riyal' => 'درهم إماراتي',
     
     // Reviews
     'client' => 'عميل',
@@ -442,6 +459,29 @@ return [
     'newsletter' => 'النشرة الإخبارية',
     'subscribe' => 'اشترك',
     'enter_email' => 'أدخل بريدك الإلكتروني',
+    
+    // User Profile
+    'profile' => 'الملف الشخصي',
+    'personal_information' => 'المعلومات الشخصية',
+    'my_orders' => 'طلباتي',
+    'change_password' => 'تغيير كلمة المرور',
+    'current_password' => 'كلمة المرور الحالية',
+    'new_password' => 'كلمة المرور الجديدة',
+    'confirm_password' => 'تأكيد كلمة المرور',
+    'update_profile' => 'تحديث الملف الشخصي',
+    'update_password' => 'تحديث كلمة المرور',
+    'save_changes' => 'حفظ التغييرات',
+    'member_since' => 'عضو منذ',
+    'quick_stats' => 'إحصائيات سريعة',
+    'orders' => 'الطلبات',
+    'conversations' => 'المحادثات',
+    'no_orders_yet' => 'لا توجد طلبات بعد',
+    'when_you_request_service' => 'عندما تقوم بطلب خدمة، ستظهر هنا',
+    'name' => 'الاسم',
+    'email' => 'البريد الإلكتروني',
+    'phone' => 'رقم الهاتف',
+    'order_history' => 'تاريخ الطلبات',
+    'request_new_service' => 'طلب خدمة جديدة',
     
     // Meta
     'meta_description' => 'اعثر على خادمات محترفات ومساعدات منزلية في المملكة العربية السعودية. خدمة موثوقة مع حجز سهل وموظفين موثوقين.',

@@ -505,7 +505,7 @@
                 </div>
                 <div class="col-lg-6">
                     <h1 class="display-5 fw-bold mb-3">{{ $maid->name }}</h1>
-                    <p class="lead mb-4">{{ $maid->nationality }} • {{ $maid->age ?? __('messages.not_specified') }} {{ __('messages.years') }}</p>
+                    <p class="lead mb-4">{{ \App\Helpers\TranslationHelper::translateMaidValue($maid->nationality) }} • {{ $maid->age ?? __('messages.not_specified') }} {{ __('messages.years') }}</p>
                     <div class="rating-stars mb-3">
                         @for($i = 1; $i <= 5; $i++)
                             @if($i <= ($maid->rating ?? 0))
@@ -562,7 +562,7 @@
                         </div>
                         <div class="info-item">
                             <div class="info-label">{{ __('messages.nationality') }}</div>
-                            <div class="info-value">{{ $maid->nationality }}</div>
+                            <div class="info-value">{{ \App\Helpers\TranslationHelper::translateMaidValue($maid->nationality) }}</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">{{ __('messages.age') }}</div>
@@ -732,21 +732,27 @@
                         <div class="info-item">
                             <div class="info-label">{{ __('messages.package_type') }}</div>
                             <div class="info-value">
-                                <span class="badge bg-primary">{{ $maid->package_type ?? __('messages.not_specified') }}</span>
+                                <span class="badge bg-primary">{{ \App\Helpers\TranslationHelper::translateMaidValue($maid->package_type) }}</span>
                             </div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">{{ __('messages.job_title') }}</div>
-                            <div class="info-value">{{ $maid->job_title ?? __('messages.not_specified') }}</div>
+                            <div class="info-value">{{ \App\Helpers\TranslationHelper::translateMaidValue($maid->job_title) }}</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">{{ __('messages.contract_type') }}</div>
-                            <div class="info-value">{{ $maid->contract_type ?? __('messages.not_specified') }}</div>
+                            <div class="info-value">{{ \App\Helpers\TranslationHelper::translateMaidValue($maid->contract_type) }}</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">{{ __('messages.contract_fees') }}</div>
                             <div class="info-value">
                                 <span class="text-success fw-bold">{{ number_format($maid->contract_fees ?? 0) }} {{ __('messages.riyal') }}</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">{{ __('messages.monthly_salary') }}</div>
+                            <div class="info-value">
+                                <span class="text-primary fw-bold">{{ number_format($maid->monthly_salary ?? 0) }} {{ __('messages.riyal') }}</span>
                             </div>
                         </div>
                         <div class="info-item">
@@ -756,7 +762,7 @@
                         <div class="info-item">
                             <div class="info-label">{{ __('messages.status') }}</div>
                             <div class="info-value">
-                                <span class="badge bg-success">{{ $maid->status ?? __('messages.available') }}</span>
+                                <span class="badge bg-success">{{ \App\Helpers\TranslationHelper::translateMaidValue($maid->status) }}</span>
                             </div>
                         </div>
                     </div>

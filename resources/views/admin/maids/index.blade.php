@@ -42,6 +42,7 @@
                                     <th>نوع الباقة</th>
                                     <th>الوظيفة</th>
                                     <th>رسوم العقد</th>
+                                    <th>الراتب الشهري</th>
                                     <th>المهارات</th>
                                     <th>تاريخ الإضافة</th>
                                     <th>الإجراءات</th>
@@ -80,7 +81,10 @@
                                         </td>
                                         <td>{{ $maid->job_title }}</td>
                                         <td>
-                                            <strong class="text-success">{{ number_format($maid->contract_fees, 2) }} ريال</strong>
+                                            <strong class="text-success">{{ number_format($maid->contract_fees, 2) }} درهم إماراتي</strong>
+                                        </td>
+                                        <td>
+                                            <strong class="text-primary">{{ number_format($maid->monthly_salary, 2) }} درهم إماراتي</strong>
                                         </td>
                                         <td>
                                             @if($maid->skills()->count() > 0)

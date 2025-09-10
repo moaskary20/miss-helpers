@@ -194,7 +194,7 @@
                                 </div>
                                 
                                 <div class="col-md-6 mb-3">
-                                    <label for="contract_fees" class="form-label">رسوم العقد (ريال) <span class="text-danger">*</span></label>
+                                    <label for="contract_fees" class="form-label">رسوم العقد (درهم إماراتي) <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control @error('contract_fees') is-invalid @enderror" 
                                            id="contract_fees" name="contract_fees" value="{{ old('contract_fees') }}" 
                                            min="0" step="0.01" required>

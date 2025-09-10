@@ -183,6 +183,36 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
+                                <label for="marital_status" class="form-label">الحالة الاجتماعية <span class="text-danger">*</span></label>
+                                <select class="form-select @error('marital_status') is-invalid @enderror" 
+                                        id="marital_status" name="marital_status" required>
+                                    <option value="">اختر الحالة الاجتماعية</option>
+                                    <option value="أعزب/عزباء" {{ old('marital_status', $maid->marital_status) == 'أعزب/عزباء' ? 'selected' : '' }}>أعزب/عزباء</option>
+                                    <option value="متزوج/متزوجة" {{ old('marital_status', $maid->marital_status) == 'متزوج/متزوجة' ? 'selected' : '' }}>متزوج/متزوجة</option>
+                                    <option value="مطلق/مطلقة" {{ old('marital_status', $maid->marital_status) == 'مطلق/مطلقة' ? 'selected' : '' }}>مطلق/مطلقة</option>
+                                    <option value="أرمل/أرملة" {{ old('marital_status', $maid->marital_status) == 'أرمل/أرملة' ? 'selected' : '' }}>أرمل/أرملة</option>
+                                </select>
+                                @error('marital_status')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="children_count" class="form-label">عدد الأطفال <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control @error('children_count') is-invalid @enderror" 
+                                       id="children_count" name="children_count" value="{{ old('children_count', $maid->children_count) }}" 
+                                       min="0" max="10" required>
+                                @error('children_count')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
                                 <label for="height" class="form-label">الطول (سم)</label>
                                 <input type="number" class="form-control @error('height') is-invalid @enderror" 
                                        id="height" name="height" value="{{ old('height', $maid->height) }}" min="100" max="250" step="0.1">
@@ -201,6 +231,17 @@
                                 @enderror
                             </div>
                         </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="experience_years" class="form-label">سنوات الخبرة (محسوبة تلقائياً)</label>
+                        <input type="number" class="form-control @error('experience_years') is-invalid @enderror" 
+                               id="experience_years" name="experience_years" value="{{ old('experience_years', $maid->experience_years) }}" 
+                               min="0" max="50" readonly>
+                        <small class="form-text text-muted">سيتم حساب سنوات الخبرة تلقائياً من مجموع مدة خبرات العمل السابقة</small>
+                        @error('experience_years')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -268,11 +309,21 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="contract_fees" class="form-label">رسوم العقد (ريال) <span class="text-danger">*</span></label>
+                        <label for="contract_fees" class="form-label">رسوم العقد (درهم إماراتي) <span class="text-danger">*</span></label>
                         <input type="number" class="form-control @error('contract_fees') is-invalid @enderror" 
                                id="contract_fees" name="contract_fees" value="{{ old('contract_fees', $maid->contract_fees) }}" 
                                min="0" step="0.01" required>
                         @error('contract_fees')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="monthly_salary" class="form-label">الراتب الشهري (درهم إماراتي) <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control @error('monthly_salary') is-invalid @enderror" 
+                               id="monthly_salary" name="monthly_salary" value="{{ old('monthly_salary', $maid->monthly_salary) }}" 
+                               min="0" step="0.01" required>
+                        @error('monthly_salary')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -635,15 +686,42 @@
     }
 
     function removeWorkExperience(button) {
-        // إزالة الصفين المرتبطين بخبرة العمل الواحدة
-        const workItem1 = button.closest('.work-experience-item');
-        const workItem2 = workItem1.nextElementSibling;
+        // إزالة صف خبرة العمل الواحد
+        const workItem = button.closest('.work-experience-item');
+        workItem.remove();
+        // إعادة حساب سنوات الخبرة بعد الحذف
+        calculateExperienceYears();
+    }
+
+    // دالة لحساب سنوات الخبرة من مجموع المدة
+    function calculateExperienceYears() {
+        const durationInputs = document.querySelectorAll('input[name*="[duration]"]');
+        let totalYears = 0;
         
-        workItem1.remove();
-        if (workItem2 && workItem2.classList.contains('work-experience-item')) {
-            workItem2.remove();
+        durationInputs.forEach(input => {
+            const duration = input.value.trim();
+            if (duration) {
+                // استخراج الأرقام من النص (مثل "2 سنة" أو "3 سنوات" أو "1.5 سنة")
+                const match = duration.match(/(\d+(?:\.\d+)?)/);
+                if (match) {
+                    totalYears += parseFloat(match[1]);
+                }
+            }
+        });
+        
+        // تحديث حقل سنوات الخبرة
+        const experienceYearsInput = document.getElementById('experience_years');
+        if (experienceYearsInput) {
+            experienceYearsInput.value = Math.round(totalYears * 10) / 10; // تقريب لرقم عشري واحد
         }
     }
+
+    // إضافة event listeners لحقول المدة
+    document.addEventListener('input', function(e) {
+        if (e.target.name && e.target.name.includes('[duration]')) {
+            calculateExperienceYears();
+        }
+    });
 
     // إضافة validation للتواريخ
     function validateWorkExperienceDates() {
@@ -697,3 +775,4 @@
     });
 </script>
 @endsection
+

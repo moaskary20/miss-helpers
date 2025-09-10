@@ -137,10 +137,36 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
+                            <label class="form-label fw-bold">الحالة الاجتماعية:</label>
+                            <p class="form-control-plaintext">{{ $maid->marital_status ?? 'غير محدد' }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">عدد الأطفال:</label>
+                            <p class="form-control-plaintext">{{ $maid->children_count ?? '0' }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">سنوات الخبرة:</label>
+                            <p class="form-control-plaintext">
+                                <strong class="text-primary fs-5">{{ $maid->experience_years ?? '0' }} سنة</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
                             <label class="form-label fw-bold">الطول:</label>
                             <p class="form-control-plaintext">{{ $maid->height ? $maid->height . ' سم' : 'غير محدد' }}</p>
                         </div>
                     </div>
+                </div>
+                
+                <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label fw-bold">الوزن:</label>
@@ -184,7 +210,14 @@
                 <div class="mb-3">
                     <label class="form-label fw-bold">رسوم العقد:</label>
                     <p class="form-control-plaintext">
-                        <strong class="text-success fs-5">{{ number_format($maid->contract_fees, 2) }} ريال</strong>
+                        <strong class="text-success fs-5">{{ number_format($maid->contract_fees, 2) }} درهم إماراتي</strong>
+                    </p>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-bold">الراتب الشهري:</label>
+                    <p class="form-control-plaintext">
+                        <strong class="text-primary fs-5">{{ number_format($maid->monthly_salary, 2) }} درهم إماراتي</strong>
                     </p>
                 </div>
             </div>

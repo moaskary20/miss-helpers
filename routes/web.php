@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController as PublicAuthController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\UserProfileController;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
 
@@ -69,6 +70,11 @@ Route::post('/register', [PublicAuthController::class, 'register'])->name('auth.
 Route::get('/login', [PublicAuthController::class, 'showLoginForm'])->name('auth.login');
 Route::post('/login', [PublicAuthController::class, 'login'])->name('auth.login');
 Route::post('/logout', [PublicAuthController::class, 'logout'])->name('auth.logout');
+
+// User Profile routes
+Route::get('/profile', [UserProfileController::class, 'index'])->name('user.profile')->middleware('auth');
+Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update')->middleware('auth');
+Route::post('/profile/password', [UserProfileController::class, 'updatePassword'])->name('user.profile.password')->middleware('auth');
 
 // routes الشات
 Route::get('/chat', [PublicChatController::class, 'start'])->name('chat.start');

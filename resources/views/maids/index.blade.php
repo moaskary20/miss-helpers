@@ -44,6 +44,7 @@
                                             <th>اللغة</th>
                                             <th>نوع الباقة</th>
                                             <th>رسوم العقد</th>
+                                            <th>الراتب الشهري</th>
                                             <th>الإجراءات</th>
                                         </tr>
                                     </thead>
@@ -72,7 +73,8 @@
                                                 <td>
                                                     <span class="badge bg-info">{{ $maid->package_type }}</span>
                                                 </td>
-                                                <td class="text-success fw-bold">{{ number_format($maid->contract_fees) }} ريال</td>
+                                                <td class="text-success fw-bold">{{ number_format($maid->contract_fees) }} درهم إماراتي</td>
+                                                <td class="text-primary fw-bold">{{ number_format($maid->monthly_salary) }} درهم إماراتي</td>
                                                 <td>
                                                     <div class="btn-group" role="group">
                                                         <a href="{{ route('maids.show', $maid) }}" 

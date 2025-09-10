@@ -78,4 +78,84 @@ class TranslationHelper
     {
         return App::getLocale();
     }
+    
+    /**
+     * Translate maid values
+     */
+    public static function translateMaidValue($value, $type = null)
+    {
+        if (empty($value)) {
+            return __('messages.not_specified');
+        }
+        
+        // Package types
+        if ($value === 'الباقة التقليدية') {
+            return __('messages.traditional_package');
+        }
+        if ($value === 'الباقة المرنة') {
+            return __('messages.flexible_package');
+        }
+        
+        // Job titles
+        if ($value === 'عاملة منزلية') {
+            return __('messages.housemaid');
+        }
+        if ($value === 'مربية أطفال') {
+            return __('messages.nanny');
+        }
+        if ($value === 'رعاية كبار السن') {
+            return __('messages.elderly_care');
+        }
+        if ($value === 'طباخة') {
+            return __('messages.cook');
+        }
+        if ($value === 'سائقة') {
+            return __('messages.driver');
+        }
+        
+        // Contract types
+        if ($value === 'عقد سنتين') {
+            return __('messages.two_year_contract');
+        }
+        if ($value === 'عقد شهري') {
+            return __('messages.monthly_contract');
+        }
+        
+        // Status
+        if ($value === 'متاحة') {
+            return __('messages.available');
+        }
+        if ($value === 'غير متاحة') {
+            return __('messages.unavailable');
+        }
+        
+        // Nationalities
+        if ($value === 'ميانمار') {
+            return __('messages.myanmar');
+        }
+        if ($value === 'الفلبين') {
+            return __('messages.philippines');
+        }
+        if ($value === 'إثيوبيا') {
+            return __('messages.ethiopia');
+        }
+        if ($value === 'سريلانكا') {
+            return __('messages.sri_lanka');
+        }
+        if ($value === 'أوغندا') {
+            return __('messages.uganda');
+        }
+        if ($value === 'كينيا') {
+            return __('messages.kenya');
+        }
+        if ($value === 'مدغشقر') {
+            return __('messages.madagascar');
+        }
+        if ($value === 'إندونيسيا') {
+            return __('messages.indonesia');
+        }
+        
+        // If no translation found, return original value
+        return $value;
+    }
 }

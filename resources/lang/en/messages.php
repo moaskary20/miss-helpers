@@ -39,7 +39,19 @@ return [
     
     // Home Page Additional
     'traditional_package' => 'Traditional Package',
+    'flexible_package' => 'Flexible Package',
     'monthly_package' => 'Monthly Package',
+    
+    // Job Titles
+    'housemaid' => 'Housemaid',
+    'nanny' => 'Nanny',
+    'elderly_care' => 'Elderly Care',
+    'cook' => 'Cook',
+    'driver' => 'Driver',
+    
+    // Contract Types
+    'two_year_contract' => 'Two Year Contract',
+    'monthly_contract' => 'Monthly Contract',
     'happy_customers' => 'Happy Customers',
     'maid_alt' => 'Maid',
     'miss_helpers_center' => 'Miss Helpers Center',
@@ -192,11 +204,14 @@ return [
     'nanny' => 'Nanny',
     
     // Nationality Options
-    'sri_lanka' => 'Sri Lanka',
+    'myanmar' => 'Myanmar',
     'philippines' => 'Philippines',
-    'indonesia' => 'Indonesia',
     'ethiopia' => 'Ethiopia',
+    'sri_lanka' => 'Sri Lanka',
+    'uganda' => 'Uganda',
     'kenya' => 'Kenya',
+    'madagascar' => 'Madagascar',
+    'indonesia' => 'Indonesia',
     
     // Customer Reviews Section
     'customer_reviews' => 'Customer Reviews',
@@ -274,10 +289,12 @@ return [
     'job_title' => 'Job Title',
     'contract_type' => 'Contract Type',
     'contract_fees' => 'Contract Fees',
+    'monthly_salary' => 'Monthly Salary',
     'language' => 'Language',
     'status' => 'Status',
     'available' => 'Available',
-    'riyal' => 'Riyal',
+    'unavailable' => 'Unavailable',
+    'riyal' => 'UAE Dirham',
     
     // Reviews
     'client' => 'Client',
@@ -442,6 +459,29 @@ return [
     'newsletter' => 'Newsletter',
     'subscribe' => 'Subscribe',
     'enter_email' => 'Enter your email',
+    
+    // User Profile
+    'profile' => 'Profile',
+    'personal_information' => 'Personal Information',
+    'my_orders' => 'My Orders',
+    'change_password' => 'Change Password',
+    'current_password' => 'Current Password',
+    'new_password' => 'New Password',
+    'confirm_password' => 'Confirm Password',
+    'update_profile' => 'Update Profile',
+    'update_password' => 'Update Password',
+    'save_changes' => 'Save Changes',
+    'member_since' => 'Member since',
+    'quick_stats' => 'Quick Stats',
+    'orders' => 'Orders',
+    'conversations' => 'Conversations',
+    'no_orders_yet' => 'No orders yet',
+    'when_you_request_service' => 'When you request a service, it will appear here',
+    'name' => 'Name',
+    'email' => 'Email',
+    'phone' => 'Phone',
+    'order_history' => 'Order History',
+    'request_new_service' => 'Request New Service',
     
     // Meta
     'meta_description' => 'Find professional maids and domestic helpers in Saudi Arabia. Trusted service with easy booking and reliable staff.',

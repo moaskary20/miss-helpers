@@ -159,6 +159,36 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
+                                <label for="marital_status" class="form-label">الحالة الاجتماعية <span class="text-danger">*</span></label>
+                                <select class="form-select @error('marital_status') is-invalid @enderror" 
+                                        id="marital_status" name="marital_status" required>
+                                    <option value="">اختر الحالة الاجتماعية</option>
+                                    <option value="أعزب/عزباء" {{ old('marital_status') == 'أعزب/عزباء' ? 'selected' : '' }}>أعزب/عزباء</option>
+                                    <option value="متزوج/متزوجة" {{ old('marital_status') == 'متزوج/متزوجة' ? 'selected' : '' }}>متزوج/متزوجة</option>
+                                    <option value="مطلق/مطلقة" {{ old('marital_status') == 'مطلق/مطلقة' ? 'selected' : '' }}>مطلق/مطلقة</option>
+                                    <option value="أرمل/أرملة" {{ old('marital_status') == 'أرمل/أرملة' ? 'selected' : '' }}>أرمل/أرملة</option>
+                                </select>
+                                @error('marital_status')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="children_count" class="form-label">عدد الأطفال <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control @error('children_count') is-invalid @enderror" 
+                                       id="children_count" name="children_count" value="{{ old('children_count') }}" 
+                                       min="0" max="10" required>
+                                @error('children_count')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
                                 <label for="height" class="form-label">الطول (سم)</label>
                                 <input type="number" class="form-control @error('height') is-invalid @enderror" 
                                        id="height" name="height" value="{{ old('height') }}" min="100" max="250" step="0.1">
@@ -177,6 +207,17 @@
                                 @enderror
                             </div>
                         </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="experience_years" class="form-label">سنوات الخبرة (محسوبة تلقائياً)</label>
+                        <input type="number" class="form-control @error('experience_years') is-invalid @enderror" 
+                               id="experience_years" name="experience_years" value="{{ old('experience_years') }}" 
+                               min="0" max="50" readonly>
+                        <small class="form-text text-muted">سيتم حساب سنوات الخبرة تلقائياً من مجموع مدة خبرات العمل السابقة</small>
+                        @error('experience_years')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -244,11 +285,21 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="contract_fees" class="form-label">رسوم العقد (ريال) <span class="text-danger">*</span></label>
+                        <label for="contract_fees" class="form-label">رسوم العقد (درهم إماراتي) <span class="text-danger">*</span></label>
                         <input type="number" class="form-control @error('contract_fees') is-invalid @enderror" 
                                id="contract_fees" name="contract_fees" value="{{ old('contract_fees') }}" 
                                min="0" step="0.01" required>
                         @error('contract_fees')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="monthly_salary" class="form-label">الراتب الشهري (درهم إماراتي) <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control @error('monthly_salary') is-invalid @enderror" 
+                               id="monthly_salary" name="monthly_salary" value="{{ old('monthly_salary') }}" 
+                               min="0" step="0.01" required>
+                        @error('monthly_salary')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -319,47 +370,29 @@
                 <div class="card-body">
                     <div id="work-experiences-container">
                         <div class="work-experience-item row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label">اسم الشركة</label>
-                                <input type="text" class="form-control @error('work_experiences.0.company_name') is-invalid @enderror" 
-                                       name="work_experiences[0][company_name]" placeholder="اسم الشركة" 
-                                       value="{{ old('work_experiences.0.company_name') }}" required>
-                                @error('work_experiences.0.company_name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label">المنصب</label>
+                            <div class="col-md-4">
+                                <label class="form-label">الوظيفة <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('work_experiences.0.position') is-invalid @enderror" 
-                                       name="work_experiences[0][position]" placeholder="المنصب" 
+                                       name="work_experiences[0][position]" placeholder="الوظيفة" 
                                        value="{{ old('work_experiences.0.position') }}" required>
                                 @error('work_experiences.0.position')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-md-2">
-                                <label class="form-label">البلد</label>
+                            <div class="col-md-4">
+                                <label class="form-label">البلد <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('work_experiences.0.country') is-invalid @enderror" 
                                        name="work_experiences[0][country]" placeholder="البلد" 
-                                       value="{{ old('work_experiences.0.country') }}">
+                                       value="{{ old('work_experiences.0.country') }}" required>
                                 @error('work_experiences.0.country')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-md-2">
-                                <label class="form-label">نوع العمل</label>
-                                <input type="text" class="form-control @error('work_experiences.0.work_type') is-invalid @enderror" 
-                                       name="work_experiences[0][work_type]" placeholder="نوع العمل" 
-                                       value="{{ old('work_experiences.0.work_type') }}">
-                                @error('work_experiences.0.work_type')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label">المدة</label>
+                            <div class="col-md-3">
+                                <label class="form-label">المدة <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('work_experiences.0.duration') is-invalid @enderror" 
                                        name="work_experiences[0][duration]" placeholder="المدة" 
-                                       value="{{ old('work_experiences.0.duration') }}">
+                                       value="{{ old('work_experiences.0.duration') }}" required>
                                 @error('work_experiences.0.duration')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -369,35 +402,6 @@
                                 <button type="button" class="btn btn-outline-danger d-block" onclick="removeWorkExperience(this)">
                                     <i class="bi bi-trash"></i>
                                 </button>
-                            </div>
-                        </div>
-                        <div class="work-experience-item row mb-3">
-                            <div class="col-md-3">
-                                <label class="form-label">تاريخ البداية</label>
-                                <input type="date" class="form-control @error('work_experiences.0.start_date') is-invalid @enderror" 
-                                       name="work_experiences[0][start_date]" 
-                                       value="{{ old('work_experiences.0.start_date') }}" required>
-                                @error('work_experiences.0.start_date')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">تاريخ النهاية</label>
-                                <input type="date" class="form-control @error('work_experiences.0.end_date') is-invalid @enderror" 
-                                       name="work_experiences[0][end_date]" 
-                                       value="{{ old('work_experiences.0.end_date') }}">
-                                @error('work_experiences.0.end_date')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">الوصف</label>
-                                <textarea class="form-control @error('work_experiences.0.description') is-invalid @enderror" 
-                                          name="work_experiences[0][description]" placeholder="وصف العمل" 
-                                          rows="2">{{ old('work_experiences.0.description') }}</textarea>
-                                @error('work_experiences.0.description')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
                             </div>
                         </div>
                     </div>
@@ -461,34 +465,23 @@
     function addWorkExperience() {
         const container = document.getElementById('work-experiences-container');
         
-        // إضافة صف المعلومات الأساسية
-        const workItem1 = document.createElement('div');
-        workItem1.className = 'work-experience-item row mb-3';
-        workItem1.innerHTML = `
-            <div class="col-md-2">
-                <label class="form-label">اسم الشركة</label>
-                <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][company_name]" 
-                       placeholder="اسم الشركة" required>
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">المنصب</label>
+        const workItem = document.createElement('div');
+        workItem.className = 'work-experience-item row mb-3';
+        workItem.innerHTML = `
+            <div class="col-md-4">
+                <label class="form-label">الوظيفة <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][position]" 
-                       placeholder="المنصب" required>
+                       placeholder="الوظيفة" required>
             </div>
-            <div class="col-md-2">
-                <label class="form-label">البلد</label>
+            <div class="col-md-4">
+                <label class="form-label">البلد <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][country]" 
-                       placeholder="البلد">
+                       placeholder="البلد" required>
             </div>
-            <div class="col-md-2">
-                <label class="form-label">نوع العمل</label>
-                <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][work_type]" 
-                       placeholder="نوع العمل">
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">المدة</label>
+            <div class="col-md-3">
+                <label class="form-label">المدة <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][duration]" 
-                       placeholder="المدة">
+                       placeholder="المدة" required>
             </div>
             <div class="col-md-1">
                 <label class="form-label">&nbsp;</label>
@@ -498,77 +491,48 @@
             </div>
         `;
         
-        // إضافة صف التواريخ والوصف
-        const workItem2 = document.createElement('div');
-        workItem2.className = 'work-experience-item row mb-3';
-        workItem2.innerHTML = `
-            <div class="col-md-3">
-                <label class="form-label">تاريخ البداية</label>
-                <input type="date" class="form-control" name="work_experiences[${workExperienceIndex}][start_date]" required>
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">تاريخ النهاية</label>
-                <input type="date" class="form-control" name="work_experiences[${workExperienceIndex}][end_date]">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">الوصف</label>
-                <textarea class="form-control" name="work_experiences[${workExperienceIndex}][description]" 
-                          placeholder="وصف العمل" rows="2"></textarea>
-            </div>
-        `;
-        
-        container.appendChild(workItem1);
-        container.appendChild(workItem2);
+        container.appendChild(workItem);
         workExperienceIndex++;
     }
 
     function removeWorkExperience(button) {
-        // إزالة الصفين المرتبطين بخبرة العمل الواحدة
-        const workItem1 = button.closest('.work-experience-item');
-        const workItem2 = workItem1.nextElementSibling;
-        
-        workItem1.remove();
-        if (workItem2 && workItem2.classList.contains('work-experience-item')) {
-            workItem2.remove();
-        }
+        // إزالة صف خبرة العمل الواحد
+        const workItem = button.closest('.work-experience-item');
+        workItem.remove();
+        // إعادة حساب سنوات الخبرة بعد الحذف
+        calculateExperienceYears();
     }
 
-    // إضافة validation للتواريخ
-    function validateWorkExperienceDates() {
-        const startDates = document.querySelectorAll('input[name*="[start_date]"]');
-        const endDates = document.querySelectorAll('input[name*="[end_date]"]');
+    // دالة لحساب سنوات الخبرة من مجموع المدة
+    function calculateExperienceYears() {
+        const durationInputs = document.querySelectorAll('input[name*="[duration]"]');
+        let totalYears = 0;
         
-        for (let i = 0; i < startDates.length; i++) {
-            const startDate = startDates[i];
-            const endDate = endDates[i];
-            
-            if (startDate.value && endDate.value) {
-                if (new Date(endDate.value) <= new Date(startDate.value)) {
-                    endDate.setCustomValidity('تاريخ النهاية يجب أن يكون بعد تاريخ البداية');
-                    endDate.reportValidity();
-                    return false;
-                } else {
-                    endDate.setCustomValidity('');
+        durationInputs.forEach(input => {
+            const duration = input.value.trim();
+            if (duration) {
+                // استخراج الأرقام من النص (مثل "2 سنة" أو "3 سنوات" أو "1.5 سنة")
+                const match = duration.match(/(\d+(?:\.\d+)?)/);
+                if (match) {
+                    totalYears += parseFloat(match[1]);
                 }
             }
+        });
+        
+        // تحديث حقل سنوات الخبرة
+        const experienceYearsInput = document.getElementById('experience_years');
+        if (experienceYearsInput) {
+            experienceYearsInput.value = Math.round(totalYears * 10) / 10; // تقريب لرقم عشري واحد
         }
-        return true;
     }
 
-    // إضافة event listeners للتواريخ
-    document.addEventListener('change', function(e) {
-        if (e.target.name && e.target.name.includes('[start_date]') || e.target.name.includes('[end_date]')) {
-            validateWorkExperienceDates();
+    // إضافة event listeners لحقول المدة
+    document.addEventListener('input', function(e) {
+        if (e.target.name && e.target.name.includes('[duration]')) {
+            calculateExperienceYears();
         }
     });
 
-    // إضافة validation قبل إرسال الـ form
-    document.querySelector('form').addEventListener('submit', function(e) {
-        if (!validateWorkExperienceDates()) {
-            e.preventDefault();
-            return false;
-        }
-    });
 
     // حساب العمر تلقائياً عند تغيير تاريخ الميلاد
     document.getElementById('birth_date').addEventListener('change', function() {
