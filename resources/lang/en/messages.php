@@ -8,7 +8,7 @@ return [
     'contact' => 'Contact Us',
     'get_maid_now' => 'Get a Maid Now',
     'english' => 'English',
-    'arabic' => 'العربية',ء ا
+    'arabic' => 'العربية',
     
     // Home Page
     'welcome_title' => 'Welcome to Miss Helpers',
