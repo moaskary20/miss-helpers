@@ -262,11 +262,11 @@ return [
     'skills' => 'Skills',
     'work_experience' => 'Work Experience',
     'reviews_ratings' => 'Reviews & Ratings',
-    'contact_booking' => 'Contact & Booking',
+    'contact_booking' => 'Booking & Inquiry',
     'contract_information' => 'Contract Information',
     'maid_video' => 'Maid Video',
     'back_to_maids_list' => 'Back to Maids List',
-    'call_now' => 'Call Now',
+    'call_now' => 'Book Now',
     'close' => 'Close',
     
     // Maid Details

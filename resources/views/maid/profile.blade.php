@@ -702,13 +702,13 @@
                 <!-- Contact & Actions -->
                 <div class="profile-card">
                     <h3 class="section-title">
-                        <i class="bi bi-telephone"></i>
+                        <i class="bi bi-calendar-check"></i>
                         {{ __('messages.contact_booking') }}
                     </h3>
                     
                     <div class="d-grid gap-3 mb-4">
                         <a href="{{ route('contact.index') }}" class="btn contact-btn">
-                            <i class="bi bi-telephone me-2"></i>
+                            <i class="bi bi-calendar-check me-2"></i>
                             {{ __('messages.call_now') }}
                         </a>
                     </div>

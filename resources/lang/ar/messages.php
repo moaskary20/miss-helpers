@@ -262,11 +262,11 @@ return [
     'skills' => 'المهارات',
     'work_experience' => 'الخبرات العملية',
     'reviews_ratings' => 'التقييمات والمراجعات',
-    'contact_booking' => 'التواصل والحجز',
+    'contact_booking' => 'الحجز والاستفسار',
     'contract_information' => 'معلومات العقد',
     'maid_video' => 'فيديو الخادمة',
     'back_to_maids_list' => 'العودة لقائمة الخادمات',
-    'call_now' => 'اتصل الآن',
+    'call_now' => 'احجز الآن',
     'close' => 'إغلاق',
     
     // Maid Details
