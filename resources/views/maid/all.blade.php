@@ -332,51 +332,51 @@
                 <div class="row g-3">
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">الجنسية</label>
+                            <label class="filter-label">{{ __('messages.nationality') }}</label>
                             <select name="nationality" class="form-select filter-select">
-                                <option value="">جميع الجنسيات</option>
-                                <option value="سريلانكا" {{ request('nationality') == 'سريلانكا' ? 'selected' : '' }}>سريلانكا</option>
-                                <option value="الفلبين" {{ request('nationality') == 'الفلبين' ? 'selected' : '' }}>الفلبين</option>
-                                <option value="إندونيسيا" {{ request('nationality') == 'إندونيسيا' ? 'selected' : '' }}>إندونيسيا</option>
-                                <option value="الهند" {{ request('nationality') == 'الهند' ? 'selected' : '' }}>الهند</option>
-                                <option value="باكستان" {{ request('nationality') == 'باكستان' ? 'selected' : '' }}>باكستان</option>
+                                <option value="">{{ __('messages.all_nationalities') }}</option>
+                                <option value="سريلانكا" {{ request('nationality') == 'سريلانكا' ? 'selected' : '' }}>{{ __('messages.nationality_sri_lanka') }}</option>
+                                <option value="الفلبين" {{ request('nationality') == 'الفلبين' ? 'selected' : '' }}>{{ __('messages.nationality_philippines') }}</option>
+                                <option value="إندونيسيا" {{ request('nationality') == 'إندونيسيا' ? 'selected' : '' }}>{{ __('messages.nationality_indonesia') }}</option>
+                                <option value="الهند" {{ request('nationality') == 'الهند' ? 'selected' : '' }}>{{ __('messages.nationality_india') }}</option>
+                                <option value="باكستان" {{ request('nationality') == 'باكستان' ? 'selected' : '' }}>{{ __('messages.nationality_pakistan') }}</option>
                             </select>
                         </div>
                     </div>
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">نوع الخدمة</label>
+                            <label class="filter-label">{{ __('messages.service_type') }}</label>
                             <select name="service" class="form-select filter-select">
-                                <option value="">{{ __('messages.our_services') }}</option>
-                                <option value="خادمة منزلية" {{ request('service') == 'خادمة منزلية' ? 'selected' : '' }}>خادمة منزلية</option>
-                                <option value="خادمة للطبخ" {{ request('service') == 'خادمة للطبخ' ? 'selected' : '' }}>خادمة للطبخ</option>
-                                <option value="خادمة للتنظيف" {{ request('service') == 'خادمة للتنظيف' ? 'selected' : '' }}>خادمة للتنظيف</option>
-                                <option value="خادمة للعناية بالأطفال" {{ request('service') == 'خادمة للعناية بالأطفال' ? 'selected' : '' }}>خادمة للعناية بالأطفال</option>
+                                <option value="">{{ __('messages.all_services') }}</option>
+                                <option value="خادمة منزلية" {{ request('service') == 'خادمة منزلية' ? 'selected' : '' }}>{{ __('messages.domestic_maid') }}</option>
+                                <option value="خادمة للطبخ" {{ request('service') == 'خادمة للطبخ' ? 'selected' : '' }}>{{ __('messages.cooking_maid') }}</option>
+                                <option value="خادمة للتنظيف" {{ request('service') == 'خادمة للتنظيف' ? 'selected' : '' }}>{{ __('messages.cleaning_maid') }}</option>
+                                <option value="خادمة للعناية بالأطفال" {{ request('service') == 'خادمة للعناية بالأطفال' ? 'selected' : '' }}>{{ __('messages.childcare_maid') }}</option>
                             </select>
                         </div>
                     </div>
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">سنوات الخبرة</label>
+                            <label class="filter-label">{{ __('messages.experience_years') }}</label>
                             <select name="experience" class="form-select filter-select">
-                                <option value="">جميع المستويات</option>
-                                <option value="1-3" {{ request('experience') == '1-3' ? 'selected' : '' }}>1-3 سنوات</option>
-                                <option value="4-6" {{ request('experience') == '4-6' ? 'selected' : '' }}>4-6 سنوات</option>
-                                <option value="7-10" {{ request('experience') == '7-10' ? 'selected' : '' }}>7-10 سنوات</option>
-                                <option value="10+" {{ request('experience') == '10+' ? 'selected' : '' }}>أكثر من 10 سنوات</option>
+                                <option value="">{{ __('messages.all_levels') }}</option>
+                                <option value="1-3" {{ request('experience') == '1-3' ? 'selected' : '' }}>{{ __('messages.years_1_3') }}</option>
+                                <option value="4-6" {{ request('experience') == '4-6' ? 'selected' : '' }}>{{ __('messages.years_4_6') }}</option>
+                                <option value="7-10" {{ request('experience') == '7-10' ? 'selected' : '' }}>{{ __('messages.years_7_10') }}</option>
+                                <option value="10+" {{ request('experience') == '10+' ? 'selected' : '' }}>{{ __('messages.years_10_plus') }}</option>
                             </select>
                         </div>
                     </div>
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">الحالة</label>
+                            <label class="filter-label">{{ __('messages.status') }}</label>
                             <select name="status" class="form-select filter-select">
-                                <option value="">جميع الحالات</option>
-                                <option value="متاحة" {{ request('status') == 'متاحة' ? 'selected' : '' }}>متاحة</option>
-                                <option value="غير متاحة" {{ request('status') == 'غير متاحة' ? 'selected' : '' }}>غير متاحة</option>
+                                <option value="">{{ __('messages.all_statuses') }}</option>
+                                <option value="متاحة" {{ request('status') == 'متاحة' ? 'selected' : '' }}>{{ __('messages.available') }}</option>
+                                <option value="غير متاحة" {{ request('status') == 'غير متاحة' ? 'selected' : '' }}>{{ __('messages.unavailable') }}</option>
                             </select>
                         </div>
                     </div>
@@ -386,11 +386,11 @@
                     <div class="col-12 text-center">
                         <button type="submit" class="btn search-btn">
                             <i class="bi bi-search me-2"></i>
-                            بحث
+                            {{ __('messages.search') }}
                         </button>
                         <a href="{{ route('maids.all') }}" class="btn btn-outline-secondary ms-2">
                             <i class="bi bi-arrow-clockwise me-2"></i>
-                            إعادة تعيين
+                            {{ __('messages.reset') }}
                         </a>
                     </div>
                 </div>
@@ -441,14 +441,14 @@
                                 <div class="maid-stats">
                                     <span class="views-badge">
                                         <i class="bi bi-eye me-1"></i>
-                                        مشاهدات {{ $maid->views_count ?? rand(40, 80) }}
+                                        {{ __('messages.views') }} {{ $maid->views_count ?? rand(40, 80) }}
                                     </span>
                                     <span class="nationality-badge">{{ $maid->nationality }}</span>
                                 </div>
                                 
                                 <div class="maid-actions-bottom">
                                     <a href="{{ route('maid.profile', $maid->id) }}" class="btn btn-primary w-100">
-                                        مشاهدة الملف الشخصي
+                                        {{ __('messages.view_profile') }}
                                     </a>
                                 </div>
                             </div>
@@ -464,7 +464,7 @@
         @else
             <div class="no-results">
                 <i class="bi bi-search"></i>
-                <h3>لا توجد نتائج</h3>
+                <h3>{{ __('messages.no_results') }}</h3>
                 <p>{{ __('messages.search_placeholder') }}</p>
                 <a href="{{ route('maids.all') }}" class="btn btn-primary">
                     <i class="bi bi-arrow-clockwise me-2"></i>

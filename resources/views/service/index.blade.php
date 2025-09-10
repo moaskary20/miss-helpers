@@ -314,11 +314,11 @@
             
             <div class="packages-container">
                 <div class="packages-row">
-                    <!-- الباقة الشهرية -->
+                    <!-- الباقة المرنة -->
                     <div class="package-card">
                         <div class="package-header">
                             <h2 class="package-title">{{ __('messages.our_services') }}</h2>
-                            <p class="package-subtitle">{{ __('messages.monthly_solution') }}</p>
+                            <p class="package-subtitle">الباقة المرنة</p>
                         </div>
                         
                         <div class="package-price">
@@ -372,13 +372,13 @@
                         </div>
                     </div>
                     
-                    <!-- الباقة الرئيسية -->
+                    <!-- الباقة التقليدية -->
                     <div class="package-card">
                         <div class="recommended-ribbon">{{ __('messages.recommended') }}</div>
                         
                         <div class="package-header">
                             <h2 class="package-title">{{ __('messages.our_services') }}</h2>
-                            <p class="package-subtitle">{{ __('messages.long_term_solution') }}</p>
+                            <p class="package-subtitle">الباقة التقليدية</p>
                         </div>
                         
                         <div class="package-price">

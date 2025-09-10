@@ -131,6 +131,27 @@
             color: #dc3545;
             font-size: 0.875rem;
             margin-top: 5px;
+            display: block;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
         }
 
         .back-home {
@@ -200,7 +221,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('auth.register') }}">
+            <form id="registerForm" method="POST" action="{{ route('auth.register') }}">
                 @csrf
                 
                 <div class="form-group">
@@ -281,5 +302,93 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/chat-widget.js') }}"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registerForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Clear previous errors
+                clearErrors();
+                
+                const formData = new FormData(form);
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        showMessage('تم إنشاء الحساب بنجاح!', 'success');
+                        
+                        // Redirect after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = '{{ route("welcome") }}';
+                        }, 2000);
+                    } else {
+                        // Show error message
+                        showMessage(data.message || 'حدث خطأ أثناء إنشاء الحساب', 'error');
+                        
+                        // Show field errors
+                        if (data.errors) {
+                            showFieldErrors(data.errors);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showMessage('حدث خطأ أثناء إنشاء الحساب', 'error');
+                });
+            });
+            
+            function clearErrors() {
+                // Remove existing error messages
+                const existingErrors = document.querySelectorAll('.error-message');
+                existingErrors.forEach(error => error.remove());
+                
+                // Remove error classes
+                const inputs = document.querySelectorAll('.form-control');
+                inputs.forEach(input => input.classList.remove('is-invalid'));
+            }
+            
+            function showMessage(message, type) {
+                // Remove existing alerts
+                const existingAlerts = document.querySelectorAll('.alert');
+                existingAlerts.forEach(alert => alert.remove());
+                
+                // Create new alert
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type === 'success' ? 'success' : 'danger'}`;
+                alertDiv.textContent = message;
+                
+                // Insert at the top of the form
+                form.insertBefore(alertDiv, form.firstChild);
+            }
+            
+            function showFieldErrors(errors) {
+                Object.keys(errors).forEach(field => {
+                    const input = document.getElementById(field);
+                    if (input) {
+                        input.classList.add('is-invalid');
+                        
+                        // Create error message
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = 'error-message';
+                        errorDiv.textContent = errors[field][0];
+                        
+                        // Insert after input
+                        input.parentNode.insertBefore(errorDiv, input.nextSibling);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
