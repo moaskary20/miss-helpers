@@ -217,6 +217,55 @@
             box-shadow: 0 2px 10px rgba(233, 30, 99, 0.3);
         }
         
+        /* تصميم الخادمات */
+        .maids-section {
+            margin-top: 60px;
+        }
+        
+        .maid-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .maid-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .card-img-container {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .card-img-top {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .maid-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+        
+        .card-title {
+            color: #23336b;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .card-text {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        
+        .badge {
+            font-size: 0.8rem;
+        }
+        
         /* تصميم متجاوب */
         @media (max-width: 991.98px) {
             .packages-row {
@@ -363,7 +412,7 @@
                         </div>
                         
                         <div class="package-action">
-                            <a href="{{ route('maids.all') }}" class="choose-btn">{{ __('messages.choose_package') }}</a>
+                            <a href="{{ route('service.index', ['package' => 'الباقة المرنة']) }}" class="choose-btn">{{ __('messages.choose_package') }}</a>
                         </div>
                         
                         <div class="package-footer">
@@ -429,7 +478,7 @@
                         </div>
                         
                         <div class="package-action">
-                            <a href="{{ route('maids.all') }}" class="choose-btn">{{ __('messages.choose_package') }}</a>
+                            <a href="{{ route('service.index', ['package' => 'الباقة التقليدية']) }}" class="choose-btn">{{ __('messages.choose_package') }}</a>
                         </div>
                         
                         <div class="package-footer">
@@ -438,6 +487,69 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- عرض الخادمات المفلترة -->
+            @if($packageType !== 'all' && $maids->count() > 0)
+                <div class="maids-section mt-5">
+                    <h2 class="text-center mb-4">
+                        {{ __('messages.maids_available') }} - 
+                        @if($packageType === 'الباقة المرنة')
+                            {{ __('messages.flexible_package') }}
+                        @elseif($packageType === 'الباقة التقليدية')
+                            {{ __('messages.traditional_package') }}
+                        @endif
+                    </h2>
+                    
+                    <div class="row">
+                        @foreach($maids as $maid)
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100 maid-card">
+                                    <div class="card-img-container">
+                                        <img src="{{ $maid->image_path ? asset('storage/' . $maid->image_path) : asset('images/default-maid.jpg') }}" 
+                                             class="card-img-top" 
+                                             alt="{{ $maid->name }}"
+                                             onerror="this.src='{{ asset('images/default-maid.jpg') }}'">
+                                    </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">{{ $maid->name }}</h5>
+                                        <p class="card-text text-muted">
+                                            <i class="bi bi-geo-alt"></i> {{ \App\Helpers\TranslationHelper::translateMaidValue($maid->nationality) }} • 
+                                            {{ $maid->age ?? __('messages.not_specified') }} {{ __('messages.years') }}
+                                        </p>
+                                        <p class="card-text">
+                                            <strong>{{ __('messages.job_title') }}:</strong> {{ \App\Helpers\TranslationHelper::translateMaidValue($maid->job_title) }}
+                                        </p>
+                                        <p class="card-text">
+                                            <strong>{{ __('messages.experience_years') }}:</strong> {{ $maid->experience_years ?? __('messages.not_specified') }} {{ __('messages.years') }}
+                                        </p>
+                                        <div class="mt-auto">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <span class="badge bg-primary">{{ \App\Helpers\TranslationHelper::translateMaidValue($maid->package_type) }}</span>
+                                                <span class="text-success fw-bold">{{ number_format($maid->contract_fees ?? 0) }} {{ __('messages.riyal') }}</span>
+                                            </div>
+                                            <a href="{{ route('maid.profile', $maid->id) }}" class="btn btn-primary w-100">
+                                                {{ __('messages.view_profile') }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @elseif($packageType !== 'all' && $maids->count() == 0)
+                <div class="text-center mt-5">
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i>
+                        {{ __('messages.no_maids_available') }} 
+                        @if($packageType === 'الباقة المرنة')
+                            {{ __('messages.flexible_package') }}
+                        @elseif($packageType === 'الباقة التقليدية')
+                            {{ __('messages.traditional_package') }}
+                        @endif
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 
