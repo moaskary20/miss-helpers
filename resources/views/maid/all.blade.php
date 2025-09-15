@@ -335,10 +335,10 @@
                         <div class="filter-group">
                             <label class="filter-label">
                                 <i class="bi bi-search me-2"></i>
-                                البحث النصي
+                                {{ __('messages.text_search') }}
                             </label>
                             <input type="text" name="search" class="form-control filter-select" 
-                                   placeholder="ابحث بالاسم، الجنسية، أو نوع الخدمة..." 
+                                   placeholder="{{ __('messages.search_placeholder') }}" 
                                    value="{{ request('search') }}">
                         </div>
                     </div>
@@ -348,9 +348,9 @@
                 <div class="row g-3">
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">الجنسية</label>
+                            <label class="filter-label">{{ __('messages.nationality') }}</label>
                             <select name="nationality" class="form-select filter-select">
-                                <option value="">جميع الجنسيات</option>
+                                <option value="">{{ __('messages.all_nationalities') }}</option>
                                 @if(isset($searchOptions['nationalities']))
                                     @foreach($searchOptions['nationalities'] as $nationality)
                                         <option value="{{ $nationality }}" {{ request('nationality') == $nationality ? 'selected' : '' }}>
@@ -364,9 +364,9 @@
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">نوع الخدمة</label>
+                            <label class="filter-label">{{ __('messages.service_type') }}</label>
                             <select name="service" class="form-select filter-select">
-                                <option value="">جميع أنواع الخدمات</option>
+                                <option value="">{{ __('messages.all_service_types') }}</option>
                                 @if(isset($searchOptions['jobTitles']))
                                     @foreach($searchOptions['jobTitles'] as $jobTitle)
                                         <option value="{{ $jobTitle }}" {{ request('service') == $jobTitle ? 'selected' : '' }}>
@@ -380,9 +380,9 @@
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">سنوات الخبرة</label>
+                            <label class="filter-label">{{ __('messages.experience_years') }}</label>
                             <select name="experience" class="form-select filter-select">
-                                <option value="">جميع المستويات</option>
+                                <option value="">{{ __('messages.all_levels') }}</option>
                                 <option value="1-3" {{ request('experience') == '1-3' ? 'selected' : '' }}>1-3 سنوات</option>
                                 <option value="4-6" {{ request('experience') == '4-6' ? 'selected' : '' }}>4-6 سنوات</option>
                                 <option value="7-10" {{ request('experience') == '7-10' ? 'selected' : '' }}>7-10 سنوات</option>
@@ -393,9 +393,9 @@
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">نوع الباقة</label>
+                            <label class="filter-label">{{ __('messages.package_type') }}</label>
                             <select name="package_type" class="form-select filter-select">
-                                <option value="">جميع الباقات</option>
+                                <option value="">{{ __('messages.all_packages') }}</option>
                                 @if(isset($searchOptions['packageTypes']))
                                     @foreach($searchOptions['packageTypes'] as $packageType)
                                         <option value="{{ $packageType }}" {{ request('package_type') == $packageType ? 'selected' : '' }}>
@@ -409,9 +409,9 @@
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">الحالة</label>
+                            <label class="filter-label">{{ __('messages.status') }}</label>
                             <select name="status" class="form-select filter-select">
-                                <option value="">جميع الحالات</option>
+                                <option value="">{{ __('messages.all_statuses') }}</option>
                                 <option value="متاحة" {{ request('status') == 'متاحة' ? 'selected' : '' }}>متاحة</option>
                                 <option value="غير متاحة" {{ request('status') == 'غير متاحة' ? 'selected' : '' }}>غير متاحة</option>
                             </select>
@@ -420,9 +420,9 @@
 
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">الديانة</label>
+                            <label class="filter-label">{{ __('messages.religion') }}</label>
                             <select name="religion" class="form-select filter-select">
-                                <option value="">جميع الديانات</option>
+                                <option value="">{{ __('messages.all_religions') }}</option>
                                 @if(isset($searchOptions['religions']))
                                     @foreach($searchOptions['religions'] as $religion)
                                         <option value="{{ $religion }}" {{ request('religion') == $religion ? 'selected' : '' }}>
@@ -436,9 +436,9 @@
 
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">الحالة الاجتماعية</label>
+                            <label class="filter-label">{{ __('messages.marital_status') }}</label>
                             <select name="marital_status" class="form-select filter-select">
-                                <option value="">جميع الحالات</option>
+                                <option value="">{{ __('messages.all_marital_statuses') }}</option>
                                 @if(isset($searchOptions['maritalStatuses']))
                                     @foreach($searchOptions['maritalStatuses'] as $maritalStatus)
                                         <option value="{{ $maritalStatus }}" {{ request('marital_status') == $maritalStatus ? 'selected' : '' }}>
@@ -452,9 +452,9 @@
 
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">اللغة</label>
+                            <label class="filter-label">{{ __('messages.language') }}</label>
                             <select name="language" class="form-select filter-select">
-                                <option value="">جميع اللغات</option>
+                                <option value="">{{ __('messages.all_languages') }}</option>
                                 @if(isset($searchOptions['languages']))
                                     @foreach($searchOptions['languages'] as $language)
                                         <option value="{{ $language }}" {{ request('language') == $language ? 'selected' : '' }}>
@@ -471,16 +471,16 @@
                 <div class="row g-3 mt-2">
                     <div class="col-lg-6">
                         <div class="filter-group">
-                            <label class="filter-label">نطاق العمر</label>
+                            <label class="filter-label">{{ __('messages.age_range') }}</label>
                             <div class="row g-2">
                                 <div class="col-6">
                                     <input type="number" name="age_min" class="form-control filter-select" 
-                                           placeholder="الحد الأدنى" min="18" max="65" 
+                                           placeholder="{{ __('messages.age_minimum') }}" min="18" max="65" 
                                            value="{{ request('age_min') }}">
                                 </div>
                                 <div class="col-6">
                                     <input type="number" name="age_max" class="form-control filter-select" 
-                                           placeholder="الحد الأقصى" min="18" max="65" 
+                                           placeholder="{{ __('messages.age_maximum') }}" min="18" max="65" 
                                            value="{{ request('age_max') }}">
                                 </div>
                             </div>
@@ -489,16 +489,16 @@
                     
                     <div class="col-lg-6">
                         <div class="filter-group">
-                            <label class="filter-label">نطاق الراتب الشهري (درهم)</label>
+                            <label class="filter-label">{{ __('messages.salary_range') }} ({{ __('messages.riyal') }})</label>
                             <div class="row g-2">
                                 <div class="col-6">
                                     <input type="number" name="salary_min" class="form-control filter-select" 
-                                           placeholder="الحد الأدنى" min="0" 
+                                           placeholder="{{ __('messages.salary_minimum') }}" min="0" 
                                            value="{{ request('salary_min') }}">
                                 </div>
                                 <div class="col-6">
                                     <input type="number" name="salary_max" class="form-control filter-select" 
-                                           placeholder="الحد الأقصى" min="0" 
+                                           placeholder="{{ __('messages.salary_maximum') }}" min="0" 
                                            value="{{ request('salary_max') }}">
                                 </div>
                             </div>
@@ -510,17 +510,17 @@
                 <div class="row g-3 mt-2">
                     <div class="col-lg-4 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">ترتيب النتائج</label>
+                            <label class="filter-label">{{ __('messages.sort_results') }}</label>
                             <select name="sort" class="form-select filter-select">
-                                <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>الأحدث أولاً</option>
-                                <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>الأقدم أولاً</option>
-                                <option value="age_asc" {{ request('sort') == 'age_asc' ? 'selected' : '' }}>العمر (الأصغر أولاً)</option>
-                                <option value="age_desc" {{ request('sort') == 'age_desc' ? 'selected' : '' }}>العمر (الأكبر أولاً)</option>
-                                <option value="experience_desc" {{ request('sort') == 'experience_desc' ? 'selected' : '' }}>الأكثر خبرة</option>
-                                <option value="experience_asc" {{ request('sort') == 'experience_asc' ? 'selected' : '' }}>الأقل خبرة</option>
-                                <option value="salary_asc" {{ request('sort') == 'salary_asc' ? 'selected' : '' }}>الراتب (الأقل أولاً)</option>
-                                <option value="salary_desc" {{ request('sort') == 'salary_desc' ? 'selected' : '' }}>الراتب (الأعلى أولاً)</option>
-                                <option value="views" {{ request('sort') == 'views' ? 'selected' : '' }}>الأكثر مشاهدة</option>
+                                <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>{{ __('messages.newest_first') }}</option>
+                                <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>{{ __('messages.oldest_first') }}</option>
+                                <option value="age_asc" {{ request('sort') == 'age_asc' ? 'selected' : '' }}>{{ __('messages.age_youngest') }}</option>
+                                <option value="age_desc" {{ request('sort') == 'age_desc' ? 'selected' : '' }}>{{ __('messages.age_oldest') }}</option>
+                                <option value="experience_desc" {{ request('sort') == 'experience_desc' ? 'selected' : '' }}>{{ __('messages.most_experienced') }}</option>
+                                <option value="experience_asc" {{ request('sort') == 'experience_asc' ? 'selected' : '' }}>{{ __('messages.least_experienced') }}</option>
+                                <option value="salary_asc" {{ request('sort') == 'salary_asc' ? 'selected' : '' }}>{{ __('messages.salary_lowest') }}</option>
+                                <option value="salary_desc" {{ request('sort') == 'salary_desc' ? 'selected' : '' }}>{{ __('messages.salary_highest') }}</option>
+                                <option value="views" {{ request('sort') == 'views' ? 'selected' : '' }}>{{ __('messages.most_viewed') }}</option>
                             </select>
                         </div>
                     </div>
@@ -534,11 +534,11 @@
                         </button>
                         <a href="{{ route('maids.all') }}" class="btn btn-outline-secondary ms-2">
                             <i class="bi bi-arrow-clockwise me-2"></i>
-                            إعادة تعيين
+                            {{ __('messages.reset') }}
                         </a>
                         <button type="button" class="btn btn-outline-info ms-2" id="toggleAdvancedFilters">
                             <i class="bi bi-funnel me-2"></i>
-                            فلاتر متقدمة
+                            {{ __('messages.advanced_filters') }}
                         </button>
                     </div>
                 </div>
