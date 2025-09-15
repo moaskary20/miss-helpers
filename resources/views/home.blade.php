@@ -3490,6 +3490,53 @@ document.addEventListener('DOMContentLoaded', function() {
         line-height: 1.4;
     }
 
+    /* Visitor Registration Form Styles */
+    .visitor-registration-form {
+        margin: 20px 0;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+    }
+
+    .registration-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .registration-card h5 {
+        color: #333;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .registration-card p {
+        color: #666;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .registration-card .form-control {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .registration-card .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+    }
+
+    .registration-card .btn {
+        padding: 10px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
     .message-time {
         font-size: 11px;
         opacity: 0.7;
@@ -3920,6 +3967,25 @@ document.addEventListener('DOMContentLoaded', function() {
                                         <span class="message-time">الآن</span>
                                     </div>
                                 </div>
+                                
+                                <!-- Visitor Registration Form (hidden by default) -->
+                                <div id="visitor-registration-form" class="visitor-registration-form" style="display: none;">
+                                    <div class="registration-card">
+                                        <h5>معلوماتك</h5>
+                                        <p>يرجى إدخال اسمك للبدء في المحادثة</p>
+                                        <form id="chat-visitor-form">
+                                            <div class="mb-3">
+                                                <input type="text" id="chat-visitor-name" placeholder="اسمك" required 
+                                                       class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="email" id="chat-visitor-email" placeholder="البريد الإلكتروني (اختياري)" 
+                                                       class="form-control">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary w-100">متابعة</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Chat Input -->
@@ -4007,10 +4073,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 toggle.classList.add('active');
                 this.isOpen = true;
                 
-                // Focus input
-                setTimeout(() => {
-                    document.getElementById('chat-input').focus();
-                }, 300);
+                // Check if visitor needs to register
+                this.loadVisitorData();
+                if (!this.visitorName || this.visitorName.trim() === '') {
+                    this.showRegistrationFormInChat();
+                } else {
+                    this.hideRegistrationFormInChat();
+                    // Focus input
+                    setTimeout(() => {
+                        document.getElementById('chat-input').focus();
+                    }, 300);
+                }
             }
 
             closeChat() {
@@ -4034,8 +4107,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.loadVisitorData();
                 
                 if (!this.visitorName || this.visitorName.trim() === '') {
-                    console.log('Visitor has no name, showing popup...');
-                    this.showVisitorPopup();
+                    console.log('Visitor has no name, showing registration form in chat...');
+                    this.showRegistrationFormInChat();
                     
                     // Store the message to send after registration
                     this.pendingMessage = message;
@@ -4329,6 +4402,88 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.showVisitorPopup();
             }
 
+            // Show registration form inside chat
+            showRegistrationFormInChat() {
+                const form = document.getElementById('visitor-registration-form');
+                const input = document.getElementById('chat-input');
+                const sendBtn = document.getElementById('chat-send');
+                
+                if (form) {
+                    form.style.display = 'block';
+                    input.style.display = 'none';
+                    sendBtn.style.display = 'none';
+                }
+                
+                // Bind form submission
+                this.bindChatRegistrationForm();
+            }
+
+            // Hide registration form inside chat
+            hideRegistrationFormInChat() {
+                const form = document.getElementById('visitor-registration-form');
+                const input = document.getElementById('chat-input');
+                const sendBtn = document.getElementById('chat-send');
+                
+                if (form) {
+                    form.style.display = 'none';
+                    input.style.display = 'block';
+                    sendBtn.style.display = 'flex';
+                }
+            }
+
+            // Bind chat registration form
+            bindChatRegistrationForm() {
+                const form = document.getElementById('chat-visitor-form');
+                if (form) {
+                    // Remove existing listeners
+                    form.removeEventListener('submit', this.handleChatRegistration);
+                    
+                    // Add new listener
+                    this.handleChatRegistration = (e) => {
+                        e.preventDefault();
+                        
+                        const name = document.getElementById('chat-visitor-name').value.trim();
+                        const email = document.getElementById('chat-visitor-email').value.trim();
+                        
+                        if (!name) {
+                            alert('يرجى إدخال اسمك');
+                            return;
+                        }
+                        
+                        // Save visitor data
+                        this.visitorName = name.trim();
+                        this.visitorEmail = email.trim();
+                        localStorage.setItem('visitor_name', this.visitorName);
+                        if (email) {
+                            localStorage.setItem('visitor_email', this.visitorEmail);
+                        }
+                        console.log('Visitor data saved from chat form:', { name: this.visitorName, email: this.visitorEmail });
+                        
+                        // Hide form and show input
+                        this.hideRegistrationFormInChat();
+                        
+                        // Add welcome message
+                        this.addMessage(`مرحباً ${this.visitorName}! كيف يمكنني مساعدتك؟`, 'bot');
+                        
+                        // Send pending message if exists
+                        if (this.pendingMessage) {
+                            this.addMessage(this.pendingMessage, 'user');
+                            this.sendToServer(this.pendingMessage);
+                            this.pendingMessage = null;
+                        }
+                        
+                        // Focus input
+                        setTimeout(() => {
+                            document.getElementById('chat-input').focus();
+                        }, 300);
+                        
+                        console.log('Visitor registered successfully from chat');
+                    };
+                    
+                    form.addEventListener('submit', this.handleChatRegistration);
+                }
+            }
+
             // Debug function to check system status
             debugSystem() {
                 console.log('=== Chat System Debug Info ===');
@@ -4369,11 +4524,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             };
             
+            window.testChatRegistration = function() {
+                if (window.chatWidget) {
+                    window.chatWidget.showRegistrationFormInChat();
+                }
+            };
+            
             console.log('Chat widget initialized successfully');
             console.log('Debug functions available:');
             console.log('- forceVisitorRegistration() - Force visitor to register');
             console.log('- clearVisitorData() - Clear visitor data');
             console.log('- debugChatSystem() - Show debug info');
+            console.log('- testChatRegistration() - Test registration form in chat');
         });
 
         // Customer Reviews Navigation
