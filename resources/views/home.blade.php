@@ -3487,6 +3487,19 @@ document.addEventListener('DOMContentLoaded', function() {
     .message-content p {
         margin: 0;
         font-size: 14px;
+    }
+    
+    .sender-name {
+        display: block;
+        font-size: 0.75rem;
+        color: #666;
+        margin-top: 2px;
+        font-weight: 500;
+    }
+    
+    .user-message .sender-name {
+        color: rgba(255, 255, 255, 0.8);
+    }
         line-height: 1.4;
     }
 
@@ -3904,6 +3917,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.chatRoomId = null;
                 this.visitorName = null;
                 this.visitorEmail = null;
+                this.messagePollingInterval = null;
                 this.init();
             }
 
@@ -4083,6 +4097,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     setTimeout(() => {
                         document.getElementById('chat-input').focus();
                     }, 300);
+                    
+                    // Start polling for new messages
+                    this.startMessagePolling();
                 }
             }
 
@@ -4093,6 +4110,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.classList.remove('open');
                 toggle.classList.remove('active');
                 this.isOpen = false;
+                
+                // Stop polling for messages
+                this.stopMessagePolling();
             }
 
             sendMessage() {
@@ -4364,7 +4384,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            addMessage(content, sender) {
+            addMessage(content, sender, senderName = null) {
                 const messagesContainer = document.getElementById('chat-messages');
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${sender}-message`;
@@ -4374,10 +4394,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     minute: '2-digit'
                 });
                 
+                // Use sender name if provided, otherwise use default
+                const displayName = senderName || (sender === 'user' ? 'أنت' : 'المدير');
+                
                 messageDiv.innerHTML = `
                     <div class="message-content">
                         <p>${content}</p>
                         <span class="message-time">${time}</span>
+                        ${senderName ? `<small class="sender-name">${displayName}</small>` : ''}
                     </div>
                 `;
                 
@@ -4493,6 +4517,86 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Is Open:', this.isOpen);
                 console.log('CSRF Token:', document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'));
                 console.log('==============================');
+            }
+            
+            // Start polling for new messages
+            startMessagePolling() {
+                if (this.messagePollingInterval) {
+                    clearInterval(this.messagePollingInterval);
+                }
+                
+                // Poll every 3 seconds
+                this.messagePollingInterval = setInterval(() => {
+                    this.refreshMessages();
+                }, 3000);
+                
+                console.log('Started message polling');
+            }
+            
+            // Stop polling for messages
+            stopMessagePolling() {
+                if (this.messagePollingInterval) {
+                    clearInterval(this.messagePollingInterval);
+                    this.messagePollingInterval = null;
+                    console.log('Stopped message polling');
+                }
+            }
+            
+            // Refresh messages from server
+            refreshMessages() {
+                if (!this.chatRoomId) {
+                    console.log('No chat room ID, skipping message refresh');
+                    return;
+                }
+                
+                fetch(`/chat/messages/${this.chatRoomId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success && data.messages) {
+                        this.updateMessagesDisplay(data.messages);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error refreshing messages:', error);
+                });
+            }
+            
+            // Update messages display
+            updateMessagesDisplay(messages) {
+                const chatMessages = document.getElementById('chat-messages');
+                if (!chatMessages) return;
+                
+                // Get current message count
+                const currentMessageCount = chatMessages.querySelectorAll('.message').length;
+                
+                // If we have new messages, update the display
+                if (messages.length > currentMessageCount) {
+                    // Clear existing messages
+                    chatMessages.innerHTML = '';
+                    
+                    // Add all messages
+                    messages.forEach(msg => {
+                        const type = msg.sender_type === 'visitor' ? 'user' : 'bot';
+                        this.addMessage(msg.message, type, msg.sender_name);
+                    });
+                    
+                    // Scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    console.log(`Updated messages display: ${messages.length} messages`);
+                }
             }
         }
 
