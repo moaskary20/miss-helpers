@@ -3500,6 +3500,34 @@ document.addEventListener('DOMContentLoaded', function() {
     .user-message .sender-name {
         color: rgba(255, 255, 255, 0.8);
     }
+    
+    /* New message animations */
+    .message-new {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease-out;
+    }
+    
+    .message-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* Smooth scroll for new messages */
+    .chat-messages {
+        scroll-behavior: smooth;
+    }
+    
+    /* Pulse animation for new messages */
+    .pulse {
+        animation: pulse 0.5s ease-in-out;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
         line-height: 1.4;
     }
 
@@ -3926,6 +3954,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.createWidget();
                 this.bindEvents();
                 this.loadChatRoomId();
+                this.requestNotificationPermission();
                 console.log('Enhanced Chat Widget initialized');
             }
 
@@ -4086,6 +4115,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.classList.add('open');
                 toggle.classList.add('active');
                 this.isOpen = true;
+                
+                // Reset message counter
+                this.resetMessageCounter();
                 
                 // Check if visitor needs to register
                 this.loadVisitorData();
@@ -4384,10 +4416,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            addMessage(content, sender, senderName = null) {
+            addMessage(content, sender, senderName = null, isNew = false) {
                 const messagesContainer = document.getElementById('chat-messages');
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${sender}-message`;
+                
+                // Add animation class for new messages
+                if (isNew) {
+                    messageDiv.classList.add('message-new');
+                }
                 
                 const time = new Date().toLocaleTimeString('ar-SA', {
                     hour: '2-digit',
@@ -4406,12 +4443,65 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
                 
                 messagesContainer.appendChild(messageDiv);
+                
+                // Add entrance animation for new messages
+                if (isNew) {
+                    setTimeout(() => {
+                        messageDiv.classList.add('message-visible');
+                    }, 100);
+                }
+                
                 this.scrollToBottom();
             }
 
             scrollToBottom() {
                 const messagesContainer = document.getElementById('chat-messages');
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+            
+            // Request notification permission
+            requestNotificationPermission() {
+                if ('Notification' in window && Notification.permission === 'default') {
+                    Notification.requestPermission().then(permission => {
+                        console.log('Notification permission:', permission);
+                    });
+                }
+            }
+            
+            // Reset message counter
+            resetMessageCounter() {
+                const chatToggle = document.getElementById('chat-toggle');
+                const badge = chatToggle.querySelector('.chat-badge');
+                
+                if (badge) {
+                    badge.textContent = '0';
+                }
+            }
+            
+            // Show notification for new messages
+            showNewMessageNotification(count) {
+                const chatToggle = document.getElementById('chat-toggle');
+                const badge = chatToggle.querySelector('.chat-badge');
+                
+                if (badge) {
+                    // Update badge with new message count
+                    const currentCount = parseInt(badge.textContent) || 0;
+                    badge.textContent = currentCount + count;
+                    
+                    // Add pulse animation
+                    badge.classList.add('pulse');
+                    setTimeout(() => {
+                        badge.classList.remove('pulse');
+                    }, 1000);
+                }
+                
+                // Show browser notification if chat is closed
+                if (!this.isOpen && 'Notification' in window && Notification.permission === 'granted') {
+                    new Notification('رسالة جديدة من Miss Helpers', {
+                        body: `لديك ${count} رسالة جديدة`,
+                        icon: '/images/logo.png'
+                    });
+                }
             }
 
             // Check if visitor has name (simplified version)
@@ -4581,21 +4671,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Get current message count
                 const currentMessageCount = chatMessages.querySelectorAll('.message').length;
                 
-                // If we have new messages, update the display
+                // If we have new messages, add only the new ones
                 if (messages.length > currentMessageCount) {
-                    // Clear existing messages
-                    chatMessages.innerHTML = '';
+                    // Add only new messages (not all messages)
+                    const newMessages = messages.slice(currentMessageCount);
                     
-                    // Add all messages
-                    messages.forEach(msg => {
+                    newMessages.forEach(msg => {
                         const type = msg.sender_type === 'visitor' ? 'user' : 'bot';
-                        this.addMessage(msg.message, type, msg.sender_name);
+                        this.addMessage(msg.message, type, msg.sender_name, true);
                     });
                     
-                    // Scroll to bottom
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    // Show notification for new messages
+                    this.showNewMessageNotification(newMessages.length);
                     
-                    console.log(`Updated messages display: ${messages.length} messages`);
+                    // Scroll to bottom smoothly
+                    this.scrollToBottom();
+                    
+                    console.log(`Added ${newMessages.length} new messages`);
                 }
             }
         }
