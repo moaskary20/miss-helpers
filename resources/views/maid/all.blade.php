@@ -348,7 +348,7 @@
                 <div class="row g-3">
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">{{ __('messages.nationality') }}</label>
+                            <label class="filter-label">الجنسية</label>
                             <select name="nationality" class="form-select filter-select">
                                 <option value="">جميع الجنسيات</option>
                                 @if(isset($searchOptions['nationalities']))
@@ -554,9 +554,9 @@
                     <div class="col-md-8">
                         <h4 class="mb-0">
                             <i class="bi bi-search me-2"></i>
-                            تم العثور على {{ $filteredCount }} خادمة
+                            {{ __('messages.found_maids') }} {{ $filteredCount }} {{ __('messages.maids_available') }}
                             @if($filteredCount != $totalMaids)
-                                من أصل {{ $totalMaids }} خادمة متاحة
+                                {{ __('messages.out_of_available') }} {{ $totalMaids }} {{ __('messages.maids_available') }}
                             @endif
                         </h4>
                     </div>
@@ -571,43 +571,43 @@
                 @if(request()->hasAny(['nationality', 'service', 'experience', 'package_type', 'status', 'religion', 'marital_status', 'language', 'age_min', 'age_max', 'salary_min', 'salary_max', 'search']))
                     <div class="mt-3">
                         <div class="d-flex flex-wrap gap-2">
-                            <span class="badge bg-primary">الفلاتر المطبقة:</span>
+                            <span class="badge bg-primary">{{ __('messages.applied_filters') }}:</span>
                             @if(request('nationality'))
-                                <span class="badge bg-secondary">الجنسية: {{ request('nationality') }}</span>
+                                <span class="badge bg-secondary">{{ __('messages.nationality') }}: {{ request('nationality') }}</span>
                             @endif
                             @if(request('service'))
-                                <span class="badge bg-secondary">الخدمة: {{ request('service') }}</span>
+                                <span class="badge bg-secondary">{{ __('messages.service') }}: {{ request('service') }}</span>
                             @endif
                             @if(request('experience'))
-                                <span class="badge bg-secondary">الخبرة: {{ request('experience') }}</span>
+                                <span class="badge bg-secondary">{{ __('messages.experience') }}: {{ request('experience') }}</span>
                             @endif
                             @if(request('package_type'))
-                                <span class="badge bg-secondary">الباقة: {{ request('package_type') }}</span>
+                                <span class="badge bg-secondary">{{ __('messages.package') }}: {{ request('package_type') }}</span>
                             @endif
                             @if(request('status'))
-                                <span class="badge bg-secondary">الحالة: {{ request('status') }}</span>
+                                <span class="badge bg-secondary">{{ __('messages.status') }}: {{ request('status') }}</span>
                             @endif
                             @if(request('religion'))
-                                <span class="badge bg-secondary">الديانة: {{ request('religion') }}</span>
+                                <span class="badge bg-secondary">{{ __('messages.religion') }}: {{ request('religion') }}</span>
                             @endif
                             @if(request('marital_status'))
-                                <span class="badge bg-secondary">الحالة الاجتماعية: {{ request('marital_status') }}</span>
+                                <span class="badge bg-secondary">{{ __('messages.marital_status') }}: {{ request('marital_status') }}</span>
                             @endif
                             @if(request('language'))
-                                <span class="badge bg-secondary">اللغة: {{ request('language') }}</span>
+                                <span class="badge bg-secondary">{{ __('messages.language') }}: {{ request('language') }}</span>
                             @endif
                             @if(request('age_min') || request('age_max'))
                                 <span class="badge bg-secondary">
-                                    العمر: {{ request('age_min', '18') }}-{{ request('age_max', '65') }}
+                                    {{ __('messages.age_range') }}: {{ request('age_min', '18') }}-{{ request('age_max', '65') }}
                                 </span>
                             @endif
                             @if(request('salary_min') || request('salary_max'))
                                 <span class="badge bg-secondary">
-                                    الراتب: {{ request('salary_min', '0') }}-{{ request('salary_max', '∞') }} درهم
+                                    {{ __('messages.salary_range') }}: {{ request('salary_min', '0') }}-{{ request('salary_max', '∞') }} {{ __('messages.riyal') }}
                                 </span>
                             @endif
                             @if(request('search'))
-                                <span class="badge bg-secondary">البحث: "{{ request('search') }}"</span>
+                                <span class="badge bg-secondary">{{ __('messages.search') }}: "{{ request('search') }}"</span>
                             @endif
                         </div>
                     </div>
