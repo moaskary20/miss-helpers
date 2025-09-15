@@ -3850,16 +3850,36 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Chat Widget JavaScript
+        // Enhanced Chat Widget JavaScript
         class ChatWidget {
             constructor() {
                 this.isOpen = false;
+                this.chatRoomId = null;
+                this.visitorName = null;
+                this.visitorEmail = null;
                 this.init();
             }
 
             init() {
+                this.loadVisitorData();
                 this.createWidget();
                 this.bindEvents();
+                this.loadChatRoomId();
+                console.log('Enhanced Chat Widget initialized');
+            }
+
+            loadVisitorData() {
+                this.visitorName = localStorage.getItem('visitor_name');
+                this.visitorEmail = localStorage.getItem('visitor_email');
+                console.log('Loaded visitor data:', { name: this.visitorName, email: this.visitorEmail });
+            }
+
+            loadChatRoomId() {
+                const savedChatRoomId = localStorage.getItem('chat_room_id');
+                if (savedChatRoomId) {
+                    this.chatRoomId = savedChatRoomId;
+                    console.log('Loaded chat room ID:', this.chatRoomId);
+                }
             }
 
             createWidget() {
@@ -3965,16 +3985,12 @@ document.addEventListener('DOMContentLoaded', function() {
             openChat() {
                 console.log('Opening chat...');
                 
-                // Check if visitor has name
-                if (!this.hasVisitorName()) {
+                // Always check for visitor name first
+                this.loadVisitorData();
+                
+                if (!this.visitorName || this.visitorName.trim() === '') {
                     console.log('Visitor has no name, showing popup...');
                     this.showVisitorPopup();
-                    
-                    // Listen for visitor registration
-                    document.addEventListener('visitorRegistered', () => {
-                        console.log('Visitor registered, opening chat...');
-                        this.openChatDirectly();
-                    }, { once: true });
                     return;
                 }
                 
@@ -4014,20 +4030,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 console.log('Sending message:', message);
                 
-                // Check if visitor has name
-                if (!this.hasVisitorName()) {
+                // Always check for visitor name first
+                this.loadVisitorData();
+                
+                if (!this.visitorName || this.visitorName.trim() === '') {
                     console.log('Visitor has no name, showing popup...');
                     this.showVisitorPopup();
                     
-                    // Listen for visitor registration
-                    document.addEventListener('visitorRegistered', () => {
-                        console.log('Visitor registered, sending message...');
-                        // Add user message after registration
-                        this.addMessage(message, 'user');
-                        input.value = '';
-                        // Send to server
-                        this.sendToServer(message);
-                    }, { once: true });
+                    // Store the message to send after registration
+                    this.pendingMessage = message;
                     return;
                 }
                 
@@ -4134,22 +4145,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     
                     // Save visitor data
-                    localStorage.setItem('visitor_name', name.trim());
+                    this.visitorName = name.trim();
+                    this.visitorEmail = email.trim();
+                    localStorage.setItem('visitor_name', this.visitorName);
                     if (email) {
-                        localStorage.setItem('visitor_email', email.trim());
+                        localStorage.setItem('visitor_email', this.visitorEmail);
                     }
-                    console.log('Visitor data saved:', { name, email });
+                    console.log('Visitor data saved:', { name: this.visitorName, email: this.visitorEmail });
                     
                     // Close popup
                     popup.remove();
                     
-                    // Trigger event
-                    const event = new CustomEvent('visitorRegistered', {
-                        detail: { name, email }
-                    });
-                    document.dispatchEvent(event);
+                    // Open chat if it was requested
+                    if (this.isOpen) {
+                        this.openChatDirectly();
+                    }
                     
-                    console.log('Visitor registered:', { name, email });
+                    // Send pending message if exists
+                    if (this.pendingMessage) {
+                        this.addMessage(this.pendingMessage, 'user');
+                        this.sendToServer(this.pendingMessage);
+                        this.pendingMessage = null;
+                    }
+                    
+                    console.log('Visitor registered successfully');
                 });
                 
                 // Close popup when clicking outside
@@ -4162,8 +4181,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Send message to server
             sendToServer(message) {
-                const visitorName = this.getVisitorName();
-                const visitorEmail = this.getVisitorEmail();
+                // Use current visitor data
+                const visitorName = this.visitorName || this.getVisitorName();
+                const visitorEmail = this.visitorEmail || this.getVisitorEmail();
                 
                 console.log('Sending to server:', { message, visitorName, visitorEmail, chatRoomId: this.chatRoomId });
                 
@@ -4191,14 +4211,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify(data)
                 })
                 .then(response => {
                     console.log('Create chat room response status:', response.status);
                     if (!response.ok) {
-                        throw new Error('HTTP error! status: ' + response.status);
+                        return response.text().then(text => {
+                            console.error('Error response:', text);
+                            throw new Error('HTTP error! status: ' + response.status);
+                        });
                     }
                     return response.json();
                 })
@@ -4236,14 +4260,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify(data)
                 })
                 .then(response => {
                     console.log('Send message response status:', response.status);
                     if (!response.ok) {
-                        throw new Error('HTTP error! status: ' + response.status);
+                        return response.text().then(text => {
+                            console.error('Error response:', text);
+                            throw new Error('HTTP error! status: ' + response.status);
+                        });
                     }
                     return response.json();
                 })
@@ -4288,11 +4316,64 @@ document.addEventListener('DOMContentLoaded', function() {
                 const messagesContainer = document.getElementById('chat-messages');
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             }
+
+            // Check if visitor has name (simplified version)
+            hasVisitorName() {
+                this.loadVisitorData();
+                return this.visitorName && this.visitorName.trim() !== '';
+            }
+
+            // Force visitor registration
+            forceVisitorRegistration() {
+                console.log('Forcing visitor registration...');
+                this.showVisitorPopup();
+            }
+
+            // Debug function to check system status
+            debugSystem() {
+                console.log('=== Chat System Debug Info ===');
+                console.log('Visitor Name:', this.visitorName);
+                console.log('Visitor Email:', this.visitorEmail);
+                console.log('Chat Room ID:', this.chatRoomId);
+                console.log('Is Open:', this.isOpen);
+                console.log('CSRF Token:', document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'));
+                console.log('==============================');
+            }
         }
 
         // Initialize chat widget when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            new ChatWidget();
+            console.log('DOM loaded, initializing chat widget...');
+            window.chatWidget = new ChatWidget();
+            
+            // Add global functions for debugging
+            window.forceVisitorRegistration = function() {
+                if (window.chatWidget) {
+                    window.chatWidget.forceVisitorRegistration();
+                }
+            };
+            
+            window.clearVisitorData = function() {
+                localStorage.removeItem('visitor_name');
+                localStorage.removeItem('visitor_email');
+                localStorage.removeItem('chat_room_id');
+                console.log('Visitor data cleared');
+                if (window.chatWidget) {
+                    window.chatWidget.loadVisitorData();
+                }
+            };
+            
+            window.debugChatSystem = function() {
+                if (window.chatWidget) {
+                    window.chatWidget.debugSystem();
+                }
+            };
+            
+            console.log('Chat widget initialized successfully');
+            console.log('Debug functions available:');
+            console.log('- forceVisitorRegistration() - Force visitor to register');
+            console.log('- clearVisitorData() - Clear visitor data');
+            console.log('- debugChatSystem() - Show debug info');
         });
 
         // Customer Reviews Navigation
