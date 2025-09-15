@@ -530,7 +530,7 @@
                     <div class="col-12 text-center">
                         <button type="submit" class="btn search-btn me-2">
                             <i class="bi bi-search me-2"></i>
-                            بحث
+                            {{ __('messages.search') }}
                         </button>
                         <a href="{{ route('maids.all') }}" class="btn btn-outline-secondary ms-2">
                             <i class="bi bi-arrow-clockwise me-2"></i>
