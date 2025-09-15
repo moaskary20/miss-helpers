@@ -364,7 +364,7 @@
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">{{ __('messages.service_type') }}</label>
+                            <label class="filter-label">نوع الخدمة</label>
                             <select name="service" class="form-select filter-select">
                                 <option value="">جميع أنواع الخدمات</option>
                                 @if(isset($searchOptions['jobTitles']))
@@ -380,7 +380,7 @@
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">{{ __('messages.experience_years') }}</label>
+                            <label class="filter-label">سنوات الخبرة</label>
                             <select name="experience" class="form-select filter-select">
                                 <option value="">جميع المستويات</option>
                                 <option value="1-3" {{ request('experience') == '1-3' ? 'selected' : '' }}>1-3 سنوات</option>
@@ -393,7 +393,7 @@
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">{{ __('messages.package_type') }}</label>
+                            <label class="filter-label">نوع الباقة</label>
                             <select name="package_type" class="form-select filter-select">
                                 <option value="">جميع الباقات</option>
                                 @if(isset($searchOptions['packageTypes']))
@@ -409,7 +409,7 @@
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="filter-group">
-                            <label class="filter-label">{{ __('messages.status') }}</label>
+                            <label class="filter-label">الحالة</label>
                             <select name="status" class="form-select filter-select">
                                 <option value="">جميع الحالات</option>
                                 <option value="متاحة" {{ request('status') == 'متاحة' ? 'selected' : '' }}>متاحة</option>
@@ -530,7 +530,7 @@
                     <div class="col-12 text-center">
                         <button type="submit" class="btn search-btn me-2">
                             <i class="bi bi-search me-2"></i>
-                            {{ __('messages.search') }}
+                            بحث
                         </button>
                         <a href="{{ route('maids.all') }}" class="btn btn-outline-secondary ms-2">
                             <i class="bi bi-arrow-clockwise me-2"></i>
