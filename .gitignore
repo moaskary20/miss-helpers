@@ -1,0 +1,69 @@
+# Laravel
+/vendor/
+/node_modules/
+/public/hot
+/public/storage
+/storage/*.key
+/storage/app/public
+/storage/framework/cache
+/storage/framework/sessions
+/storage/framework/testing
+/storage/framework/views
+/storage/logs
+/bootstrap/cache
+
+# Environment
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Database
+*.sqlite
+*.db
+
+# Cache
+.cache/
+
+# Composer
+composer.phar
+
+# NPM
+package-lock.json
+yarn.lock
+
+# Build files
+/public/build/
+/public/mix-manifest.json
+
+# Testing
+/coverage/
+/.phpunit.cache
+
+# Laravel specific
+/storage/app/private/
+/storage/framework/cache/data/
+/storage/framework/sessions/
+/storage/framework/views/
+/storage/logs/
+
+# Custom ignores
+cookies.txt
+test_cookies.txt

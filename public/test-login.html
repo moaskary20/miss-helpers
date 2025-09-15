@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار تسجيل الدخول</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 50px;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 اختبار تسجيل الدخول</h1>
+        
+        <div id="status" class="status" style="display: none;"></div>
+        
+        <h3>اختبار الخادم:</h3>
+        <button class="btn" onclick="testServer()">اختبار الخادم</button>
+        
+        <h3>تسجيل دخول مباشر:</h3>
+        <a href="http://localhost:8000/admin/quick-login" class="btn btn-success" target="_blank">
+            🚀 صفحة تسجيل الدخول السريع
+        </a>
+        
+        <h3>بيانات تسجيل الدخول:</h3>
+        <div style="text-align: right; margin: 20px 0;">
+            <p><strong>مدير النظام:</strong></p>
+            <p>الإيميل: admin@admin.com</p>
+            <p>كلمة المرور: admin123</p>
+            <hr>
+            <p><strong>محمد عسكري:</strong></p>
+            <p>الإيميل: mo.askary@gmail.com</p>
+            <p>كلمة المرور: newpassword</p>
+            <hr>
+            <p><strong>مدير الموقع:</strong></p>
+            <p>الإيميل: manager@admin.com</p>
+            <p>كلمة المرور: manager123</p>
+        </div>
+        
+        <h3>روابط أخرى:</h3>
+        <a href="http://localhost:8000/admin/simple-login" class="btn">صفحة مبسطة</a>
+        <a href="http://localhost:8000/admin/login" class="btn">صفحة عادية</a>
+        <a href="http://localhost:8000/" class="btn">الصفحة الرئيسية</a>
+    </div>
+
+    <script>
+        function testServer() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'status';
+            statusDiv.innerHTML = '🔄 جاري اختبار الخادم...';
+            
+            fetch('http://localhost:8000/admin/quick-login')
+                .then(response => {
+                    if (response.ok) {
+                        statusDiv.className = 'status success';
+                        statusDiv.innerHTML = '✅ الخادم يعمل بشكل صحيح!';
+                    } else {
+                        statusDiv.className = 'status error';
+                        statusDiv.innerHTML = '❌ الخادم لا يستجيب (كود: ' + response.status + ')';
+                    }
+                })
+                .catch(error => {
+                    statusDiv.className = 'status error';
+                    statusDiv.innerHTML = '❌ خطأ في الاتصال: ' + error.message;
+                });
+        }
+        
+        // اختبار تلقائي عند تحميل الصفحة
+        window.onload = function() {
+            setTimeout(testServer, 1000);
+        };
+        
+        console.log('Test Login Page Loaded');
+    </script>
+</body>
+</html>
+
