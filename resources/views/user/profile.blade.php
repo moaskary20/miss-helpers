@@ -509,7 +509,7 @@
                                                         <p class="text-muted small mb-2">{{ Str::limit($maid->description, 100) }}</p>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <small class="text-muted">{{ $maid->age }} {{ __('messages.years_old') }}</small>
-                                                            <a href="{{ route('maid.profile', $maid->id) }}" class="btn btn-sm btn-outline-primary">
+                                                            <a href="{{ route('maid.profile', ['locale' => app()->getLocale(), 'id' => $maid->id]) }}" class="btn btn-sm btn-outline-primary">
                                                                 {{ __('messages.view_profile') }}
                                                             </a>
                                                         </div>

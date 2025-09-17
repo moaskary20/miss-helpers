@@ -730,7 +730,7 @@
                                 </div>
                                 
                                 <div class="maid-actions-bottom">
-                                    <a href="{{ route('maid.profile', $maid->id) }}" class="btn btn-primary w-100">
+                                    <a href="{{ route('maid.profile', ['locale' => app()->getLocale(), 'id' => $maid->id]) }}" class="btn btn-primary w-100">
                                         {{ __('messages.view_profile') }}
                                     </a>
                                 </div>

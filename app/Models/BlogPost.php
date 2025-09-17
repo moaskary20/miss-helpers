@@ -66,7 +66,7 @@ class BlogPost extends Model
      */
     public function getUrlAttribute()
     {
-        return route('blog.show', $this->slug);
+        return route('blog.show', ['locale' => app()->getLocale(), 'slug' => $this->slug]);
     }
 
     /**
