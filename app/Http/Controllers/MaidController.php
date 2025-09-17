@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Maid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class MaidController extends Controller
 {
@@ -12,6 +13,11 @@ class MaidController extends Controller
      */
     public function index(Request $request)
     {
+        // تعيين اللغة من URL
+        $segmentLocale = $request->segment(1);
+        if (in_array($segmentLocale, ['ar', 'en'])) {
+            App::setLocale($segmentLocale);
+        }
         $query = Maid::query();
 
         // فلترة حسب الجنسية
@@ -152,8 +158,14 @@ class MaidController extends Controller
     /**
      * عرض الملف الشخصي للخادمة
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
+        // تعيين اللغة من URL
+        $segmentLocale = $request->segment(1);
+        if (in_array($segmentLocale, ['ar', 'en'])) {
+            App::setLocale($segmentLocale);
+        }
+        
         $maid = Maid::findOrFail($id);
         
         // زيادة عدد المشاهدات

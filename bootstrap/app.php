@@ -22,10 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'setlocale.url' => \App\Http\Middleware\SetLocaleFromUrl::class,
         ]);
         
-        // Global middleware
-        $middleware->web(append: [
-            \App\Http\Middleware\SetLocaleFromUrl::class,
-        ]);
+        // Global middleware - removed SetLocaleFromUrl to avoid conflicts
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -23,11 +23,15 @@ Route::redirect('/', '/'.app()->getLocale());
 Route::post('/language/switch', [LanguageController::class, 'switch'])->name('language.switch');
 Route::get('/language/current', [LanguageController::class, 'getCurrentLanguage'])->name('language.current');
 
+// Working maid routes (outside localized group to avoid conflicts)
+Route::get('/en/maid/{id}', [MaidController::class, 'show'])->name('maid.profile.en')->where('id', '[0-9]+');
+Route::get('/ar/maid/{id}', [MaidController::class, 'show'])->name('maid.profile.ar')->where('id', '[0-9]+');
+Route::get('/en/maids', [MaidController::class, 'index'])->name('maids.all.en');
+Route::get('/ar/maids', [MaidController::class, 'index'])->name('maids.all.ar');
+
 // Localized routes: /ar/... and /en/...
 Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], function() {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
-    Route::get('/maid/{id}', [App\Http\Controllers\MaidController::class, 'show'])->name('maid.profile')->where('id', '[0-9]+');
-    Route::get('/maids', [App\Http\Controllers\MaidController::class, 'index'])->name('maids.all');
     Route::get('/maids/search', [App\Http\Controllers\MaidController::class, 'search'])->name('maids.search');
     Route::get('/maids/category/{category}', [App\Http\Controllers\MaidController::class, 'byCategory'])->name('maids.byCategory');
     Route::get('/maids/nationality/{nationality}', [App\Http\Controllers\MaidController::class, 'byNationality'])->name('maids.byNationality');
