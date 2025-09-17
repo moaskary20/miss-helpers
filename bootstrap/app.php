@@ -19,11 +19,12 @@ return Application::configure(basePath: dirname(__DIR__))
             'activity.log' => \App\Http\Middleware\ActivityLogMiddleware::class,
             'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
             'setlocale' => \App\Http\Middleware\SetLocale::class,
+            'setlocale.url' => \App\Http\Middleware\SetLocaleFromUrl::class,
         ]);
         
         // Global middleware
         $middleware->web(append: [
-            \App\Http\Middleware\SetLocale::class,
+            \App\Http\Middleware\SetLocaleFromUrl::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

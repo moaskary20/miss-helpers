@@ -342,24 +342,20 @@
 <!-- Header -->
 <header class="site-header">
     <div class="container header-inner">
-        <a href="{{ url('/') }}" class="brand">
+        <a href="/{{ app()->getLocale() }}" class="brand">
             <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
          </a>
         <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
-            <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
-            <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
-            <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
-            <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
+            <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
+            <a href="/{{ app()->getLocale() }}/about">{{ __('messages.about') }}</a>
+            <a href="/{{ app()->getLocale() }}/service">{{ __('messages.services') }}</a>
+            <a href="/{{ app()->getLocale() }}/contact">{{ __('messages.contact') }}</a>
         </nav>
         <div class="d-flex align-items-center gap-3">
             <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
-            <form action="{{ route('language.switch') }}" method="POST" class="d-inline">
-                @csrf
-                <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
-                <button type="submit" class="btn btn-link text-decoration-none p-0">
-                    {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
-                </button>
-            </form>
+            <a href="/{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}" class="btn btn-link text-decoration-none p-0">
+                {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+            </a>
             <div class="auth d-none d-md-inline">
                 @guest
                     <button type="button" class="btn btn-outline-secondary me-3" data-bs-toggle="modal" data-bs-target="#loginModal">{{ __('messages.login') }}</button>
@@ -377,17 +373,13 @@
     </div>
             <div id="mnav" class="collapse border-top d-md-none">
             <div class="container py-2 nav-links">
-                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
-                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
-                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
-                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
-                <form action="{{ route('language.switch') }}" method="POST" class="d-inline w-100">
-                    @csrf
-                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
-                    <button type="submit" class="btn btn-link text-decoration-none p-0 w-100 text-start">
-                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
-                    </button>
-                </form>
+                <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
+                <a href="/{{ app()->getLocale() }}/about">{{ __('messages.about') }}</a>
+                <a href="/{{ app()->getLocale() }}/service">{{ __('messages.services') }}</a>
+                <a href="/{{ app()->getLocale() }}/contact">{{ __('messages.contact') }}</a>
+                <a href="/{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}" class="btn btn-link text-decoration-none p-0 w-100 text-start">
+                    {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                </a>
                 @guest
                     <button type="button" class="btn btn-outline-secondary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#loginModal">{{ __('messages.login') }}</button>
                     <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#registerModal">{{ __('messages.register') }}</button>
@@ -3019,7 +3011,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="footer-links">
                             <h4>{{ __('messages.top_rated_categories') }}</h4>
                             <ul>
-                                <li><a href="{{ route('welcome') }}">{{ __('messages.home') }}</a></li>
+                                <li><a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a></li>
                                 <li><a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a></li>
                                 <li><a href="#contact">{{ __('messages.contact_us') }}</a></li>
                                 <li><a href="{{ route('admin.login') }}">Login / Register</a></li>
@@ -3030,7 +3022,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="footer-links">
                             <h4>{{ __('messages.services') }}</h4>
                             <ul>
-                                <li><a href="{{ route('welcome') }}">{{ __('messages.home') }}</a></li>
+                                <li><a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a></li>
                                 <li><a href="{{ route('maids.all') }}">{{ __('messages.maids') }}</a></li>
                                 <li><a href="{{ route('blog.index') }}">{{ __('messages.blogs') }}</a></li>
                                 <li><a href="#services">{{ __('messages.services') }}</a></li>
@@ -3091,7 +3083,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="footer-bottom-links">
                         <a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a>
                         <span class="separator">|</span>
-                        <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                        <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
                         <span class="separator">|</span>
                         <a href="#contact">{{ __('messages.contact_us') }}</a>
                     </div>

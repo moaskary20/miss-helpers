@@ -24,7 +24,7 @@
                         <div class="footer-links">
                             <h4>{{ __('messages.top_rated_categories') }}</h4>
                             <ul>
-                                <li><a href="{{ route('welcome') }}">{{ __('messages.home') }}</a></li>
+                                <li><a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a></li>
                                 <li><a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a></li>
                                 <li><a href="{{ route('contact.index') }}">{{ __('messages.contact_us') }}</a></li>
                                 @guest
@@ -43,7 +43,7 @@
                         <div class="footer-links">
                             <h4>{{ __('messages.services') }}</h4>
                             <ul>
-                                <li><a href="{{ route('welcome') }}">{{ __('messages.home') }}</a></li>
+                                <li><a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a></li>
                                 <li><a href="{{ route('maids.all') }}">{{ __('messages.maids') }}</a></li>
                                 <li><a href="{{ route('blog.index') }}">{{ __('messages.blogs') }}</a></li>
                                 <li><a href="{{ route('service.index') }}">{{ __('messages.services') }}</a></li>
@@ -104,7 +104,7 @@
                     <div class="footer-bottom-links">
                         <a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a>
                         <span class="separator">|</span>
-                        <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                        <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
                         <span class="separator">|</span>
                         <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
                     </div>

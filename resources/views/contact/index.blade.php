@@ -239,41 +239,49 @@
     <!-- Header -->
     <header class="site-header">
         <div class="container header-inner">
-            <a href="{{ route('welcome') }}" class="brand">
+            <a href="/{{ app()->getLocale() }}" class="brand">
                 <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
             </a>
             <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
-                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
                 <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
                 <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
                 <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
             </nav>
             <div class="d-flex align-items-center gap-3">
                 <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
-                <form action="{{ route('language.switch') }}" method="POST" class="d-inline">
-                    @csrf
-                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
-                    <button type="submit" class="btn btn-link text-decoration-none p-0">
-                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
-                    </button>
-                </form>
+                @php
+                    $newLocale = app()->getLocale() === 'ar' ? 'en' : 'ar';
+                    $segments = request()->segments();
+                    if (count($segments) > 0) { $segments[0] = $newLocale; } else { $segments = [$newLocale]; }
+                    $toggleUrl = '/'.implode('/', $segments);
+                    $qs = request()->getQueryString();
+                    if ($qs) { $toggleUrl .= '?'.$qs; }
+                @endphp
+                <a href="{{ $toggleUrl }}" class="btn btn-link text-decoration-none p-0">
+                    {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                </a>
                 <div class="auth d-none d-md-inline"><a href="{{ route('admin.login') }}">Login / Register</a></div>
                 <button class="btn btn-outline-secondary d-md-none" data-bs-toggle="collapse" data-bs-target="#mnav"><i class="bi bi-list"></i></button>
             </div>
         </div>
         <div id="mnav" class="collapse border-top d-md-none">
             <div class="container py-2 nav-links">
-                <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>
+                <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
                 <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
                 <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
                 <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
-                <form action="{{ route('language.switch') }}" method="POST" class="d-inline w-100">
-                    @csrf
-                    <input type="hidden" name="locale" value="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">
-                    <button type="submit" class="btn btn-link text-decoration-none p-0 w-100 text-start">
-                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
-                    </button>
-                </form>
+                @php
+                    $newLocale = app()->getLocale() === 'ar' ? 'en' : 'ar';
+                    $segments = request()->segments();
+                    if (count($segments) > 0) { $segments[0] = $newLocale; } else { $segments = [$newLocale]; }
+                    $toggleUrl = '/'.implode('/', $segments);
+                    $qs = request()->getQueryString();
+                    if ($qs) { $toggleUrl .= '?'.$qs; }
+                @endphp
+                <a href="{{ $toggleUrl }}" class="btn btn-link text-decoration-none p-0 w-100 text-start">
+                    {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                </a>
                 <a href="{{ route('admin.login') }}">Login / Register</a>
                 <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
             </div>

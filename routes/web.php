@@ -17,11 +17,28 @@ use App\Http\Controllers\AuthController as PublicAuthController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\UserProfileController;
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
+Route::redirect('/', '/'.app()->getLocale());
 
 // Language switching routes
 Route::post('/language/switch', [LanguageController::class, 'switch'])->name('language.switch');
 Route::get('/language/current', [LanguageController::class, 'getCurrentLanguage'])->name('language.current');
+
+// Localized routes: /ar/... and /en/...
+Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en'], 'middleware' => 'setlocale.url'], function() {
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
+    Route::get('/maids', [App\Http\Controllers\MaidController::class, 'index'])->name('maids.all');
+    Route::get('/maids/search', [App\Http\Controllers\MaidController::class, 'search'])->name('maids.search');
+    Route::get('/maids/category/{category}', [App\Http\Controllers\MaidController::class, 'byCategory'])->name('maids.byCategory');
+    Route::get('/maids/nationality/{nationality}', [App\Http\Controllers\MaidController::class, 'byNationality'])->name('maids.byNationality');
+    Route::get('/maid/{id}', [App\Http\Controllers\MaidController::class, 'show'])->name('maid.profile');
+    Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
+    Route::get('/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
+    Route::get('/blog/category/{slug}', [App\Http\Controllers\BlogController::class, 'category'])->name('blog.category');
+    Route::get('/contact', [App\Http\Controllers\ContactController::class, 'index'])->name('contact.index');
+    Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
+    Route::get('/service', [App\Http\Controllers\ServiceController::class, 'index'])->name('service.index');
+    Route::get('/about', [App\Http\Controllers\AboutController::class, 'index'])->name('about.index');
+});
 
 // Route for serving storage files
 Route::get('/storage/{path}', function ($path) {
@@ -40,27 +57,7 @@ Route::get('/storage/{path}', function ($path) {
     ]);
 })->where('path', '.*');
 
-// Routes for Maids
-Route::get('/maids', [App\Http\Controllers\MaidController::class, 'index'])->name('maids.all');
-Route::get('/maids/search', [App\Http\Controllers\MaidController::class, 'search'])->name('maids.search');
-Route::get('/maids/category/{category}', [App\Http\Controllers\MaidController::class, 'byCategory'])->name('maids.byCategory');
-Route::get('/maids/nationality/{nationality}', [App\Http\Controllers\MaidController::class, 'byNationality'])->name('maids.byNationality');
-Route::get('/maid/{id}', [App\Http\Controllers\MaidController::class, 'show'])->name('maid.profile');
-
-// Blog routes
-Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
-Route::get('/blog/category/{slug}', [App\Http\Controllers\BlogController::class, 'category'])->name('blog.category');
-
-// صفحة الاتصال بنا
-Route::get('/contact', [App\Http\Controllers\ContactController::class, 'index'])->name('contact.index');
-Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
-
-// صفحة الخدمات
-Route::get('/service', [App\Http\Controllers\ServiceController::class, 'index'])->name('service.index');
-
-// صفحة عنا
-Route::get('/about', [App\Http\Controllers\AboutController::class, 'index'])->name('about.index');
+// These routes are now handled within the localized group above
 
 // routes للخادمات (للمستخدمين العاديين)
 // Route::resource('maids', MaidController::class); // تم التعليق لتجنب التضارب

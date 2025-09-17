@@ -168,7 +168,7 @@
     </style>
 </head>
 <body>
-    <a href="{{ route('welcome') }}" class="back-home">
+    <a href="/{{ app()->getLocale() }}" class="back-home">
         <i class="bi bi-arrow-right"></i> العودة للرئيسية
     </a>
 

@@ -450,7 +450,7 @@
                         لا توجد مقالات حالياً
                     @endif
                 </p>
-                <a href="{{ route('welcome') }}" class="back-home">
+                <a href="/{{ app()->getLocale() }}" class="back-home">
                     <i class="bi bi-house"></i>
                     العودة للرئيسية
                 </a>
