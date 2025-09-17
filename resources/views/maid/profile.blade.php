@@ -838,7 +838,7 @@
                     </div>
 
                     <div class="text-center">
-                        <a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}" class="btn back-btn">
+                        <a href="{{ route('maids.all.' . app()->getLocale()) }}" class="btn back-btn">
                             <i class="bi bi-arrow-right me-2"></i>
                             {{ __('messages.back_to_maids_list') }}
                         </a>

@@ -1039,7 +1039,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             
                             <div class="maid-actions-bottom">
-                                <a href="{{ route('maid.profile', ['locale' => app()->getLocale(), 'id' => $maid->id]) }}" class="btn btn-primary w-100 mb-2">
+                                <a href="{{ route('maid.profile.' . app()->getLocale(), ['id' => $maid->id]) }}" class="btn btn-primary w-100 mb-2">
                                     {{ __('messages.view_profile') }}
                                 </a>
                             </div>
@@ -1050,7 +1050,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
 
         <div class="text-center">
-            <a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}" class="btn btn-outline-primary btn-lg px-5 py-3 fw-bold">
+            <a href="{{ route('maids.all.' . app()->getLocale()) }}" class="btn btn-outline-primary btn-lg px-5 py-3 fw-bold">
                 <i class="bi bi-grid-3x3-gap me-2"></i>
                 {{ __('messages.explore_maids') }}
             </a>
@@ -3029,7 +3029,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <h4>{{ __('messages.services') }}</h4>
                             <ul>
                                 <li><a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a></li>
-                                <li><a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}">{{ __('messages.maids') }}</a></li>
+                                <li><a href="{{ route('maids.all.' . app()->getLocale()) }}">{{ __('messages.maids') }}</a></li>
                                 <li><a href="{{ route('blog.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.blogs') }}</a></li>
                                 <li><a href="#services">{{ __('messages.services') }}</a></li>
                             </ul>

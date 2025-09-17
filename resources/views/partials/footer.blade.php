@@ -44,7 +44,7 @@
                             <h4>{{ __('messages.services') }}</h4>
                             <ul>
                                 <li><a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a></li>
-                                <li><a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}">{{ __('messages.maids') }}</a></li>
+                                <li><a href="{{ route('maids.all.' . app()->getLocale()) }}">{{ __('messages.maids') }}</a></li>
                                 <li><a href="{{ route('blog.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.blogs') }}</a></li>
                                 <li><a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.services') }}</a></li>
                             </ul>

@@ -326,7 +326,7 @@
     <!-- Search & Filters -->
     <div class="container">
         <div class="search-filters">
-            <form method="GET" action="{{ route('maids.all', ['locale' => app()->getLocale()]) }}" id="searchForm">
+            <form method="GET" action="{{ route('maids.all.' . app()->getLocale()) }}" id="searchForm">
                 <!-- البحث النصي -->
                 <div class="row g-3 mb-4">
                     <div class="col-12">
@@ -571,7 +571,7 @@
                             <i class="bi bi-search me-2"></i>
                             {{ __('messages.search') }}
                         </button>
-                        <a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}" class="btn btn-outline-secondary ms-2">
+                        <a href="{{ route('maids.all.' . app()->getLocale()) }}" class="btn btn-outline-secondary ms-2">
                             <i class="bi bi-arrow-clockwise me-2"></i>
                             {{ __('messages.reset') }}
                         </a>
@@ -730,7 +730,7 @@
                                 </div>
                                 
                                 <div class="maid-actions-bottom">
-                                    <a href="{{ route('maid.profile', ['locale' => app()->getLocale(), 'id' => $maid->id]) }}" class="btn btn-primary w-100">
+                                    <a href="{{ route('maid.profile.' . app()->getLocale(), ['id' => $maid->id]) }}" class="btn btn-primary w-100">
                                         {{ __('messages.view_profile') }}
                                     </a>
                                 </div>
@@ -749,7 +749,7 @@
                 <i class="bi bi-search"></i>
                 <h3>{{ __('messages.no_results') }}</h3>
                 <p>{{ __('messages.search_placeholder') }}</p>
-                <a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}" class="btn btn-primary">
+                <a href="{{ route('maids.all.' . app()->getLocale()) }}" class="btn btn-primary">
                     <i class="bi bi-arrow-clockwise me-2"></i>
                     {{ __('messages.search_now') }}
                 </a>
