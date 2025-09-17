@@ -1309,7 +1309,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
                             <div class="feature-text">
-                                <p>الجودة هي جوهر كل ما نقوم به من لحظة تصفحك لمرشحينا حتى وصول مساعدك إلى منزلك، نضمن لك أعلى المعايير في كل خطوة من خطوات العملية</p>
+                                <p>{{ __('messages.quality_intro') }}</p>
                             </div>
                         </div>
                         
@@ -1327,7 +1327,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
                             <div class="feature-text">
-                                <p>مدربة مهنياً في المهام المنزلية ورعاية الأطفال ورعاية المسنين</p>
+                                <p>{{ __('messages.trained_in_household_and_care') }}</p>
                             </div>
                         </div>
                         
@@ -1336,7 +1336,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
                             <div class="feature-text">
-                                <p>المراقبة المستمرة ودعم العملاء بعد التوظيف</p>
+                                <p>{{ __('messages.post_hiring_support') }}</p>
                             </div>
                         </div>
                         
@@ -1345,7 +1345,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
                             <div class="feature-text">
-                                <p>الالتزام بقوانين العمل في دولة الإمارات العربية المتحدة وممارسات التوظيف الأخلاقية</p>
+                                <p>{{ __('messages.legal_compliance_uae') }}</p>
                             </div>
                         </div>
                     </div>
@@ -1606,7 +1606,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="logo-icon">
                                 <i class="bi bi-heart"></i>
                             </div>
-                            <span class="company-name">MISS HELPERS</span>
+                            <span class="company-name">{{ app()->getLocale() === 'ar' ? 'ميس هيلبرز' : 'Miss Helpers' }}</span>
                         </div>
                         
                         <div class="reviewer-profile">

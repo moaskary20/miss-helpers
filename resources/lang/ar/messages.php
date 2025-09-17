@@ -36,6 +36,10 @@ return [
     'professional_service' => 'خدمة مهنية',
     'customer_support' => 'دعم العملاء',
     'satisfaction_guarantee' => 'ضمان الرضا',
+    'quality_intro' => 'الجودة هي جوهر كل ما نقوم به من لحظة تصفحك لمرشحينا حتى وصول مساعدك إلى منزلك، نضمن لك أعلى المعايير في كل خطوة من خطوات العملية',
+    'trained_in_household_and_care' => 'مدربة مهنيًا في المهام المنزلية ورعاية الأطفال ورعاية المسنين',
+    'post_hiring_support' => 'المراقبة المستمرة ودعم العملاء بعد التوظيف',
+    'legal_compliance_uae' => 'الالتزام بقوانين العمل في دولة الإمارات العربية المتحدة وممارسات التوظيف الأخلاقية',
     
     // Home Page Additional
     'traditional_package' => 'الباقة التقليدية',
@@ -551,6 +555,10 @@ return [
     // Advanced Search
     'advanced_search' => 'البحث المتقدم',
     'hide_advanced_filters' => 'إخفاء الفلاتر المتقدمة',
+
+    // Blog Sample Titles
+    'blog_title_calming_kids' => 'أفضل طرق تهدئة الأطفال',
+    'blog_title_home_organizing' => 'تنظيم المنزل بخطوات بسيطة',
     
     // Meta
     'meta_description' => 'اعثر على خادمات محترفات ومساعدات منزلية في المملكة العربية السعودية. خدمة موثوقة مع حجز سهل وموظفين موثوقين.',

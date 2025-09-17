@@ -170,6 +170,13 @@ class TranslationHelper
         }
         
         // If no translation found, return original value
+        // Blog sample titles mapping
+        if ($value === 'أفضل طرق تهدئة الأطفال') {
+            return __('messages.blog_title_calming_kids');
+        }
+        if ($value === 'تنظيم المنزل بخطوات بسيطة') {
+            return __('messages.blog_title_home_organizing');
+        }
         return $value;
     }
 }

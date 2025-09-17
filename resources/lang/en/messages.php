@@ -36,6 +36,10 @@ return [
     'professional_service' => 'Professional Service',
     'customer_support' => 'Customer Support',
     'satisfaction_guarantee' => 'Satisfaction Guarantee',
+    'quality_intro' => 'Quality is at the heart of everything we do — from browsing candidates to the moment your helper arrives home, we ensure the highest standards at every step.',
+    'trained_in_household_and_care' => 'Professionally trained in household tasks, childcare, and elderly care',
+    'post_hiring_support' => 'Continuous monitoring and post-hiring customer support',
+    'legal_compliance_uae' => 'Committed to UAE labor laws and ethical recruitment practices',
     
     // Home Page Additional
     'traditional_package' => 'Traditional Package',
@@ -574,4 +578,8 @@ return [
     // Advanced Search
     'advanced_search' => 'Advanced Search',
     'hide_advanced_filters' => 'Hide Advanced Filters',
+
+    // Blog Sample Titles
+    'blog_title_calming_kids' => 'Best Ways to Calm Children',
+    'blog_title_home_organizing' => 'Organize Your Home in Simple Steps',
 ];
