@@ -57,6 +57,12 @@ Route::get('/storage/{path}', function ($path) {
     ]);
 })->where('path', '.*');
 
+// Sitemap route
+Route::get('/sitemap.xml', function () {
+    $sitemap = \App\Helpers\SeoHelper::generateSitemap();
+    return response($sitemap, 200)->header('Content-Type', 'application/xml');
+})->name('sitemap');
+
 // These routes are now handled within the localized group above
 
 // routes للخادمات (للمستخدمين العاديين)
@@ -127,4 +133,9 @@ Route::prefix('admin')->name('admin.')->middleware(['admin', 'activity.log'])->g
     Route::resource('users', UserController::class)->names(['index'=>'users.index','create'=>'users.create','store'=>'users.store','show'=>'users.show','edit'=>'users.edit','update'=>'users.update','destroy'=>'users.destroy',]);
     Route::post('/users/{id}/status', [UserController::class, 'changeStatus'])->name('users.changeStatus');
     Route::get('/users/{id}/activities', [UserController::class, 'activities'])->name('users.activities');
+    
+    // SEO Management Routes
+    Route::resource('seo', \App\Http\Controllers\Admin\SeoController::class)->names(['index'=>'seo.index','create'=>'seo.create','store'=>'seo.store','show'=>'seo.show','edit'=>'seo.edit','update'=>'seo.update','destroy'=>'seo.destroy',]);
+    Route::get('/seo/generate-sitemap', [\App\Http\Controllers\Admin\SeoController::class, 'generateSitemap'])->name('seo.generate-sitemap');
+    Route::get('/seo/preview/{pageType}/{locale?}', [\App\Http\Controllers\Admin\SeoController::class, 'preview'])->name('seo.preview');
 });

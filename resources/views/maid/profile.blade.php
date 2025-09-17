@@ -2,9 +2,20 @@
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $maid->name }} - {{ __('messages.maid_profile') }} | Miss Helpers</title>
+    
+    @php
+        $additionalData = [
+            'title' => $maid->name . ' - ' . __('messages.maid_profile') . ' | Miss Helpers',
+            'description' => $maid->description ?: __('messages.maid_profile_description', ['name' => $maid->name, 'nationality' => $maid->nationality]),
+            'keywords' => $maid->nationality . ', ' . $maid->service_type . ', ' . __('messages.maid_profile') . ', Miss Helpers'
+        ];
+        $seoData = \App\Helpers\SeoHelper::generateMetaTags('maid_profile', app()->getLocale(), $additionalData);
+        $schemaMarkup = \App\Helpers\SeoHelper::generateSchemaMarkup('maid_profile', ['maid' => $maid]);
+        $seoData['schema_markup'] = $schemaMarkup;
+    @endphp
+    
+    @include('partials.seo-meta', ['metaData' => $seoData])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     

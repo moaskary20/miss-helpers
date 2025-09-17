@@ -2,9 +2,15 @@
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ __('messages.welcome_title') }} - {{ config('app.name', 'Miss Helpers') }}</title>
+    
+    @php
+        $seoData = \App\Helpers\SeoHelper::generateMetaTags('home', app()->getLocale());
+        $schemaMarkup = \App\Helpers\SeoHelper::generateSchemaMarkup('home');
+        $seoData['schema_markup'] = $schemaMarkup;
+    @endphp
+    
+    @include('partials.seo-meta', ['metaData' => $seoData])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">

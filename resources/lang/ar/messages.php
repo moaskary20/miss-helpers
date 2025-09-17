@@ -204,6 +204,9 @@ return [
     'no_work_experience_yet' => 'لا توجد خبرات عمل بعد',
     'work_experience_coming_soon' => 'سيتم إضافة خبرات العمل قريباً',
     
+    // SEO Messages
+    'maid_profile_description' => 'خادمة محترفة :name من :nationality. لديها خبرة في الخدمات المنزلية ورعاية العائلة.',
+    
     // Service Options
     'housemaid' => 'خادمة منزلية',
     'cook' => 'طباخة',

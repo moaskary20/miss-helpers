@@ -208,6 +208,11 @@
                             إدارة المستخدمين
                         </a>
                         
+                        <a class="nav-link {{ request()->routeIs('admin.seo.*') ? 'active' : '' }}" href="{{ route('admin.seo.index') }}">
+                            <i class="bi bi-search"></i>
+                            إدارة SEO
+                        </a>
+                        
 
                     </nav>
                 </div>

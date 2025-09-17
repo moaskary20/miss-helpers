@@ -201,6 +201,9 @@ return [
     'phone' => 'Phone Number',
     'message_sent_successfully' => 'Your message has been sent successfully! We will contact you soon.',
     
+    // SEO Messages
+    'maid_profile_description' => 'Professional maid :name from :nationality. Experienced in domestic services and family care.',
+    
     // Service Options
     'housemaid' => 'Housemaid',
     'cook' => 'Cook',
