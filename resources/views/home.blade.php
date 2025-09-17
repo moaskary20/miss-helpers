@@ -378,25 +378,36 @@
         </div>
     </div>
             <div id="mnav" class="collapse border-top d-md-none">
-            <div class="container py-2 nav-links">
-                <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
-                <a href="/{{ app()->getLocale() }}/about">{{ __('messages.about') }}</a>
-                <a href="/{{ app()->getLocale() }}/service">{{ __('messages.services') }}</a>
-                <a href="/{{ app()->getLocale() }}/contact">{{ __('messages.contact') }}</a>
-                <a href="/{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}" class="btn btn-link text-decoration-none p-0 w-100 text-start">
-                    {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
-                </a>
-                @guest
-                    <button type="button" class="btn btn-outline-secondary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#loginModal">{{ __('messages.login') }}</button>
-                    <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#registerModal">{{ __('messages.register') }}</button>
-                @else
-                    <a href="{{ route('user.profile') }}" class="d-block py-2 text-decoration-none text-primary fw-bold">{{ Auth::user()->name }}</a>
-                    <form method="POST" action="{{ route('auth.logout') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm w-100">{{ __('messages.logout') }}</button>
-                    </form>
-                @endguest
-                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
+            <div class="container py-2">
+                <!-- Navigation links in one row -->
+                <div class="nav-links text-center mb-3">
+                    <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
+                    <a href="/{{ app()->getLocale() }}/about">{{ __('messages.about') }}</a>
+                    <a href="/{{ app()->getLocale() }}/service">{{ __('messages.services') }}</a>
+                    <a href="/{{ app()->getLocale() }}/contact">{{ __('messages.contact') }}</a>
+                    <a href="/{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}" class="btn btn-link text-decoration-none p-0">
+                        {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
+                    </a>
+                </div>
+                
+                <!-- Login/Register buttons in one row -->
+                <div class="text-center mb-3">
+                    @guest
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">{{ __('messages.login') }}</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#registerModal">{{ __('messages.register') }}</button>
+                    @else
+                        <a href="{{ route('user.profile') }}" class="d-block py-2 text-decoration-none text-primary fw-bold">{{ Auth::user()->name }}</a>
+                        <form method="POST" action="{{ route('auth.logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger btn-sm">{{ __('messages.logout') }}</button>
+                        </form>
+                    @endguest
+                </div>
+                
+                <!-- CTA button full width -->
+                <div class="text-center">
+                    <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn w-100">{{ __('messages.get_maid_now') }}</a>
+                </div>
             </div>
         </div>
 </header>
@@ -577,6 +588,50 @@
 
         a.btn.btn-classic {
             color: white;
+        }
+
+        /* Mobile menu order fix */
+        @media (max-width: 767.98px) {
+            /* Navigation links in one row */
+            #mnav .nav-links a {
+                display: inline-block;
+                min-width: 80px;
+                text-align: center;
+                padding: 8px 12px;
+                border-radius: 8px;
+                background: #f8f9fa;
+                text-decoration: none;
+                color: #1c1c1c;
+                font-weight: 600;
+                margin: 0 5px;
+            }
+            
+            /* Language selector */
+            #mnav .nav-links .btn-link {
+                display: inline-block;
+                min-width: 80px;
+                text-align: center;
+                padding: 8px 12px;
+                border-radius: 8px;
+                background: #f8f9fa;
+                text-decoration: none;
+                color: #1c1c1c;
+                font-weight: 600;
+                margin: 0 5px;
+            }
+            
+            /* Login/Register buttons in one row below nav */
+            #mnav .text-center .btn {
+                display: inline-block;
+                min-width: 120px;
+                margin: 0 5px;
+            }
+            
+            /* CTA button full width below everything */
+            #mnav .cta-btn {
+                width: 100%;
+                text-align: center;
+            }
         }
 
         .alert {
