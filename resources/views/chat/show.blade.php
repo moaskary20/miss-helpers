@@ -17,7 +17,7 @@
     <style>
         body {
             font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             min-height: 100vh;
         }
         
@@ -32,7 +32,7 @@
         }
         
         .chat-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             color: white;
             padding: 20px 30px;
             display: flex;
@@ -94,7 +94,7 @@
         }
         
         .message.visitor .message-content {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             color: white;
             border-bottom-right-radius: 5px;
         }
@@ -139,12 +139,12 @@
         }
         
         .form-control:focus {
-            border-color: #667eea;
+            border-color: #ffa19c;
             box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
         }
         
         .btn-send {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             border: none;
             border-radius: 25px;
             padding: 12px 25px;

@@ -25,7 +25,7 @@
         
         .sidebar {
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             box-shadow: 2px 0 10px rgba(0,0,0,0.1);
         }
         
@@ -85,10 +85,11 @@
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             border: none;
             border-radius: 8px;
             padding: 10px 20px;
+            color: #fff !important;
             transition: all 0.3s ease;
         }
         
@@ -104,14 +105,14 @@
         }
         
         .table thead th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             color: white;
             border: none;
             font-weight: 600;
         }
         
         .stats-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             color: white;
             border-radius: 15px;
             padding: 20px;
@@ -131,7 +132,7 @@
         }
         
         .form-control:focus, .form-select:focus {
-            border-color: #667eea;
+            border-color: #ffa19c;
             box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
         }
         

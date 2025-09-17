@@ -25,8 +25,8 @@
         .nav-links{display:flex;gap:10px}
         .nav-links a{color:#1c1c1c;text-decoration:none;padding:10px 14px;border-radius:12px;font-weight:600}
         .nav-links a:hover{background:#f6f7fb}
-        .cta-btn{background:#0d6efd;color:#fff;border:none;border-radius:18px;padding:10px 18px;font-weight:800;text-decoration:none;display:inline-block}
-        .cta-btn:hover{background:#0b5ed7;color:#fff;text-decoration:none}
+        .cta-btn{background:#ffa19c;color:#fff;border:none;border-radius:18px;padding:10px 18px;font-weight:800;text-decoration:none;display:inline-block}
+        .cta-btn:hover{background:#ff8a7a;color:#fff;text-decoration:none}
         .auth a{color:#1c1c1c;text-decoration:none;margin-inline-start:14px}
         
         body {
@@ -212,6 +212,7 @@
             border-radius: 12px;
             padding: 12px;
             font-weight: 600;
+            color: #fff !important;
             transition: all 0.3s ease;
         }
         

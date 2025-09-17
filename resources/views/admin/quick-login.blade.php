@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -64,7 +64,7 @@
             border-radius: 8px;
         }
         .form-control:focus {
-            border-color: #667eea;
+            border-color: #ffa19c;
             box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
         }
     </style>

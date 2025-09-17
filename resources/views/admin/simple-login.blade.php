@@ -10,7 +10,7 @@
     <style>
         body {
             font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -55,11 +55,11 @@
             transition: all 0.3s ease;
         }
         .form-control:focus {
-            border-color: #667eea;
+            border-color: #ffa19c;
             box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
         }
         .btn-login {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             border: none;
             border-radius: 10px;
             padding: 12px 30px;

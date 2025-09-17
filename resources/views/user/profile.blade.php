@@ -76,7 +76,7 @@
         }
         
         .cta-btn {
-            background: #0d6efd;
+            background: #ffa19c;
             color: #fff;
             border: none;
             border-radius: 18px;
@@ -117,7 +117,7 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -169,6 +169,7 @@
             border-color: #007bff;
             border-radius: 10px;
             padding: 0.5rem 1.5rem;
+            color: #fff !important;
         }
         
         .btn-primary:hover {

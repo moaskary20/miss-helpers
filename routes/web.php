@@ -103,7 +103,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
     Route::post('/login', [AuthController::class, 'login'])->name('doLogin')->middleware('guest');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/test-login', function () { return view('admin.test-login'); })->name('testLogin');
     Route::get('/simple-login', function () { return view('admin.simple-login'); })->name('simpleLogin');
     Route::get('/quick-login', function () { return view('admin.quick-login'); })->name('quickLogin');
 });
@@ -112,7 +111,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::prefix('admin')->name('admin.')->middleware(['admin', 'activity.log'])->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::get('/test', function () { return view('admin.test'); })->name('test');
     Route::get('/maids', [AdminController::class, 'maidsIndex'])->name('maids.index');
     Route::get('/maids/create', [AdminController::class, 'maidsCreate'])->name('maids.create');
     Route::post('/maids', [AdminController::class, 'maidsStore'])->name('maids.store');
@@ -132,7 +130,6 @@ Route::prefix('admin')->name('admin.')->middleware(['admin', 'activity.log'])->g
     Route::delete('/chat/{id}', [ChatController::class, 'destroy'])->name('chat.destroy');
     Route::post('/chat/{id}/mark-read', [ChatController::class, 'markAsRead'])->name('chat.markRead');
     Route::get('/chat/unread-count', [ChatController::class, 'getUnreadCount'])->name('chat.unreadCount');
-    Route::get('/chat/test', function () { return view('admin.chat.test'); })->name('chat.test');
     Route::get('/chat/simple', function () { return view('admin.chat.simple'); })->name('chat.simple');
     Route::resource('users', UserController::class)->names(['index'=>'users.index','create'=>'users.create','store'=>'users.store','show'=>'users.show','edit'=>'users.edit','update'=>'users.update','destroy'=>'users.destroy',]);
     Route::post('/users/{id}/status', [UserController::class, 'changeStatus'])->name('users.changeStatus');

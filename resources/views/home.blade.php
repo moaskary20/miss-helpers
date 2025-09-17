@@ -24,7 +24,7 @@
         .brand .title{font-weight:800;color:#1c1c1c;letter-spacing:.5px}
         .nav-links a{color:#1c1c1c;text-decoration:none;padding:10px 14px;border-radius:12px;font-weight:600}
         .nav-links a:hover{background:#f6f7fb}
-        .cta-btn{background:#0d6efd;color:#fff;border:none;border-radius:18px;padding:10px 18px;font-weight:800}
+        .cta-btn{background:#ffa19c;color:#fff;border:none;border-radius:18px;padding:10px 18px;font-weight:800}
         .auth a{color:#1c1c1c;text-decoration:none;margin-inline-start:14px}
 
         .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;border-radius:24px}
@@ -566,12 +566,17 @@
             border-radius: 12px;
             padding: 12px;
             font-weight: 600;
+            color: #fff !important;
             transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 15px rgba(35, 51, 107, 0.3);
+        }
+
+        a.btn.btn-classic {
+            color: white;
         }
 
         .alert {
@@ -1173,6 +1178,7 @@ document.addEventListener('DOMContentLoaded', function() {
     border-radius: 12px;
     padding: 12px;
     font-weight: 600;
+    color: #fff !important;
     transition: all 0.3s ease;
 }
 
@@ -3292,7 +3298,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .chat-toggle {
         width: 60px;
         height: 60px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #ffa19c;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -3365,7 +3371,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .chat-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #ffa19c;
         color: white;
         padding: 15px 20px;
         display: flex;
@@ -3472,7 +3478,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .message-avatar {
         width: 32px;
         height: 32px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #ffa19c;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -3495,7 +3501,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .user-message .message-content {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #ffa19c;
         color: white;
         border-bottom-right-radius: 4px;
     }
@@ -3623,7 +3629,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .chat-input:focus-within {
-        border-color: #667eea;
+        border-color: #ffa19c;
     }
 
     .chat-input input {
@@ -3643,7 +3649,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .chat-send-btn {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #ffa19c;
         border: none;
         color: white;
         width: 36px;

@@ -9,3 +9,20 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Global button styles */
+.btn-primary {
+    color: #fff !important;
+}
+
+.btn-primary:hover {
+    color: #fff !important;
+}
+
+.btn-primary:focus {
+    color: #fff !important;
+}
+
+.btn-primary:active {
+    color: #fff !important;
+}

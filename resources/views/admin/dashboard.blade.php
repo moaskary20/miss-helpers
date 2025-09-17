@@ -103,7 +103,7 @@
 <!-- إحصائيات الطلبات -->
 <div class="row mb-4">
     <div class="col-md-3">
-        <div class="stats-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="stats-card" style="background: #ffa19c;">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <h3 class="mb-1">{{ $requestsCount }}</h3>

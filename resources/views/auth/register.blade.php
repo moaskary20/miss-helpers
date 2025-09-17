@@ -12,7 +12,7 @@
     <style>
         body {
             font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             min-height: 100vh;
             display: flex;
             align-items: center;

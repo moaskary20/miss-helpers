@@ -74,7 +74,7 @@
         }
 
         .cta-btn {
-            background: #0d6efd;
+            background: #ffa19c;
             color: #fff;
             border: none;
             border-radius: 18px;
@@ -787,7 +787,7 @@
     .chat-toggle {
         width: 60px;
         height: 60px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #ffa19c;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -860,7 +860,7 @@
     }
 
     .chat-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #ffa19c;
         color: white;
         padding: 15px 20px;
         display: flex;
@@ -957,7 +957,7 @@
     }
 
     .user-message .message-content {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #ffa19c;
         color: white;
         border-bottom-right-radius: 4px;
     }
@@ -997,7 +997,7 @@
     }
 
     .chat-input:focus-within {
-        border-color: #667eea;
+        border-color: #ffa19c;
     }
 
     .chat-input input {
@@ -1015,7 +1015,7 @@
     }
 
     .chat-send-btn {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #ffa19c;
         border: none;
         color: white;
         width: 36px;

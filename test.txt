@@ -1,3 +1,0 @@
-This is a test file for GitHub upload
-Created on: 2024
-Purpose: Testing GitHub integration

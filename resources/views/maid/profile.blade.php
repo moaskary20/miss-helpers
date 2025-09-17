@@ -35,7 +35,7 @@
         .brand .title{font-weight:800;color:#1c1c1c;letter-spacing:.5px}
         .nav-links a{color:#1c1c1c;text-decoration:none;padding:10px 14px;border-radius:12px;font-weight:600}
         .nav-links a:hover{background:#f6f7fb}
-        .cta-btn{background:#0d6efd;color:#fff;border:none;border-radius:18px;padding:10px 18px;font-weight:800}
+        .cta-btn{background:#ffa19c;color:#fff;border:none;border-radius:18px;padding:10px 18px;font-weight:800}
         .auth a{color:#1c1c1c;text-decoration:none;margin-inline-start:14px}
         
         .profile-header {
@@ -318,7 +318,7 @@
         }
         
         #imageModal .modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             color: white;
             border: none;
         }
@@ -474,6 +474,7 @@
             border-radius: 12px;
             padding: 12px;
             font-weight: 600;
+            color: #fff !important;
             transition: all 0.3s ease;
         }
 

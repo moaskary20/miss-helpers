@@ -17,7 +17,7 @@
     <style>
         body {
             font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -33,7 +33,7 @@
         }
         
         .chat-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             color: white;
             padding: 30px;
             text-align: center;
@@ -62,12 +62,12 @@
         }
         
         .form-control:focus, .form-select:focus {
-            border-color: #667eea;
+            border-color: #ffa19c;
             box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
         }
         
         .btn-start-chat {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffa19c;
             border: none;
             border-radius: 10px;
             padding: 15px 30px;
@@ -98,13 +98,13 @@
         }
         
         .chat-type-option:hover {
-            border-color: #667eea;
+            border-color: #ffa19c;
             background-color: #f8f9fa;
         }
         
         .chat-type-option.selected {
-            border-color: #667eea;
-            background-color: #667eea;
+            border-color: #ffa19c;
+            background-color: #ffa19c;
             color: white;
         }
         

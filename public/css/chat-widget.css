@@ -11,7 +11,7 @@
 .chat-toggle {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffa19c;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -95,7 +95,7 @@
 
 /* Chat Header */
 .chat-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffa19c;
     color: white;
     padding: 15px 20px;
     display: flex;
@@ -204,7 +204,7 @@
 .message-avatar {
     width: 32px;
     height: 32px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffa19c;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -227,7 +227,7 @@
 }
 
 .user-message .message-content {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffa19c;
     color: white;
     border-bottom-right-radius: 4px;
 }
@@ -288,7 +288,7 @@
 }
 
 .chat-send-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffa19c;
     border: none;
     color: white;
     width: 36px;
@@ -387,7 +387,7 @@
 .typing-dot {
     width: 8px;
     height: 8px;
-    background: #667eea;
+    background: #ffa19c;
     border-radius: 50%;
     animation: typing 1.4s infinite ease-in-out;
 }
