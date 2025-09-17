@@ -36,7 +36,7 @@ class ContactController extends Controller
 
         ServiceRequest::create($data);
 
-        return redirect()->route('contact.index')
+        return redirect()->route('contact.index', ['locale' => app()->getLocale()])
             ->with('success', 'تم إرسال طلبك بنجاح! سنتواصل معك قريباً.');
     }
 }

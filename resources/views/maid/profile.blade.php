@@ -831,14 +831,14 @@
                     </h3>
                     
                     <div class="d-grid gap-3 mb-4">
-                        <a href="{{ route('contact.index') }}" class="btn contact-btn">
+                        <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="btn contact-btn">
                             <i class="bi bi-calendar-check me-2"></i>
                             {{ __('messages.call_now') }}
                         </a>
                     </div>
 
                     <div class="text-center">
-                        <a href="{{ route('maids.all') }}" class="btn back-btn">
+                        <a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}" class="btn back-btn">
                             <i class="bi bi-arrow-right me-2"></i>
                             {{ __('messages.back_to_maids_list') }}
                         </a>

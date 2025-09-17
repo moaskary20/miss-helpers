@@ -287,12 +287,12 @@
             </a>
             <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
                 <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
-                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
-                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
-                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
+                <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.contact') }}</a>
             </nav>
             <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
                 <a href="/{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}" class="btn btn-link text-decoration-none p-0">
                     {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
                 </a>
@@ -303,14 +303,14 @@
         <div id="mnav" class="collapse border-top d-md-none">
             <div class="container py-2 nav-links">
                 <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
-                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
-                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
-                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
+                <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.contact') }}</a>
                 <a href="/{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}" class="btn btn-link text-decoration-none p-0 w-100 text-start">
                     {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
                 </a>
                 <a href="{{ route('admin.login') }}">Login / Register</a>
-                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
             </div>
         </div>
     </header>
@@ -326,7 +326,7 @@
     <!-- Search & Filters -->
     <div class="container">
         <div class="search-filters">
-            <form method="GET" action="{{ route('maids.all') }}" id="searchForm">
+            <form method="GET" action="{{ route('maids.all', ['locale' => app()->getLocale()]) }}" id="searchForm">
                 <!-- البحث النصي -->
                 <div class="row g-3 mb-4">
                     <div class="col-12">
@@ -571,7 +571,7 @@
                             <i class="bi bi-search me-2"></i>
                             {{ __('messages.search') }}
                         </button>
-                        <a href="{{ route('maids.all') }}" class="btn btn-outline-secondary ms-2">
+                        <a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}" class="btn btn-outline-secondary ms-2">
                             <i class="bi bi-arrow-clockwise me-2"></i>
                             {{ __('messages.reset') }}
                         </a>
@@ -749,7 +749,7 @@
                 <i class="bi bi-search"></i>
                 <h3>{{ __('messages.no_results') }}</h3>
                 <p>{{ __('messages.search_placeholder') }}</p>
-                <a href="{{ route('maids.all') }}" class="btn btn-primary">
+                <a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}" class="btn btn-primary">
                     <i class="bi bi-arrow-clockwise me-2"></i>
                     {{ __('messages.search_now') }}
                 </a>

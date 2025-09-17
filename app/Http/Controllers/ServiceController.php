@@ -16,7 +16,10 @@ class ServiceController extends Controller
         
         // إذا تم اختيار باقة، توجيه إلى صفحة الخادمات مع الفلتر
         if ($packageType) {
-            return redirect()->route('maids.all', ['package_type' => $packageType]);
+            return redirect()->route('maids.all', [
+                'locale' => app()->getLocale(),
+                'package_type' => $packageType
+            ]);
         }
         
         return view('service.index');

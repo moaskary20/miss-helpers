@@ -460,7 +460,7 @@
                                 <i class="bi bi-bag display-1 text-muted"></i>
                                 <h5 class="mt-3 text-muted">{{ __('messages.no_orders_yet') }}</h5>
                                 <p class="text-muted">{{ __('messages.when_you_request_service') }}</p>
-                                <a href="{{ route('service.index') }}" class="btn btn-primary">
+                                <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}" class="btn btn-primary">
                                     <i class="bi bi-plus-circle"></i> {{ __('messages.request_new_service') }}
                                 </a>
                             </div>

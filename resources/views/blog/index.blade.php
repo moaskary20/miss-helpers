@@ -324,12 +324,12 @@
             </a>
             <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
                 <a href="{{ url('/') }}">الرئيسية</a>
-                <a href="{{ route('about.index') }}">عنا</a>
-                <a href="{{ route('service.index') }}">الخدمات</a>
-                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
+                <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">عنا</a>
+                <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">الخدمات</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}">الاتصال بنا</a>
             </nav>
             <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('contact.index') }}" class="cta-btn">احصل على خادمة الآن</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn">احصل على خادمة الآن</a>
                 <div class="auth d-none d-md-flex">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">إنشاء حساب</a>
@@ -349,7 +349,7 @@
     <!-- قسم البحث -->
     <section class="search-section">
         <div class="container">
-            <form class="search-form" method="GET" action="{{ route('blog.index') }}">
+            <form class="search-form" method="GET" action="{{ route('blog.index', ['locale' => app()->getLocale()]) }}">
                 <div class="row g-3">
                     <div class="col-md-8">
                         <input type="text" name="search" class="form-control search-input" 
@@ -371,12 +371,12 @@
     <section class="categories-section">
         <div class="container">
             <div class="text-center">
-                <a href="{{ route('blog.index') }}" 
+                <a href="{{ route('blog.index', ['locale' => app()->getLocale()]) }}" 
                    class="category-btn {{ !request('category') ? 'active' : '' }}">
                     جميع المقالات
                 </a>
                 @foreach($categories as $cat)
-                <a href="{{ route('blog.index', ['category' => $cat->slug]) }}" 
+                <a href="{{ route('blog.index', ['locale' => app()->getLocale(), 'category' => $cat->slug]) }}" 
                    class="category-btn {{ request('category') == $cat->slug ? 'active' : '' }}">
                     {{ $cat->name }}
                 </a>
@@ -423,7 +423,7 @@
                         <div class="blog-content-inner">
                             <h3 class="blog-title">{{ $post->title }}</h3>
                             <p class="blog-excerpt">{{ Str::limit($post->excerpt ?? $post->content, 120) }}</p>
-                            <a href="{{ route('blog.show', $post->slug) }}" class="read-more">
+                            <a href="{{ route('blog.show', ['locale' => app()->getLocale(), 'slug' => $post->slug]) }}" class="read-more">
                                 اقرأ المزيد
                                 <i class="bi bi-arrow-left"></i>
                             </a>

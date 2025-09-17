@@ -301,12 +301,12 @@
             </a>
             <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
                 <a href="{{ url('/') }}">الرئيسية</a>
-                <a href="{{ route('about.index') }}">عنا</a>
-                <a href="{{ route('service.index') }}">الخدمات</a>
-                <a href="{{ route('contact.index') }}">الاتصال بنا</a>
+                <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">عنا</a>
+                <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">الخدمات</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}">الاتصال بنا</a>
             </nav>
             <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('contact.index') }}" class="cta-btn">احصل على خادمة الآن</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn">احصل على خادمة الآن</a>
                 <div class="auth d-none d-md-flex">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">إنشاء حساب</a>
@@ -340,7 +340,7 @@
     <section class="blog-content">
         <div class="container">
             <div class="text-center">
-                <a href="{{ route('blog.index') }}" class="back-btn">
+                <a href="{{ route('blog.index', ['locale' => app()->getLocale()]) }}" class="back-btn">
                     <i class="bi bi-arrow-right"></i>
                     العودة للمدونة
                 </a>
@@ -399,7 +399,7 @@
                             @endif
                             <h3 class="related-title-small">{{ $relatedPost->title }}</h3>
                             <p class="related-excerpt">{{ Str::limit($relatedPost->excerpt ?? $relatedPost->content, 100) }}</p>
-                            <a href="{{ route('blog.show', $relatedPost->slug) }}" class="read-more">
+                            <a href="{{ route('blog.show', ['locale' => app()->getLocale(), 'slug' => $relatedPost->slug]) }}" class="read-more">
                                 اقرأ المزيد
                                 <i class="bi bi-arrow-left"></i>
                             </a>
