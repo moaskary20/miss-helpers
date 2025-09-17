@@ -25,8 +25,8 @@
                             <h4>{{ __('messages.top_rated_categories') }}</h4>
                             <ul>
                                 <li><a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a></li>
-                                <li><a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a></li>
-                                <li><a href="{{ route('contact.index') }}">{{ __('messages.contact_us') }}</a></li>
+                                <li><a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.about_us') }}</a></li>
+                                <li><a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.contact_us') }}</a></li>
                                 @guest
                                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">{{ __('messages.login') }}</a></li>
                                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">{{ __('messages.register') }}</a></li>
@@ -44,9 +44,9 @@
                             <h4>{{ __('messages.services') }}</h4>
                             <ul>
                                 <li><a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a></li>
-                                <li><a href="{{ route('maids.all') }}">{{ __('messages.maids') }}</a></li>
-                                <li><a href="{{ route('blog.index') }}">{{ __('messages.blogs') }}</a></li>
-                                <li><a href="{{ route('service.index') }}">{{ __('messages.services') }}</a></li>
+                                <li><a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}">{{ __('messages.maids') }}</a></li>
+                                <li><a href="{{ route('blog.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.blogs') }}</a></li>
+                                <li><a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.services') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -102,11 +102,11 @@
                 </div>
                 <div class="col-md-6">
                     <div class="footer-bottom-links">
-                        <a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a>
+                        <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.about_us') }}</a>
                         <span class="separator">|</span>
                         <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
                         <span class="separator">|</span>
-                        <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
+                        <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.services') }}</a>
                     </div>
                 </div>
             </div>

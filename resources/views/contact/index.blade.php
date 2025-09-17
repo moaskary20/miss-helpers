@@ -244,12 +244,12 @@
             </a>
             <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
                 <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
-                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
-                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
-                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
+                <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.contact') }}</a>
             </nav>
             <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
                 @php
                     $newLocale = app()->getLocale() === 'ar' ? 'en' : 'ar';
                     $segments = request()->segments();
@@ -268,9 +268,9 @@
         <div id="mnav" class="collapse border-top d-md-none">
             <div class="container py-2 nav-links">
                 <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
-                <a href="{{ route('about.index') }}">{{ __('messages.about') }}</a>
-                <a href="{{ route('service.index') }}">{{ __('messages.services') }}</a>
-                <a href="{{ route('contact.index') }}">{{ __('messages.contact') }}</a>
+                <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.about') }}</a>
+                <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.services') }}</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.contact') }}</a>
                 @php
                     $newLocale = app()->getLocale() === 'ar' ? 'en' : 'ar';
                     $segments = request()->segments();
@@ -283,7 +283,7 @@
                     {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
                 </a>
                 <a href="{{ route('admin.login') }}">Login / Register</a>
-                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
             </div>
         </div>
     </header>
@@ -299,7 +299,7 @@
                         <div class="form-section">
                             <h2 class="form-title">{{ __('messages.get_maid_now_title') }}</h2>
                             
-                            <form id="contactForm" method="POST" action="{{ route('contact.store') }}">
+                            <form id="contactForm" method="POST" action="{{ route('contact.store', ['locale' => app()->getLocale()]) }}">
                                 @csrf
                                 <div class="form-group">
                                     <label class="form-label">{{ __('messages.full_name') }}</label>

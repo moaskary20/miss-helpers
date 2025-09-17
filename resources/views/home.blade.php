@@ -352,7 +352,7 @@
             <a href="/{{ app()->getLocale() }}/contact">{{ __('messages.contact') }}</a>
         </nav>
         <div class="d-flex align-items-center gap-3">
-            <a href="{{ route('contact.index') }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
+            <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
             <a href="/{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}" class="btn btn-link text-decoration-none p-0">
                 {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
             </a>
@@ -390,7 +390,7 @@
                         <button type="submit" class="btn btn-outline-danger btn-sm w-100">{{ __('messages.logout') }}</button>
                     </form>
                 @endguest
-                <a href="{{ route('contact.index') }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
+                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
             </div>
         </div>
 </header>
@@ -455,7 +455,7 @@
                 <p class="mt-3" style="color:#3a3a3a;line-height:1.9">
                     {{ __('messages.miss_helpers_description') }}
                 </p>
-                <a href="{{ route('about.index') }}" class="btn btn-primary px-4">{{ __('messages.learn_more_about_us') }}</a>
+                <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}" class="btn btn-primary px-4">{{ __('messages.learn_more_about_us') }}</a>
             </div>
             <div class="col-lg-6">
                 <video class="w-100 rounded-3 shadow" controls preload="metadata" poster="/images/hero-bg.jpg">
@@ -602,7 +602,7 @@
                         // echo "<!-- Debug: Post ID: {$post->id}, Image: {$img} -->";
                     @endphp
                     <div class="blog-card-wrap">
-                        <a href="{{ route('blog.show', $post->slug) }}" class="text-decoration-none">
+                        <a href="{{ route('blog.show', ['locale' => app()->getLocale(), 'slug' => $post->slug]) }}" class="text-decoration-none">
                             <div class="blog-card shadow-sm">
                                 <img src="{{ $img }}" alt="{{ $post->title }}" onerror="this.src='{{ asset('images/hero-bg.jpg') }}'">
                                 <div class="blog-overlay"></div>
@@ -731,7 +731,7 @@
                 <div class="contact-form-wrapper">
                     <h2 class="fw-bolder mb-4" style="color: #23336b; font-size: 2.5rem;">{{ __('messages.find_perfect_maid') }}</h2>
                     
-                    <form id="maidRequestForm" method="POST" action="{{ route('contact.store') }}">
+                    <form id="maidRequestForm" method="POST" action="{{ route('contact.store', ['locale' => app()->getLocale()]) }}">
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label fw-semibold" style="color: #23336b;">{{ __('messages.name') }}</label>
@@ -1033,7 +1033,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             
                             <div class="maid-actions-bottom">
-                                <a href="{{ route('maid.profile', $maid->id) }}" class="btn btn-primary w-100 mb-2">
+                                <a href="{{ route('maid.profile', ['locale' => app()->getLocale(), 'id' => $maid->id]) }}" class="btn btn-primary w-100 mb-2">
                                     {{ __('messages.view_profile') }}
                                 </a>
                             </div>
@@ -1044,7 +1044,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
 
         <div class="text-center">
-            <a href="{{ route('maids.all') }}" class="btn btn-outline-primary btn-lg px-5 py-3 fw-bold">
+            <a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}" class="btn btn-outline-primary btn-lg px-5 py-3 fw-bold">
                 <i class="bi bi-grid-3x3-gap me-2"></i>
                 {{ __('messages.explore_maids') }}
             </a>
@@ -2091,7 +2091,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p>{{ __('messages.faq_description') }}</p>
                     </div>
                     <div class="contact-action">
-                        <a href="{{ route('contact.index') }}" class="contact-btn">{{ __('messages.contact_us_now') }}</a>
+                        <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="contact-btn">{{ __('messages.contact_us_now') }}</a>
                     </div>
                 </div>
             </div>
@@ -2958,7 +2958,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="blog-content">
                         <h3 class="blog-title">{{ $post->title }}</h3>
                         <p class="blog-excerpt">{{ Str::limit($post->excerpt ?? $post->content, 120) }}</p>
-                        <a href="{{ route('blog.show', $post->slug) }}" class="read-more">
+                        <a href="{{ route('blog.show', ['locale' => app()->getLocale(), 'slug' => $post->slug]) }}" class="read-more">
                             {{ __('messages.read_more') }}
                             <i class="bi bi-arrow-left"></i>
                         </a>
@@ -2977,7 +2977,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         
         <div class="text-center mt-5">
-            <a href="{{ route('blog.index') }}" class="explore-btn">
+            <a href="{{ route('blog.index', ['locale' => app()->getLocale()]) }}" class="explore-btn">
                 <i class="bi bi-arrow-left"></i>
                 {{ __('messages.explore_more') }}
             </a>
@@ -3012,7 +3012,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <h4>{{ __('messages.top_rated_categories') }}</h4>
                             <ul>
                                 <li><a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a></li>
-                                <li><a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a></li>
+                                <li><a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.about_us') }}</a></li>
                                 <li><a href="#contact">{{ __('messages.contact_us') }}</a></li>
                                 <li><a href="{{ route('admin.login') }}">Login / Register</a></li>
                             </ul>
@@ -3023,8 +3023,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             <h4>{{ __('messages.services') }}</h4>
                             <ul>
                                 <li><a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a></li>
-                                <li><a href="{{ route('maids.all') }}">{{ __('messages.maids') }}</a></li>
-                                <li><a href="{{ route('blog.index') }}">{{ __('messages.blogs') }}</a></li>
+                                <li><a href="{{ route('maids.all', ['locale' => app()->getLocale()]) }}">{{ __('messages.maids') }}</a></li>
+                                <li><a href="{{ route('blog.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.blogs') }}</a></li>
                                 <li><a href="#services">{{ __('messages.services') }}</a></li>
                             </ul>
                         </div>
@@ -3081,7 +3081,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="col-md-6">
                     <div class="footer-bottom-links">
-                        <a href="{{ route('about.index') }}">{{ __('messages.about_us') }}</a>
+                        <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.about_us') }}</a>
                         <span class="separator">|</span>
                         <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
                         <span class="separator">|</span>
