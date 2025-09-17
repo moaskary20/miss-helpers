@@ -3,6 +3,24 @@
 @section('title', 'SEO Settings Management')
 
 @section('content')
+<style>
+.btn-group .btn {
+    margin: 0 2px;
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+}
+.btn-group .btn i {
+    margin-left: 0.25rem;
+}
+.table th {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.badge {
+    font-size: 0.75rem;
+    padding: 0.5em 0.75em;
+}
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -28,52 +46,64 @@
                     @endif
 
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="table-dark">
                                 <tr>
-                                    <th>Page Type</th>
-                                    <th>Locale</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th width="15%">نوع الصفحة</th>
+                                    <th width="10%">اللغة</th>
+                                    <th width="25%">العنوان</th>
+                                    <th width="30%">الوصف</th>
+                                    <th width="10%">الحالة</th>
+                                    <th width="20%">الإجراءات</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($seoSettings as $setting)
                                     <tr>
                                         <td>
-                                            <span class="badge bg-info">{{ ucfirst($setting->page_type) }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-{{ $setting->locale === 'ar' ? 'warning' : 'primary' }}">
-                                                {{ strtoupper($setting->locale) }}
+                                            <span class="badge bg-info fs-6">
+                                                {{ ucfirst(str_replace('_', ' ', $setting->page_type)) }}
                                             </span>
                                         </td>
-                                        <td>{{ Str::limit($setting->title, 50) }}</td>
-                                        <td>{{ Str::limit($setting->description, 80) }}</td>
                                         <td>
-                                            <span class="badge bg-{{ $setting->is_active ? 'success' : 'danger' }}">
-                                                {{ $setting->is_active ? 'Active' : 'Inactive' }}
+                                            <span class="badge bg-{{ $setting->locale === 'ar' ? 'warning' : 'primary' }} fs-6">
+                                                {{ $setting->locale === 'ar' ? 'عربي' : 'English' }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="fw-bold text-dark">{{ Str::limit($setting->title, 40) }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="text-muted small">{{ Str::limit($setting->description, 60) }}</div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-{{ $setting->is_active ? 'success' : 'danger' }} fs-6">
+                                                {{ $setting->is_active ? 'نشط' : 'غير نشط' }}
                                             </span>
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <a href="{{ route('admin.seo.edit', $setting->id) }}" 
-                                                   class="btn btn-sm btn-outline-primary">
-                                                    <i class="fas fa-edit"></i>
+                                                   class="btn btn-sm btn-primary" 
+                                                   title="تعديل">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                    تعديل
                                                 </a>
                                                 <a href="{{ route('admin.seo.preview', ['pageType' => $setting->page_type, 'locale' => $setting->locale]) }}" 
-                                                   class="btn btn-sm btn-outline-info" target="_blank">
-                                                    <i class="fas fa-eye"></i>
+                                                   class="btn btn-sm btn-info" 
+                                                   target="_blank"
+                                                   title="معاينة">
+                                                    <i class="bi bi-eye"></i>
+                                                    معاينة
                                                 </a>
                                                 <form action="{{ route('admin.seo.destroy', $setting->id) }}" 
                                                       method="POST" class="d-inline"
-                                                      onsubmit="return confirm('Are you sure you want to delete this SEO setting?')">
+                                                      onsubmit="return confirm('هل أنت متأكد من حذف إعدادات SEO هذه؟')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                        <i class="fas fa-trash"></i>
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="حذف">
+                                                        <i class="bi bi-trash"></i>
+                                                        حذف
                                                     </button>
                                                 </form>
                                             </div>
@@ -81,7 +111,17 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">No SEO settings found.</td>
+                                        <td colspan="6" class="text-center py-4">
+                                            <div class="text-muted">
+                                                <i class="bi bi-search fs-1 d-block mb-3"></i>
+                                                <h5>لا توجد إعدادات SEO</h5>
+                                                <p>لم يتم العثور على أي إعدادات SEO. ابدأ بإضافة إعدادات جديدة.</p>
+                                                <a href="{{ route('admin.seo.create') }}" class="btn btn-primary">
+                                                    <i class="bi bi-plus-circle"></i>
+                                                    إضافة إعدادات SEO جديدة
+                                                </a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforelse
                             </tbody>
