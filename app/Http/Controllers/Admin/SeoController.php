@@ -26,6 +26,21 @@ class SeoController extends Controller
         return view('admin.seo.create', compact('pageTypes', 'locales'));
     }
 
+    public function show($id)
+    {
+        $seoSetting = SeoSetting::findOrFail($id);
+        
+        // Generate meta data for preview
+        $metaData = SeoHelper::generateMetaTags($seoSetting->page_type, $seoSetting->locale);
+        $metaData['id'] = $seoSetting->id;
+        
+        return view('admin.seo.preview', [
+            'metaData' => $metaData,
+            'pageType' => $seoSetting->page_type,
+            'locale' => $seoSetting->locale
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -112,6 +127,12 @@ class SeoController extends Controller
     {
         $locale = $locale ?: app()->getLocale();
         $metaData = SeoHelper::generateMetaTags($pageType, $locale);
+        
+        // Get the SEO setting ID for edit link
+        $seoSetting = SeoSetting::getForPage($pageType, $locale);
+        if ($seoSetting) {
+            $metaData['id'] = $seoSetting->id;
+        }
         
         return view('admin.seo.preview', compact('metaData', 'pageType', 'locale'));
     }
