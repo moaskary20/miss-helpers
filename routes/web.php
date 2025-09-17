@@ -30,7 +30,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en'], 'middlew
     Route::get('/maids/search', [App\Http\Controllers\MaidController::class, 'search'])->name('maids.search');
     Route::get('/maids/category/{category}', [App\Http\Controllers\MaidController::class, 'byCategory'])->name('maids.byCategory');
     Route::get('/maids/nationality/{nationality}', [App\Http\Controllers\MaidController::class, 'byNationality'])->name('maids.byNationality');
-    Route::get('/maid/{id}', [App\Http\Controllers\MaidController::class, 'show'])->name('maid.profile')->where('id', '[0-9]+');
+    Route::get('/maid/{id}', [App\Http\Controllers\MaidController::class, 'show'])->name('maid.profile');
     Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
     Route::get('/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
     Route::get('/blog/category/{slug}', [App\Http\Controllers\BlogController::class, 'category'])->name('blog.category');
