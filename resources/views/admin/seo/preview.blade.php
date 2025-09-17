@@ -76,10 +76,16 @@
                             <i class="bi bi-arrow-left"></i>
                             العودة للقائمة
                         </a>
-                        <a href="{{ route('admin.seo.edit', $metaData['id'] ?? 1) }}" class="btn btn-primary">
+                        <a href="{{ route('admin.seo.download-sitemap') }}" class="btn btn-info">
+                            <i class="bi bi-download"></i>
+                            تحميل Sitemap
+                        </a>
+                        @if(isset($metaData['id']))
+                        <a href="{{ route('admin.seo.edit', $metaData['id']) }}" class="btn btn-primary">
                             <i class="bi bi-pencil-square"></i>
                             تعديل
                         </a>
+                        @endif
                     </div>
                 </div>
                 
@@ -209,6 +215,39 @@
                                         {{ $metaData['locale'] === 'ar' ? 'عربي' : 'English' }}
                                     </span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sitemap Information -->
+                    <div class="preview-container">
+                        <h4 class="mb-3">
+                            <i class="bi bi-sitemap"></i>
+                            معلومات Sitemap
+                        </h4>
+                        <div class="seo-preview">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>رابط Sitemap:</strong><br>
+                                    <code>{{ url('/sitemap.xml') }}</code>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>حالة Sitemap:</strong><br>
+                                    <span class="badge bg-success">
+                                        <i class="bi bi-check-circle"></i>
+                                        متاح للتحميل
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <a href="{{ route('admin.seo.download-sitemap') }}" class="btn btn-info">
+                                    <i class="bi bi-download"></i>
+                                    تحميل ملف Sitemap
+                                </a>
+                                <a href="{{ url('/sitemap.xml') }}" class="btn btn-outline-info" target="_blank">
+                                    <i class="bi bi-eye"></i>
+                                    معاينة Sitemap
+                                </a>
                             </div>
                         </div>
                     </div>

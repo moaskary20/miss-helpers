@@ -29,10 +29,13 @@
                     <h3 class="card-title">SEO Settings Management</h3>
                     <div>
                         <a href="{{ route('admin.seo.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Add New SEO Setting
+                            <i class="bi bi-plus-circle"></i> إضافة إعدادات SEO جديدة
                         </a>
                         <a href="{{ route('admin.seo.generate-sitemap') }}" class="btn btn-success">
-                            <i class="fas fa-sitemap"></i> Generate Sitemap
+                            <i class="bi bi-gear"></i> توليد Sitemap
+                        </a>
+                        <a href="{{ route('admin.seo.download-sitemap') }}" class="btn btn-info">
+                            <i class="bi bi-download"></i> تحميل Sitemap
                         </a>
                     </div>
                 </div>

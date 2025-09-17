@@ -123,6 +123,19 @@ class SeoController extends Controller
         return redirect()->back()->with('success', 'Sitemap generated successfully!');
     }
 
+    public function downloadSitemap()
+    {
+        $sitemap = SeoHelper::generateSitemap();
+        
+        return response($sitemap, 200, [
+            'Content-Type' => 'application/xml',
+            'Content-Disposition' => 'attachment; filename="sitemap.xml"',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0'
+        ]);
+    }
+
     public function preview($pageType, $locale = null)
     {
         $locale = $locale ?: app()->getLocale();

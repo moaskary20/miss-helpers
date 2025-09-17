@@ -136,6 +136,7 @@ Route::prefix('admin')->name('admin.')->middleware(['admin', 'activity.log'])->g
     
     // SEO Management Routes
     Route::get('/seo/generate-sitemap', [\App\Http\Controllers\Admin\SeoController::class, 'generateSitemap'])->name('seo.generate-sitemap');
+    Route::get('/seo/download-sitemap', [\App\Http\Controllers\Admin\SeoController::class, 'downloadSitemap'])->name('seo.download-sitemap');
     Route::get('/seo/preview/{pageType}/{locale?}', [\App\Http\Controllers\Admin\SeoController::class, 'preview'])->name('seo.preview');
     Route::resource('seo', \App\Http\Controllers\Admin\SeoController::class)->names(['index'=>'seo.index','create'=>'seo.create','store'=>'seo.store','show'=>'seo.show','edit'=>'seo.edit','update'=>'seo.update','destroy'=>'seo.destroy',]);
 });
