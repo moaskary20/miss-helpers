@@ -431,14 +431,30 @@ return [
     'reset' => 'Reset',
     'no_results' => 'No results',
     'view_profile' => 'View Profile',
+    
+    // Nationality Translations
     'nationality_sri_lanka' => 'Sri Lanka',
     'nationality_philippines' => 'Philippines',
     'nationality_indonesia' => 'Indonesia',
     'nationality_india' => 'India',
     'nationality_pakistan' => 'Pakistan',
+    'nationality_myanmar' => 'Myanmar',
+    'nationality_ethiopia' => 'Ethiopia',
+    'nationality_uganda' => 'Uganda',
+    'nationality_kenya' => 'Kenya',
+    'nationality_madagascar' => 'Madagascar',
+    'nationality_bangladesh' => 'Bangladesh',
+    'nationality_nepal' => 'Nepal',
+    'nationality_ghana' => 'Ghana',
+    'nationality_nigeria' => 'Nigeria',
+    'nationality_tanzania' => 'Tanzania',
+    'nationality_zimbabwe' => 'Zimbabwe',
+    'nationality_south_africa' => 'South Africa',
+    'nationality_morocco' => 'Morocco',
+    'nationality_tunisia' => 'Tunisia',
+    'nationality_egypt' => 'Egypt',
     
     // Common Actions
-    'view_profile' => 'View Profile',
     'book_now' => 'Book Now',
     'learn_more' => 'Learn More',
     'see_all' => 'See All',
@@ -548,4 +564,14 @@ return [
     // Meta
     'meta_description' => 'Find professional maids and domestic helpers in Saudi Arabia. Trusted service with easy booking and reliable staff.',
     'meta_keywords' => 'maids, domestic helpers, cleaning services, Saudi Arabia, household staff',
+    
+    // Admin Panel
+    'admin_dashboard' => 'Admin Dashboard',
+    'maid_management' => 'Maid Management',
+    'customer_service' => 'Customer Service',
+    'deploy_now' => 'Deploy Now',
+    
+    // Advanced Search
+    'advanced_search' => 'Advanced Search',
+    'hide_advanced_filters' => 'Hide Advanced Filters',
 ];

@@ -203,6 +203,10 @@
             background: #000000;
         }
         
+        .social-icon.maps {
+            background: #4285F4; /* Google Maps blue */
+        }
+        
         /* تصميم متجاوب */
         @media (max-width: 767.98px) {
             .page-title {
@@ -359,7 +363,7 @@
                             
                             <div class="info-item">
                                 <div class="info-label">{{ __('messages.phone') }}</div>
-                                <p class="info-value">04 343 0391</p>
+                                <p class="info-value"><a href="tel:+97143430391" class="text-decoration-none text-reset">+97143430391</a></p>
                             </div>
                             
                             <div class="social-icons">
@@ -371,6 +375,9 @@
                                 </a>
                                 <a href="https://www.tiktok.com/@misshelpers?_t=zs-8xvsshzpo9y&_r=1" target="_blank" class="social-icon tiktok" title="TikTok">
                                     <i class="bi bi-tiktok"></i>
+                                </a>
+                                <a href="https://maps.app.goo.gl/269E5NngtgvPfUbt8?g_st=ipc" target="_blank" class="social-icon maps" title="Location">
+                                    <i class="bi bi-geo-alt-fill"></i>
                                 </a>
                             </div>
                         </div>

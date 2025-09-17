@@ -524,7 +524,6 @@
         <div class="container header-inner">
             <a href="{{ url('/') }}" class="brand">
                 <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
-                <span class="title">Miss Helpers</span>
             </a>
             <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
                 <a href="{{ route('welcome') }}">{{ __('messages.home') }}</a>

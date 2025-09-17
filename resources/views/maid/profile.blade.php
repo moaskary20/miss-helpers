@@ -46,9 +46,9 @@
         }
         
         .profile-avatar {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
+            width: 240px;
+            height: 240px;
+            border-radius: 12px; /* square with slight rounding */
             border: 5px solid white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             object-fit: cover;
@@ -57,8 +57,9 @@
         /* Mobile View - Larger Profile Image */
         @media (max-width: 768px) {
             .profile-avatar {
-                width: 330px;
-                height: 330px;
+                width: 360px;
+                height: 360px;
+                border-radius: 16px;
                 border: 8px solid white;
                 box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             }
@@ -81,8 +82,9 @@
         
         @media (max-width: 576px) {
             .profile-avatar {
-                width: 375px;
-                height: 375px;
+                width: 420px;
+                height: 420px;
+                border-radius: 18px;
                 border: 10px solid white;
                 box-shadow: 0 25px 60px rgba(0,0,0,0.6);
             }
@@ -356,10 +358,8 @@
         }
         
         @media (max-width: 768px) {
-            .profile-avatar {
-                width: 120px;
-                height: 120px;
-            }
+            /* keep large avatar on mobile; no override for size here */
+            .profile-avatar { border-radius: 10px; }
             
             .stat-number {
                 font-size: 1.5rem;

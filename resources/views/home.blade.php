@@ -169,20 +169,38 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
             z-index: 5;
             animation: orbit 20s linear infinite;
+            transform-origin: center;
+            will-change: transform;
         }
 
         .orbital-feature:hover {
-            transform: scale(1.1);
             z-index: 15;
+        }
+        
+        .orbital-feature:hover .feature-icon {
+            filter: brightness(1.1);
         }
 
         .orbital-feature.active {
-            transform: scale(1.2);
             z-index: 15;
             box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+        
+        .orbital-feature.active .feature-icon {
+            filter: brightness(1.2);
+        }
+        
+        /* Force animation to continue without interruption */
+        .orbital-feature {
+            animation-play-state: running !important;
+        }
+        
+        .orbital-feature:hover,
+        .orbital-feature.active,
+        .orbital-feature:focus {
+            animation-play-state: running !important;
         }
 
         .feature-icon {
@@ -195,6 +213,7 @@
             color: white;
             font-size: 1.2rem;
             margin-bottom: 5px;
+            transition: filter 0.2s ease;
         }
 
         .feature-label {
@@ -217,8 +236,12 @@
 
         /* Orbital Animation */
         @keyframes orbit {
-            from { transform: rotate(0deg) translateX(200px) rotate(0deg); }
-            to { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+            from { 
+                transform: rotate(0deg) translateX(200px) rotate(0deg); 
+            }
+            to { 
+                transform: rotate(360deg) translateX(200px) rotate(-360deg); 
+            }
         }
 
         /* Feature Positions */
@@ -735,10 +758,10 @@
                             <select class="form-select form-select-lg" id="service" name="service_type" required 
                                     style="border: 2px solid #e9ecef; border-radius: 12px; padding: 15px;">
                                 <option value="">{{ __('messages.choose_service') }}</option>
-                                <option value="خادمه منزليه" selected>{{ __('messages.domestic_maid') }}</option>
-                                <option value="طباخه">{{ __('messages.cooking_maid') }}</option>
-                                <option value="جليسه اطفال">{{ __('messages.childcare_maid') }}</option>
-                                <option value="مقدمه رعاية">{{ __('messages.elderly_care') }}</option>
+                                <option value="domestic_maid" selected>{{ __('messages.domestic_maid') }}</option>
+                                <option value="cooking_maid">{{ __('messages.cooking_maid') }}</option>
+                                <option value="childcare_maid">{{ __('messages.childcare_maid') }}</option>
+                                <option value="elderly_care">{{ __('messages.elderly_care') }}</option>
                             </select>
                         </div>
                         
@@ -747,11 +770,11 @@
                             <select class="form-select form-select-lg" id="nationality" name="nationality" required 
                                     style="border: 2px solid #e9ecef; border-radius: 12px; padding: 15px;">
                                 <option value="">{{ __('messages.choose_nationality') }}</option>
-                                <option value="سيرلنكا" selected>{{ __('messages.sri_lankan') }}</option>
-                                <option value="الفلبين">{{ __('messages.filipino') }}</option>
-                                <option value="اندونسيا">إندونيسيا</option>
-                                <option value="اقيوبيا">{{ __('messages.ethiopian') }}</option>
-                                <option value="كينيا">{{ __('messages.kenya') }}</option>
+                                <option value="sri_lanka" selected>{{ __('messages.sri_lankan') }}</option>
+                                <option value="philippines">{{ __('messages.filipino') }}</option>
+                                <option value="indonesia">{{ __('messages.indonesia') }}</option>
+                                <option value="ethiopia">{{ __('messages.ethiopian') }}</option>
+                                <option value="kenya">{{ __('messages.kenya') }}</option>
                             </select>
                         </div>
                         
@@ -760,13 +783,13 @@
                             <select class="form-select form-select-lg" id="emirate" name="emirate" required 
                                     style="border: 2px solid #e9ecef; border-radius: 12px; padding: 15px;">
                                 <option value="">{{ __('messages.choose_emirate') }}</option>
-                                <option value="راس الخيمة" selected>{{ __('messages.ras_al_khaimah') }}</option>
-                                <option value="دبي">{{ __('messages.dubai') }}</option>
-                                <option value="ابوظبي">{{ __('messages.abu_dhabi') }}</option>
-                                <option value="الشارقه">{{ __('messages.sharjah') }}</option>
-                                <option value="عجمان">{{ __('messages.ajman') }}</option>
-                                <option value="ام القوين">{{ __('messages.umm_al_quwain') }}</option>
-                                <option value="العين">{{ __('messages.fujairah') }}</option>
+                                <option value="ras_al_khaimah" selected>{{ __('messages.ras_al_khaimah') }}</option>
+                                <option value="dubai">{{ __('messages.dubai') }}</option>
+                                <option value="abu_dhabi">{{ __('messages.abu_dhabi') }}</option>
+                                <option value="sharjah">{{ __('messages.sharjah') }}</option>
+                                <option value="ajman">{{ __('messages.ajman') }}</option>
+                                <option value="umm_al_quwain">{{ __('messages.umm_al_quwain') }}</option>
+                                <option value="fujairah">{{ __('messages.fujairah') }}</option>
                             </select>
                             </div>
                         
@@ -777,7 +800,7 @@
                                       placeholder="{{ __('messages.write_message_here') }}"></textarea>
                         </div>
                         
-                        <input type="hidden" name="status" value="تحت المراجعه">
+                        <input type="hidden" name="status" value="under_review">
                         <input type="hidden" name="is_active" value="1">
                         
                         <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold" 
@@ -968,8 +991,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <i class="bi bi-person-wearing-hijab text-purple ms-2" style="color: #6f42c1;"></i>
             </h2>
             <p class="text-muted mx-auto" style="max-width: 600px; font-size: 1.1rem; line-height: 1.6;">
-                {{ __('messages.maids_description') }} 
-                سواء كنتم تبحثون عن خادمة بدوام كامل أو جزئي، أو مقيمة معكم أو خارج منزلكم، فلدينا الخيار الأمثل.
+                {{ __('messages.maids_description') }}
             </p>
         </div>
 
@@ -1013,14 +1035,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="maid-stats d-flex justify-content-between align-items-center mb-3">
                                 <span class="views-badge">
                                     <i class="bi bi-eye me-1"></i>
-                                    مشاهدات {{ $maid->views_count ?? rand(40, 80) }}
+                                    {{ __('messages.views') }} {{ $maid->views_count ?? rand(40, 80) }}
                                 </span>
                                 <span class="nationality-badge">{{ $maid->nationality }}</span>
                             </div>
                             
                             <div class="maid-actions-bottom">
                                 <a href="{{ route('maid.profile', $maid->id) }}" class="btn btn-primary w-100 mb-2">
-                                    مشاهدة الملف الشخصي
+                                    {{ __('messages.view_profile') }}
                                 </a>
                             </div>
                         </div>
@@ -3028,7 +3050,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <i class="bi bi-telephone"></i>
                         </div>
                         <div class="contact-details">
-                            <div class="contact-value">04 343 0391</div>
+                            <div class="contact-value"><a href="tel:+97143430391" class="text-decoration-none text-white">+97143430391</a></div>
                             <div class="contact-hours">{{ __('messages.working_hours') }}</div>
                         </div>
                     </div>
@@ -3047,7 +3069,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <i class="bi bi-whatsapp"></i>
                         </div>
                         <div class="contact-details">
-                            <div class="contact-value">04 343 0391</div>
+                            <div class="contact-value"><a href="https://wa.me/97143430391" target="_blank" class="text-decoration-none text-white">+97143430391</a></div>
                             <div class="contact-hours">{{ __('messages.working_hours') }}</div>
                         </div>
                     </div>

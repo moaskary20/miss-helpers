@@ -63,7 +63,7 @@
                             <i class="bi bi-telephone"></i>
                         </div>
                         <div class="contact-details">
-                            <div class="contact-value">04 343 0391</div>
+                            <div class="contact-value"><a href="tel:+97143430391" class="text-decoration-none text-white">+97143430391</a></div>
                             <div class="contact-hours">{{ __('messages.working_hours') }}</div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                             <i class="bi bi-whatsapp"></i>
                         </div>
                         <div class="contact-details">
-                            <div class="contact-value">04 343 0391</div>
+                            <div class="contact-value"><a href="https://wa.me/97143430391" target="_blank" class="text-decoration-none text-white">+97143430391</a></div>
                             <div class="contact-hours">{{ __('messages.working_hours') }}</div>
                         </div>
                     </div>
