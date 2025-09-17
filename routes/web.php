@@ -26,11 +26,11 @@ Route::get('/language/current', [LanguageController::class, 'getCurrentLanguage'
 // Localized routes: /ar/... and /en/...
 Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en'], 'middleware' => 'setlocale.url'], function() {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
+    Route::get('/maid/{id}', [App\Http\Controllers\MaidController::class, 'show'])->name('maid.profile');
     Route::get('/maids', [App\Http\Controllers\MaidController::class, 'index'])->name('maids.all');
     Route::get('/maids/search', [App\Http\Controllers\MaidController::class, 'search'])->name('maids.search');
     Route::get('/maids/category/{category}', [App\Http\Controllers\MaidController::class, 'byCategory'])->name('maids.byCategory');
     Route::get('/maids/nationality/{nationality}', [App\Http\Controllers\MaidController::class, 'byNationality'])->name('maids.byNationality');
-    Route::get('/maid/{id}', [App\Http\Controllers\MaidController::class, 'show'])->name('maid.profile');
     Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
     Route::get('/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
     Route::get('/blog/category/{slug}', [App\Http\Controllers\BlogController::class, 'category'])->name('blog.category');
@@ -70,9 +70,9 @@ Route::get('/sitemap.xml', function () {
 
 // Auth routes (Public)
 Route::get('/register', [PublicAuthController::class, 'showRegisterForm'])->name('auth.register');
-Route::post('/register', [PublicAuthController::class, 'register'])->name('auth.register');
+Route::post('/register', [PublicAuthController::class, 'register'])->name('auth.register.store');
 Route::get('/login', [PublicAuthController::class, 'showLoginForm'])->name('auth.login');
-Route::post('/login', [PublicAuthController::class, 'login'])->name('auth.login');
+Route::post('/login', [PublicAuthController::class, 'login'])->name('auth.login.store');
 Route::post('/logout', [PublicAuthController::class, 'logout'])->name('auth.logout');
 
 // User Profile routes
