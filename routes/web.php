@@ -24,7 +24,7 @@ Route::post('/language/switch', [LanguageController::class, 'switch'])->name('la
 Route::get('/language/current', [LanguageController::class, 'getCurrentLanguage'])->name('language.current');
 
 // Localized routes: /ar/... and /en/...
-Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en'], 'middleware' => 'setlocale.url'], function() {
+Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], function() {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
     Route::get('/maid/{id}', [App\Http\Controllers\MaidController::class, 'show'])->name('maid.profile')->where('id', '[0-9]+');
     Route::get('/maids', [App\Http\Controllers\MaidController::class, 'index'])->name('maids.all');
