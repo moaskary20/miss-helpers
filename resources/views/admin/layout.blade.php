@@ -25,7 +25,7 @@
         
         .sidebar {
             min-height: 100vh;
-            background: #ffa19c;
+            background: #3b82f6;
             box-shadow: 2px 0 10px rgba(0,0,0,0.1);
         }
         
@@ -85,7 +85,7 @@
         }
         
         .btn-primary {
-            background: #ffa19c;
+            background: #3b82f6;
             border: none;
             border-radius: 8px;
             padding: 10px 20px;
@@ -105,14 +105,14 @@
         }
         
         .table thead th {
-            background: #ffa19c;
+            background: #3b82f6;
             color: white;
             border: none;
             font-weight: 600;
         }
         
         .stats-card {
-            background: #ffa19c;
+            background: #3b82f6;
             color: white;
             border-radius: 15px;
             padding: 20px;
@@ -132,8 +132,8 @@
         }
         
         .form-control:focus, .form-select:focus {
-            border-color: #ffa19c;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
         }
         
         .alert {
