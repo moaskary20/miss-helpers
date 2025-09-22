@@ -53,6 +53,12 @@ return [
     'cook' => 'Cook',
     'driver' => 'Driver',
     
+    // Work Experience
+    'full_time' => 'Full Time',
+    'part_time' => 'Part Time',
+    'two_years' => '2 years',
+    'three_years' => '3 years',
+    
     // Contract Types
     'two_year_contract' => 'Two Year Contract',
     'monthly_contract' => 'Monthly Contract',
@@ -309,9 +315,11 @@ return [
     
     // Reviews
     'client' => 'Client',
-    'excellent_service' => 'Excellent and professional service',
+    'excellent_service' => 'Excellent service',
     'hardworking_clean' => 'Hardworking and clean maid',
     'great_performance' => 'Great performance and professional treatment',
+    'very_good_work' => 'Very good work',
+    'excellent_performance' => 'Excellent performance',
     'no_reviews_yet' => 'No reviews yet',
     'positive_review' => 'Positive review for the service provided',
     

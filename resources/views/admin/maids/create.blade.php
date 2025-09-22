@@ -86,9 +86,10 @@
                         <select class="form-select @error('nationality') is-invalid @enderror" 
                                 id="nationality" name="nationality" required>
                             <option value="">اختر الجنسية</option>
-                            @php($nationalities = \App\Models\Nationality::where('is_active', true)->orderBy('name')->pluck('name'))
-                            @foreach($nationalities as $nat)
-                                <option value="{{ $nat }}" {{ old('nationality') == $nat ? 'selected' : '' }}>{{ $nat }}</option>
+                            @foreach(\App\Models\Maid::getAvailableNationalities() as $key => $value)
+                                <option value="{{ $key }}" {{ old('nationality') == $key ? 'selected' : '' }}>
+                                    {{ $value }}
+                                </option>
                             @endforeach
                         </select>
                         @error('nationality')

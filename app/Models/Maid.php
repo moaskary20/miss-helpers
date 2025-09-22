@@ -46,6 +46,21 @@ class Maid extends Model
         'monthly_salary' => 'decimal:2',
     ];
 
+    /**
+     * الحصول على قائمة الجنسيات المتاحة
+     */
+    public static function getAvailableNationalities(): array
+    {
+        return [
+            'أوغندا' => 'أوغندا',
+            'الفلبين' => 'الفلبين', 
+            'سودانية' => 'سودانية',
+            'سورية' => 'سورية',
+            'مصرية' => 'مصرية',
+            'ميانمار' => 'ميانمار'
+        ];
+    }
+
     // العلاقة مع المهارات
     public function skills(): HasMany
     {
@@ -56,5 +71,29 @@ class Maid extends Model
     public function workExperiences(): HasMany
     {
         return $this->hasMany(WorkExperience::class);
+    }
+
+    // العلاقة مع التقييمات
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(CustomerReview::class);
+    }
+
+    // التقييمات المعتمدة فقط
+    public function approvedReviews(): HasMany
+    {
+        return $this->hasMany(CustomerReview::class)->where('status', 'approved');
+    }
+
+    // متوسط التقييم
+    public function getAverageRatingAttribute()
+    {
+        return $this->approvedReviews()->avg('rating') ?? 0;
+    }
+
+    // عدد التقييمات المعتمدة
+    public function getApprovedReviewsCountAttribute()
+    {
+        return $this->approvedReviews()->count();
     }
 }

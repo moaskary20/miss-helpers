@@ -54,14 +54,11 @@
                         <select class="form-select @error('nationality') is-invalid @enderror" 
                                 id="nationality" name="nationality" required>
                             <option value="">اختر الجنسية</option>
-                            <option value="الفلبين" {{ old('nationality', $maid->nationality) == 'الفلبين' ? 'selected' : '' }}>الفلبين</option>
-                            <option value="ميانمار" {{ old('nationality', $maid->nationality) == 'ميانمار' ? 'selected' : '' }}>ميانمار</option>
-                            <option value="إثيوبيا" {{ old('nationality', $maid->nationality) == 'إثيوبيا' ? 'selected' : '' }}>إثيوبيا</option>
-                            <option value="سريلانكا" {{ old('nationality', $maid->nationality) == 'سريلانكا' ? 'selected' : '' }}>سريلانكا</option>
-                            <option value="أوغندا" {{ old('nationality', $maid->nationality) == 'أوغندا' ? 'selected' : '' }}>أوغندا</option>
-                            <option value="كينيا" {{ old('nationality', $maid->nationality) == 'كينيا' ? 'selected' : '' }}>كينيا</option>
-                            <option value="مدغشقر" {{ old('nationality', $maid->nationality) == 'مدغشقر' ? 'selected' : '' }}>مدغشقر</option>
-                            <option value="إندونيسيا" {{ old('nationality', $maid->nationality) == 'إندونيسيا' ? 'selected' : '' }}>إندونيسيا</option>
+                            @foreach(\App\Models\Maid::getAvailableNationalities() as $key => $value)
+                                <option value="{{ $key }}" {{ old('nationality', $maid->nationality) == $key ? 'selected' : '' }}>
+                                    {{ $value }}
+                                </option>
+                            @endforeach
                         </select>
                         @error('nationality')
                             <div class="invalid-feedback">{{ $message }}</div>

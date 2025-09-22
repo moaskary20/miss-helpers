@@ -1,51 +1,207 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
-    new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
-    "https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,"script","dataLayer","GTM-TB5M9MCD");</script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
-    @php
-        $seoData = \App\Helpers\SeoHelper::generateMetaTags('maids', app()->getLocale());
-        $schemaMarkup = \App\Helpers\SeoHelper::generateSchemaMarkup('maids');
-        $seoData['schema_markup'] = $schemaMarkup;
-    @endphp
-    
-    @include('partials.seo-meta', ['metaData' => $seoData])
+    <title>تصفح الخادمات - Miss Helpers</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    
-    <!-- Google Fonts - Tajawal -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Header */
-        .site-header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid #f1f1f1}
-        .header-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
-        .brand{text-decoration:none;color:#1c1c1c;font-weight:700;font-size:1.5rem}
-        .brand img{height:40px;width:auto}
-        .nav-links{display:flex;gap:10px}
-        .nav-links a{color:#1c1c1c;text-decoration:none;padding:10px 14px;border-radius:12px;font-weight:600}
-        .nav-links a:hover{background:#f6f7fb}
-        .cta-btn{background:#ffa19c;color:#fff;border:none;border-radius:18px;padding:10px 18px;font-weight:800;text-decoration:none;display:inline-block}
-        .cta-btn:hover{background:#ff8a7a;color:#fff;text-decoration:none}
-        .auth a{color:#1c1c1c;text-decoration:none;margin-inline-start:14px}
-        
         body {
             font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f8f9fa;
         }
         
+        /* Header Styles */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #fff;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        
+        .header-inner {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .brand img {
+            height: 34px;
+        }
+        
+        .brand .title {
+            font-weight: 800;
+            color: #1c1c1c;
+            letter-spacing: .5px;
+        }
+        
+        .nav-links a {
+            color: #1c1c1c;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        
+        .nav-links a:hover {
+            background: #f6f7fb;
+        }
+        
+        .cta-btn {
+            background: #ffa19c;
+            color: #fff;
+            border: none;
+            border-radius: 18px;
+            padding: 10px 18px;
+            font-weight: 800;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-btn:hover {
+            background: #ff8a7a;
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .auth a {
+            color: #1c1c1c;
+            text-decoration: none;
+            margin-inline-start: 14px;
+        }
         .page-header {
             background: linear-gradient(135deg, #23336b 0%, #1a2533 100%);
             color: white;
             padding: 80px 0;
             text-align: center;
+        }
+        .maid-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+            height: 100%;
+        }
+        .maid-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .maid-image-wrapper {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+        .maid-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .maid-card:hover .maid-image {
+            transform: scale(1.1);
+        }
+        .maid-info {
+            padding: 20px;
+        }
+        .maid-name {
+            color: #23336b;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .maid-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .stars {
+            color: #ffc107;
+            font-size: 1rem;
+        }
+        .maid-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        .views-badge {
+            background: #e91e63;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .nationality-badge {
+            background: #6f42c1;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .maid-actions-bottom .btn-primary {
+            background: #23336b;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-weight: 600;
+            color: #fff !important;
+            transition: all 0.3s ease;
+        }
+        .maid-actions-bottom .btn-primary:hover {
+            background: #1a2533;
+            transform: translateY(-2px);
+        }
+        .pagination-wrapper {
+            margin-top: 50px;
+        }
+        .page-link {
+            color: #23336b;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            margin: 0 5px;
+            padding: 12px 18px;
+            transition: all 0.3s ease;
+        }
+        .page-link:hover {
+            background: #23336b;
+            color: white;
+            border-color: #23336b;
+        }
+        .page-item.active .page-link {
+            background: #23336b;
+            border-color: #23336b;
+        }
+        .results-count {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+        .no-results i {
+            font-size: 4rem;
+            color: #dee2e6;
+            margin-bottom: 20px;
         }
         
         .search-filters {
@@ -93,240 +249,11 @@
             background: #c2185b;
             transform: translateY(-2px);
         }
-        
-        .maid-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid #e9ecef;
-            height: 100%;
-        }
-        
-        .maid-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-        
-        .maid-image-wrapper {
-            position: relative;
-            height: 250px;
-            overflow: hidden;
-        }
-        
-        .maid-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        
-        .maid-card:hover .maid-image {
-            transform: scale(1.1);
-        }
-        
-        .maid-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 50%, rgba(0,0,0,0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .maid-card:hover .maid-overlay {
-            opacity: 1;
-        }
-        
-        .maid-actions {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-        }
-        
-        .like-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.9);
-            border: none;
-            transition: all 0.3s ease;
-        }
-        
-        .like-btn:hover {
-            background: #fff;
-            transform: scale(1.1);
-        }
-        
-        .maid-info {
-            padding: 20px;
-        }
-        
-        .maid-name {
-            color: #23336b;
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-        
-        .maid-rating {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .stars {
-            color: #ffc107;
-            font-size: 1rem;
-        }
-        
-        .maid-stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
-        
-        .views-badge {
-            background: #e91e63;
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        
-        .nationality-badge {
-            background: #6f42c1;
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        
-        .maid-actions-bottom .btn-primary {
-            background: #23336b;
-            border: none;
-            border-radius: 12px;
-            padding: 12px;
-            font-weight: 600;
-            color: #fff !important;
-            transition: all 0.3s ease;
-        }
-        
-        .maid-actions-bottom .btn-primary:hover {
-            background: #1a2533;
-            transform: translateY(-2px);
-        }
-        
-        .pagination-wrapper {
-            margin-top: 50px;
-        }
-        
-        .page-link {
-            color: #23336b;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            margin: 0 5px;
-            padding: 12px 18px;
-            transition: all 0.3s ease;
-        }
-        
-        .page-link:hover {
-            background: #23336b;
-            color: white;
-            border-color: #23336b;
-        }
-        
-        .page-item.active .page-link {
-            background: #23336b;
-            border-color: #23336b;
-        }
-        
-        .results-count {
-            color: #6c757d;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-        
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: #6c757d;
-        }
-        
-        .no-results i {
-            font-size: 4rem;
-            color: #dee2e6;
-            margin-bottom: 20px;
-        }
-        
-        @media (max-width: 768px) {
-            .search-filters {
-                margin-top: -30px;
-                padding: 20px;
-            }
-            
-            .maid-image-wrapper {
-                height: 200px;
-            }
-            
-            .maid-name {
-                font-size: 1.1rem;
-            }
-        }
     </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TB5M9MCD"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    <!-- Header -->
-    <header class="site-header">
-        <div class="container header-inner">
-            <a href="/{{ app()->getLocale() }}" class="brand">
-                <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
-            </a>
-            <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
-                <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
-                <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.about') }}</a>
-                <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.services') }}</a>
-                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.contact') }}</a>
-            </nav>
-            <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn d-none d-md-inline">{{ __('messages.get_maid_now') }}</a>
-                <a href="/{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}" class="btn btn-link text-decoration-none p-0">
-                    {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
-                </a>
-                <div class="auth d-none d-md-inline"><a href="{{ route('admin.login') }}">Login / Register</a></div>
-                <button class="btn btn-outline-secondary d-md-none" data-bs-toggle="collapse" data-bs-target="#mnav"><i class="bi bi-list"></i></button>
-            </div>
-        </div>
-        <div id="mnav" class="collapse border-top d-md-none">
-            <div class="container py-2 nav-links">
-                <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
-                <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.about') }}</a>
-                <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.services') }}</a>
-                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}">{{ __('messages.contact') }}</a>
-                <a href="/{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}" class="btn btn-link text-decoration-none p-0 w-100 text-start">
-                    {{ app()->getLocale() == 'ar' ? __('messages.english') : __('messages.arabic') }}
-                </a>
-                <a href="{{ route('admin.login') }}">Login / Register</a>
-                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn mt-2 w-100">{{ __('messages.get_maid_now') }}</a>
-            </div>
-        </div>
-    </header>
-
+    @include('partials.header')
+    
     <!-- Page Header -->
     <div class="page-header">
         <div class="container">
@@ -361,10 +288,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <label class="filter-label">{{ __('messages.nationality') }}</label>
                             <select name="nationality" class="form-select filter-select">
                                 <option value="">{{ __('messages.all_nationalities') }}</option>
-                                @php($nationalities = \App\Models\Nationality::where('is_active', true)->orderBy('name')->pluck('name'))
-                                @foreach($nationalities as $nationality)
-                                    <option value="{{ $nationality }}" {{ request('nationality') == $nationality ? 'selected' : '' }}>
-                                        {{ $nationality }}
+                                @foreach(\App\Models\Maid::getAvailableNationalities() as $key => $value)
+                                    <option value="{{ $key }}" {{ request('nationality') == $key ? 'selected' : '' }}>
+                                        {{ $value }}
                                     </option>
                                 @endforeach
                             </select>
@@ -410,13 +336,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <label class="filter-label">{{ __('messages.package_type') }}</label>
                                 <select name="package_type" class="form-select filter-select">
                                     <option value="">{{ __('messages.all_packages') }}</option>
-                                    @if(isset($searchOptions['packageTypes']))
-                                        @foreach($searchOptions['packageTypes'] as $packageType)
-                                            <option value="{{ $packageType }}" {{ request('package_type') == $packageType ? 'selected' : '' }}>
-                                                {{ $packageType }}
-                                            </option>
-                                        @endforeach
-                                    @endif
+                                    @foreach(\App\Models\Maid::distinct()->pluck('package_type')->filter()->sort()->values() as $packageType)
+                                        <option value="{{ $packageType }}" {{ request('package_type') == $packageType ? 'selected' : '' }}>
+                                            {{ $packageType }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -437,13 +361,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <label class="filter-label">{{ __('messages.religion') }}</label>
                                 <select name="religion" class="form-select filter-select">
                                     <option value="">{{ __('messages.all_religions') }}</option>
-                                    @if(isset($searchOptions['religions']))
-                                        @foreach($searchOptions['religions'] as $religion)
-                                            <option value="{{ $religion }}" {{ request('religion') == $religion ? 'selected' : '' }}>
-                                                {{ $religion }}
-                                            </option>
-                                        @endforeach
-                                    @endif
+                                    <option value="مسلمة" {{ request('religion') == 'مسلمة' ? 'selected' : '' }}>مسلمة</option>
+                                    <option value="مسيحية" {{ request('religion') == 'مسيحية' ? 'selected' : '' }}>مسيحية</option>
+                                    <option value="أخرى" {{ request('religion') == 'أخرى' ? 'selected' : '' }}>أخرى</option>
+                                    <option value="غير محدد" {{ request('religion') == 'غير محدد' ? 'selected' : '' }}>غير محدد</option>
                                 </select>
                             </div>
                         </div>
@@ -453,13 +374,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <label class="filter-label">{{ __('messages.marital_status') }}</label>
                                 <select name="marital_status" class="form-select filter-select">
                                     <option value="">{{ __('messages.all_marital_statuses') }}</option>
-                                    @if(isset($searchOptions['maritalStatuses']))
-                                        @foreach($searchOptions['maritalStatuses'] as $maritalStatus)
-                                            <option value="{{ $maritalStatus }}" {{ request('marital_status') == $maritalStatus ? 'selected' : '' }}>
-                                                {{ $maritalStatus }}
-                                            </option>
-                                        @endforeach
-                                    @endif
+                                    <option value="أعزب/عزباء" {{ request('marital_status') == 'أعزب/عزباء' ? 'selected' : '' }}>أعزب/عزباء</option>
+                                    <option value="متزوج/متزوجة" {{ request('marital_status') == 'متزوج/متزوجة' ? 'selected' : '' }}>متزوج/متزوجة</option>
+                                    <option value="متزوجة" {{ request('marital_status') == 'متزوجة' ? 'selected' : '' }}>متزوجة</option>
+                                    <option value="أرملة" {{ request('marital_status') == 'أرملة' ? 'selected' : '' }}>أرملة</option>
+                                    <option value="مطلق/مطلقة" {{ request('marital_status') == 'مطلق/مطلقة' ? 'selected' : '' }}>مطلق/مطلقة</option>
                                 </select>
                             </div>
                         </div>
@@ -472,13 +391,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <label class="filter-label">{{ __('messages.language') }}</label>
                                 <select name="language" class="form-select filter-select">
                                     <option value="">{{ __('messages.all_languages') }}</option>
-                                    @if(isset($searchOptions['languages']))
-                                        @foreach($searchOptions['languages'] as $language)
-                                            <option value="{{ $language }}" {{ request('language') == $language ? 'selected' : '' }}>
-                                                {{ $language }}
-                                            </option>
-                                        @endforeach
-                                    @endif
+                                    <option value="عربية" {{ request('language') == 'عربية' ? 'selected' : '' }}>عربية</option>
+                                    <option value="English" {{ request('language') == 'English' ? 'selected' : '' }}>English</option>
+                                    <option value="Arabic & L.English" {{ request('language') == 'Arabic & L.English' ? 'selected' : '' }}>Arabic & L.English</option>
+                                    <option value="English & L.Arabic" {{ request('language') == 'English & L.Arabic' ? 'selected' : '' }}>English & L.Arabic</option>
+                                    <option value="Little English" {{ request('language') == 'Little English' ? 'selected' : '' }}>Little English</option>
                                 </select>
                             </div>
                         </div>
@@ -505,7 +422,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <!-- فلاتر الراتب -->
                         <div class="col-lg-3 col-md-6">
                             <div class="filter-group">
-                                <label class="filter-label">{{ __('messages.salary_range') }} ({{ __('messages.riyal') }})</label>
+                                <label class="filter-label">{{ __('messages.salary_range') }} (درهم إماراتي)</label>
                                 <div class="row g-2">
                                     <div class="col-6">
                                         <input type="number" name="salary_min" class="form-control filter-select" 
@@ -528,13 +445,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <select name="sort" class="form-select filter-select">
                                     <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>{{ __('messages.newest_first') }}</option>
                                     <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>{{ __('messages.oldest_first') }}</option>
-                                    <option value="age_asc" {{ request('sort') == 'age_asc' ? 'selected' : '' }}>{{ __('messages.age_youngest') }}</option>
-                                    <option value="age_desc" {{ request('sort') == 'age_desc' ? 'selected' : '' }}>{{ __('messages.age_oldest') }}</option>
-                                    <option value="experience_desc" {{ request('sort') == 'experience_desc' ? 'selected' : '' }}>{{ __('messages.most_experienced') }}</option>
-                                    <option value="experience_asc" {{ request('sort') == 'experience_asc' ? 'selected' : '' }}>{{ __('messages.least_experienced') }}</option>
-                                    <option value="salary_asc" {{ request('sort') == 'salary_asc' ? 'selected' : '' }}>{{ __('messages.salary_lowest') }}</option>
-                                    <option value="salary_desc" {{ request('sort') == 'salary_desc' ? 'selected' : '' }}>{{ __('messages.salary_highest') }}</option>
-                                    <option value="views" {{ request('sort') == 'views' ? 'selected' : '' }}>{{ __('messages.most_viewed') }}</option>
+                                    <option value="age_asc" {{ request('sort') == 'age_asc' ? 'selected' : '' }}>العمر (الأصغر أولاً)</option>
+                                    <option value="age_desc" {{ request('sort') == 'age_desc' ? 'selected' : '' }}>العمر (الأكبر أولاً)</option>
+                                    <option value="experience_desc" {{ request('sort') == 'experience_desc' ? 'selected' : '' }}>الأكثر خبرة</option>
+                                    <option value="experience_asc" {{ request('sort') == 'experience_asc' ? 'selected' : '' }}>الأقل خبرة</option>
+                                    <option value="salary_asc" {{ request('sort') == 'salary_asc' ? 'selected' : '' }}>الراتب (الأقل أولاً)</option>
+                                    <option value="salary_desc" {{ request('sort') == 'salary_desc' ? 'selected' : '' }}>الراتب (الأعلى أولاً)</option>
+                                    <option value="views" {{ request('sort') == 'views' ? 'selected' : '' }}>الأكثر مشاهدة</option>
                                 </select>
                             </div>
                         </div>
@@ -553,7 +470,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </a>
                         <button type="button" class="btn btn-outline-info ms-2" id="toggleAdvancedFilters">
                             <i class="bi bi-funnel me-2"></i>
-                            {{ __('messages.advanced_search') }}
+                            البحث المتقدم
                         </button>
                     </div>
                 </div>
@@ -565,68 +482,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="container mt-5">
         @if($maids->count() > 0)
             <div class="results-count">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h4 class="mb-0">
-                            <i class="bi bi-search me-2"></i>
-                            {{ __('messages.found_maids') }} {{ $filteredCount }} {{ __('messages.maids_available') }}
-                            @if($filteredCount != $totalMaids)
-                                {{ __('messages.out_of_available') }} {{ $totalMaids }} {{ __('messages.maids_available') }}
-                            @endif
-                        </h4>
-                    </div>
-                    <div class="col-md-4 text-end">
-                        <small class="text-muted">
-                            <i class="bi bi-clock me-1"></i>
-                            آخر تحديث: {{ now()->format('d/m/Y H:i') }}
-                        </small>
-                    </div>
-                </div>
-                
-                @if(request()->hasAny(['nationality', 'service', 'experience', 'package_type', 'status', 'religion', 'marital_status', 'language', 'age_min', 'age_max', 'salary_min', 'salary_max', 'search']))
-                    <div class="mt-3">
-                        <div class="d-flex flex-wrap gap-2">
-                            <span class="badge bg-primary">{{ __('messages.applied_filters') }}:</span>
-                            @if(request('nationality'))
-                                <span class="badge bg-secondary">{{ __('messages.nationality') }}: {{ request('nationality') }}</span>
-                            @endif
-                            @if(request('service'))
-                                <span class="badge bg-secondary">{{ __('messages.service') }}: {{ request('service') }}</span>
-                            @endif
-                            @if(request('experience'))
-                                <span class="badge bg-secondary">{{ __('messages.experience') }}: {{ request('experience') }}</span>
-                            @endif
-                            @if(request('package_type'))
-                                <span class="badge bg-secondary">{{ __('messages.package') }}: {{ request('package_type') }}</span>
-                            @endif
-                            @if(request('status'))
-                                <span class="badge bg-secondary">{{ __('messages.status') }}: {{ request('status') }}</span>
-                            @endif
-                            @if(request('religion'))
-                                <span class="badge bg-secondary">{{ __('messages.religion') }}: {{ request('religion') }}</span>
-                            @endif
-                            @if(request('marital_status'))
-                                <span class="badge bg-secondary">{{ __('messages.marital_status') }}: {{ request('marital_status') }}</span>
-                            @endif
-                            @if(request('language'))
-                                <span class="badge bg-secondary">{{ __('messages.language') }}: {{ request('language') }}</span>
-                            @endif
-                            @if(request('age_min') || request('age_max'))
-                                <span class="badge bg-secondary">
-                                    {{ __('messages.age_range') }}: {{ request('age_min', '18') }}-{{ request('age_max', '65') }}
-                                </span>
-                            @endif
-                            @if(request('salary_min') || request('salary_max'))
-                                <span class="badge bg-secondary">
-                                    {{ __('messages.salary_range') }}: {{ request('salary_min', '0') }}-{{ request('salary_max', '∞') }} {{ __('messages.riyal') }}
-                                </span>
-                            @endif
-                            @if(request('search'))
-                                <span class="badge bg-secondary">{{ __('messages.search') }}: "{{ request('search') }}"</span>
-                            @endif
-                        </div>
-                    </div>
-                @endif
+                <h4>
+                    <i class="bi bi-search me-2"></i>
+                    {{ __('messages.found_maids') }} {{ $filteredCount }} {{ __('messages.maids_available') }}
+                    @if($filteredCount != $totalMaids)
+                        {{ __('messages.out_of_available') }} {{ $totalMaids }} {{ __('messages.maids_available') }}
+                    @endif
+                </h4>
             </div>
             
             <div class="row g-4">
@@ -637,13 +499,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <img src="{{ $maid->image_path ? asset('storage/' . $maid->image_path) : asset('/images/default-maid.jpg') }}" 
                                      alt="{{ $maid->name }}" class="maid-image"
                                      onerror="this.src='{{ asset('images/default-maid.jpg') }}'">
-                                <div class="maid-overlay">
-                                    <div class="maid-actions">
-                                        <button class="btn btn-light btn-sm like-btn" data-maid-id="{{ $maid->id }}">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
-                                    </div>
-                                </div>
                             </div>
                             
                             <div class="maid-info">
@@ -668,40 +523,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                         {{ __('messages.views') }} {{ $maid->views_count ?? rand(40, 80) }}
                                     </span>
                                     <span class="nationality-badge">
-                                        @php
-                                            $nationalityMap = [
-                                                'أوغندا' => 'nationality_uganda',
-                                                'الفلبين' => 'nationality_philippines',
-                                                'سريلانكا' => 'nationality_sri_lanka',
-                                                'إثيوبيا' => 'nationality_ethiopia',
-                                                'كينيا' => 'nationality_kenya',
-                                                'مدغشقر' => 'nationality_madagascar',
-                                                'الهند' => 'nationality_india',
-                                                'باكستان' => 'nationality_pakistan',
-                                                'إندونيسيا' => 'nationality_indonesia',
-                                                'ميانمار' => 'nationality_myanmar',
-                                                'المغرب' => 'nationality_morocco',
-                                                'تونس' => 'nationality_tunisia',
-                                                'مصر' => 'nationality_egypt',
-                                                'Uganda' => 'nationality_uganda',
-                                                'Philippines' => 'nationality_philippines',
-                                                'Sri Lanka' => 'nationality_sri_lanka',
-                                                'Ethiopia' => 'nationality_ethiopia',
-                                                'Kenya' => 'nationality_kenya',
-                                                'Madagascar' => 'nationality_madagascar',
-                                                'India' => 'nationality_india',
-                                                'Pakistan' => 'nationality_pakistan',
-                                                'Indonesia' => 'nationality_indonesia',
-                                                'Myanmar' => 'nationality_myanmar',
-                                                'Morocco' => 'nationality_morocco',
-                                                'Tunisia' => 'nationality_tunisia',
-                                                'Egypt' => 'nationality_egypt',
-                                            ];
-                                            $nat = $maid->nationality ?? '';
-                                            $nationalityKey = $nationalityMap[$nat] ?? ('nationality_' . strtolower(str_replace([' ', '-'], '_', $nat)));
-                                            $translatedNationality = __('messages.' . $nationalityKey);
-                                            echo $translatedNationality !== 'messages.' . $nationalityKey ? $translatedNationality : $nat;
-                                        @endphp
+                                        {{ $maid->nationality ?? 'غير محدد' }}
                                     </span>
                                 </div>
                                 
@@ -733,35 +555,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         @endif
     </div>
 
-    @include('partials.footer')
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // زر الإعجاب
-        const likeBtns = document.querySelectorAll('.like-btn');
-        
-        likeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const maidId = this.dataset.maidId;
-                const icon = this.querySelector('i');
-                
-                // تبديل حالة الإعجاب
-                if (icon.classList.contains('bi-heart')) {
-                    icon.classList.remove('bi-heart');
-                    icon.classList.add('bi-heart-fill');
-                    icon.style.color = '#e91e63';
-                } else {
-                    icon.classList.remove('bi-heart-fill');
-                    icon.classList.add('bi-heart');
-                    icon.style.color = '';
-                }
-                
-                // هنا يمكن إرسال طلب AJAX لحفظ حالة الإعجاب
-                console.log('Toggle like for maid:', maidId);
-            });
-        });
-
         // تحسين تجربة البحث
         const searchForm = document.getElementById('searchForm');
         const filterSelects = document.querySelectorAll('.filter-select');
@@ -791,6 +587,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             });
         }
 
+        // تحسين UX للبحث
+        const searchBtn = document.querySelector('.search-btn');
+        if (searchBtn) {
+            searchForm.addEventListener('submit', function() {
+                searchBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>جاري البحث...';
+                searchBtn.disabled = true;
+            });
+        }
+
         // إخفاء/إظهار الفلاتر المتقدمة
         const toggleBtn = document.getElementById('toggleAdvancedFilters');
         const advancedFilters = document.getElementById('advancedFilters');
@@ -802,46 +607,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 advancedFilters.style.display = advancedVisible ? 'block' : 'none';
                 
                 this.innerHTML = advancedVisible ? 
-                    '<i class="bi bi-funnel-fill me-2"></i>{{ __('messages.hide_advanced_filters') }}' :
-                    '<i class="bi bi-funnel me-2"></i>{{ __('messages.advanced_search') }}';
+                    '<i class="bi bi-funnel-fill me-2"></i>إخفاء البحث المتقدم' :
+                    '<i class="bi bi-funnel me-2"></i>البحث المتقدم';
             });
         }
-
-        // تحسين UX للبحث
-        const searchBtn = document.querySelector('.search-btn');
-        if (searchBtn) {
-            searchForm.addEventListener('submit', function() {
-                searchBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>جاري البحث...';
-                searchBtn.disabled = true;
-            });
-        }
-
-        // حفظ الفلاتر في localStorage
-        filterSelects.forEach(select => {
-            const savedValue = localStorage.getItem(`filter_${select.name}`);
-            if (savedValue && !select.value) {
-                select.value = savedValue;
-            }
-            
-            select.addEventListener('change', function() {
-                localStorage.setItem(`filter_${this.name}`, this.value);
-            });
-        });
-
-        // استعادة الفلاتر المحفوظة
-        window.addEventListener('load', function() {
-            filterSelects.forEach(select => {
-                const savedValue = localStorage.getItem(`filter_${select.name}`);
-                if (savedValue && !select.value) {
-                    select.value = savedValue;
-                }
-            });
-        });
     });
     </script>
-    
-    <!-- Chat Widget -->
-    <link rel="stylesheet" href="{{ asset('css/chat-widget.css') }}">
-    <script src="{{ asset('js/chat-widget.js') }}"></script>
 </body>
 </html>

@@ -53,6 +53,12 @@ return [
     'cook' => 'طباخة',
     'driver' => 'سائقة',
     
+    // Work Experience
+    'full_time' => 'دوام كامل',
+    'part_time' => 'دوام جزئي',
+    'two_years' => 'سنتان',
+    'three_years' => '3 سنوات',
+    
     // Contract Types
     'two_year_contract' => 'عقد سنتين',
     'monthly_contract' => 'عقد شهري',
@@ -312,9 +318,11 @@ return [
     
     // Reviews
     'client' => 'عميل',
-    'excellent_service' => 'خدمة ممتازة ومهنية عالية',
+    'excellent_service' => 'خدمة ممتازة',
     'hardworking_clean' => 'خادمة مجتهدة ونظيفة',
     'great_performance' => 'أداء رائع وتعامُل محترم',
+    'very_good_work' => 'عمل جيد جداً',
+    'excellent_performance' => 'أداء رائع',
     'no_reviews_yet' => 'لا توجد تقييمات بعد',
     'positive_review' => 'تقييم إيجابي للخدمة المقدمة',
     

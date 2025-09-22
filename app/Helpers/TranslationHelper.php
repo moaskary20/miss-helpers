@@ -177,6 +177,123 @@ class TranslationHelper
         if ($value === 'تنظيم المنزل بخطوات بسيطة') {
             return __('messages.blog_title_home_organizing');
         }
+        
+        // Work Experience translations
+        if ($value === 'خادمة منزلية') {
+            return __('messages.housemaid');
+        }
+        if ($value === 'دوام كامل') {
+            return __('messages.full_time');
+        }
+        if ($value === 'دوام جزئي') {
+            return __('messages.part_time');
+        }
+        
+        // Duration translations
+        if ($value === 'سنتان') {
+            return __('messages.two_years');
+        }
+        if ($value === '3 سنوات') {
+            return __('messages.three_years');
+        }
+        
+        // Review translations
+        if ($value === 'خدمة ممتازة') {
+            return __('messages.excellent_service');
+        }
+        if ($value === 'عمل جيد جداً') {
+            return __('messages.very_good_work');
+        }
+        if ($value === 'أداء رائع') {
+            return __('messages.excellent_performance');
+        }
+        
         return $value;
+    }
+    
+    /**
+     * Translate work experience data
+     */
+    public static function translateWorkExperience($experience)
+    {
+        $translated = $experience;
+        
+        // Translate position
+        if (isset($experience->position)) {
+            $translated->position = self::translateMaidValue($experience->position);
+        }
+        
+        // Translate work type
+        if (isset($experience->work_type)) {
+            $translated->work_type = self::translateMaidValue($experience->work_type);
+        }
+        
+        // Translate duration
+        if (isset($experience->duration)) {
+            $translated->duration = self::translateMaidValue($experience->duration);
+        }
+        
+        // Translate company name and description if needed
+        if (self::isEnglish()) {
+            // For English, we might want to keep some Arabic names but translate common terms
+            if (isset($experience->company_name)) {
+                $companyName = $experience->company_name;
+                // Translate common company types
+                if ($companyName === 'فندق الإمارات') {
+                    $translated->company_name = 'Emirates Hotel';
+                } elseif ($companyName === 'عائلة السعد') {
+                    $translated->company_name = 'Al-Saad Family';
+                } else {
+                    $translated->company_name = $companyName;
+                }
+            }
+            
+            // Translate description
+            if (isset($experience->description)) {
+                $description = $experience->description;
+                // Simple translation for common descriptions
+                if (strpos($description, 'عملت كخادمة منزلية في فندق الإمارات') !== false) {
+                    $translated->description = 'I worked as a housemaid at Emirates Hotel for two years, where I cleaned rooms and provided services to guests.';
+                } elseif (strpos($description, 'عملت كخادمة منزلية في منزل عائلة السعد') !== false) {
+                    $translated->description = 'I worked as a housemaid in Al-Saad family\'s home in Kuwait for 3 years, where I performed cleaning, cooking, and childcare duties.';
+                } else {
+                    $translated->description = $description;
+                }
+            }
+        }
+        
+        return $translated;
+    }
+    
+    /**
+     * Translate review data
+     */
+    public static function translateReview($review)
+    {
+        $translated = $review;
+        
+        // Translate title
+        if (isset($review->title)) {
+            $translated->title = self::translateMaidValue($review->title);
+        }
+        
+        // Translate comment/description if needed
+        if (self::isEnglish()) {
+            if (isset($review->comment)) {
+                $comment = $review->comment;
+                // Simple translation for common comments
+                if (strpos($comment, 'الخادمة تعمل بشكل ممتاز وتنظف المنزل بجدية') !== false) {
+                    $translated->comment = 'The maid works excellently and cleans the house diligently. I highly recommend her.';
+                } elseif (strpos($comment, 'متفانية في العمل ومحترفة') !== false) {
+                    $translated->comment = 'Dedicated to work and professional. Happy with the service.';
+                } elseif (strpos($comment, 'خادمة محترفة ومتفانية. تنظف بجودة عالية') !== false) {
+                    $translated->comment = 'Professional and dedicated maid. Cleans with high quality and pays attention to details.';
+                } else {
+                    $translated->comment = $comment;
+                }
+            }
+        }
+        
+        return $translated;
     }
 }

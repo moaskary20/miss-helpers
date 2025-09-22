@@ -9,9 +9,14 @@ class CustomerReview extends Model
     protected $fillable = [
         'user_id',
         'maid_id',
+        'customer_name',
+        'customer_image',
+        'customer_photo',
+        'customer_location',
         'title',
         'rating',
         'comment',
+        'description',
         'status'
     ];
 

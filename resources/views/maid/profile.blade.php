@@ -613,14 +613,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <h1 class="display-5 fw-bold mb-3">{{ $maid->name }}</h1>
                     <p class="lead mb-4">{{ \App\Helpers\TranslationHelper::translateMaidValue($maid->nationality) }} • {{ $maid->age ?? __('messages.not_specified') }} {{ __('messages.years') }}</p>
                     <div class="rating-stars mb-3">
+                        @php($averageRating = round($maid->average_rating))
                         @for($i = 1; $i <= 5; $i++)
-                            @if($i <= ($maid->rating ?? 0))
+                            @if($i <= $averageRating)
                                 <i class="bi bi-star-fill"></i>
                             @else
                                 <i class="bi bi-star"></i>
                             @endif
                         @endfor
-                        <span class="ms-2">({{ $maid->reviews_count ?? 0 }} {{ __('messages.ratings') }})</span>
+                        <span class="ms-2">({{ $maid->approvedReviews()->count() }} {{ __('messages.ratings') }})</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -634,7 +635,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </div>
                             <div class="col-4">
                                 <div class="stat-item">
-                                    <div class="stat-number">{{ $maid->reviews_count ?? 0 }}</div>
+                                    <div class="stat-number">{{ $maid->approvedReviews()->count() }}</div>
                                     <div class="stat-label">{{ __('messages.reviews') }}</div>
                                 </div>
                             </div>
@@ -718,54 +719,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     @if($maid->workExperiences()->count() > 0)
                         <div class="work-experience-container">
                             @foreach($maid->workExperiences()->get() as $index => $experience)
-                                <div class="experience-item mb-4">
-                                    <div class="experience-header">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <h5 class="experience-company fw-bold mb-1" style="color: #23336b;">
-                                                    {{ $experience->company_name }}
-                                                </h5>
-                                                <h6 class="experience-position mb-1" style="color: #e91e63;">
-                                                    {{ $experience->position }}
-                                                </h6>
-                                                @if($experience->country)
-                                                    <p class="experience-location mb-0" style="color: #6c757d;">
-                                                        <i class="bi bi-geo-alt-fill me-1"></i>
-                                                        {{ $experience->country }}
-                                                    </p>
-                                                @endif
-                                            </div>
-                                            <div class="col-md-4 text-end">
-                                                @if($experience->work_type)
-                                                    <span class="badge bg-primary mb-1">{{ $experience->work_type }}</span>
-                                                @endif
-                                                @if($experience->duration)
-                                                    <span class="badge bg-success mb-1">{{ $experience->duration }}</span>
-                                                @endif
-                                                @if($experience->start_date)
-                                                    <p class="experience-dates mb-0" style="color: #6c757d; font-size: 0.9rem;">
-                                                        <i class="bi bi-calendar3 me-1"></i>
-                                                        {{ $experience->start_date->format('M Y') }}
-                                                        @if($experience->end_date)
-                                                            - {{ $experience->end_date->format('M Y') }}
-                                                        @else
-                                                            - {{ __('messages.until_now') }}
-                                                        @endif
-                                                    </p>
-                                                @endif
-                                            </div>
+                                @php($translatedExperience = \App\Helpers\TranslationHelper::translateWorkExperience($experience))
+                                <div class="experience-item mb-3">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <h6 class="experience-position mb-0" style="color: #e91e63; font-weight: 600;">
+                                                {{ $translatedExperience->position }}
+                                            </h6>
+                                        </div>
+                                        <div class="col-md-4">
+                                            @if($translatedExperience->country)
+                                                <p class="experience-location mb-0" style="color: #6c757d;">
+                                                    <i class="bi bi-geo-alt-fill me-1"></i>
+                                                    {{ $translatedExperience->country }}
+                                                </p>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-4">
+                                            @if($translatedExperience->duration)
+                                                <span class="badge bg-success">{{ $translatedExperience->duration }}</span>
+                                            @endif
                                         </div>
                                     </div>
-                                    @if($experience->description)
-                                        <div class="experience-description mt-3">
-                                            <div class="description-content p-3" style="background: #f8f9fa; border-radius: 8px; border-left: 4px solid #e91e63;">
-                                                <p class="mb-0" style="color: #495057; line-height: 1.6;">
-                                                    <i class="bi bi-quote me-1" style="color: #e91e63;"></i>
-                                                    {{ $experience->description }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    @endif
                                 </div>
                                 @if($index < $maid->workExperiences()->count() - 1)
                                     <hr class="my-4" style="border-color: #e9ecef;">
@@ -806,16 +781,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         {{ __('messages.reviews_ratings') }}
                     </h3>
                     <div class="reviews-section">
-                        @if($maid->reviews_count > 0)
-                            @foreach(range(1, min(3, $maid->reviews_count)) as $index)
+                        @if($maid->approvedReviews()->count() > 0)
+                            @foreach($maid->approvedReviews()->latest()->take(3)->get() as $review)
+                                @php($translatedReview = \App\Helpers\TranslationHelper::translateReview($review))
                                 <div class="review-item">
                                     <div class="review-header">
-                                        <div class="reviewer-name">{{ __('messages.client') }} {{ $index }}</div>
-                                        <div class="review-date">{{ now()->subDays(rand(1, 30))->format('Y-m-d') }}</div>
+                                        <div class="reviewer-name">{{ $translatedReview->customer_name }}</div>
+                                        <div class="review-date">{{ $translatedReview->created_at->format('Y-m-d') }}</div>
                                     </div>
                                     <div class="rating-stars mb-2">
                                         @for($i = 1; $i <= 5; $i++)
-                                            @if($i <= rand(3, 5))
+                                            @if($i <= $translatedReview->rating)
                                                 <i class="bi bi-star-fill"></i>
                                             @else
                                                 <i class="bi bi-star"></i>
@@ -823,7 +799,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                         @endfor
                                     </div>
                                     <div class="review-text">
-                                        {{ [__('messages.excellent_service'), __('messages.hardworking_clean'), __('messages.great_performance')][$index - 1] ?? __('messages.positive_review') }}
+                                        <strong>{{ $translatedReview->title }}</strong><br>
+                                        {{ $translatedReview->comment }}
                                     </div>
                                 </div>
                             @endforeach
