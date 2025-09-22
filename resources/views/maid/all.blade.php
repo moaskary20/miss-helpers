@@ -361,48 +361,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <label class="filter-label">{{ __('messages.nationality') }}</label>
                             <select name="nationality" class="form-select filter-select">
                                 <option value="">{{ __('messages.all_nationalities') }}</option>
-                                @if(isset($searchOptions['nationalities']))
-                                    @foreach($searchOptions['nationalities'] as $nationality)
-                                        @php
-                                            // Map raw Arabic/English values to canonical translation keys
-                                            $nationalityMap = [
-                                                'أوغندا' => 'nationality_uganda',
-                                                'الفلبين' => 'nationality_philippines',
-                                                'سريلانكا' => 'nationality_sri_lanka',
-                                                'إثيوبيا' => 'nationality_ethiopia',
-                                                'كينيا' => 'nationality_kenya',
-                                                'مدغشقر' => 'nationality_madagascar',
-                                                'الهند' => 'nationality_india',
-                                                'باكستان' => 'nationality_pakistan',
-                                                'إندونيسيا' => 'nationality_indonesia',
-                                                'ميانمار' => 'nationality_myanmar',
-                                                'المغرب' => 'nationality_morocco',
-                                                'تونس' => 'nationality_tunisia',
-                                                'مصر' => 'nationality_egypt',
-                                                // Also handle already-English inputs just in case
-                                                'Uganda' => 'nationality_uganda',
-                                                'Philippines' => 'nationality_philippines',
-                                                'Sri Lanka' => 'nationality_sri_lanka',
-                                                'Ethiopia' => 'nationality_ethiopia',
-                                                'Kenya' => 'nationality_kenya',
-                                                'Madagascar' => 'nationality_madagascar',
-                                                'India' => 'nationality_india',
-                                                'Pakistan' => 'nationality_pakistan',
-                                                'Indonesia' => 'nationality_indonesia',
-                                                'Myanmar' => 'nationality_myanmar',
-                                                'Morocco' => 'nationality_morocco',
-                                                'Tunisia' => 'nationality_tunisia',
-                                                'Egypt' => 'nationality_egypt',
-                                            ];
-                                            $nationalityKey = $nationalityMap[$nationality] ?? ('nationality_' . strtolower(str_replace([' ', '-'], '_', $nationality)));
-                                            $translatedNationality = __('messages.' . $nationalityKey);
-                                            $displayNationality = $translatedNationality !== 'messages.' . $nationalityKey ? $translatedNationality : $nationality;
-                                        @endphp
-                                        <option value="{{ $nationality }}" {{ request('nationality') == $nationality ? 'selected' : '' }}>
-                                            {{ $displayNationality }}
-                                        </option>
-                                    @endforeach
-                                @endif
+                                @php($nationalities = \App\Models\Nationality::where('is_active', true)->orderBy('name')->pluck('name'))
+                                @foreach($nationalities as $nationality)
+                                    <option value="{{ $nationality }}" {{ request('nationality') == $nationality ? 'selected' : '' }}>
+                                        {{ $nationality }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

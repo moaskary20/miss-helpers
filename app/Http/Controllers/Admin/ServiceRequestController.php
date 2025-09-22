@@ -34,7 +34,13 @@ class ServiceRequestController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'service_type' => 'required|in:خادمه منزليه,جليسه اطفال,طباخه,مقدمه رعاية,سائق',
-            'nationality' => 'required|in:سيرلنكا,كينيا,اقيوبيا,اندونسيا,الفلبين,اوعندا,مينمار',
+            // تحقق من الجنسية بناءً على جدول nationalities
+            'nationality' => ['required', function($attribute, $value, $fail) {
+                $exists = \App\Models\Nationality::where('is_active', true)->where('name', $value)->exists();
+                if (! $exists) {
+                    $fail('الجنسية المحددة غير متاحة.');
+                }
+            }],
             'emirate' => 'required|in:راس الخيمة,ام القوين,الشارقه,عجمان,ابوظبي,دبي,العين',
             'notes' => 'nullable|string',
             'status' => 'required|in:تحت المراجعه,تم التنفيذ',

@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             CompleteDataSeeder::class,
             VideoDummyDataSeeder::class,
             AddWorkExperienceSeeder::class,
+            NationalitySeeder::class,
         ]);
     }
 }

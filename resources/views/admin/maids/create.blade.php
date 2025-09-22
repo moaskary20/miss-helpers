@@ -86,14 +86,10 @@
                         <select class="form-select @error('nationality') is-invalid @enderror" 
                                 id="nationality" name="nationality" required>
                             <option value="">اختر الجنسية</option>
-                            <option value="الفلبين" {{ old('nationality') == 'الفلبين' ? 'selected' : '' }}>الفلبين</option>
-                            <option value="ميانمار" {{ old('nationality') == 'ميانمار' ? 'selected' : '' }}>ميانمار</option>
-                            <option value="إثيوبيا" {{ old('nationality') == 'إثيوبيا' ? 'selected' : '' }}>إثيوبيا</option>
-                            <option value="سريلانكا" {{ old('nationality') == 'سريلانكا' ? 'selected' : '' }}>سريلانكا</option>
-                            <option value="أوغندا" {{ old('nationality') == 'أوغندا' ? 'selected' : '' }}>أوغندا</option>
-                            <option value="كينيا" {{ old('nationality') == 'كينيا' ? 'selected' : '' }}>كينيا</option>
-                            <option value="مدغشقر" {{ old('nationality') == 'مدغشقر' ? 'selected' : '' }}>مدغشقر</option>
-                            <option value="إندونيسيا" {{ old('nationality') == 'إندونيسيا' ? 'selected' : '' }}>إندونيسيا</option>
+                            @php($nationalities = \App\Models\Nationality::where('is_active', true)->orderBy('name')->pluck('name'))
+                            @foreach($nationalities as $nat)
+                                <option value="{{ $nat }}" {{ old('nationality') == $nat ? 'selected' : '' }}>{{ $nat }}</option>
+                            @endforeach
                         </select>
                         @error('nationality')
                             <div class="invalid-feedback">{{ $message }}</div>
