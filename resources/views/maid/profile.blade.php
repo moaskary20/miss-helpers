@@ -691,18 +691,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
 
                 <!-- Skills -->
-                @if($maid->skills()->count() > 0)
+                @if($maid->skills && $maid->skills->count() > 0)
                     <div class="profile-card">
                         <h3 class="section-title">
                             <i class="bi bi-award"></i>
                             {{ __('messages.skills') }}
                         </h3>
                         <div class="skills-grid">
-                            @foreach($maid->skills()->get() as $skill)
+                            @foreach($maid->skills as $skill)
                                 <div class="skill-tag">
-                                    {{ \App\Helpers\TranslationHelper::translateMaidValue($skill->skill_name) }}
+                                    {{ $skill->translated_skill_name }}
                                     @if($skill->description)
-                                        <small class="d-block text-muted">{{ \App\Helpers\TranslationHelper::translateMaidValue($skill->description) }}</small>
+                                        <small class="d-block text-muted">{{ $skill->translated_description }}</small>
                                     @endif
                                 </div>
                             @endforeach

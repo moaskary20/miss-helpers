@@ -166,7 +166,7 @@ class MaidController extends Controller
             App::setLocale($segmentLocale);
         }
         
-        $maid = Maid::findOrFail($id);
+        $maid = Maid::with(['skills', 'workExperiences', 'reviews'])->findOrFail($id);
         
         // زيادة عدد المشاهدات
         $maid->increment('views_count');

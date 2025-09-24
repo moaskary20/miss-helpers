@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Maid;
 use App\Models\MaidSkill;
+use App\Models\SkillTranslation;
 use App\Models\WorkExperience;
 use App\Models\Post;
 use App\Models\Category;
@@ -173,10 +174,21 @@ class AdminController extends Controller
         // إنشاء الخادمة
         $maid = Maid::create($data);
 
-        // إضافة المهارات
+        // إضافة المهارات مع الترجمة التلقائية
         if ($request->has('skills')) {
             foreach ($request->skills as $skillData) {
                 if (!empty($skillData['skill_name'])) {
+                    // الحصول على الترجمة الإنجليزية
+                    $translation = SkillTranslation::where('arabic_name', $skillData['skill_name'])->first();
+                    
+                    $skillData['english_name'] = $translation ? $translation->english_name : $skillData['skill_name'];
+                    
+                    // إضافة الترجمة الإنجليزية للوصف إذا كان موجود
+                    if (isset($skillData['description']) && !empty($skillData['description'])) {
+                        $translationDesc = SkillTranslation::where('arabic_description', $skillData['description'])->first();
+                        $skillData['english_description'] = $translationDesc ? $translationDesc->english_description : $skillData['description'];
+                    }
+                    
                     $maid->skills()->create($skillData);
                 }
             }
@@ -186,19 +198,14 @@ class AdminController extends Controller
         if ($request->has('work_experiences')) {
             foreach ($request->work_experiences as $index => $workData) {
                 
-                if (!empty($workData['company_name'])) {
+                // التحقق من وجود البيانات المطلوبة (position, country, duration)
+                if (!empty($workData['position']) && !empty($workData['country']) && !empty($workData['duration'])) {
                     // التأكد من وجود البيانات المطلوبة
-                    $workData['start_date'] = $workData['start_date'] ?? null;
+                    $workData['start_date'] = $workData['start_date'] ?? now()->format('Y-m-d');
                     $workData['end_date'] = $workData['end_date'] ?? null;
                     $workData['description'] = $workData['description'] ?? null;
-                    $workData['country'] = $workData['country'] ?? null;
+                    $workData['company_name'] = $workData['company_name'] ?? null;
                     $workData['work_type'] = $workData['work_type'] ?? null;
-                    $workData['duration'] = $workData['duration'] ?? null;
-                    
-                    // إذا لم يكن هناك start_date، استخدم تاريخ اليوم
-                    if (empty($workData['start_date'])) {
-                        $workData['start_date'] = now()->format('Y-m-d');
-                    }
                     
                     $maid->workExperiences()->create($workData);
                 }
@@ -311,11 +318,22 @@ class AdminController extends Controller
         // تحديث بيانات الخادمة
         $maid->update($data);
 
-        // تحديث المهارات
+        // تحديث المهارات مع الترجمة التلقائية
         $maid->skills()->delete();
         if ($request->has('skills')) {
             foreach ($request->skills as $skillData) {
                 if (!empty($skillData['skill_name'])) {
+                    // الحصول على الترجمة الإنجليزية
+                    $translation = SkillTranslation::where('arabic_name', $skillData['skill_name'])->first();
+                    
+                    $skillData['english_name'] = $translation ? $translation->english_name : $skillData['skill_name'];
+                    
+                    // إضافة الترجمة الإنجليزية للوصف إذا كان موجود
+                    if (isset($skillData['description']) && !empty($skillData['description'])) {
+                        $translationDesc = SkillTranslation::where('arabic_description', $skillData['description'])->first();
+                        $skillData['english_description'] = $translationDesc ? $translationDesc->english_description : $skillData['description'];
+                    }
+                    
                     $maid->skills()->create($skillData);
                 }
             }
@@ -326,19 +344,14 @@ class AdminController extends Controller
         if ($request->has('work_experiences')) {
             foreach ($request->work_experiences as $index => $workData) {
                 
-                if (!empty($workData['company_name'])) {
+                // التحقق من وجود البيانات المطلوبة (position, country, duration)
+                if (!empty($workData['position']) && !empty($workData['country']) && !empty($workData['duration'])) {
                     // التأكد من وجود البيانات المطلوبة
-                    $workData['start_date'] = $workData['start_date'] ?? null;
+                    $workData['start_date'] = $workData['start_date'] ?? now()->format('Y-m-d');
                     $workData['end_date'] = $workData['end_date'] ?? null;
                     $workData['description'] = $workData['description'] ?? null;
-                    $workData['country'] = $workData['country'] ?? null;
+                    $workData['company_name'] = $workData['company_name'] ?? null;
                     $workData['work_type'] = $workData['work_type'] ?? null;
-                    $workData['duration'] = $workData['duration'] ?? null;
-                    
-                    // إذا لم يكن هناك start_date، استخدم تاريخ اليوم
-                    if (empty($workData['start_date'])) {
-                        $workData['start_date'] = now()->format('Y-m-d');
-                    }
                     
                     $maid->workExperiences()->create($workData);
                 }
