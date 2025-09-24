@@ -732,4 +732,44 @@ return [
     'skill_description_childcare_rearing' => 'Childcare and child rearing',
     'skill_description_washing_ironing' => 'Washing and ironing clothes',
     'skill_description_home_shopping' => 'Home shopping and supplies',
+    
+    // Filter Options - Experience Years
+    'years_1_3' => '1-3 years',
+    'years_4_6' => '4-6 years',
+    'years_7_10' => '7-10 years',
+    'years_10_plus' => 'More than 10 years',
+    
+    // Filter Options - Status
+    'available' => 'Available',
+    'unavailable' => 'Unavailable',
+    
+    // Filter Options - Religion
+    'muslim' => 'Muslim',
+    'christian' => 'Christian',
+    'other_religion' => 'Other',
+    'not_specified_religion' => 'Not Specified',
+    
+    // Filter Options - Marital Status
+    'single_male' => 'Single',
+    'married_male' => 'Married',
+    'married_female' => 'Married',
+    'widowed_female' => 'Widowed',
+    'divorced_male' => 'Divorced',
+    'divorced_female' => 'Divorced',
+    
+    // Filter Options - Language
+    'arabic' => 'Arabic',
+    'english' => 'English',
+    'arabic_limited_english' => 'Arabic & Limited English',
+    'english_limited_arabic' => 'English & Limited Arabic',
+    'little_english' => 'Little English',
+    
+    // Filter Options - Sort Options
+    'age_youngest_first' => 'Age (Youngest First)',
+    'age_oldest_first' => 'Age (Oldest First)',
+    'most_experienced' => 'Most Experienced',
+    'least_experienced' => 'Least Experienced',
+    'salary_lowest_first' => 'Salary (Lowest First)',
+    'salary_highest_first' => 'Salary (Highest First)',
+    'most_viewed' => 'Most Viewed',
 ];

@@ -713,4 +713,44 @@ return [
     // Meta
     'meta_description' => 'اعثر على خادمات محترفات ومساعدات منزلية في المملكة العربية السعودية. خدمة موثوقة مع حجز سهل وموظفين موثوقين.',
     'meta_keywords' => 'خادمات، مساعدات منزلية، خدمات تنظيف، السعودية، موظفين منزليين',
+    
+    // Filter Options - Experience Years
+    'years_1_3' => '1-3 سنوات',
+    'years_4_6' => '4-6 سنوات',
+    'years_7_10' => '7-10 سنوات',
+    'years_10_plus' => 'أكثر من 10 سنوات',
+    
+    // Filter Options - Status
+    'available' => 'متاحة',
+    'unavailable' => 'غير متاحة',
+    
+    // Filter Options - Religion
+    'muslim' => 'مسلمة',
+    'christian' => 'مسيحية',
+    'other_religion' => 'أخرى',
+    'not_specified_religion' => 'غير محدد',
+    
+    // Filter Options - Marital Status
+    'single_male' => 'أعزب/عزباء',
+    'married_male' => 'متزوج/متزوجة',
+    'married_female' => 'متزوجة',
+    'widowed_female' => 'أرملة',
+    'divorced_male' => 'مطلق/مطلقة',
+    'divorced_female' => 'مطلقة',
+    
+    // Filter Options - Language
+    'arabic' => 'عربية',
+    'english' => 'English',
+    'arabic_limited_english' => 'Arabic & L.English',
+    'english_limited_arabic' => 'English & L.Arabic',
+    'little_english' => 'Little English',
+    
+    // Filter Options - Sort Options
+    'age_youngest_first' => 'العمر (الأصغر أولاً)',
+    'age_oldest_first' => 'العمر (الأكبر أولاً)',
+    'most_experienced' => 'الأكثر خبرة',
+    'least_experienced' => 'الأقل خبرة',
+    'salary_lowest_first' => 'الراتب (الأقل أولاً)',
+    'salary_highest_first' => 'الراتب (الأعلى أولاً)',
+    'most_viewed' => 'الأكثر مشاهدة',
 ];

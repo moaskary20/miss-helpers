@@ -100,6 +100,12 @@ class TranslationHelper
         if ($value === 'عاملة منزلية') {
             return __('messages.housemaid');
         }
+        if ($value === 'خادمة منزلية') {
+            return __('messages.housemaid');
+        }
+        if ($value === 'مدبرة منزل') {
+            return __('messages.housemaid');
+        }
         if ($value === 'مربية أطفال') {
             return __('messages.nanny');
         }

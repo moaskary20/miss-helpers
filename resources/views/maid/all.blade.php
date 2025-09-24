@@ -290,7 +290,7 @@
                                 <option value="">{{ __('messages.all_nationalities') }}</option>
                                 @foreach(\App\Models\Maid::getAvailableNationalities() as $key => $value)
                                     <option value="{{ $key }}" {{ request('nationality') == $key ? 'selected' : '' }}>
-                                        {{ $value }}
+                                        {{ \App\Helpers\TranslationHelper::translateMaidValue($value) }}
                                     </option>
                                 @endforeach
                             </select>
@@ -305,7 +305,7 @@
                                 @if(isset($searchOptions['jobTitles']))
                                     @foreach($searchOptions['jobTitles'] as $jobTitle)
                                         <option value="{{ $jobTitle }}" {{ request('service') == $jobTitle ? 'selected' : '' }}>
-                                            {{ $jobTitle }}
+                                            {{ \App\Helpers\TranslationHelper::translateMaidValue($jobTitle) }}
                                         </option>
                                     @endforeach
                                 @endif
@@ -318,10 +318,10 @@
                             <label class="filter-label">{{ __('messages.experience_years') }}</label>
                             <select name="experience" class="form-select filter-select">
                                 <option value="">{{ __('messages.all_levels') }}</option>
-                                <option value="1-3" {{ request('experience') == '1-3' ? 'selected' : '' }}>1-3 سنوات</option>
-                                <option value="4-6" {{ request('experience') == '4-6' ? 'selected' : '' }}>4-6 سنوات</option>
-                                <option value="7-10" {{ request('experience') == '7-10' ? 'selected' : '' }}>7-10 سنوات</option>
-                                <option value="10+" {{ request('experience') == '10+' ? 'selected' : '' }}>أكثر من 10 سنوات</option>
+                                <option value="1-3" {{ request('experience') == '1-3' ? 'selected' : '' }}>{{ __('messages.years_1_3') }}</option>
+                                <option value="4-6" {{ request('experience') == '4-6' ? 'selected' : '' }}>{{ __('messages.years_4_6') }}</option>
+                                <option value="7-10" {{ request('experience') == '7-10' ? 'selected' : '' }}>{{ __('messages.years_7_10') }}</option>
+                                <option value="10+" {{ request('experience') == '10+' ? 'selected' : '' }}>{{ __('messages.years_10_plus') }}</option>
                             </select>
                         </div>
                     </div>
@@ -350,8 +350,8 @@
                                 <label class="filter-label">{{ __('messages.status') }}</label>
                                 <select name="status" class="form-select filter-select">
                                     <option value="">{{ __('messages.all_statuses') }}</option>
-                                    <option value="متاحة" {{ request('status') == 'متاحة' ? 'selected' : '' }}>متاحة</option>
-                                    <option value="غير متاحة" {{ request('status') == 'غير متاحة' ? 'selected' : '' }}>غير متاحة</option>
+                                    <option value="متاحة" {{ request('status') == 'متاحة' ? 'selected' : '' }}>{{ __('messages.available') }}</option>
+                                    <option value="غير متاحة" {{ request('status') == 'غير متاحة' ? 'selected' : '' }}>{{ __('messages.unavailable') }}</option>
                                 </select>
                             </div>
                         </div>
@@ -361,10 +361,10 @@
                                 <label class="filter-label">{{ __('messages.religion') }}</label>
                                 <select name="religion" class="form-select filter-select">
                                     <option value="">{{ __('messages.all_religions') }}</option>
-                                    <option value="مسلمة" {{ request('religion') == 'مسلمة' ? 'selected' : '' }}>مسلمة</option>
-                                    <option value="مسيحية" {{ request('religion') == 'مسيحية' ? 'selected' : '' }}>مسيحية</option>
-                                    <option value="أخرى" {{ request('religion') == 'أخرى' ? 'selected' : '' }}>أخرى</option>
-                                    <option value="غير محدد" {{ request('religion') == 'غير محدد' ? 'selected' : '' }}>غير محدد</option>
+                                    <option value="مسلمة" {{ request('religion') == 'مسلمة' ? 'selected' : '' }}>{{ __('messages.muslim') }}</option>
+                                    <option value="مسيحية" {{ request('religion') == 'مسيحية' ? 'selected' : '' }}>{{ __('messages.christian') }}</option>
+                                    <option value="أخرى" {{ request('religion') == 'أخرى' ? 'selected' : '' }}>{{ __('messages.other_religion') }}</option>
+                                    <option value="غير محدد" {{ request('religion') == 'غير محدد' ? 'selected' : '' }}>{{ __('messages.not_specified_religion') }}</option>
                                 </select>
                             </div>
                         </div>
@@ -374,11 +374,11 @@
                                 <label class="filter-label">{{ __('messages.marital_status') }}</label>
                                 <select name="marital_status" class="form-select filter-select">
                                     <option value="">{{ __('messages.all_marital_statuses') }}</option>
-                                    <option value="أعزب/عزباء" {{ request('marital_status') == 'أعزب/عزباء' ? 'selected' : '' }}>أعزب/عزباء</option>
-                                    <option value="متزوج/متزوجة" {{ request('marital_status') == 'متزوج/متزوجة' ? 'selected' : '' }}>متزوج/متزوجة</option>
-                                    <option value="متزوجة" {{ request('marital_status') == 'متزوجة' ? 'selected' : '' }}>متزوجة</option>
-                                    <option value="أرملة" {{ request('marital_status') == 'أرملة' ? 'selected' : '' }}>أرملة</option>
-                                    <option value="مطلق/مطلقة" {{ request('marital_status') == 'مطلق/مطلقة' ? 'selected' : '' }}>مطلق/مطلقة</option>
+                                    <option value="أعزب/عزباء" {{ request('marital_status') == 'أعزب/عزباء' ? 'selected' : '' }}>{{ __('messages.single_male') }}</option>
+                                    <option value="متزوج/متزوجة" {{ request('marital_status') == 'متزوج/متزوجة' ? 'selected' : '' }}>{{ __('messages.married_male') }}</option>
+                                    <option value="متزوجة" {{ request('marital_status') == 'متزوجة' ? 'selected' : '' }}>{{ __('messages.married_female') }}</option>
+                                    <option value="أرملة" {{ request('marital_status') == 'أرملة' ? 'selected' : '' }}>{{ __('messages.widowed_female') }}</option>
+                                    <option value="مطلق/مطلقة" {{ request('marital_status') == 'مطلق/مطلقة' ? 'selected' : '' }}>{{ __('messages.divorced_male') }}</option>
                                 </select>
                             </div>
                         </div>
@@ -391,11 +391,11 @@
                                 <label class="filter-label">{{ __('messages.language') }}</label>
                                 <select name="language" class="form-select filter-select">
                                     <option value="">{{ __('messages.all_languages') }}</option>
-                                    <option value="عربية" {{ request('language') == 'عربية' ? 'selected' : '' }}>عربية</option>
-                                    <option value="English" {{ request('language') == 'English' ? 'selected' : '' }}>English</option>
-                                    <option value="Arabic & L.English" {{ request('language') == 'Arabic & L.English' ? 'selected' : '' }}>Arabic & L.English</option>
-                                    <option value="English & L.Arabic" {{ request('language') == 'English & L.Arabic' ? 'selected' : '' }}>English & L.Arabic</option>
-                                    <option value="Little English" {{ request('language') == 'Little English' ? 'selected' : '' }}>Little English</option>
+                                    <option value="عربية" {{ request('language') == 'عربية' ? 'selected' : '' }}>{{ __('messages.arabic') }}</option>
+                                    <option value="English" {{ request('language') == 'English' ? 'selected' : '' }}>{{ __('messages.english') }}</option>
+                                    <option value="Arabic & L.English" {{ request('language') == 'Arabic & L.English' ? 'selected' : '' }}>{{ __('messages.arabic_limited_english') }}</option>
+                                    <option value="English & L.Arabic" {{ request('language') == 'English & L.Arabic' ? 'selected' : '' }}>{{ __('messages.english_limited_arabic') }}</option>
+                                    <option value="Little English" {{ request('language') == 'Little English' ? 'selected' : '' }}>{{ __('messages.little_english') }}</option>
                                 </select>
                             </div>
                         </div>
@@ -445,13 +445,13 @@
                                 <select name="sort" class="form-select filter-select">
                                     <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>{{ __('messages.newest_first') }}</option>
                                     <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>{{ __('messages.oldest_first') }}</option>
-                                    <option value="age_asc" {{ request('sort') == 'age_asc' ? 'selected' : '' }}>العمر (الأصغر أولاً)</option>
-                                    <option value="age_desc" {{ request('sort') == 'age_desc' ? 'selected' : '' }}>العمر (الأكبر أولاً)</option>
-                                    <option value="experience_desc" {{ request('sort') == 'experience_desc' ? 'selected' : '' }}>الأكثر خبرة</option>
-                                    <option value="experience_asc" {{ request('sort') == 'experience_asc' ? 'selected' : '' }}>الأقل خبرة</option>
-                                    <option value="salary_asc" {{ request('sort') == 'salary_asc' ? 'selected' : '' }}>الراتب (الأقل أولاً)</option>
-                                    <option value="salary_desc" {{ request('sort') == 'salary_desc' ? 'selected' : '' }}>الراتب (الأعلى أولاً)</option>
-                                    <option value="views" {{ request('sort') == 'views' ? 'selected' : '' }}>الأكثر مشاهدة</option>
+                                    <option value="age_asc" {{ request('sort') == 'age_asc' ? 'selected' : '' }}>{{ __('messages.age_youngest_first') }}</option>
+                                    <option value="age_desc" {{ request('sort') == 'age_desc' ? 'selected' : '' }}>{{ __('messages.age_oldest_first') }}</option>
+                                    <option value="experience_desc" {{ request('sort') == 'experience_desc' ? 'selected' : '' }}>{{ __('messages.most_experienced') }}</option>
+                                    <option value="experience_asc" {{ request('sort') == 'experience_asc' ? 'selected' : '' }}>{{ __('messages.least_experienced') }}</option>
+                                    <option value="salary_asc" {{ request('sort') == 'salary_asc' ? 'selected' : '' }}>{{ __('messages.salary_lowest_first') }}</option>
+                                    <option value="salary_desc" {{ request('sort') == 'salary_desc' ? 'selected' : '' }}>{{ __('messages.salary_highest_first') }}</option>
+                                    <option value="views" {{ request('sort') == 'views' ? 'selected' : '' }}>{{ __('messages.most_viewed') }}</option>
                                 </select>
                             </div>
                         </div>
@@ -470,7 +470,7 @@
                         </a>
                         <button type="button" class="btn btn-outline-info ms-2" id="toggleAdvancedFilters">
                             <i class="bi bi-funnel me-2"></i>
-                            البحث المتقدم
+                            {{ __('messages.advanced_search') }}
                         </button>
                     </div>
                 </div>
@@ -607,8 +607,8 @@
                 advancedFilters.style.display = advancedVisible ? 'block' : 'none';
                 
                 this.innerHTML = advancedVisible ? 
-                    '<i class="bi bi-funnel-fill me-2"></i>إخفاء البحث المتقدم' :
-                    '<i class="bi bi-funnel me-2"></i>البحث المتقدم';
+                    '<i class="bi bi-funnel-fill me-2"></i>{{ __("messages.hide_advanced_filters") }}' :
+                    '<i class="bi bi-funnel me-2"></i>{{ __("messages.advanced_search") }}';
             });
         }
     });
