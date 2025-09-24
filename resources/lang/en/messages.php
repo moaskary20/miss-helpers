@@ -648,6 +648,8 @@ return [
     'uae' => 'United Arab Emirates',
     'qatar' => 'Qatar',
     'saudi_arabia' => 'Saudi Arabia',
+    'bahrain' => 'Bahrain',
+    'oman' => 'Oman',
     
     // Duration
     'one_year' => '1 year',

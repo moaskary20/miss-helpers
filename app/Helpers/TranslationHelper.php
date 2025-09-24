@@ -513,6 +513,12 @@ class TranslationHelper
         if ($value === 'المملكة العربية السعودية') {
             return __('messages.saudi_arabia');
         }
+        if ($value === 'البحرين') {
+            return __('messages.bahrain');
+        }
+        if ($value === 'سلطنة عمان') {
+            return __('messages.oman');
+        }
         if ($value === 'السعودية') {
             return __('messages.saudi_arabia');
         }
