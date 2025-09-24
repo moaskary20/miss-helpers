@@ -106,6 +106,15 @@ class TranslationHelper
         if ($value === 'مدبرة منزل') {
             return __('messages.housemaid');
         }
+        if ($value === 'جليسة أطفال') {
+            return __('messages.nanny');
+        }
+        if ($value === 'مربية') {
+            return __('messages.nanny');
+        }
+        if ($value === 'مساعدة منزلية') {
+            return __('messages.housemaid');
+        }
         if ($value === 'مربية أطفال') {
             return __('messages.nanny');
         }
