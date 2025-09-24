@@ -2938,22 +2938,22 @@ document.addEventListener('DOMContentLoaded', function() {
 function changeReview(direction) {
     const reviews = [
         {
-            name: 'فاطمة من الرياض',
-            nameSide: 'Fatima A. - Dubai',
-            title: 'Business Owner',
-            text: 'موقع محترم وخدمة العملاء متعاونين جداً. ساعدوني في اختيار خادمة تناسب احتياجات عائلتي، وتم إنهاء الأوراق في وقت قياسي. أشكرهم على المهنية والالتزام.'
+            name: '{{ __("messages.customer_name_fatima") }}',
+            nameSide: '{{ __("messages.customer_name_fatima") }} - {{ __("messages.location_riyadh_saudi") }}',
+            title: '{{ __("messages.satisfied_customer") }}',
+            text: '{{ __("messages.review_text_professional_service") }}'
         },
         {
-            name: 'أحمد من دبي',
-            nameSide: 'Ahmed M. - Dubai',
-            title: 'Software Engineer',
-            text: 'تجربة رائعة مع Miss Helpers. فريق محترف وسريع في الاستجابة. تم العثور على خادمة ممتازة في وقت قصير. أنصح الجميع بالتجربة.'
+            name: '{{ __("messages.customer_name_ahmed_dubai") }}',
+            nameSide: '{{ __("messages.customer_name_ahmed_dubai") }}',
+            title: '{{ __("messages.satisfied_customer") }}',
+            text: '{{ __("messages.review_text_great_experience") }}'
         },
         {
-            name: 'سارة من أبو ظبي',
-            nameSide: 'Sarah K. - Abu Dhabi',
-            title: 'Marketing Manager',
-            text: 'خدمة متميزة وجودة عالية. ساعدوني في العثور على خادمة مناسبة تماماً لاحتياجات عائلتي. شكراً لكم على الاحترافية.'
+            name: '{{ __("messages.customer_name_ahmed") }}',
+            nameSide: '{{ __("messages.customer_name_ahmed") }} - {{ __("messages.location_riyadh_saudi") }}',
+            title: '{{ __("messages.satisfied_customer") }}',
+            text: '{{ __("messages.review_text_excellent_service") }}'
         }
     ];
     
@@ -4872,19 +4872,19 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update reviewer name
             const reviewerName = document.querySelector('.reviewer-name');
             if (reviewerName) {
-                reviewerName.textContent = review.customer_name || 'عميل راضي';
+                reviewerName.textContent = review.customer_name || '{{ __("messages.satisfied_customer_default") }}';
             }
             
             // Update review text
             const reviewText = document.querySelector('.review-text');
             if (reviewText) {
-                reviewText.textContent = review.description || 'موقع محترم وخدمة العملاء متعاونين جداً.';
+                reviewText.textContent = review.description || '{{ __("messages.default_review_text") }}';
             }
             
             // Update side review
             const sideReviewText = document.querySelector('.review-text-side');
             if (sideReviewText) {
-                sideReviewText.textContent = review.description || 'موقع محترم وخدمة العملاء متعاونين جداً.';
+                sideReviewText.textContent = review.description || '{{ __("messages.default_review_text") }}';
             }
             
             // Update rating stars
