@@ -499,6 +499,24 @@ class TranslationHelper
         if ($value === 'تسوق احتياجات المنزل') {
             return __('messages.skill_home_shopping');
         }
+        if ($value === 'مهارة في غسيل الملابس') {
+            return __('messages.skill_washing_clothes');
+        }
+        if ($value === 'مهارة في كوي الملابس') {
+            return __('messages.skill_ironing_clothes');
+        }
+        if ($value === 'مهارة في طبخ الأطباق المختلفة') {
+            return __('messages.skill_cooking_various_dishes');
+        }
+        if ($value === 'مهارة في رعاية وتربية الأطفال') {
+            return __('messages.skill_childcare_rearing');
+        }
+        if ($value === 'مهارة في رعاية كبار السن') {
+            return __('messages.skill_elderly_care');
+        }
+        if ($value === 'مهارة في القيادة الآمنة') {
+            return __('messages.skill_safe_driving');
+        }
         
         // Country translations
         if ($value === 'الكويت') {

@@ -734,6 +734,12 @@ return [
     'skill_description_childcare_rearing' => 'Childcare and child rearing',
     'skill_description_washing_ironing' => 'Washing and ironing clothes',
     'skill_description_home_shopping' => 'Home shopping and supplies',
+    'skill_washing_clothes' => 'Skill in washing clothes',
+    'skill_ironing_clothes' => 'Skill in ironing clothes',
+    'skill_cooking_various_dishes' => 'Skill in cooking various dishes',
+    'skill_childcare_rearing' => 'Childcare and child rearing',
+    'skill_elderly_care' => 'Experience in elderly care',
+    'skill_safe_driving' => 'Skill in safe driving',
     
     // Filter Options - Experience Years
     'years_1_3' => '1-3 years',

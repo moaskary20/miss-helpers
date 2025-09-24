@@ -711,6 +711,12 @@ return [
     'skill_description_childcare_rearing' => 'رعاية وتربية الأطفال',
     'skill_description_washing_ironing' => 'غسيل وكي الملابس',
     'skill_description_home_shopping' => 'تسوق احتياجات المنزل',
+    'skill_washing_clothes' => 'مهارة في غسيل الملابس',
+    'skill_ironing_clothes' => 'مهارة في كوي الملابس',
+    'skill_cooking_various_dishes' => 'مهارة في طبخ الأطباق المختلفة',
+    'skill_childcare_rearing' => 'مهارة في رعاية وتربية الأطفال',
+    'skill_elderly_care' => 'مهارة في رعاية كبار السن',
+    'skill_safe_driving' => 'مهارة في القيادة الآمنة',
     
     // Meta
     'meta_description' => 'اعثر على خادمات محترفات ومساعدات منزلية في المملكة العربية السعودية. خدمة موثوقة مع حجز سهل وموظفين موثوقين.',
