@@ -593,4 +593,123 @@ return [
     // Blog Sample Titles
     'blog_title_calming_kids' => 'Best Ways to Calm Children',
     'blog_title_home_organizing' => 'Organize Your Home in Simple Steps',
+    
+    // Skills
+    'comprehensive_house_cleaning' => 'Comprehensive House Cleaning',
+    'ironing_clothes' => 'Ironing Clothes',
+    'carpet_cleaning' => 'Carpet Cleaning',
+    'elderly_care' => 'Elderly Care',
+    'cooking_arabic_food' => 'Cooking Arabic Food',
+    'cooking_asian_food' => 'Cooking Asian Food',
+    'childcare' => 'Childcare',
+    'laundry' => 'Laundry',
+    'glass_cleaning' => 'Glass Cleaning',
+    'home_organization' => 'Home Organization',
+    'gardening' => 'Gardening',
+    'home_management' => 'Home Management',
+    
+    // New Skills
+    'cleaning' => 'Cleaning',
+    'washing' => 'Washing',
+    'ironing' => 'Ironing',
+    'cooking' => 'Cooking',
+    'child_care' => 'Child Care',
+    'elderly_care_new' => 'Elderly Care',
+    'driving' => 'Driving',
+    
+    // Skill Descriptions
+    'skill_comprehensive_house_cleaning' => 'Skill in comprehensive house cleaning',
+    'skill_cooking_arabic_asian' => 'Expert in Arabic and Asian cooking',
+    'skill_cleaning_homes_hotels' => 'Experience in cleaning homes and hotels',
+    'skill_childcare_all_ages' => 'Experience in caring for children of all ages',
+    'skill_ironing_all_clothes' => 'Expert in ironing all types of clothes',
+    'skill_washing_machines' => 'Experience in using different washing machines',
+    'skill_cleaning_all_parts' => 'Expert in cleaning all parts of the house',
+    'skill_some_arabic_dishes' => 'Expert in some Arabic dishes',
+    'skill_childcare_newborn_to_school' => 'Experience in caring for children from newborns to school age',
+    'skill_help_homework' => 'Helps children with their homework',
+    'skill_all_gulf_dishes' => 'Expert in all Gulf dishes',
+    'skill_traditional_arabic_dishes' => 'Experience in preparing traditional Arabic dishes',
+    'skill_elderly_care' => 'Experience in elderly care',
+    'skill_special_needs_care' => 'Handles different cases of special needs care',
+    'skill_ironing_clothes' => 'Expert in ironing clothes',
+    'skill_caring_young_children' => 'Experience in caring for young children',
+    'skill_managing_all_home_aspects' => 'Expert in managing all aspects of the home',
+    'skill_indonesian_arabic_cooking' => 'Expert in Indonesian and some Arabic cooking',
+    'skill_washing_clothes' => 'Skill in washing clothes',
+    'skill_comprehensive_home_cleaning' => 'Comprehensive home cleaning',
+    'skill_cooking_arabic_foreign' => 'Cooking Arabic and foreign dishes',
+    'skill_childcare_rearing' => 'Childcare and child rearing',
+    'skill_washing_ironing_clothes' => 'Washing and ironing clothes',
+    'skill_home_shopping' => 'Home shopping and supplies',
+    
+    // Countries
+    'kuwait' => 'Kuwait',
+    'uae' => 'United Arab Emirates',
+    'qatar' => 'Qatar',
+    'saudi_arabia' => 'Saudi Arabia',
+    
+    // Duration
+    'one_year' => '1 year',
+    'two_years' => '2 years',
+    'three_years' => '3 years',
+    'four_years' => '4 years',
+    'five_years' => '5 years',
+    'six_years' => '6 years',
+    'seven_years' => '7 years',
+    'eight_years' => '8 years',
+    
+    // Marital Status
+    'single' => 'Single',
+    'married' => 'Married',
+    'divorced' => 'Divorced',
+    'widowed' => 'Widowed',
+    
+    // Nationalities
+    'egyptian' => 'Egyptian',
+    'philippines' => 'Philippines',
+    'myanmar' => 'Myanmar',
+    'ethiopia' => 'Ethiopia',
+    'sri_lanka' => 'Sri Lanka',
+    'uganda' => 'Uganda',
+    'kenya' => 'Kenya',
+    'madagascar' => 'Madagascar',
+    'indonesia' => 'Indonesia',
+    
+    // Skill Names
+    'washing_ironing' => 'Washing & Ironing',
+    'shopping' => 'Shopping',
+    
+    // Additional Skill Descriptions
+    'skill_cooking_arabic_dishes' => 'Skill in cooking Arabic dishes',
+    'skill_cooking_asian_dishes' => 'Skill in cooking Asian dishes',
+    'skill_childcare' => 'Skill in childcare',
+    'skill_home_organization' => 'Skill in home organization',
+    'skill_gardening' => 'Skill in gardening',
+    'skill_home_management' => 'Skill in home management',
+    'skill_carpet_cleaning' => 'Skill in carpet cleaning',
+    'skill_glass_cleaning' => 'Skill in glass cleaning',
+    
+    // Blog Content
+    'blog_title_easy_dinner_recipes' => 'Easy Dinner Recipes',
+    'blog_excerpt_easy_dinner_recipes' => 'Easy and quick recipes for a delicious dinner',
+    'blog_excerpt_calming_children' => 'Effective ways to calm children',
+    'blog_excerpt_home_organizing' => 'Simple steps for home organization',
+    'blog_excerpt_test_article' => 'Experimental article to test the slider interface.',
+    'blog_category_cooking' => 'Cooking',
+    'blog_category_home_tips' => 'Home Tips',
+    'blog_title_healthy_foods' => 'Healthy Foods for the Family',
+    'blog_title_educational_activities' => 'Educational Activities for Children',
+    'blog_title_weekly_cleaning' => 'Weekly Cleaning Routine',
+    'blog_category_childcare' => 'Child Care',
+    
+    // Customer Reviews
+    'customer_name_ahmed' => 'Ahmed Mohamed',
+    'review_text_excellent_service' => 'Excellent service! The maid was very professional and clean. I recommend dealing with them.',
+    'location_riyadh_saudi' => 'Riyadh, Kingdom of Saudi Arabia',
+    'satisfied_customer_default' => 'Satisfied Customer',
+    'customer_name_fatima' => 'Fatima from Riyadh',
+    'customer_name_ahmed_dubai' => 'Ahmed from Dubai',
+    'review_text_professional_service' => 'Professional website and very cooperative customer service. They helped me choose a maid that suits my family\'s needs, and the paperwork was completed in record time. I thank them for their professionalism and commitment.',
+    'review_text_great_experience' => 'Great experience with Miss Helpers. Professional and fast responding team. Found an excellent maid in a short time. I recommend everyone to try it.',
 ];

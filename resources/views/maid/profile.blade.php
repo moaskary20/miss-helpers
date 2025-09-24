@@ -700,9 +700,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div class="skills-grid">
                             @foreach($maid->skills()->get() as $skill)
                                 <div class="skill-tag">
-                                    {{ $skill->skill_name }}
+                                    {{ \App\Helpers\TranslationHelper::translateMaidValue($skill->skill_name) }}
                                     @if($skill->description)
-                                        <small class="d-block text-muted">{{ $skill->description }}</small>
+                                        <small class="d-block text-muted">{{ \App\Helpers\TranslationHelper::translateMaidValue($skill->description) }}</small>
                                     @endif
                                 </div>
                             @endforeach

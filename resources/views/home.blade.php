@@ -685,7 +685,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <div class="blog-card shadow-sm">
                                 <img src="{{ $img }}" alt="{{ $post->title }}" onerror="this.src='{{ asset('images/hero-bg.jpg') }}'">
                                 <div class="blog-overlay"></div>
-                                <div class="blog-caption">{{ $post->title }}</div>
+                                <div class="blog-caption">{{ \App\Helpers\TranslationHelper::translateMaidValue($post->title) }}</div>
                             </div>
                         </a>
                     </div>
@@ -1719,11 +1719,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         
                         <div class="reviewer-info">
-                            <div class="reviewer-name">{{ $customerReviews[0]->customer_name ?? __('messages.satisfied_customer') }}</div>
+                            <div class="reviewer-name">{{ \App\Helpers\TranslationHelper::translateMaidValue($customerReviews[0]->customer_name ?? __('messages.satisfied_customer')) }}</div>
                         </div>
                         
                         <div class="review-text">
-                            {{ $customerReviews[0]->description ?? __('messages.default_review_text') }}
+                            {{ \App\Helpers\TranslationHelper::translateMaidValue($customerReviews[0]->description ?? __('messages.default_review_text')) }}
                         </div>
                     </div>
                 </div>
@@ -1733,7 +1733,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="side-review">
                         <div class="review-content">
                             <p class="review-text-side">
-                                {{ $customerReviews[0]->description ?? __('messages.default_review_text') }}
+                                {{ \App\Helpers\TranslationHelper::translateMaidValue($customerReviews[0]->description ?? __('messages.default_review_text')) }}
                             </p>
                             
                             <div class="rating-stars">
@@ -1755,7 +1755,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             
                             <div class="reviewer-details">
-                                <div class="reviewer-name-side">{{ $customerReviews[0]->customer_name ?? __('messages.satisfied_customer') }} - {{ $customerReviews[0]->customer_location ?? __('messages.riyadh') }}</div>
+                                <div class="reviewer-name-side">{{ \App\Helpers\TranslationHelper::translateMaidValue($customerReviews[0]->customer_name ?? __('messages.satisfied_customer')) }} - {{ \App\Helpers\TranslationHelper::translateMaidValue($customerReviews[0]->customer_location ?? __('messages.riyadh')) }}</div>
                                 <div class="reviewer-title">{{ __('messages.satisfied_customer') }}</div>
                             </div>
                         </div>
@@ -3032,12 +3032,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                         @endphp
                         <img src="{{ $img }}" alt="{{ $post->title }}" class="img-fluid" onerror="this.src='{{ asset('images/blog1.jpg') }}'">
-                        <div class="blog-category">{{ $post->category->name ?? __('messages.general') }}</div>
+                        <div class="blog-category">{{ \App\Helpers\TranslationHelper::translateMaidValue($post->category->name ?? __('messages.general')) }}</div>
                         <div class="blog-date">{{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('F d, Y') : __('messages.coming_soon') }}</div>
                     </div>
                     <div class="blog-content">
-                        <h3 class="blog-title">{{ $post->title }}</h3>
-                        <p class="blog-excerpt">{{ Str::limit($post->excerpt ?? $post->content, 120) }}</p>
+                        <h3 class="blog-title">{{ \App\Helpers\TranslationHelper::translateMaidValue($post->title) }}</h3>
+                        <p class="blog-excerpt">{{ \App\Helpers\TranslationHelper::translateMaidValue(Str::limit($post->excerpt ?? $post->content, 120)) }}</p>
                         <a href="{{ route('blog.show', ['locale' => app()->getLocale(), 'slug' => $post->slug]) }}" class="read-more">
                             {{ __('messages.read_more') }}
                             <i class="bi bi-arrow-left"></i>
@@ -4893,7 +4893,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update reviewer details
             const reviewerNameSide = document.querySelector('.reviewer-name-side');
             if (reviewerNameSide) {
-                reviewerNameSide.textContent = `${review.customer_name || 'عميل راضي'} - ${review.customer_location || 'الرياض'}`;
+                const customerName = review.customer_name || '{{ __("messages.satisfied_customer_default") }}';
+                const customerLocation = review.customer_location || '{{ __("messages.riyadh") }}';
+                reviewerNameSide.textContent = `${customerName} - ${customerLocation}`;
             }
             
             // Update indicators

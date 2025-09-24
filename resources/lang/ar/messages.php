@@ -571,6 +571,125 @@ return [
     'blog_title_calming_kids' => 'أفضل طرق تهدئة الأطفال',
     'blog_title_home_organizing' => 'تنظيم المنزل بخطوات بسيطة',
     
+    // Skills
+    'comprehensive_house_cleaning' => 'تنظيف المنزل الشامل',
+    'ironing_clothes' => 'كوي الملابس',
+    'carpet_cleaning' => 'تنظيف السجاد',
+    'elderly_care' => 'رعاية المسنين',
+    'cooking_arabic_food' => 'طبخ الأكلات العربية',
+    'cooking_asian_food' => 'طبخ الأكلات الآسيوية',
+    'childcare' => 'رعاية الأطفال',
+    'laundry' => 'غسل الملابس',
+    'glass_cleaning' => 'تنظيف الزجاج',
+    'home_organization' => 'تنظيم المنزل',
+    'gardening' => 'الحديقة والبستنة',
+    'home_management' => 'إدارة المنزل',
+    
+    // New Skills
+    'cleaning' => 'تنظيف',
+    'washing' => 'غسيل',
+    'ironing' => 'كوي',
+    'cooking' => 'طبخ',
+    'child_care' => 'رعاية اطفال',
+    'elderly_care_new' => 'رعاية كبار السن',
+    'driving' => 'سائقة',
+    
+    // Skill Descriptions
+    'skill_comprehensive_house_cleaning' => 'مهارة في تنظيف المنزل الشامل',
+    'skill_cooking_arabic_asian' => 'تتقن الطبخ العربي والآسيوي',
+    'skill_cleaning_homes_hotels' => 'خبرة في تنظيف المنازل والفنادق',
+    'skill_childcare_all_ages' => 'تجربة في رعاية الأطفال من مختلف الأعمار',
+    'skill_ironing_all_clothes' => 'تتقن كي جميع أنواع الملابس',
+    'skill_washing_machines' => 'خبرة في استخدام الغسالات المختلفة',
+    'skill_cleaning_all_parts' => 'تتقن تنظيف جميع أجزاء المنزل',
+    'skill_some_arabic_dishes' => 'تتقن بعض الأطباق العربية',
+    'skill_childcare_newborn_to_school' => 'خبرة في رعاية الأطفال حديثي الولادة وحتى سن المدرسة',
+    'skill_help_homework' => 'تساعد الأطفال في واجباتهم المدرسية',
+    'skill_all_gulf_dishes' => 'تتقن جميع الأطباق الخليجية',
+    'skill_traditional_arabic_dishes' => 'خبرة في تحضير الأطباق العربية التقليدية',
+    'skill_elderly_care' => 'خبرة في رعاية كبار السن',
+    'skill_special_needs_care' => 'تتعامل مع حالات مختلفة من ذوي الاحتياجات الخاصة',
+    'skill_ironing_clothes' => 'تتقن كي الملابس',
+    'skill_caring_young_children' => 'تجربة في رعاية الأطفال الصغار',
+    'skill_managing_all_home_aspects' => 'تتقن إدارة جميع جوانب المنزل',
+    'skill_indonesian_arabic_cooking' => 'تتقن الطبخ الإندونيسي وبعض الأطباق العربية',
+    'skill_washing_clothes' => 'مهارة في غسل الملابس',
+    'skill_comprehensive_home_cleaning' => 'تنظيف شامل للمنزل',
+    'skill_cooking_arabic_foreign' => 'طبخ الأطباق العربية والأجنبية',
+    'skill_childcare_rearing' => 'رعاية وتربية الأطفال',
+    'skill_washing_ironing_clothes' => 'غسيل وكي الملابس',
+    'skill_home_shopping' => 'تسوق احتياجات المنزل',
+    
+    // Countries
+    'kuwait' => 'الكويت',
+    'uae' => 'الإمارات العربية المتحدة',
+    'qatar' => 'قطر',
+    'saudi_arabia' => 'المملكة العربية السعودية',
+    
+    // Duration
+    'one_year' => 'سنة واحدة',
+    'two_years' => 'سنتان',
+    'three_years' => '3 سنوات',
+    'four_years' => '4 سنوات',
+    'five_years' => '5 سنوات',
+    'six_years' => '6 سنوات',
+    'seven_years' => '7 سنوات',
+    'eight_years' => '8 سنوات',
+    
+    // Marital Status
+    'single' => 'عزباء',
+    'married' => 'متزوجة',
+    'divorced' => 'مطلقة',
+    'widowed' => 'أرملة',
+    
+    // Nationalities
+    'egyptian' => 'مصرية',
+    'philippines' => 'الفلبين',
+    'myanmar' => 'ميانمار',
+    'ethiopia' => 'اثيوبيا',
+    'sri_lanka' => 'سريلانكا',
+    'uganda' => 'اوغندا',
+    'kenya' => 'كينيا',
+    'madagascar' => 'مدغشقر',
+    'indonesia' => 'اندونيسيا',
+    
+    // Skill Names
+    'washing_ironing' => 'الغسيل والكي',
+    'shopping' => 'التسوق',
+    
+    // Additional Skill Descriptions
+    'skill_cooking_arabic_dishes' => 'مهارة في طبخ الأكلات العربية',
+    'skill_cooking_asian_dishes' => 'مهارة في طبخ الأكلات الآسيوية',
+    'skill_childcare' => 'مهارة في رعاية الأطفال',
+    'skill_home_organization' => 'مهارة في تنظيم المنزل',
+    'skill_gardening' => 'مهارة في الحديقة والبستنة',
+    'skill_home_management' => 'مهارة في إدارة المنزل',
+    'skill_carpet_cleaning' => 'مهارة في تنظيف السجاد',
+    'skill_glass_cleaning' => 'مهارة في تنظيف الزجاج',
+    
+    // Blog Content
+    'blog_title_easy_dinner_recipes' => 'وصفات سهلة لعشاء سريع',
+    'blog_excerpt_easy_dinner_recipes' => 'وصفات سهلة وسريعة لعشاء لذيذ',
+    'blog_excerpt_calming_children' => 'طرق فعالة لتهدئة الأطفال',
+    'blog_excerpt_home_organizing' => 'خطوات بسيطة لتنظيم المنزل',
+    'blog_excerpt_test_article' => 'مقال تجريبي لاختبار واجهة السلايدر.',
+    'blog_category_cooking' => 'الطبخ',
+    'blog_category_home_tips' => 'نصائح المنزل',
+    'blog_title_healthy_foods' => 'أطعمة صحية للعائلة',
+    'blog_title_educational_activities' => 'أنشطة تعليمية للأطفال',
+    'blog_title_weekly_cleaning' => 'روتين تنظيف أسبوعي',
+    'blog_category_childcare' => 'رعاية الأطفال',
+    
+    // Customer Reviews
+    'customer_name_ahmed' => 'أحمد محمد',
+    'review_text_excellent_service' => 'خدمة ممتازة! الخادمة كانت محترفة جداً ونظيفة. أنصح بالتعامل معهم.',
+    'location_riyadh_saudi' => 'الرياض، المملكة العربية السعودية',
+    'satisfied_customer_default' => 'عميل راضي',
+    'customer_name_fatima' => 'فاطمة من الرياض',
+    'customer_name_ahmed_dubai' => 'أحمد من دبي',
+    'review_text_professional_service' => 'موقع محترم وخدمة العملاء متعاونين جداً. ساعدوني في اختيار خادمة تناسب احتياجات عائلتي، وتم إنهاء الأوراق في وقت قياسي. أشكرهم على المهنية والالتزام.',
+    'review_text_great_experience' => 'تجربة رائعة مع Miss Helpers. فريق محترف وسريع في الاستجابة. تم العثور على خادمة ممتازة في وقت قصير. أنصح الجميع بالتجربة.',
+    
     // Meta
     'meta_description' => 'اعثر على خادمات محترفات ومساعدات منزلية في المملكة العربية السعودية. خدمة موثوقة مع حجز سهل وموظفين موثوقين.',
     'meta_keywords' => 'خادمات، مساعدات منزلية، خدمات تنظيف، السعودية، موظفين منزليين',

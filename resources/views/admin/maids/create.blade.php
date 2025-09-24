@@ -203,10 +203,10 @@
                                 <select class="form-select @error('marital_status') is-invalid @enderror" 
                                         id="marital_status" name="marital_status" required>
                                     <option value="">اختر الحالة الاجتماعية</option>
-                                    <option value="أعزب/عزباء" {{ old('marital_status') == 'أعزب/عزباء' ? 'selected' : '' }}>أعزب/عزباء</option>
-                                    <option value="متزوج/متزوجة" {{ old('marital_status') == 'متزوج/متزوجة' ? 'selected' : '' }}>متزوج/متزوجة</option>
-                                    <option value="مطلق/مطلقة" {{ old('marital_status') == 'مطلق/مطلقة' ? 'selected' : '' }}>مطلق/مطلقة</option>
-                                    <option value="أرمل/أرملة" {{ old('marital_status') == 'أرمل/أرملة' ? 'selected' : '' }}>أرمل/أرملة</option>
+                                    <option value="عزباء" {{ old('marital_status') == 'عزباء' ? 'selected' : '' }}>عزباء</option>
+                                    <option value="متزوجة" {{ old('marital_status') == 'متزوجة' ? 'selected' : '' }}>متزوجة</option>
+                                    <option value="مطلقة" {{ old('marital_status') == 'مطلقة' ? 'selected' : '' }}>مطلقة</option>
+                                    <option value="أرملة" {{ old('marital_status') == 'أرملة' ? 'selected' : '' }}>أرملة</option>
                                 </select>
                                 @error('marital_status')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -325,20 +325,20 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="contract_fees" class="form-label">رسوم العقد (درهم إماراتي) <span class="text-danger">*</span></label>
+                        <label for="contract_fees" class="form-label">رسوم العقد (درهم إماراتي)</label>
                         <input type="number" class="form-control @error('contract_fees') is-invalid @enderror" 
                                id="contract_fees" name="contract_fees" value="{{ old('contract_fees') }}" 
-                               min="0" step="0.01" required>
+                               min="0" step="0.01">
                         @error('contract_fees')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     
                     <div class="mb-3">
-                        <label for="monthly_salary" class="form-label">الراتب الشهري (درهم إماراتي) <span class="text-danger">*</span></label>
+                        <label for="monthly_salary" class="form-label">الراتب الشهري (درهم إماراتي)</label>
                         <input type="number" class="form-control @error('monthly_salary') is-invalid @enderror" 
                                id="monthly_salary" name="monthly_salary" value="{{ old('monthly_salary') }}" 
-                               min="0" step="0.01" required>
+                               min="0" step="0.01">
                         @error('monthly_salary')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -366,16 +366,24 @@
                     <div id="skills-container">
                         <div class="skill-item row mb-3">
                             <div class="col-md-5">
-                                <input type="text" class="form-control @error('skills.0.skill_name') is-invalid @enderror" 
-                                       name="skills[0][skill_name]" placeholder="اسم المهارة" 
-                                       value="{{ old('skills.0.skill_name') }}" required>
+                                <select class="form-select @error('skills.0.skill_name') is-invalid @enderror" 
+                                        name="skills[0][skill_name]" required>
+                                    <option value="">اختر المهارة</option>
+                                    <option value="تنظيف" {{ old('skills.0.skill_name') == 'تنظيف' ? 'selected' : '' }}>تنظيف</option>
+                                    <option value="غسيل" {{ old('skills.0.skill_name') == 'غسيل' ? 'selected' : '' }}>غسيل</option>
+                                    <option value="كوي" {{ old('skills.0.skill_name') == 'كوي' ? 'selected' : '' }}>كوي</option>
+                                    <option value="طبخ" {{ old('skills.0.skill_name') == 'طبخ' ? 'selected' : '' }}>طبخ</option>
+                                    <option value="رعاية اطفال" {{ old('skills.0.skill_name') == 'رعاية اطفال' ? 'selected' : '' }}>رعاية اطفال</option>
+                                    <option value="رعاية كبار السن" {{ old('skills.0.skill_name') == 'رعاية كبار السن' ? 'selected' : '' }}>رعاية كبار السن</option>
+                                    <option value="سائقة" {{ old('skills.0.skill_name') == 'سائقة' ? 'selected' : '' }}>سائقة</option>
+                                </select>
                                 @error('skills.0.skill_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6">
                                 <input type="text" class="form-control @error('skills.0.description') is-invalid @enderror" 
-                                       name="skills[0][description]" placeholder="وصف المهارة" 
+                                       name="skills[0][description]" placeholder="وصف المهارة (اختياري)" 
                                        value="{{ old('skills.0.description') }}">
                                 @error('skills.0.description')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -481,12 +489,20 @@
         skillItem.className = 'skill-item row mb-3';
         skillItem.innerHTML = `
             <div class="col-md-5">
-                <input type="text" class="form-control" name="skills[${skillIndex}][skill_name]" 
-                       placeholder="اسم المهارة" required>
+                <select class="form-select" name="skills[${skillIndex}][skill_name]" required>
+                    <option value="">اختر المهارة</option>
+                    <option value="تنظيف">تنظيف</option>
+                    <option value="غسيل">غسيل</option>
+                    <option value="كوي">كوي</option>
+                    <option value="طبخ">طبخ</option>
+                    <option value="رعاية اطفال">رعاية اطفال</option>
+                    <option value="رعاية كبار السن">رعاية كبار السن</option>
+                    <option value="سائقة">سائقة</option>
+                </select>
             </div>
             <div class="col-md-6">
                 <input type="text" class="form-control" name="skills[${skillIndex}][description]" 
-                       placeholder="وصف المهارة">
+                       placeholder="وصف المهارة (اختياري)">
             </div>
             <div class="col-md-1">
                 <button type="button" class="btn btn-outline-danger" onclick="removeSkill(this)">

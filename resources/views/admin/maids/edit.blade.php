@@ -184,10 +184,10 @@
                                 <select class="form-select @error('marital_status') is-invalid @enderror" 
                                         id="marital_status" name="marital_status" required>
                                     <option value="">اختر الحالة الاجتماعية</option>
-                                    <option value="أعزب/عزباء" {{ old('marital_status', $maid->marital_status) == 'أعزب/عزباء' ? 'selected' : '' }}>أعزب/عزباء</option>
-                                    <option value="متزوج/متزوجة" {{ old('marital_status', $maid->marital_status) == 'متزوج/متزوجة' ? 'selected' : '' }}>متزوج/متزوجة</option>
-                                    <option value="مطلق/مطلقة" {{ old('marital_status', $maid->marital_status) == 'مطلق/مطلقة' ? 'selected' : '' }}>مطلق/مطلقة</option>
-                                    <option value="أرمل/أرملة" {{ old('marital_status', $maid->marital_status) == 'أرمل/أرملة' ? 'selected' : '' }}>أرمل/أرملة</option>
+                                    <option value="عزباء" {{ old('marital_status', $maid->marital_status) == 'عزباء' ? 'selected' : '' }}>عزباء</option>
+                                    <option value="متزوجة" {{ old('marital_status', $maid->marital_status) == 'متزوجة' ? 'selected' : '' }}>متزوجة</option>
+                                    <option value="مطلقة" {{ old('marital_status', $maid->marital_status) == 'مطلقة' ? 'selected' : '' }}>مطلقة</option>
+                                    <option value="أرملة" {{ old('marital_status', $maid->marital_status) == 'أرملة' ? 'selected' : '' }}>أرملة</option>
                                 </select>
                                 @error('marital_status')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -306,20 +306,20 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="contract_fees" class="form-label">رسوم العقد (درهم إماراتي) <span class="text-danger">*</span></label>
+                        <label for="contract_fees" class="form-label">رسوم العقد (درهم إماراتي)</label>
                         <input type="number" class="form-control @error('contract_fees') is-invalid @enderror" 
                                id="contract_fees" name="contract_fees" value="{{ old('contract_fees', $maid->contract_fees) }}" 
-                               min="0" step="0.01" required>
+                               min="0" step="0.01">
                         @error('contract_fees')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     
                     <div class="mb-3">
-                        <label for="monthly_salary" class="form-label">الراتب الشهري (درهم إماراتي) <span class="text-danger">*</span></label>
+                        <label for="monthly_salary" class="form-label">الراتب الشهري (درهم إماراتي)</label>
                         <input type="number" class="form-control @error('monthly_salary') is-invalid @enderror" 
                                id="monthly_salary" name="monthly_salary" value="{{ old('monthly_salary', $maid->monthly_salary) }}" 
-                               min="0" step="0.01" required>
+                               min="0" step="0.01">
                         @error('monthly_salary')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -349,16 +349,24 @@
                             @foreach(old('skills') as $index => $skill)
                                 <div class="skill-item row mb-3">
                                     <div class="col-md-5">
-                                        <input type="text" class="form-control @error('skills.'.$index.'.skill_name') is-invalid @enderror" 
-                                               name="skills[{{ $index }}][skill_name]" placeholder="اسم المهارة" 
-                                               value="{{ $skill['skill_name'] ?? '' }}" required>
+                                        <select class="form-select @error('skills.'.$index.'.skill_name') is-invalid @enderror" 
+                                                name="skills[{{ $index }}][skill_name]" required>
+                                            <option value="">اختر المهارة</option>
+                                            <option value="تنظيف" {{ ($skill['skill_name'] ?? '') == 'تنظيف' ? 'selected' : '' }}>تنظيف</option>
+                                            <option value="غسيل" {{ ($skill['skill_name'] ?? '') == 'غسيل' ? 'selected' : '' }}>غسيل</option>
+                                            <option value="كوي" {{ ($skill['skill_name'] ?? '') == 'كوي' ? 'selected' : '' }}>كوي</option>
+                                            <option value="طبخ" {{ ($skill['skill_name'] ?? '') == 'طبخ' ? 'selected' : '' }}>طبخ</option>
+                                            <option value="رعاية اطفال" {{ ($skill['skill_name'] ?? '') == 'رعاية اطفال' ? 'selected' : '' }}>رعاية اطفال</option>
+                                            <option value="رعاية كبار السن" {{ ($skill['skill_name'] ?? '') == 'رعاية كبار السن' ? 'selected' : '' }}>رعاية كبار السن</option>
+                                            <option value="سائقة" {{ ($skill['skill_name'] ?? '') == 'سائقة' ? 'selected' : '' }}>سائقة</option>
+                                        </select>
                                         @error('skills.'.$index.'.skill_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control @error('skills.'.$index.'.description') is-invalid @enderror" 
-                                               name="skills[{{ $index }}][description]" placeholder="وصف المهارة" 
+                                               name="skills[{{ $index }}][description]" placeholder="وصف المهارة (اختياري)" 
                                                value="{{ $skill['description'] ?? '' }}">
                                         @error('skills.'.$index.'.description')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -375,16 +383,24 @@
                             @foreach($maid->skills()->get() as $index => $skill)
                                 <div class="skill-item row mb-3">
                                     <div class="col-md-5">
-                                        <input type="text" class="form-control @error('skills.'.$index.'.skill_name') is-invalid @enderror" 
-                                               name="skills[{{ $index }}][skill_name]" placeholder="اسم المهارة" 
-                                               value="{{ $skill->skill_name }}" required>
+                                        <select class="form-select @error('skills.'.$index.'.skill_name') is-invalid @enderror" 
+                                                name="skills[{{ $index }}][skill_name]" required>
+                                            <option value="">اختر المهارة</option>
+                                            <option value="تنظيف" {{ $skill->skill_name == 'تنظيف' ? 'selected' : '' }}>تنظيف</option>
+                                            <option value="غسيل" {{ $skill->skill_name == 'غسيل' ? 'selected' : '' }}>غسيل</option>
+                                            <option value="كوي" {{ $skill->skill_name == 'كوي' ? 'selected' : '' }}>كوي</option>
+                                            <option value="طبخ" {{ $skill->skill_name == 'طبخ' ? 'selected' : '' }}>طبخ</option>
+                                            <option value="رعاية اطفال" {{ $skill->skill_name == 'رعاية اطفال' ? 'selected' : '' }}>رعاية اطفال</option>
+                                            <option value="رعاية كبار السن" {{ $skill->skill_name == 'رعاية كبار السن' ? 'selected' : '' }}>رعاية كبار السن</option>
+                                            <option value="سائقة" {{ $skill->skill_name == 'سائقة' ? 'selected' : '' }}>سائقة</option>
+                                        </select>
                                         @error('skills.'.$index.'.skill_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control @error('skills.'.$index.'.description') is-invalid @enderror" 
-                                               name="skills[{{ $index }}][description]" placeholder="وصف المهارة" 
+                                               name="skills[{{ $index }}][description]" placeholder="وصف المهارة (اختياري)" 
                                                value="{{ $skill->description }}">
                                         @error('skills.'.$index.'.description')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -506,25 +522,19 @@
                                 </div>
                             @endforeach
                         @else
-                            @foreach($maid->workExperiences()->get() as $index => $work)
+                            @foreach($maid->workExperiences as $index => $work)
                                 <div class="work-experience-item row mb-3">
-                                    <div class="col-md-2">
-                                        <input type="text" class="form-control @error('work_experiences.'.$index.'.company_name') is-invalid @enderror" 
-                                               name="work_experiences[{{ $index }}][company_name]" placeholder="اسم الشركة" 
-                                               value="{{ $work->company_name }}" required>
-                                        @error('work_experiences.'.$index.'.company_name')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
+                                        <label class="form-label">الوظيفة</label>
                                         <input type="text" class="form-control @error('work_experiences.'.$index.'.position') is-invalid @enderror" 
-                                               name="work_experiences[{{ $index }}][position]" placeholder="المنصب" 
+                                               name="work_experiences[{{ $index }}][position]" placeholder="الوظيفة" 
                                                value="{{ $work->position }}" required>
                                         @error('work_experiences.'.$index.'.position')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
+                                        <label class="form-label">البلد</label>
                                         <input type="text" class="form-control @error('work_experiences.'.$index.'.country') is-invalid @enderror" 
                                                name="work_experiences[{{ $index }}][country]" placeholder="البلد" 
                                                value="{{ $work->country ?? '' }}" required>
@@ -532,15 +542,8 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-2">
-                                        <input type="text" class="form-control @error('work_experiences.'.$index.'.work_type') is-invalid @enderror" 
-                                               name="work_experiences[{{ $index }}][work_type]" placeholder="نوع العمل" 
-                                               value="{{ $work->work_type ?? '' }}" required>
-                                        @error('work_experiences.'.$index.'.work_type')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
+                                        <label class="form-label">المدة</label>
                                         <input type="text" class="form-control @error('work_experiences.'.$index.'.duration') is-invalid @enderror" 
                                                name="work_experiences[{{ $index }}][duration]" placeholder="المدة" 
                                                value="{{ $work->duration ?? '' }}" required>
@@ -549,7 +552,8 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-1">
-                                        <button type="button" class="btn btn-outline-danger" onclick="removeWorkExperience(this)">
+                                        <label class="form-label">&nbsp;</label>
+                                        <button type="button" class="btn btn-outline-danger d-block" onclick="removeWorkExperience(this)">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
@@ -597,12 +601,20 @@
         skillItem.className = 'skill-item row mb-3';
         skillItem.innerHTML = `
             <div class="col-md-5">
-                <input type="text" class="form-control" name="skills[${skillIndex}][skill_name]" 
-                       placeholder="اسم المهارة" required>
+                <select class="form-select" name="skills[${skillIndex}][skill_name]" required>
+                    <option value="">اختر المهارة</option>
+                    <option value="تنظيف">تنظيف</option>
+                    <option value="غسيل">غسيل</option>
+                    <option value="كوي">كوي</option>
+                    <option value="طبخ">طبخ</option>
+                    <option value="رعاية اطفال">رعاية اطفال</option>
+                    <option value="رعاية كبار السن">رعاية كبار السن</option>
+                    <option value="سائقة">سائقة</option>
+                </select>
             </div>
             <div class="col-md-6">
                 <input type="text" class="form-control" name="skills[${skillIndex}][description]" 
-                       placeholder="وصف المهارة">
+                       placeholder="وصف المهارة (اختياري)">
             </div>
             <div class="col-md-1">
                 <button type="button" class="btn btn-outline-danger" onclick="removeSkill(this)">
@@ -621,34 +633,24 @@
     function addWorkExperience() {
         const container = document.getElementById('work-experiences-container');
         
-        // إضافة صف المعلومات الأساسية
-        const workItem1 = document.createElement('div');
-        workItem1.className = 'work-experience-item row mb-3';
-        workItem1.innerHTML = `
-            <div class="col-md-2">
-                <label class="form-label">اسم الشركة</label>
-                <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][company_name]" 
-                       placeholder="اسم الشركة" required>
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">المنصب</label>
+        // إضافة خبرة عمل مبسطة (الوظيفة - البلد - المدة فقط)
+        const workItem = document.createElement('div');
+        workItem.className = 'work-experience-item row mb-3';
+        workItem.innerHTML = `
+            <div class="col-md-4">
+                <label class="form-label">الوظيفة</label>
                 <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][position]" 
-                       placeholder="المنصب" required>
+                       placeholder="الوظيفة" required>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <label class="form-label">البلد</label>
                 <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][country]" 
-                       placeholder="البلد">
+                       placeholder="البلد" required>
             </div>
-            <div class="col-md-2">
-                <label class="form-label">نوع العمل</label>
-                <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][work_type]" 
-                       placeholder="نوع العمل">
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <label class="form-label">المدة</label>
                 <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][duration]" 
-                       placeholder="المدة">
+                       placeholder="المدة" required>
             </div>
             <div class="col-md-1">
                 <label class="form-label">&nbsp;</label>
@@ -658,27 +660,7 @@
             </div>
         `;
         
-        // إضافة صف التواريخ والوصف
-        const workItem2 = document.createElement('div');
-        workItem2.className = 'work-experience-item row mb-3';
-        workItem2.innerHTML = `
-            <div class="col-md-3">
-                <label class="form-label">تاريخ البداية</label>
-                <input type="date" class="form-control" name="work_experiences[${workExperienceIndex}][start_date]" required>
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">تاريخ النهاية</label>
-                <input type="date" class="form-control" name="work_experiences[${workExperienceIndex}][end_date]">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">الوصف</label>
-                <textarea class="form-control" name="work_experiences[${workExperienceIndex}][description]" 
-                          placeholder="وصف العمل" rows="2"></textarea>
-            </div>
-        `;
-        
-        container.appendChild(workItem1);
-        container.appendChild(workItem2);
+        container.appendChild(workItem);
         workExperienceIndex++;
     }
 
