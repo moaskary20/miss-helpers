@@ -712,4 +712,24 @@ return [
     'customer_name_ahmed_dubai' => 'Ahmed from Dubai',
     'review_text_professional_service' => 'Professional website and very cooperative customer service. They helped me choose a maid that suits my family\'s needs, and the paperwork was completed in record time. I thank them for their professionalism and commitment.',
     'review_text_great_experience' => 'Great experience with Miss Helpers. Professional and fast responding team. Found an excellent maid in a short time. I recommend everyone to try it.',
+    
+    // Additional Skill Names
+    'comprehensive_house_cleaning' => 'Comprehensive House Cleaning',
+    'cooking_arabic_food' => 'Arabic Cooking',
+    'cooking_asian_food' => 'Asian Cooking',
+    'laundry' => 'Laundry',
+    'home_organization' => 'Home Organization',
+    'gardening' => 'Gardening',
+    'home_management' => 'Home Management',
+    'ironing_clothes' => 'Ironing Clothes',
+    'carpet_cleaning' => 'Carpet Cleaning',
+    'glass_cleaning' => 'Glass Cleaning',
+    'elderly_care' => 'Elderly Care',
+    
+    // Additional Skill Descriptions
+    'skill_description_comprehensive_cleaning' => 'Comprehensive home cleaning',
+    'skill_description_cooking_arabic_foreign' => 'Cooking Arabic and foreign dishes',
+    'skill_description_childcare_rearing' => 'Childcare and child rearing',
+    'skill_description_washing_ironing' => 'Washing and ironing clothes',
+    'skill_description_home_shopping' => 'Home shopping and supplies',
 ];

@@ -399,6 +399,73 @@ class TranslationHelper
         if ($value === 'مهارة في رعاية المسنين') {
             return __('messages.skill_elderly_care');
         }
+        
+        // Additional skill names translations
+        if ($value === 'التنظيف') {
+            return __('messages.cleaning');
+        }
+        if ($value === 'الطبخ') {
+            return __('messages.cooking');
+        }
+        if ($value === 'رعاية الأطفال') {
+            return __('messages.childcare');
+        }
+        if ($value === 'الغسيل والكي') {
+            return __('messages.washing_ironing');
+        }
+        if ($value === 'التسوق') {
+            return __('messages.shopping');
+        }
+        if ($value === 'تنظيف المنزل الشامل') {
+            return __('messages.comprehensive_house_cleaning');
+        }
+        if ($value === 'طبخ الأكلات العربية') {
+            return __('messages.cooking_arabic_food');
+        }
+        if ($value === 'غسل الملابس') {
+            return __('messages.laundry');
+        }
+        if ($value === 'طبخ الأكلات الآسيوية') {
+            return __('messages.cooking_asian_food');
+        }
+        if ($value === 'تنظيم المنزل') {
+            return __('messages.home_organization');
+        }
+        if ($value === 'الحديقة والبستنة') {
+            return __('messages.gardening');
+        }
+        if ($value === 'إدارة المنزل') {
+            return __('messages.home_management');
+        }
+        if ($value === 'كوي الملابس') {
+            return __('messages.ironing_clothes');
+        }
+        if ($value === 'تنظيف السجاد') {
+            return __('messages.carpet_cleaning');
+        }
+        if ($value === 'تنظيف الزجاج') {
+            return __('messages.glass_cleaning');
+        }
+        if ($value === 'رعاية المسنين') {
+            return __('messages.elderly_care');
+        }
+        
+        // Additional skill descriptions translations
+        if ($value === 'تنظيف شامل للمنزل') {
+            return __('messages.skill_description_comprehensive_cleaning');
+        }
+        if ($value === 'طبخ الأطباق العربية والأجنبية') {
+            return __('messages.skill_description_cooking_arabic_foreign');
+        }
+        if ($value === 'رعاية وتربية الأطفال') {
+            return __('messages.skill_description_childcare_rearing');
+        }
+        if ($value === 'غسيل وكي الملابس') {
+            return __('messages.skill_description_washing_ironing');
+        }
+        if ($value === 'تسوق احتياجات المنزل') {
+            return __('messages.skill_description_home_shopping');
+        }
         if ($value === 'مهارة في غسل الملابس') {
             return __('messages.skill_washing_clothes');
         }

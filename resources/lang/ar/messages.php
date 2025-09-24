@@ -690,6 +690,26 @@ return [
     'review_text_professional_service' => 'موقع محترم وخدمة العملاء متعاونين جداً. ساعدوني في اختيار خادمة تناسب احتياجات عائلتي، وتم إنهاء الأوراق في وقت قياسي. أشكرهم على المهنية والالتزام.',
     'review_text_great_experience' => 'تجربة رائعة مع Miss Helpers. فريق محترف وسريع في الاستجابة. تم العثور على خادمة ممتازة في وقت قصير. أنصح الجميع بالتجربة.',
     
+    // Additional Skill Names
+    'comprehensive_house_cleaning' => 'تنظيف المنزل الشامل',
+    'cooking_arabic_food' => 'طبخ الأكلات العربية',
+    'cooking_asian_food' => 'طبخ الأكلات الآسيوية',
+    'laundry' => 'غسل الملابس',
+    'home_organization' => 'تنظيم المنزل',
+    'gardening' => 'الحديقة والبستنة',
+    'home_management' => 'إدارة المنزل',
+    'ironing_clothes' => 'كوي الملابس',
+    'carpet_cleaning' => 'تنظيف السجاد',
+    'glass_cleaning' => 'تنظيف الزجاج',
+    'elderly_care' => 'رعاية المسنين',
+    
+    // Additional Skill Descriptions
+    'skill_description_comprehensive_cleaning' => 'تنظيف شامل للمنزل',
+    'skill_description_cooking_arabic_foreign' => 'طبخ الأطباق العربية والأجنبية',
+    'skill_description_childcare_rearing' => 'رعاية وتربية الأطفال',
+    'skill_description_washing_ironing' => 'غسيل وكي الملابس',
+    'skill_description_home_shopping' => 'تسوق احتياجات المنزل',
+    
     // Meta
     'meta_description' => 'اعثر على خادمات محترفات ومساعدات منزلية في المملكة العربية السعودية. خدمة موثوقة مع حجز سهل وموظفين موثوقين.',
     'meta_keywords' => 'خادمات، مساعدات منزلية، خدمات تنظيف، السعودية، موظفين منزليين',
