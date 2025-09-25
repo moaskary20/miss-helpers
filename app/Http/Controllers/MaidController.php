@@ -145,7 +145,15 @@ class MaidController extends Controller
         // خيارات البحث المتاحة
         $searchOptions = [
             'nationalities' => Maid::distinct()->pluck('nationality')->filter()->sort()->values(),
-            'jobTitles' => Maid::distinct()->pluck('job_title')->filter()->sort()->values(),
+            'jobTitles' => [
+                'تنظيف',
+                'غسيل', 
+                'كوي',
+                'طبخ',
+                'رعاية اطفال',
+                'رعاية كبار السن',
+                'سائقة'
+            ],
             'packageTypes' => Maid::distinct()->pluck('package_type')->filter()->sort()->values(),
             'religions' => Maid::distinct()->pluck('religion')->filter()->sort()->values(),
             'maritalStatuses' => Maid::distinct()->pluck('marital_status')->filter()->sort()->values(),
