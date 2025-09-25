@@ -761,4 +761,5 @@ return [
     'salary_lowest_first' => 'الراتب (الأقل أولاً)',
     'salary_highest_first' => 'الراتب (الأعلى أولاً)',
     'most_viewed' => 'الأكثر مشاهدة',
+    'back_to_home' => 'العودة للرئيسية',
 ];

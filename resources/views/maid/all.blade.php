@@ -2,84 +2,159 @@
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>تصفح الخادمات - Miss Helpers</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="{{ asset('css/header.css') }}" rel="stylesheet">
     <style>
         body {
             font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
         
-        /* Header Styles */
-        .site-header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: #fff;
-            border-bottom: 1px solid #f1f1f1;
+        * {
+            box-sizing: border-box;
         }
         
-        .header-inner {
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        img.logo-image {
+            max-width: 35% !important;
         }
         
-        .brand {
+        .container {
+            max-width: 100%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            
+            body {
+                font-size: 14px;
+                line-height: 1.4;
+            }
+            
+            .page-header {
+                padding: 30px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+            
+            body {
+                font-size: 13px;
+            }
+            
+            .page-header {
+                padding: 20px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .page-header p {
+                font-size: 0.9rem;
+            }
+        }
+        
+        
+        
+        /* Footer Styles */
+        .footer-section {
+            background: #23336b;
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+        
+        .footer-logo {
             display: flex;
             align-items: center;
             gap: 10px;
-            text-decoration: none;
+            margin-bottom: 20px;
         }
         
-        .brand img {
-            height: 34px;
-        }
-        
-        .brand .title {
-            font-weight: 800;
-            color: #1c1c1c;
-            letter-spacing: .5px;
-        }
-        
-        .nav-links a {
-            color: #1c1c1c;
-            text-decoration: none;
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-        
-        .nav-links a:hover {
-            background: #f6f7fb;
-        }
-        
-        .cta-btn {
+        .logo-icon {
+            width: 40px;
+            height: 40px;
             background: #ffa19c;
-            color: #fff;
-            border: none;
-            border-radius: 18px;
-            padding: 10px 18px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .logo-text {
             font-weight: 800;
-            text-decoration: none;
-            display: inline-block;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
         }
         
-        .cta-btn:hover {
-            background: #ff8a7a;
-            color: #fff;
-            text-decoration: none;
+        .company-description {
+            color: #b8c5d6;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
         
-        .auth a {
-            color: #1c1c1c;
-            text-decoration: none;
-            margin-inline-start: 14px;
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
         }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #b8c5d6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #ffa19c;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #3a4a6b;
+            padding-top: 30px;
+            margin-top: 40px;
+            text-align: center;
+            color: #b8c5d6;
+        }
+        
+        
         .page-header {
             background: linear-gradient(135deg, #23336b 0%, #1a2533 100%);
             color: white;
@@ -248,6 +323,277 @@
         .search-btn:hover {
             background: #c2185b;
             transform: translateY(-2px);
+        }
+        
+        
+        /* Mobile Footer Styles */
+        @media (max-width: 768px) {
+            .footer-section {
+                padding: 40px 0 20px;
+                margin-top: 60px;
+            }
+            
+            .footer-logo {
+                margin-bottom: 15px;
+            }
+            
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+            
+            .logo-text {
+                font-size: 1rem;
+            }
+            
+            .footer-title {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+            
+            .footer-bottom {
+                padding-top: 20px;
+                margin-top: 30px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .footer-section {
+                padding: 30px 0 15px;
+                margin-top: 40px;
+            }
+            
+            .logo-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+            }
+            
+            .logo-text {
+                font-size: 0.9rem;
+            }
+            
+            .footer-title {
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+            
+            .footer-bottom {
+                padding-top: 15px;
+                margin-top: 20px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 40px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
+            
+            .filters-container {
+                padding: 20px 15px;
+                margin: 20px 0;
+            }
+            
+            .filter-group {
+                margin-bottom: 15px;
+            }
+            
+            .search-filters .row {
+                margin: 0;
+            }
+            
+            .search-filters .col-lg-4,
+            .search-filters .col-lg-3,
+            .search-filters .col-md-6 {
+                padding: 0 5px;
+                margin-bottom: 15px;
+            }
+            
+            .filter-label {
+                font-size: 0.9rem;
+                margin-bottom: 8px;
+            }
+            
+            .filter-select {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+            }
+            
+            .search-input {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+            }
+            
+            .search-btn {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+            
+            .advanced-search-btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            .maids-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+                padding: 0 15px;
+            }
+            
+            .maid-card {
+                margin-bottom: 20px;
+            }
+            
+            .maid-image-wrapper {
+                height: 200px;
+            }
+            
+            .maid-info {
+                padding: 15px;
+            }
+            
+            .maid-name {
+                font-size: 1.1rem;
+            }
+            
+            .maid-stats {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .views-badge {
+                font-size: 0.8rem;
+                padding: 3px 8px;
+            }
+            
+            .nationality-badge {
+                font-size: 0.8rem;
+                padding: 3px 8px;
+            }
+            
+            .maid-actions-bottom .btn {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+            
+            .no-results {
+                padding: 40px 20px;
+            }
+            
+            .no-results h3 {
+                font-size: 1.3rem;
+            }
+            
+            .no-results p {
+                font-size: 0.9rem;
+            }
+            
+            .stats-row {
+                margin: 20px 0;
+            }
+            
+            .stat-item {
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .advanced-filters {
+                padding: 15px;
+            }
+            
+            .advanced-filters .row {
+                margin: 0;
+            }
+            
+            .advanced-filters .col-lg-3,
+            .advanced-filters .col-lg-4,
+            .advanced-filters .col-md-6 {
+                padding: 0 5px;
+                margin-bottom: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 30px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .filters-container {
+                padding: 15px 10px;
+            }
+            
+            .maids-grid {
+                padding: 0 10px;
+                gap: 15px;
+            }
+            
+            .maid-image-wrapper {
+                height: 180px;
+            }
+            
+            .maid-info {
+                padding: 12px;
+            }
+            
+            .maid-name {
+                font-size: 1rem;
+            }
+            
+            .maid-rating {
+                margin-bottom: 10px;
+            }
+            
+            .stars {
+                font-size: 0.9rem;
+            }
+            
+            .maid-actions-bottom .btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            .advanced-filters {
+                padding: 10px;
+            }
+            
+            .advanced-filters .col-lg-3,
+            .advanced-filters .col-lg-4,
+            .advanced-filters .col-md-6 {
+                padding: 0 3px;
+                margin-bottom: 10px;
+            }
+            
+            .search-filters .col-lg-4,
+            .search-filters .col-lg-3,
+            .search-filters .col-md-6 {
+                padding: 0 3px;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -555,9 +901,32 @@
         @endif
     </div>
 
+    @include('partials.footer')
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+    // Ensure page loads properly on mobile
     document.addEventListener('DOMContentLoaded', function() {
+        // Force mobile viewport fix
+        if (window.innerWidth <= 768) {
+            document.body.style.overflowX = 'hidden';
+            document.body.style.width = '100%';
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 768) {
+                document.body.style.overflowX = 'hidden';
+                document.body.style.width = '100%';
+            }
+        });
+        
+        // Ensure all images are responsive
+        const images = document.querySelectorAll('img');
+        images.forEach(function(img) {
+            img.style.maxWidth = '100%';
+            img.style.height = 'auto';
+        });
         // تحسين تجربة البحث
         const searchForm = document.getElementById('searchForm');
         const filterSelects = document.querySelectorAll('.filter-select');

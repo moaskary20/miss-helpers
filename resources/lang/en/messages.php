@@ -780,4 +780,5 @@ return [
     'salary_lowest_first' => 'Salary (Lowest First)',
     'salary_highest_first' => 'Salary (Highest First)',
     'most_viewed' => 'Most Viewed',
+    'back_to_home' => 'Back to Home',
 ];

@@ -1,8 +1,11 @@
+<!-- Header CSS -->
+<link href="{{ asset('css/header.css') }}" rel="stylesheet">
+
 <!-- Header -->
 <header class="site-header">
     <div class="container header-inner">
         <a href="/{{ app()->getLocale() }}" class="brand">
-            <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
+            <img src="/images/logo.png" alt="Miss Helpers" class="logo-image">
         </a>
         <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
                 <a href="/{{ app()->getLocale() }}">{{ __('messages.home') }}</a>
