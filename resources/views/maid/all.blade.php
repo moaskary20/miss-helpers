@@ -22,9 +22,18 @@
             box-sizing: border-box;
         }
         
-        img.logo-image {
-            max-width: 35% !important;
-        }
+        
+        .brand {
+    width: 8%;
+  
+}
+       
+@media (max-width: 480px) {
+    .logo-image {
+        max-width: 396% !important  ;
+    }
+}
+ 
         
         .container {
             max-width: 100%;
