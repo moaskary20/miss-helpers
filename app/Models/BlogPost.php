@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class BlogPost extends Model
 {
     use HasFactory;
+
+    protected $table = 'posts';
 
     protected $fillable = [
         'title',
@@ -17,16 +21,16 @@ class BlogPost extends Model
         'status',
         'published_at',
         'category_id',
-        'author_id',
         'slug',
         'meta_title',
         'meta_description',
-        'tags'
+        'is_featured',
+        'views_count'
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
-        'tags' => 'array'
+        'is_featured' => 'boolean'
     ];
 
     /**
@@ -34,15 +38,27 @@ class BlogPost extends Model
      */
     public function category()
     {
+        // محاولة استخدام جدول categories أولاً
+        if (Schema::hasTable('categories')) {
+            return $this->belongsTo(\App\Models\Category::class, 'category_id');
+        }
+        // إذا لم يوجد، استخدم blog_categories
         return $this->belongsTo(BlogCategory::class, 'category_id');
     }
 
     /**
-     * العلاقة مع الكاتب
+     * العلاقة مع الكاتب (اختياري - إذا كان الجدول يحتوي على author_id)
+     * ملاحظة: هذا الجدول لا يحتوي على author_id حالياً
      */
     public function author()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        // إذا كان الجدول يحتوي على author_id، استخدم العلاقة
+        if (Schema::hasColumn($this->getTable(), 'author_id')) {
+            return $this->belongsTo(User::class, 'author_id');
+        }
+        // إذا لم يكن موجوداً، أرجع علاقة فارغة باستخدام whereRaw لضمان عدم وجود نتائج
+        return $this->belongsTo(User::class, 'id', 'id')
+            ->whereRaw('1 = 0');
     }
 
     /**

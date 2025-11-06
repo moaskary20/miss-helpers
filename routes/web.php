@@ -29,6 +29,10 @@ Route::get('/ar/maid/{id}', [MaidController::class, 'show'])->name('maid.profile
 Route::get('/en/maids', [MaidController::class, 'index'])->name('maids.all.en');
 Route::get('/ar/maids', [MaidController::class, 'index'])->name('maids.all.ar');
 
+// Working blog routes (outside localized group to avoid conflicts)
+Route::get('/ar/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show.ar');
+Route::get('/en/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show.en');
+
 // Localized routes: /ar/... and /en/...
 Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], function() {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
@@ -36,8 +40,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'ar|en']], functio
     Route::get('/maids/category/{category}', [App\Http\Controllers\MaidController::class, 'byCategory'])->name('maids.byCategory');
     Route::get('/maids/nationality/{nationality}', [App\Http\Controllers\MaidController::class, 'byNationality'])->name('maids.byNationality');
     Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
-    Route::get('/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
     Route::get('/blog/category/{slug}', [App\Http\Controllers\BlogController::class, 'category'])->name('blog.category');
+    Route::get('/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
     Route::get('/contact', [App\Http\Controllers\ContactController::class, 'index'])->name('contact.index');
     Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
     Route::get('/service', [App\Http\Controllers\ServiceController::class, 'index'])->name('service.index');
@@ -77,6 +81,7 @@ Route::get('/register', [PublicAuthController::class, 'showRegisterForm'])->name
 Route::post('/register', [PublicAuthController::class, 'register'])->name('auth.register.store');
 Route::get('/login', [PublicAuthController::class, 'showLoginForm'])->name('auth.login');
 Route::post('/login', [PublicAuthController::class, 'login'])->name('auth.login.store');
+Route::get('/logout', [PublicAuthController::class, 'logout'])->name('auth.logout.get');
 Route::post('/logout', [PublicAuthController::class, 'logout'])->name('auth.logout');
 
 // User Profile routes

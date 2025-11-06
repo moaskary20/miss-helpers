@@ -187,7 +187,7 @@
                                    type="checkbox" 
                                    id="is_active" 
                                    name="is_active" 
-                                   {{ old('is_active', $review->is_active) ? 'checked' : '' }}>
+                                   {{ old('is_active', $review->status === 'active') ? 'checked' : '' }}>
                             <label class="form-check-label" for="is_active">
                                 الرأي نشط
                             </label>

@@ -153,6 +153,25 @@
             border-radius: 20px;
             padding: 8px 12px;
         }
+        
+        /* تقليل حجم SVG في الـ pagination */
+        .pagination svg,
+        .page-link svg,
+        .pagination .page-link svg {
+            width: 14px !important;
+            height: 14px !important;
+            max-width: 14px !important;
+            max-height: 14px !important;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        /* تقليل حجم SVG مع كلاسات Tailwind */
+        svg.w-5,
+        svg.h-5 {
+            width: 14px !important;
+            height: 14px !important;
+        }
     </style>
 </head>
 <body>

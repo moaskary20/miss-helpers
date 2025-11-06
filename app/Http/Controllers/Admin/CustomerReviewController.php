@@ -39,11 +39,17 @@ class CustomerReviewController extends Controller
             'customer_location' => 'nullable|string|max:255',
             'rating' => 'required|integer|min:1|max:5',
             'description' => 'required|string',
-            'status' => 'nullable|string|in:active,inactive',
+            'job_title' => 'nullable|string|max:255',
+            'service_received' => 'nullable|string|max:255',
+            'sort_order' => 'nullable|integer|min:0',
+            'is_active' => 'nullable|in:on,1,true',
         ]);
 
         $data = $request->all();
-        $data['status'] = $request->status ?? 'active';
+        // تحويل is_active إلى status
+        $data['status'] = $request->boolean('is_active') ? 'active' : 'inactive';
+        unset($data['is_active']); // إزالة is_active من البيانات
+        $data['sort_order'] = $request->sort_order ?? 0;
 
         if ($request->hasFile('customer_photo')) {
             $data['customer_photo'] = $request->file('customer_photo')->store('reviews/images', 'public');
@@ -86,11 +92,17 @@ class CustomerReviewController extends Controller
             'customer_location' => 'nullable|string|max:255',
             'rating' => 'required|integer|min:1|max:5',
             'description' => 'required|string',
-            'status' => 'nullable|string|in:active,inactive',
+            'job_title' => 'nullable|string|max:255',
+            'service_received' => 'nullable|string|max:255',
+            'sort_order' => 'nullable|integer|min:0',
+            'is_active' => 'nullable|in:on,1,true',
         ]);
 
         $data = $request->all();
-        $data['status'] = $request->status ?? 'active';
+        // تحويل is_active إلى status
+        $data['status'] = $request->boolean('is_active') ? 'active' : 'inactive';
+        unset($data['is_active']); // إزالة is_active من البيانات
+        $data['sort_order'] = $request->sort_order ?? $review->sort_order ?? 0;
 
         if ($request->hasFile('customer_photo')) {
             if ($review->customer_photo) {

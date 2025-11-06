@@ -119,7 +119,12 @@ class AuthController extends Controller
             if (in_array($user->role, ['admin', 'super_admin'])) {
                 return redirect()->intended(route('admin.dashboard'));
             } else {
-                return redirect()->intended(route('welcome'));
+                // Get locale from session or default to 'ar'
+                $locale = session('locale', app()->getLocale());
+                if (!in_array($locale, ['ar', 'en'])) {
+                    $locale = 'ar';
+                }
+                return redirect()->intended(route('welcome', ['locale' => $locale]));
             }
         }
 
@@ -131,10 +136,27 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        // Get locale before invalidating session
+        $locale = app()->getLocale();
+        
+        // Try to get locale from URL segment first
+        $segmentLocale = $request->segment(1);
+        if (in_array($segmentLocale, ['ar', 'en'])) {
+            $locale = $segmentLocale;
+        } else {
+            // Try to get from session
+            $locale = session('locale', $locale);
+        }
+        
+        // Validate locale
+        if (!in_array($locale, ['ar', 'en'])) {
+            $locale = 'ar';
+        }
+        
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         
-        return redirect()->route('welcome');
+        return redirect()->route('welcome', ['locale' => $locale]);
     }
 }

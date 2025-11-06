@@ -433,8 +433,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="col-lg-6">
                 <h1 class="hero-title">{{ __('messages.get_maid_now') }}</h1>
                 <div class="actions d-flex gap-3">
-                    <a href="https://misshelpers.com/%d8%a8%d8%a7%d9%82%d8%a7%d8%aa-%d8%a7%d9%84%d8%ae%d8%a7%d8%af%d9%85%d8%a7%d8%aa/" class="btn btn-classic" target="_blank">{{ __('messages.traditional_package') }}</a>
-                    <a href="https://misshelpers.com/%d8%a8%d8%a7%d9%82%d8%a7%d8%aa-%d8%a7%d9%84%d8%ae%d8%a7%d8%af%d9%85%d8%a7%d8%aa/" class="btn btn-monthly" target="_blank">{{ __('messages.monthly_package') }}</a>
+                    <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}" class="btn btn-classic">{{ __('messages.traditional_package') }}</a>
+                    <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}" class="btn btn-monthly">{{ __('messages.monthly_package') }}</a>
                 </div>
             </div>
             <div class="col-lg-6 stack-right">
@@ -506,7 +506,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         @php
-            $posts = \App\Models\Post::latest()->take(12)->get();
+            $posts = \App\Models\BlogPost::with('category')
+                ->where('status', 'published')
+                ->latest('published_at')
+                ->take(12)
+                ->get();
         @endphp
 
         <style>
@@ -1756,7 +1760,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             
                             <div class="reviewer-details">
                                 <div class="reviewer-name-side">{{ \App\Helpers\TranslationHelper::translateMaidValue($customerReviews[0]->customer_name ?? __('messages.satisfied_customer')) }} - {{ \App\Helpers\TranslationHelper::translateMaidValue($customerReviews[0]->customer_location ?? __('messages.riyadh')) }}</div>
-                                <div class="reviewer-title">{{ __('messages.satisfied_customer') }}</div>
+                                <div class="reviewer-title">{{ \App\Helpers\TranslationHelper::translateMaidValue($customerReviews[0]->job_title ?? __('messages.satisfied_customer')) }}</div>
                             </div>
                         </div>
                         
@@ -2934,75 +2938,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// وظيفة تبديل آراء العملاء
-function changeReview(direction) {
-    const reviews = [
-        {
-            name: '{{ __("messages.customer_name_fatima") }}',
-            nameSide: '{{ __("messages.customer_name_fatima") }} - {{ __("messages.location_riyadh_saudi") }}',
-            title: '{{ __("messages.satisfied_customer") }}',
-            text: '{{ __("messages.review_text_professional_service") }}'
-        },
-        {
-            name: '{{ __("messages.customer_name_ahmed_dubai") }}',
-            nameSide: '{{ __("messages.customer_name_ahmed_dubai") }}',
-            title: '{{ __("messages.satisfied_customer") }}',
-            text: '{{ __("messages.review_text_great_experience") }}'
-        },
-        {
-            name: '{{ __("messages.customer_name_ahmed") }}',
-            nameSide: '{{ __("messages.customer_name_ahmed") }} - {{ __("messages.location_riyadh_saudi") }}',
-            title: '{{ __("messages.satisfied_customer") }}',
-            text: '{{ __("messages.review_text_excellent_service") }}'
-        }
-    ];
-    
-    let currentIndex = 0;
-    
-    // حفظ المؤشر الحالي في localStorage
-    if (localStorage.getItem('currentReviewIndex')) {
-        currentIndex = parseInt(localStorage.getItem('currentReviewIndex'));
-    }
-    
-    if (direction === 'next') {
-        currentIndex = (currentIndex + 1) % reviews.length;
-    } else {
-        currentIndex = (currentIndex - 1 + reviews.length) % reviews.length;
-    }
-    
-    // حفظ المؤشر الجديد
-    localStorage.setItem('currentReviewIndex', currentIndex);
-    
-    const review = reviews[currentIndex];
-    
-    // تحديث البطاقة الرئيسية
-    document.querySelector('.reviewer-name').textContent = review.name;
-    document.querySelector('.review-text').textContent = review.text;
-    
-    // تحديث النص الجانبي
-    document.querySelector('.review-text-side').textContent = review.text;
-    document.querySelector('.reviewer-name-side').textContent = review.nameSide;
-    document.querySelector('.reviewer-title').textContent = review.title;
-    
-    // تأثير بصري
-    const mainCard = document.querySelector('.main-review-card');
-    const sideReview = document.querySelector('.side-review');
-    
-    mainCard.style.opacity = '0.7';
-    sideReview.style.opacity = '0.7';
-    
-    setTimeout(() => {
-        mainCard.style.opacity = '1';
-        sideReview.style.opacity = '1';
-    }, 200);
-}
-
-// تحميل أول رأي عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', function() {
-    if (!localStorage.getItem('currentReviewIndex')) {
-        localStorage.setItem('currentReviewIndex', '0');
-    }
-});
+// تم نقل وظيفة تبديل آراء العملاء إلى نهاية الملف لاستخدام البيانات من قاعدة البيانات
 </script>
 
 <!-- قسم المدونة -->
@@ -4896,6 +4832,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const customerName = review.customer_name || '{{ __("messages.satisfied_customer_default") }}';
                 const customerLocation = review.customer_location || '{{ __("messages.riyadh") }}';
                 reviewerNameSide.textContent = `${customerName} - ${customerLocation}`;
+            }
+            
+            // Update reviewer title
+            const reviewerTitle = document.querySelector('.reviewer-title');
+            if (reviewerTitle) {
+                reviewerTitle.textContent = review.job_title || '{{ __("messages.satisfied_customer") }}';
             }
             
             // Update indicators

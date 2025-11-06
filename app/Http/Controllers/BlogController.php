@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BlogPost;
 use App\Models\BlogCategory;
+use Illuminate\Support\Facades\App;
 
 class BlogController extends Controller
 {
@@ -13,6 +14,12 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
+        // تعيين اللغة من URL
+        $segmentLocale = $request->segment(1);
+        if (in_array($segmentLocale, ['ar', 'en'])) {
+            App::setLocale($segmentLocale);
+        }
+        
         $query = BlogPost::with('category')->where('status', 'published');
         
         // فلترة حسب الفئة
@@ -32,7 +39,8 @@ class BlogController extends Controller
         }
         
         $posts = $query->latest('published_at')->paginate(9);
-        $categories = BlogCategory::where('is_active', true)->get();
+        // استخدام جدول categories بدلاً من blog_categories
+        $categories = \App\Models\Category::all();
         
         return view('blog.index', compact('posts', 'categories'));
     }
@@ -40,12 +48,22 @@ class BlogController extends Controller
     /**
      * عرض مقال واحد
      */
-    public function show($slug)
+    public function show($slug, Request $request)
     {
-        $post = BlogPost::with('category', 'author')
-            ->where('slug', $slug)
-            ->where('status', 'published')
-            ->firstOrFail();
+        // تعيين اللغة من URL
+        $segmentLocale = $request->segment(1);
+        if (in_array($segmentLocale, ['ar', 'en'])) {
+            App::setLocale($segmentLocale);
+        }
+        
+        try {
+            $post = BlogPost::with('category')
+                ->where('slug', $slug)
+                ->where('status', 'published')
+                ->firstOrFail();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            abort(404, 'المقال غير موجود أو غير منشور');
+        }
             
         $relatedPosts = BlogPost::with('category')
             ->where('category_id', $post->category_id)
@@ -61,9 +79,15 @@ class BlogController extends Controller
     /**
      * عرض مقالات حسب الفئة
      */
-    public function category($slug)
+    public function category($slug, Request $request)
     {
-        $category = BlogCategory::where('slug', $slug)
+        // تعيين اللغة من URL
+        $segmentLocale = $request->segment(1);
+        if (in_array($segmentLocale, ['ar', 'en'])) {
+            App::setLocale($segmentLocale);
+        }
+        
+        $category = \App\Models\Category::where('slug', $slug)
             ->where('is_active', true)
             ->firstOrFail();
             
@@ -73,7 +97,7 @@ class BlogController extends Controller
             ->latest('published_at')
             ->paginate(9);
             
-        $categories = BlogCategory::where('is_active', true)->get();
+        $categories = \App\Models\Category::all();
         
         return view('blog.index', compact('posts', 'categories', 'category'));
     }

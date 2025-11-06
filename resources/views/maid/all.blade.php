@@ -185,7 +185,7 @@
         }
         .maid-image-wrapper {
             position: relative;
-            height: 250px;
+            height: 220px;
             overflow: hidden;
         }
         .maid-image {
@@ -198,19 +198,20 @@
             transform: scale(1.1);
         }
         .maid-info {
-            padding: 20px;
+            padding: 15px;
         }
         .maid-name {
             color: #23336b;
             font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            line-height: 1.3;
         }
         .maid-rating {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .stars {
             color: #ffc107;
@@ -220,8 +221,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
         }
         .views-badge {
             background: #e91e63;
@@ -243,8 +244,9 @@
             background: #23336b;
             border: none;
             border-radius: 12px;
-            padding: 12px;
+            padding: 10px;
             font-weight: 600;
+            font-size: 0.9rem;
             color: #fff !important;
             transition: all 0.3s ease;
         }
@@ -272,6 +274,28 @@
             background: #23336b;
             border-color: #23336b;
         }
+        
+        /* تقليل حجم SVG في الـ pagination */
+        .pagination-wrapper svg,
+        .pagination svg,
+        .page-item svg,
+        .page-link svg,
+        .pagination .page-link svg {
+            width: 14px !important;
+            height: 14px !important;
+            max-width: 14px !important;
+            max-height: 14px !important;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        /* تقليل حجم SVG مع كلاسات Tailwind */
+        svg.w-5,
+        svg.h-5 {
+            width: 14px !important;
+            height: 14px !important;
+        }
+        
         .results-count {
             color: #6c757d;
             font-size: 1.1rem;
@@ -466,21 +490,27 @@
             }
             
             .maid-image-wrapper {
-                height: 200px;
+                height: 180px;
             }
             
             .maid-info {
-                padding: 15px;
+                padding: 12px;
             }
             
             .maid-name {
-                font-size: 1.1rem;
+                font-size: 1rem;
+                margin-bottom: 6px;
+            }
+            
+            .maid-rating {
+                margin-bottom: 8px;
             }
             
             .maid-stats {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 10px;
+                gap: 8px;
+                margin-bottom: 10px;
             }
             
             .views-badge {
@@ -494,8 +524,8 @@
             }
             
             .maid-actions-bottom .btn {
-                font-size: 0.9rem;
-                padding: 8px 16px;
+                font-size: 0.85rem;
+                padding: 8px 12px;
             }
             
             .no-results {
@@ -562,28 +592,34 @@
             }
             
             .maid-image-wrapper {
-                height: 180px;
+                height: 160px;
             }
             
             .maid-info {
-                padding: 12px;
+                padding: 10px;
             }
             
             .maid-name {
-                font-size: 1rem;
+                font-size: 0.95rem;
+                margin-bottom: 5px;
             }
             
             .maid-rating {
-                margin-bottom: 10px;
+                margin-bottom: 6px;
             }
             
             .stars {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+            }
+            
+            .maid-stats {
+                margin-bottom: 8px;
+                font-size: 0.8rem;
             }
             
             .maid-actions-bottom .btn {
                 font-size: 0.8rem;
-                padding: 6px 12px;
+                padding: 6px 10px;
             }
             
             .advanced-filters {
@@ -846,9 +882,9 @@
                 </h4>
             </div>
             
-            <div class="row g-4">
+            <div class="row g-3">
                 @foreach($maids as $maid)
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-4 col-md-6 mb-3">
                         <div class="maid-card">
                             <div class="maid-image-wrapper">
                                 <img src="{{ $maid->image_path ? asset('storage/' . $maid->image_path) : asset('/images/default-maid.jpg') }}" 

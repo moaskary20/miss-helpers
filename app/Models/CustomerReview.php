@@ -17,12 +17,23 @@ class CustomerReview extends Model
         'rating',
         'comment',
         'description',
-        'status'
+        'status',
+        'job_title',
+        'service_received',
+        'sort_order'
     ];
 
     protected $casts = [
         'rating' => 'integer'
     ];
+
+    /**
+     * Accessor للحصول على is_active من status
+     */
+    public function getIsActiveAttribute()
+    {
+        return $this->status === 'active';
+    }
 
     /**
      * Get the user that owns the review

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Maid;
-use App\Models\Post;
+use App\Models\BlogPost;
 use App\Models\CustomerReview;
 use Illuminate\Http\Request;
 
@@ -22,10 +22,10 @@ class HomeController extends Controller
         }
         
         try {
-            // جلب أحدث 4 مواضيع من المدونة
-            $latestPosts = Post::with('category')
+            // جلب أحدث 4 مواضيع من المدونة المنشورة فقط
+            $latestPosts = BlogPost::with('category')
                 ->where('status', 'published')
-                ->latest()
+                ->latest('published_at')
                 ->take(4)
                 ->get();
         } catch (\Exception $e) {
@@ -33,9 +33,10 @@ class HomeController extends Controller
         }
         
         try {
-            // جلب آراء العملاء
+            // جلب آراء العملاء النشطة مرتبة حسب الترتيب ثم التاريخ
             $customerReviews = CustomerReview::where('status', 'active')
-                ->latest()
+                ->orderBy('sort_order', 'asc')
+                ->orderBy('created_at', 'desc')
                 ->take(6)
                 ->get();
         } catch (\Exception $e) {

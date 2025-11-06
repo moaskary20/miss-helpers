@@ -39,13 +39,13 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255|unique:categories',
             'description' => 'nullable|string',
             'color' => 'required|string|max:7',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|in:on,1,true',
             'sort_order' => 'nullable|integer|min:0',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
         $data['sort_order'] = $request->sort_order ?? 0;
 
         Category::create($data);
@@ -83,13 +83,13 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255|unique:categories,name,' . $id,
             'description' => 'nullable|string',
             'color' => 'required|string|max:7',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|in:on,1,true',
             'sort_order' => 'nullable|integer|min:0',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
         $data['sort_order'] = $request->sort_order ?? 0;
 
         $category->update($data);
