@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class BlogController extends Controller
@@ -152,11 +153,26 @@ class BlogController extends Controller
                 }
                 // إضافة الصورة الجديدة إلى البيانات
                 $data['featured_image'] = $imagePath;
+            } else {
+                // إذا فشل حفظ الصورة، إرجاع خطأ
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors(['featured_image' => 'فشل حفظ الصورة. يرجى المحاولة مرة أخرى.']);
             }
         }
 
         // تحديث البيانات - التأكد من تحديث featured_image إذا تم رفعها
-        $post->update($data);
+        // تحديث الحقول الأساسية أولاً
+        $post->fill($data);
+        $post->save();
+        
+        // إذا تم رفع صورة جديدة، التأكد من تحديثها بشكل مباشر ومؤكد
+        if ($request->hasFile('featured_image') && isset($data['featured_image'])) {
+            // تحديث الصورة مباشرة في قاعدة البيانات
+            DB::table('posts')
+                ->where('id', $post->id)
+                ->update(['featured_image' => $data['featured_image']]);
+        }
         
         // إعادة تحميل النموذج من قاعدة البيانات للتأكد من التحديث
         $post->refresh();
