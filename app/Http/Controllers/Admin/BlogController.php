@@ -50,7 +50,17 @@ class BlogController extends Controller
             'meta_description' => 'nullable|string|max:500',
         ]);
 
-        $data = $request->all();
+        $data = $request->only([
+            'title',
+            'category_id',
+            'excerpt',
+            'content',
+            'status',
+            'is_featured',
+            'meta_title',
+            'meta_description'
+        ]);
+        
         $data['slug'] = Str::slug($request->title);
         $data['is_featured'] = $request->boolean('is_featured');
         
@@ -58,7 +68,8 @@ class BlogController extends Controller
             $data['published_at'] = now();
         }
 
-        if ($request->hasFile('featured_image')) {
+        // معالجة الصورة المميزة - فقط إذا تم رفع ملف جديد
+        if ($request->hasFile('featured_image') && $request->file('featured_image')->isValid()) {
             $data['featured_image'] = $request->file('featured_image')->store('blog/images', 'public');
         }
 
