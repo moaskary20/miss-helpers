@@ -114,7 +114,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 // routes لوحة الإدارة
 Route::prefix('admin')->name('admin.')->middleware(['admin', 'activity.log'])->group(function () {
-    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::redirect('/', '/admin/dashboard');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/maids', [AdminController::class, 'maidsIndex'])->name('maids.index');
     Route::get('/maids/create', [AdminController::class, 'maidsCreate'])->name('maids.create');
