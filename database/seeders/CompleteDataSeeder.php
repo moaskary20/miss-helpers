@@ -514,19 +514,25 @@ class CompleteDataSeeder extends Seeder
                 'name' => 'نصائح التنظيف',
                 'slug' => 'cleaning-tips',
                 'description' => 'نصائح ومعلومات مفيدة للتنظيف',
+                'color' => '#6c5ce7',
                 'is_active' => true,
+                'sort_order' => 1,
             ],
             [
                 'name' => 'الطبخ',
                 'slug' => 'cooking',
                 'description' => 'وصفات ونصائح الطبخ',
+                'color' => '#ff7b8a',
                 'is_active' => true,
+                'sort_order' => 2,
             ],
             [
                 'name' => 'رعاية الأطفال',
                 'slug' => 'childcare',
                 'description' => 'نصائح رعاية الأطفال',
+                'color' => '#20bf6b',
                 'is_active' => true,
+                'sort_order' => 3,
             ],
         ];
 
@@ -573,7 +579,7 @@ class CompleteDataSeeder extends Seeder
         ];
 
         foreach ($categories as $categoryData) {
-            $category = BlogCategory::updateOrCreate(
+            $category = Category::updateOrCreate(
                 ['slug' => $categoryData['slug']],
                 $categoryData
             );
