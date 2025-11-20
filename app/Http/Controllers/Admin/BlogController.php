@@ -105,7 +105,7 @@ class BlogController extends Controller
             'meta_description' => 'nullable|string|max:500',
         ]);
 
-        $data = $request->all();
+        $data = $request->except(['featured_image']);
         $data['slug'] = Str::slug($request->title);
         $data['is_featured'] = $request->boolean('is_featured');
         
