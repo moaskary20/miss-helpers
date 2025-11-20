@@ -327,27 +327,7 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TB5M9MCD"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-    <!-- Header -->
-    <header class="site-header">
-        <div class="container header-inner">
-            <a href="{{ url('/') }}" class="brand">
-                <img src="/images/logo.png" alt="Miss Helpers" onerror="this.style.display='none'">
-            </a>
-            <nav class="d-none d-md-flex align-items-center gap-1 nav-links">
-                <a href="{{ url('/') }}">الرئيسية</a>
-                <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}">عنا</a>
-                <a href="{{ route('service.index', ['locale' => app()->getLocale()]) }}">الخدمات</a>
-                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}">الاتصال بنا</a>
-            </nav>
-            <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="cta-btn">احصل على خادمة الآن</a>
-                <div class="auth d-none d-md-flex">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">إنشاء حساب</a>
-                </div>
-            </div>
-        </div>
-    </header>
+    @include('partials.header')
 
     <!-- رأس المدونة -->
     <header class="blog-header">
