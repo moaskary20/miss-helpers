@@ -107,6 +107,7 @@
                                             } else {
                                                 $currentImg = url('/storage/' . $post->featured_image);
                                             }
+                                            $currentImg .= '?v=' . strtotime($post->updated_at);
                                         @endphp
                                         <img src="{{ $currentImg }}" 
                                              alt="الصورة الحالية" 

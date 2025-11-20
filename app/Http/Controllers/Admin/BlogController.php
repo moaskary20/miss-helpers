@@ -106,7 +106,17 @@ class BlogController extends Controller
             'meta_description' => 'nullable|string|max:500',
         ]);
 
-        $data = $request->except(['featured_image']);
+        $data = $request->only([
+            'title',
+            'category_id',
+            'excerpt',
+            'content',
+            'status',
+            'is_featured',
+            'meta_title',
+            'meta_description'
+        ]);
+        
         $data['slug'] = Str::slug($request->title);
         $data['is_featured'] = $request->boolean('is_featured');
         
@@ -114,18 +124,26 @@ class BlogController extends Controller
             $data['published_at'] = now();
         }
 
-        if ($request->hasFile('featured_image')) {
+        // معالجة الصورة المميزة
+        if ($request->hasFile('featured_image') && $request->file('featured_image')->isValid()) {
             // حذف الصورة القديمة إذا كانت موجودة
             if ($post->featured_image && !str_starts_with($post->featured_image, 'http')) {
-                Storage::disk('public')->delete($post->featured_image);
+                try {
+                    Storage::disk('public')->delete($post->featured_image);
+                } catch (\Exception $e) {
+                    // تجاهل الخطأ إذا لم تكن الصورة موجودة
+                }
             }
             // حفظ الصورة الجديدة
-            $data['featured_image'] = $request->file('featured_image')->store('blog/images', 'public');
+            $imagePath = $request->file('featured_image')->store('blog/images', 'public');
+            $data['featured_image'] = $imagePath;
         }
 
-        // تحديث البيانات
-        $post->fill($data);
-        $post->save();
+        // تحديث البيانات - التأكد من تحديث featured_image إذا تم رفعها
+        $post->update($data);
+        
+        // إعادة تحميل النموذج من قاعدة البيانات للتأكد من التحديث
+        $post->refresh();
 
         // مسح الـ cache للموضوع
         Cache::forget("post_{$post->id}");

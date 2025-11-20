@@ -56,6 +56,7 @@
                                                     } else {
                                                         $img = url('/storage/' . $post->featured_image);
                                                     }
+                                                    $img .= '?v=' . strtotime($post->updated_at);
                                                 @endphp
                                                 <img src="{{ $img }}" 
                                                      alt="{{ $post->title }}" 
