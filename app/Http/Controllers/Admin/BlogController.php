@@ -137,17 +137,22 @@ class BlogController extends Controller
 
         // معالجة الصورة المميزة
         if ($request->hasFile('featured_image') && $request->file('featured_image')->isValid()) {
-            // حذف الصورة القديمة إذا كانت موجودة
-            if ($post->featured_image && !str_starts_with($post->featured_image, 'http')) {
-                try {
-                    Storage::disk('public')->delete($post->featured_image);
-                } catch (\Exception $e) {
-                    // تجاهل الخطأ إذا لم تكن الصورة موجودة
-                }
-            }
-            // حفظ الصورة الجديدة
+            // حفظ الصورة الجديدة أولاً
             $imagePath = $request->file('featured_image')->store('blog/images', 'public');
-            $data['featured_image'] = $imagePath;
+            
+            // التحقق من أن الصورة تم حفظها بنجاح
+            if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+                // حذف الصورة القديمة إذا كانت موجودة (بعد التأكد من حفظ الجديدة)
+                if ($post->featured_image && !str_starts_with($post->featured_image, 'http')) {
+                    try {
+                        Storage::disk('public')->delete($post->featured_image);
+                    } catch (\Exception $e) {
+                        // تجاهل الخطأ إذا لم تكن الصورة موجودة
+                    }
+                }
+                // إضافة الصورة الجديدة إلى البيانات
+                $data['featured_image'] = $imagePath;
+            }
         }
 
         // تحديث البيانات - التأكد من تحديث featured_image إذا تم رفعها

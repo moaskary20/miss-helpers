@@ -99,8 +99,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="featured_image" class="form-label">الصورة المميزة</label>
-                                @if($post->featured_image)
-                                    <div class="mb-2">
+                                <div id="current-image-container" class="mb-2">
+                                    @if($post->featured_image)
                                         @php
                                             if (str_starts_with($post->featured_image, 'http')) {
                                                 $currentImg = $post->featured_image;
@@ -111,12 +111,23 @@
                                         @endphp
                                         <img src="{{ $currentImg }}" 
                                              alt="الصورة الحالية" 
+                                             id="current-image"
                                              class="img-thumbnail" 
-                                             style="max-height: 100px;"
+                                             style="max-height: 200px; max-width: 100%; display: block;"
                                              onerror="this.src='{{ asset('images/hero-bg.jpg') }}'">
-                                        <small class="d-block text-muted">الصورة الحالية</small>
-                                    </div>
-                                @endif
+                                        <small class="d-block text-muted mt-1">الصورة الحالية</small>
+                                    @endif
+                                </div>
+                                <div id="new-image-preview" class="mb-2" style="display: none;">
+                                    <img id="image-preview" 
+                                         src="" 
+                                         alt="معاينة الصورة الجديدة" 
+                                         class="img-thumbnail" 
+                                         style="max-height: 200px; max-width: 100%; display: block;">
+                                    <small class="d-block text-success mt-1">
+                                        <i class="bi bi-check-circle"></i> الصورة الجديدة (سيتم حفظها عند الضغط على تحديث)
+                                    </small>
+                                </div>
                                 <input type="file" 
                                        class="form-control @error('featured_image') is-invalid @enderror" 
                                        id="featured_image" 
@@ -229,6 +240,64 @@ document.addEventListener('DOMContentLoaded', function() {
     contentTextarea.addEventListener('input', function() {
         if (!excerptTextarea.value && this.value.length > 100) {
             excerptTextarea.value = this.value.substring(0, 100) + '...';
+        }
+    });
+    
+    // معاينة الصورة المميزة فور اختيارها
+    const imageInput = document.getElementById('featured_image');
+    const previewContainer = document.getElementById('new-image-preview');
+    const previewImg = document.getElementById('image-preview');
+    const currentImageContainer = document.getElementById('current-image-container');
+    const currentImage = document.getElementById('current-image');
+    
+    imageInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            // التحقق من نوع الملف
+            if (!file.type.startsWith('image/')) {
+                alert('الرجاء اختيار ملف صورة صحيح');
+                this.value = '';
+                return;
+            }
+            
+            // التحقق من حجم الملف (2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('حجم الصورة يجب أن يكون أقل من 2MB');
+                this.value = '';
+                return;
+            }
+            
+            // عرض معاينة الصورة
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                previewContainer.style.display = 'block';
+                // إخفاء الصورة الحالية عند اختيار صورة جديدة
+                if (currentImage) {
+                    currentImage.style.display = 'none';
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+            // إخفاء المعاينة إذا لم يتم اختيار ملف
+            previewContainer.style.display = 'none';
+            if (currentImage) {
+                currentImage.style.display = 'block';
+            }
+        }
+    });
+    
+    // التأكد من حفظ الصورة قبل إرسال النموذج
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        const file = imageInput.files[0];
+        if (file) {
+            // عرض رسالة تأكيد
+            const confirmMessage = 'هل أنت متأكد من تحديث الصورة المميزة؟';
+            if (!confirm(confirmMessage)) {
+                e.preventDefault();
+                return false;
+            }
         }
     });
 });
