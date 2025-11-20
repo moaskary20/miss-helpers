@@ -541,7 +541,7 @@ class CompleteDataSeeder extends Seeder
             'cleaning-tips' => [
                 [
                     'title' => 'أفضل طرق تنظيف المطبخ',
-                    'slug' => 'best-kitchen-cleaning-methods',
+                    'slug' => 'blog-best-kitchen-cleaning-methods',
                     'excerpt' => 'نصائح مفيدة لتنظيف المطبخ بفعالية',
                     'content' => 'هذا المقال يحتوي على نصائح مفيدة لتنظيف المطبخ بفعالية وأمان...',
                     'featured_image' => 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
@@ -549,7 +549,7 @@ class CompleteDataSeeder extends Seeder
                 ],
                 [
                     'title' => 'تنظيف السجاد بطرق طبيعية',
-                    'slug' => 'natural-carpet-cleaning',
+                    'slug' => 'blog-natural-carpet-cleaning',
                     'excerpt' => 'طرق طبيعية لتنظيف السجاد بدون مواد كيميائية',
                     'content' => 'هذا المقال يحتوي على طرق طبيعية لتنظيف السجاد بدون مواد كيميائية...',
                     'featured_image' => 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
@@ -559,7 +559,7 @@ class CompleteDataSeeder extends Seeder
             'cooking' => [
                 [
                     'title' => 'وصفات سهلة للعشاء',
-                    'slug' => 'easy-dinner-recipes',
+                    'slug' => 'blog-easy-dinner-recipes',
                     'excerpt' => 'وصفات سهلة وسريعة لعشاء لذيذ',
                     'content' => 'هذا المقال يحتوي على وصفات سهلة وسريعة لعشاء لذيذ...',
                     'featured_image' => 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
@@ -569,7 +569,7 @@ class CompleteDataSeeder extends Seeder
             'childcare' => [
                 [
                     'title' => 'أفضل طرق تهدئة الأطفال',
-                    'slug' => 'calming-children-methods',
+                    'slug' => 'blog-calming-children-methods',
                     'excerpt' => 'طرق فعالة لتهدئة الأطفال',
                     'content' => 'هذا المقال يحتوي على طرق فعالة لتهدئة الأطفال...',
                     'featured_image' => 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
