@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class BlogController extends Controller
@@ -114,13 +115,21 @@ class BlogController extends Controller
         }
 
         if ($request->hasFile('featured_image')) {
-            if ($post->featured_image) {
+            // حذف الصورة القديمة إذا كانت موجودة
+            if ($post->featured_image && !str_starts_with($post->featured_image, 'http')) {
                 Storage::disk('public')->delete($post->featured_image);
             }
+            // حفظ الصورة الجديدة
             $data['featured_image'] = $request->file('featured_image')->store('blog/images', 'public');
         }
 
-        $post->update($data);
+        // تحديث البيانات
+        $post->fill($data);
+        $post->save();
+
+        // مسح الـ cache للموضوع
+        Cache::forget("post_{$post->id}");
+        Cache::forget("post_slug_{$post->slug}");
 
         return redirect()->route('admin.blog.index')
             ->with('success', 'تم تحديث الموضوع بنجاح');
