@@ -14,6 +14,7 @@ use App\Models\ServiceRequest;
 use App\Models\ChatRoom;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -153,11 +154,31 @@ class AdminController extends Controller
             }
         }
 
-        $data = $request->all();
-
-        // إزالة المهارات وخبرات العمل من البيانات قبل إنشاء الخادمة
-        unset($data['skills']);
-        unset($data['work_experiences']);
+        // جمع البيانات المطلوبة فقط
+        $data = $request->only([
+            'name',
+            'nationality',
+            'religion',
+            'language',
+            'birth_date',
+            'age',
+            'education',
+            'marital_status',
+            'children_count',
+            'experience_years',
+            'height',
+            'weight',
+            'package_type',
+            'job_title',
+            'contract_type',
+            'contract_fees',
+            'monthly_salary',
+            'service_type',
+            'status',
+            'work_type',
+            'languages',
+            'previous_experience'
+        ]);
 
         // رفع الفيديو
         if ($request->hasFile('video')) {
@@ -172,43 +193,60 @@ class AdminController extends Controller
         }
 
         // إنشاء الخادمة
-        $maid = Maid::create($data);
+        try {
+            $maid = Maid::create($data);
+        } catch (\Exception $e) {
+            \Log::error('Error creating maid: ' . $e->getMessage());
+            \Log::error('Data: ' . json_encode($data));
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'حدث خطأ أثناء إنشاء الخادمة: ' . $e->getMessage()]);
+        }
 
         // إضافة المهارات مع الترجمة التلقائية
         if ($request->has('skills')) {
-            foreach ($request->skills as $skillData) {
-                if (!empty($skillData['skill_name'])) {
-                    // الحصول على الترجمة الإنجليزية
-                    $translation = SkillTranslation::where('arabic_name', $skillData['skill_name'])->first();
-                    
-                    $skillData['english_name'] = $translation ? $translation->english_name : $skillData['skill_name'];
-                    
-                    // إضافة الترجمة الإنجليزية للوصف إذا كان موجود
-                    if (isset($skillData['description']) && !empty($skillData['description'])) {
-                        $translationDesc = SkillTranslation::where('arabic_description', $skillData['description'])->first();
-                        $skillData['english_description'] = $translationDesc ? $translationDesc->english_description : $skillData['description'];
+            try {
+                foreach ($request->skills as $skillData) {
+                    if (!empty($skillData['skill_name'])) {
+                        // الحصول على الترجمة الإنجليزية
+                        $translation = SkillTranslation::where('arabic_name', $skillData['skill_name'])->first();
+                        
+                        $skillData['english_name'] = $translation ? $translation->english_name : $skillData['skill_name'];
+                        
+                        // إضافة الترجمة الإنجليزية للوصف إذا كان موجود
+                        if (isset($skillData['description']) && !empty($skillData['description'])) {
+                            $translationDesc = SkillTranslation::where('arabic_description', $skillData['description'])->first();
+                            $skillData['english_description'] = $translationDesc ? $translationDesc->english_description : $skillData['description'];
+                        }
+                        
+                        $maid->skills()->create($skillData);
                     }
-                    
-                    $maid->skills()->create($skillData);
                 }
+            } catch (\Exception $e) {
+                \Log::error('Error creating skills: ' . $e->getMessage());
+                // لا نوقف العملية، فقط نسجل الخطأ
             }
         }
 
         // إضافة خبرات العمل
         if ($request->has('work_experiences')) {
-            foreach ($request->work_experiences as $index => $workData) {
-                
-                // التحقق من وجود البيانات المطلوبة (position, country, duration)
-                if (!empty($workData['position']) && !empty($workData['country']) && !empty($workData['duration'])) {
-                    // التأكد من وجود البيانات المطلوبة
-                    $workData['start_date'] = $workData['start_date'] ?? now()->format('Y-m-d');
-                    $workData['end_date'] = $workData['end_date'] ?? null;
-                    $workData['description'] = $workData['description'] ?? null;
-                    $workData['company_name'] = $workData['company_name'] ?? null;
-                    $workData['work_type'] = $workData['work_type'] ?? null;
-                    
-                    $maid->workExperiences()->create($workData);
+            try {
+                foreach ($request->work_experiences as $index => $workData) {
+                    // التحقق من وجود البيانات المطلوبة (position, country, duration)
+                    if (!empty($workData['position']) && !empty($workData['country']) && !empty($workData['duration'])) {
+                        // التأكد من وجود البيانات المطلوبة
+                        $workData['start_date'] = $workData['start_date'] ?? now()->format('Y-m-d');
+                        $workData['end_date'] = $workData['end_date'] ?? null;
+                        $workData['description'] = $workData['description'] ?? null;
+                        $workData['company_name'] = $workData['company_name'] ?? null;
+                        $workData['work_type'] = $workData['work_type'] ?? null;
+                        
+                        $maid->workExperiences()->create($workData);
+                    }
                 }
+            } catch (\Exception $e) {
+                \Log::error('Error creating work experiences: ' . $e->getMessage());
+                // لا نوقف العملية، فقط نسجل الخطأ
             }
         }
 
