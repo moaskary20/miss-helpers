@@ -155,7 +155,10 @@ class AdminController extends Controller
         }
 
         // جمع البيانات المطلوبة فقط
-        $data = $request->only([
+        $data = [];
+        
+        // الحقول المطلوبة
+        $requiredFields = [
             'name',
             'nationality',
             'religion',
@@ -165,12 +168,16 @@ class AdminController extends Controller
             'education',
             'marital_status',
             'children_count',
+            'package_type',
+            'job_title',
+            'contract_type'
+        ];
+        
+        // الحقول الاختيارية
+        $optionalFields = [
             'experience_years',
             'height',
             'weight',
-            'package_type',
-            'job_title',
-            'contract_type',
             'contract_fees',
             'monthly_salary',
             'service_type',
@@ -178,25 +185,66 @@ class AdminController extends Controller
             'work_type',
             'languages',
             'previous_experience'
-        ]);
+        ];
+        
+        // جمع الحقول المطلوبة
+        foreach ($requiredFields as $field) {
+            if ($request->has($field) && $request->input($field) !== null) {
+                $data[$field] = $request->input($field);
+            }
+        }
+        
+        // جمع الحقول الاختيارية (فقط إذا كانت موجودة وليست فارغة)
+        foreach ($optionalFields as $field) {
+            if ($request->has($field) && $request->input($field) !== null && $request->input($field) !== '') {
+                $data[$field] = $request->input($field);
+            }
+        }
+        
+        // تعيين القيم الافتراضية للحقول المطلوبة إذا كانت مفقودة
+        if (!isset($data['status'])) {
+            $data['status'] = 'متاحة';
+        }
+        if (!isset($data['children_count'])) {
+            $data['children_count'] = 0;
+        }
 
         // رفع الفيديو
         if ($request->hasFile('video')) {
-            $videoPath = $request->file('video')->store('maids/videos', 'public');
-            $data['video_path'] = $videoPath;
+            try {
+                $videoPath = $request->file('video')->store('maids/videos', 'public');
+                $data['video_path'] = $videoPath;
+            } catch (\Exception $e) {
+                \Log::error('Error uploading video: ' . $e->getMessage());
+            }
         }
 
         // رفع الصورة
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('maids/images', 'public');
-            $data['image_path'] = $imagePath;
+            try {
+                $imagePath = $request->file('image')->store('maids/images', 'public');
+                $data['image_path'] = $imagePath;
+            } catch (\Exception $e) {
+                \Log::error('Error uploading image: ' . $e->getMessage());
+            }
         }
 
         // إنشاء الخادمة
         try {
+            \Log::info('Creating maid with data: ' . json_encode($data));
             $maid = Maid::create($data);
+            \Log::info('Maid created successfully with ID: ' . $maid->id);
+        } catch (\Illuminate\Database\QueryException $e) {
+            \Log::error('Database error creating maid: ' . $e->getMessage());
+            \Log::error('SQL: ' . $e->getSql());
+            \Log::error('Bindings: ' . json_encode($e->getBindings()));
+            \Log::error('Data: ' . json_encode($data));
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'حدث خطأ في قاعدة البيانات: ' . $e->getMessage()]);
         } catch (\Exception $e) {
             \Log::error('Error creating maid: ' . $e->getMessage());
+            \Log::error('Stack trace: ' . $e->getTraceAsString());
             \Log::error('Data: ' . json_encode($data));
             return redirect()->back()
                 ->withInput()
