@@ -129,10 +129,10 @@ class AdminController extends Controller
             'skills' => 'required|array|min:1',
             'skills.*.skill_name' => 'required|string|max:255',
             'skills.*.description' => 'nullable|string',
-            'work_experiences' => 'required|array|min:1',
-            'work_experiences.*.position' => 'required|string|max:255',
-            'work_experiences.*.country' => 'required|string|max:255',
-            'work_experiences.*.duration' => 'required|string|max:255',
+            'work_experiences' => 'nullable|array',
+            'work_experiences.*.position' => 'required_with:work_experiences|string|max:255',
+            'work_experiences.*.country' => 'required_with:work_experiences|string|max:255',
+            'work_experiences.*.duration' => 'required_with:work_experiences|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -142,7 +142,7 @@ class AdminController extends Controller
         }
 
         // التحقق من أن تاريخ النهاية بعد تاريخ البداية
-        if ($request->has('work_experiences')) {
+        if ($request->has('work_experiences') && is_array($request->work_experiences) && count($request->work_experiences) > 0) {
             foreach ($request->work_experiences as $index => $workData) {
                 if (!empty($workData['start_date']) && !empty($workData['end_date'])) {
                     if (strtotime($workData['end_date']) <= strtotime($workData['start_date'])) {
@@ -350,10 +350,10 @@ class AdminController extends Controller
             'skills' => 'required|array|min:1',
             'skills.*.skill_name' => 'required|string|max:255',
             'skills.*.description' => 'nullable|string',
-            'work_experiences' => 'required|array|min:1',
-            'work_experiences.*.position' => 'required|string|max:255',
-            'work_experiences.*.country' => 'required|string|max:255',
-            'work_experiences.*.duration' => 'required|string|max:255',
+            'work_experiences' => 'nullable|array',
+            'work_experiences.*.position' => 'required_with:work_experiences|string|max:255',
+            'work_experiences.*.country' => 'required_with:work_experiences|string|max:255',
+            'work_experiences.*.duration' => 'required_with:work_experiences|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -363,7 +363,7 @@ class AdminController extends Controller
         }
 
         // التحقق من أن تاريخ النهاية بعد تاريخ البداية
-        if ($request->has('work_experiences')) {
+        if ($request->has('work_experiences') && is_array($request->work_experiences) && count($request->work_experiences) > 0) {
             foreach ($request->work_experiences as $index => $workData) {
                 if (!empty($workData['start_date']) && !empty($workData['end_date'])) {
                     if (strtotime($workData['end_date']) <= strtotime($workData['start_date'])) {

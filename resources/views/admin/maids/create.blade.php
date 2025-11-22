@@ -417,41 +417,8 @@
                 </div>
                 <div class="card-body">
                     <div id="work-experiences-container">
-                        <div class="work-experience-item row mb-3">
-                            <div class="col-md-4">
-                                <label class="form-label">الوظيفة <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('work_experiences.0.position') is-invalid @enderror" 
-                                       name="work_experiences[0][position]" placeholder="الوظيفة" 
-                                       value="{{ old('work_experiences.0.position') }}" required>
-                                @error('work_experiences.0.position')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">البلد <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('work_experiences.0.country') is-invalid @enderror" 
-                                       name="work_experiences[0][country]" placeholder="البلد" 
-                                       value="{{ old('work_experiences.0.country') }}" required>
-                                @error('work_experiences.0.country')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">المدة <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('work_experiences.0.duration') is-invalid @enderror" 
-                                       name="work_experiences[0][duration]" placeholder="المدة" 
-                                       value="{{ old('work_experiences.0.duration') }}" required>
-                                @error('work_experiences.0.duration')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-1">
-                                <label class="form-label">&nbsp;</label>
-                                <button type="button" class="btn btn-outline-danger d-block" onclick="removeWorkExperience(this)">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
-                        </div>
+                        <!-- سيتم إضافة خبرات العمل هنا عند الضغط على "إضافة خبرة عمل" -->
+                        <p class="text-muted">يمكنك إضافة خبرات العمل السابقة (اختياري)</p>
                     </div>
                 </div>
             </div>
@@ -521,23 +488,29 @@
     function addWorkExperience() {
         const container = document.getElementById('work-experiences-container');
         
+        // إزالة الرسالة التوضيحية إذا كانت موجودة
+        const infoText = container.querySelector('p.text-muted');
+        if (infoText) {
+            infoText.remove();
+        }
+        
         const workItem = document.createElement('div');
         workItem.className = 'work-experience-item row mb-3';
         workItem.innerHTML = `
             <div class="col-md-4">
-                <label class="form-label">الوظيفة <span class="text-danger">*</span></label>
+                <label class="form-label">الوظيفة</label>
                 <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][position]" 
-                       placeholder="الوظيفة" required>
+                       placeholder="الوظيفة">
             </div>
             <div class="col-md-4">
-                <label class="form-label">البلد <span class="text-danger">*</span></label>
+                <label class="form-label">البلد</label>
                 <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][country]" 
-                       placeholder="البلد" required>
+                       placeholder="البلد">
             </div>
             <div class="col-md-3">
-                <label class="form-label">المدة <span class="text-danger">*</span></label>
+                <label class="form-label">المدة</label>
                 <input type="text" class="form-control" name="work_experiences[${workExperienceIndex}][duration]" 
-                       placeholder="المدة" required>
+                       placeholder="المدة" oninput="calculateExperienceYears()">
             </div>
             <div class="col-md-1">
                 <label class="form-label">&nbsp;</label>
