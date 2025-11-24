@@ -101,7 +101,7 @@
                         <label for="video" class="form-label">فيديو الخادمة</label>
                         <input type="file" class="form-control @error('video') is-invalid @enderror" 
                                id="video" name="video" accept="video/*">
-                        <div class="form-text">يمكن رفع ملفات الفيديو بصيغة MP4, AVI, MOV, WMV (حد أقصى 10MB)</div>
+                        <div class="form-text">يمكن رفع ملفات الفيديو بصيغة MP4, AVI, MOV, WMV (حد أقصى 40MB)</div>
                         @error('video')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -111,7 +111,7 @@
                         <label for="image" class="form-label">صورة الخادمة</label>
                         <input type="file" class="form-control @error('image') is-invalid @enderror" 
                                id="image" name="image" accept="image/*">
-                        <div class="form-text">يمكن رفع الصور بصيغة JPG, PNG, GIF (حد أقصى 2MB)</div>
+                        <div class="form-text">يمكن رفع الصور بصيغة JPG, PNG, GIF (حد أقصى 5MB)</div>
                         @error('image')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

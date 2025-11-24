@@ -84,7 +84,7 @@
                             </div>
                             <input type="hidden" name="delete_video" id="delete_video" value="0">
                         @endif
-                        <div class="form-text">يمكن رفع ملفات الفيديو بصيغة MP4, AVI, MOV, WMV (حد أقصى 10MB - إذا كان الملف أكبر من 2MB قد تحتاج لتعديل إعدادات PHP)</div>
+                        <div class="form-text">يمكن رفع ملفات الفيديو بصيغة MP4, AVI, MOV, WMV (حد أقصى 40MB)</div>
                         @error('video')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -122,7 +122,7 @@
                                  class="img-thumbnail mt-1" 
                                  style="max-height: 150px; display: block;">
                         </div>
-                        <div class="form-text">يمكن رفع الصور بصيغة JPG, PNG, GIF (حد أقصى 2MB)</div>
+                        <div class="form-text">يمكن رفع الصور بصيغة JPG, PNG, GIF (حد أقصى 5MB)</div>
                         @error('image')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

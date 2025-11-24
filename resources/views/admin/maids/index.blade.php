@@ -55,17 +55,17 @@
                                             @if($maid->image_path)
                                                 <img src="{{ asset('storage/' . $maid->image_path) }}?v={{ strtotime($maid->updated_at) }}" 
                                                      alt="{{ $maid->name }}" 
-                                                     class="rounded-circle" 
-                                                     width="50" height="50" 
-                                                     style="object-fit: cover;"
+                                                     class="rounded" 
+                                                     width="80" 
+                                                     style="height: auto; max-height: 100px; object-fit: contain; display: block;"
                                                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                                <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" 
-                                                     style="width: 50px; height: 50px; display: none;">
+                                                <div class="bg-secondary rounded d-flex align-items-center justify-content-center" 
+                                                     style="width: 80px; height: 100px; display: none;">
                                                     <i class="bi bi-person text-white"></i>
                                                 </div>
                                             @else
-                                                <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" 
-                                                     style="width: 50px; height: 50px;">
+                                                <div class="bg-secondary rounded d-flex align-items-center justify-content-center" 
+                                                     style="width: 80px; height: 100px;">
                                                     <i class="bi bi-person text-white"></i>
                                                 </div>
                                             @endif

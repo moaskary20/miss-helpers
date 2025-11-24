@@ -110,8 +110,8 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'nationality' => 'required|string|max:255',
-            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:10240', // 10MB max (in KB)
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
+            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:40960', // 40MB max (in KB)
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120', // 5MB max (in KB) // 2MB max
             'religion' => 'required|string|max:255',
             'language' => 'required|string|max:255',
             'birth_date' => 'required|date',
@@ -331,8 +331,8 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'nationality' => 'required|string|max:255',
-            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:10240', // 10MB max (in KB)
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:40960', // 40MB max (in KB)
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120', // 5MB max (in KB)
             'religion' => 'required|string|max:255',
             'language' => 'required|string|max:255',
             'birth_date' => 'required|date',
