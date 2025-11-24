@@ -70,14 +70,21 @@
                         <input type="file" class="form-control @error('video') is-invalid @enderror" 
                                id="video" name="video" accept="video/*">
                         @if($maid->video_path)
-                            <div class="mt-2">
-                                <small class="text-muted">الفيديو الحالي:</small>
+                            <div class="mt-2 position-relative" id="current-video-container">
+                                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0" 
+                                        style="z-index: 10; margin: 5px;" 
+                                        onclick="deleteVideo()" 
+                                        title="حذف الفيديو">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                                <small class="text-muted d-block mb-1">الفيديو الحالي:</small>
                                 <video controls class="w-100 mt-1" style="max-height: 150px;">
                                     <source src="{{ url('/storage/' . $maid->video_path) }}" type="video/mp4">
                                 </video>
                             </div>
+                            <input type="hidden" name="delete_video" id="delete_video" value="0">
                         @endif
-                        <div class="form-text">يمكن رفع ملفات الفيديو بصيغة MP4, AVI, MOV, WMV (حد أقصى 10MB)</div>
+                        <div class="form-text">يمكن رفع ملفات الفيديو بصيغة MP4, AVI, MOV, WMV (حد أقصى 10MB - إذا كان الملف أكبر من 2MB قد تحتاج لتعديل إعدادات PHP)</div>
                         @error('video')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -88,8 +95,14 @@
                         <input type="file" class="form-control @error('image') is-invalid @enderror" 
                                id="image" name="image" accept="image/*">
                         @if($maid->image_path)
-                            <div class="mt-2">
-                                <small class="text-muted">الصورة الحالية:</small>
+                            <div class="mt-2 position-relative" id="current-image-container">
+                                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0" 
+                                        style="z-index: 10; margin: 5px;" 
+                                        onclick="deleteImage()" 
+                                        title="حذف الصورة">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                                <small class="text-muted d-block mb-1">الصورة الحالية:</small>
                                 <img src="{{ url('/storage/' . $maid->image_path) }}?v={{ strtotime($maid->updated_at) }}" 
                                      alt="{{ $maid->name }}" 
                                      class="img-thumbnail mt-1" 
@@ -97,6 +110,7 @@
                                      id="current-maid-image"
                                      onerror="this.src='{{ asset('images/default-maid.jpg') }}'">
                             </div>
+                            <input type="hidden" name="delete_image" id="delete_image" value="0">
                         @endif
                         <div id="new-maid-image-preview" class="mt-2" style="display: none;">
                             <small class="text-success">
@@ -604,10 +618,47 @@
 
 @section('scripts')
 <script>
+    // دالة حذف الفيديو
+    function deleteVideo() {
+        if (confirm('هل أنت متأكد من حذف الفيديو؟')) {
+            document.getElementById('delete_video').value = '1';
+            const container = document.getElementById('current-video-container');
+            if (container) {
+                container.style.display = 'none';
+            }
+            // إزالة أي ملف محدد في input
+            const videoInput = document.getElementById('video');
+            if (videoInput) {
+                videoInput.value = '';
+            }
+        }
+    }
+
+    // دالة حذف الصورة
+    function deleteImage() {
+        if (confirm('هل أنت متأكد من حذف الصورة؟')) {
+            document.getElementById('delete_image').value = '1';
+            const container = document.getElementById('current-image-container');
+            if (container) {
+                container.style.display = 'none';
+            }
+            // إزالة أي ملف محدد في input
+            const imageInput = document.getElementById('image');
+            if (imageInput) {
+                imageInput.value = '';
+            }
+            // إخفاء معاينة الصورة الجديدة إن وجدت
+            const previewContainer = document.getElementById('new-maid-image-preview');
+            if (previewContainer) {
+                previewContainer.style.display = 'none';
+            }
+        }
+    }
+
     // معاينة صورة الخادمة عند اختيار صورة جديدة
     document.addEventListener('DOMContentLoaded', function() {
         const imageInput = document.getElementById('image');
-        const currentImageContainer = document.querySelector('#current-maid-image')?.parentElement;
+        const currentImageContainer = document.getElementById('current-image-container');
         const newImagePreviewContainer = document.getElementById('new-maid-image-preview');
         const imagePreview = document.getElementById('maid-image-preview');
 
@@ -615,6 +666,12 @@
             imageInput.addEventListener('change', function() {
                 const file = this.files[0];
                 if (file) {
+                    // إلغاء حذف الصورة إذا تم اختيار صورة جديدة
+                    const deleteImageInput = document.getElementById('delete_image');
+                    if (deleteImageInput) {
+                        deleteImageInput.value = '0';
+                    }
+                    
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         if (imagePreview) {
@@ -632,8 +689,29 @@
                     if (newImagePreviewContainer) {
                         newImagePreviewContainer.style.display = 'none';
                     }
-                    if (currentImageContainer) {
+                    if (currentImageContainer && document.getElementById('delete_image').value === '0') {
                         currentImageContainer.style.display = 'block';
+                    }
+                }
+            });
+        }
+
+        // معاينة الفيديو عند اختيار فيديو جديد
+        const videoInput = document.getElementById('video');
+        if (videoInput) {
+            videoInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    // إلغاء حذف الفيديو إذا تم اختيار فيديو جديد
+                    const deleteVideoInput = document.getElementById('delete_video');
+                    if (deleteVideoInput) {
+                        deleteVideoInput.value = '0';
+                    }
+                    
+                    // إظهار الحاوية إذا كانت مخفية
+                    const currentVideoContainer = document.getElementById('current-video-container');
+                    if (currentVideoContainer && deleteVideoInput && deleteVideoInput.value === '0') {
+                        currentVideoContainer.style.display = 'block';
                     }
                 }
             });

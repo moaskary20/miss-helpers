@@ -110,7 +110,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'nationality' => 'required|string|max:255',
-            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:61440', // 60MB max
+            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:10240', // 10MB max (in KB)
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
             'religion' => 'required|string|max:255',
             'language' => 'required|string|max:255',
@@ -331,7 +331,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'nationality' => 'required|string|max:255',
-            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:61440', // 60MB max
+            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv|max:10240', // 10MB max (in KB)
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'religion' => 'required|string|max:255',
             'language' => 'required|string|max:255',
@@ -423,6 +423,18 @@ class AdminController extends Controller
             }
         }
 
+        // حذف الفيديو إذا طلب المستخدم ذلك
+        if ($request->has('delete_video') && $request->input('delete_video') == '1') {
+            if ($maid->video_path && Storage::disk('public')->exists($maid->video_path)) {
+                try {
+                    Storage::disk('public')->delete($maid->video_path);
+                } catch (\Exception $e) {
+                    \Log::error('Error deleting video: ' . $e->getMessage());
+                }
+            }
+            $data['video_path'] = null;
+        }
+
         // رفع فيديو جديد
         if ($request->hasFile('video') && $request->file('video')->isValid()) {
             try {
@@ -436,7 +448,22 @@ class AdminController extends Controller
                 }
             } catch (\Exception $e) {
                 \Log::error('Error uploading video: ' . $e->getMessage());
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors(['video' => 'حدث خطأ أثناء رفع الفيديو: ' . $e->getMessage()]);
             }
+        }
+
+        // حذف الصورة إذا طلب المستخدم ذلك
+        if ($request->has('delete_image') && $request->input('delete_image') == '1') {
+            if ($maid->image_path && Storage::disk('public')->exists($maid->image_path)) {
+                try {
+                    Storage::disk('public')->delete($maid->image_path);
+                } catch (\Exception $e) {
+                    \Log::error('Error deleting image: ' . $e->getMessage());
+                }
+            }
+            $data['image_path'] = null;
         }
 
         // رفع صورة جديدة
