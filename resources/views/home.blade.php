@@ -1089,12 +1089,16 @@ document.addEventListener('DOMContentLoaded', function() {
     position: relative;
     height: 250px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
 }
 
 .maid-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.3s ease;
 }
 

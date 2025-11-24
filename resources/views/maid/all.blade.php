@@ -187,11 +187,15 @@
             position: relative;
             height: 220px;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
         }
         .maid-image {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             transition: transform 0.3s ease;
         }
         .maid-card:hover .maid-image {
@@ -491,6 +495,10 @@
             
             .maid-image-wrapper {
                 height: 180px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f8f9fa;
             }
             
             .maid-info {
