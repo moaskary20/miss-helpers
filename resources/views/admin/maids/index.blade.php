@@ -53,11 +53,16 @@
                                     <tr>
                                         <td>
                                             @if($maid->image_path)
-                                                <img src="{{ asset('storage/' . $maid->image_path) }}" 
+                                                <img src="{{ asset('storage/' . $maid->image_path) }}?v={{ strtotime($maid->updated_at) }}" 
                                                      alt="{{ $maid->name }}" 
                                                      class="rounded-circle" 
                                                      width="50" height="50" 
-                                                     style="object-fit: cover;">
+                                                     style="object-fit: cover;"
+                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" 
+                                                     style="width: 50px; height: 50px; display: none;">
+                                                    <i class="bi bi-person text-white"></i>
+                                                </div>
                                             @else
                                                 <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" 
                                                      style="width: 50px; height: 50px;">

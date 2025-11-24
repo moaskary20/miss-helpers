@@ -90,12 +90,24 @@
                         @if($maid->image_path)
                             <div class="mt-2">
                                 <small class="text-muted">الصورة الحالية:</small>
-                                <img src="{{ url('/storage/' . $maid->image_path) }}" 
+                                <img src="{{ url('/storage/' . $maid->image_path) }}?v={{ strtotime($maid->updated_at) }}" 
                                      alt="{{ $maid->name }}" 
                                      class="img-thumbnail mt-1" 
-                                     style="max-height: 150px;">
+                                     style="max-height: 150px;"
+                                     id="current-maid-image"
+                                     onerror="this.src='{{ asset('images/default-maid.jpg') }}'">
                             </div>
                         @endif
+                        <div id="new-maid-image-preview" class="mt-2" style="display: none;">
+                            <small class="text-success">
+                                <i class="bi bi-check-circle"></i> الصورة الجديدة (سيتم حفظها عند الضغط على تحديث):
+                            </small>
+                            <img id="maid-image-preview" 
+                                 src="" 
+                                 alt="معاينة الصورة الجديدة" 
+                                 class="img-thumbnail mt-1" 
+                                 style="max-height: 150px; display: block;">
+                        </div>
                         <div class="form-text">يمكن رفع الصور بصيغة JPG, PNG, GIF (حد أقصى 2MB)</div>
                         @error('image')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -591,6 +603,43 @@
 @endsection
 
 @section('scripts')
+<script>
+    // معاينة صورة الخادمة عند اختيار صورة جديدة
+    document.addEventListener('DOMContentLoaded', function() {
+        const imageInput = document.getElementById('image');
+        const currentImageContainer = document.querySelector('#current-maid-image')?.parentElement;
+        const newImagePreviewContainer = document.getElementById('new-maid-image-preview');
+        const imagePreview = document.getElementById('maid-image-preview');
+
+        if (imageInput) {
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        if (imagePreview) {
+                            imagePreview.src = e.target.result;
+                            if (newImagePreviewContainer) {
+                                newImagePreviewContainer.style.display = 'block';
+                            }
+                        }
+                        if (currentImageContainer) {
+                            currentImageContainer.style.display = 'none';
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    if (newImagePreviewContainer) {
+                        newImagePreviewContainer.style.display = 'none';
+                    }
+                    if (currentImageContainer) {
+                        currentImageContainer.style.display = 'block';
+                    }
+                }
+            });
+        }
+    });
+</script>
 <script>
     let skillIndex = {{ old('skills') ? count(old('skills')) : $maid->skills()->count() }};
     let workExperienceIndex = {{ old('work_experiences') ? count(old('work_experiences')) : $maid->workExperiences()->count() }};

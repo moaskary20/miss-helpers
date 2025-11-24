@@ -15,6 +15,7 @@ use App\Models\ChatRoom;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -375,34 +376,118 @@ class AdminController extends Controller
             }
         }
 
-        $data = $request->all();
-
-        // إزالة المهارات وخبرات العمل من البيانات قبل تحديث الخادمة
-        unset($data['skills']);
-        unset($data['work_experiences']);
+        // جمع البيانات المطلوبة فقط
+        $data = [];
+        
+        // الحقول المطلوبة
+        $requiredFields = [
+            'name',
+            'nationality',
+            'religion',
+            'language',
+            'birth_date',
+            'age',
+            'education',
+            'marital_status',
+            'children_count',
+            'package_type',
+            'job_title',
+            'contract_type'
+        ];
+        
+        // الحقول الاختيارية
+        $optionalFields = [
+            'experience_years',
+            'height',
+            'weight',
+            'contract_fees',
+            'monthly_salary',
+            'service_type',
+            'status',
+            'work_type',
+            'languages',
+            'previous_experience'
+        ];
+        
+        // جمع الحقول المطلوبة
+        foreach ($requiredFields as $field) {
+            if ($request->has($field) && $request->input($field) !== null) {
+                $data[$field] = $request->input($field);
+            }
+        }
+        
+        // جمع الحقول الاختيارية (فقط إذا كانت موجودة وليست فارغة)
+        foreach ($optionalFields as $field) {
+            if ($request->has($field) && $request->input($field) !== null && $request->input($field) !== '') {
+                $data[$field] = $request->input($field);
+            }
+        }
 
         // رفع فيديو جديد
-        if ($request->hasFile('video')) {
-            // حذف الفيديو القديم
-            if ($maid->video_path) {
-                Storage::disk('public')->delete($maid->video_path);
+        if ($request->hasFile('video') && $request->file('video')->isValid()) {
+            try {
+                // حذف الفيديو القديم
+                if ($maid->video_path && Storage::disk('public')->exists($maid->video_path)) {
+                    Storage::disk('public')->delete($maid->video_path);
+                }
+                $videoPath = $request->file('video')->store('maids/videos', 'public');
+                if ($videoPath) {
+                    $data['video_path'] = $videoPath;
+                }
+            } catch (\Exception $e) {
+                \Log::error('Error uploading video: ' . $e->getMessage());
             }
-            $videoPath = $request->file('video')->store('maids/videos', 'public');
-            $data['video_path'] = $videoPath;
         }
 
         // رفع صورة جديدة
-        if ($request->hasFile('image')) {
-            // حذف الصورة القديمة
-            if ($maid->image_path) {
-                Storage::disk('public')->delete($maid->image_path);
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            try {
+                // حفظ الصورة الجديدة أولاً
+                $imagePath = $request->file('image')->store('maids/images', 'public');
+                
+                // التحقق من أن الصورة تم حفظها بنجاح
+                if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+                    // حذف الصورة القديمة إذا كانت موجودة (بعد التأكد من حفظ الجديدة)
+                    if ($maid->image_path && Storage::disk('public')->exists($maid->image_path)) {
+                        try {
+                            Storage::disk('public')->delete($maid->image_path);
+                        } catch (\Exception $e) {
+                            \Log::error('Error deleting old image: ' . $e->getMessage());
+                        }
+                    }
+                    // إضافة الصورة الجديدة إلى البيانات
+                    $data['image_path'] = $imagePath;
+                } else {
+                    return redirect()->back()
+                        ->withInput()
+                        ->withErrors(['image' => 'فشل حفظ الصورة. يرجى المحاولة مرة أخرى.']);
+                }
+            } catch (\Exception $e) {
+                \Log::error('Error uploading image: ' . $e->getMessage());
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors(['image' => 'حدث خطأ أثناء رفع الصورة: ' . $e->getMessage()]);
             }
-            $imagePath = $request->file('image')->store('maids/images', 'public');
-            $data['image_path'] = $imagePath;
         }
 
         // تحديث بيانات الخادمة
-        $maid->update($data);
+        try {
+            $maid->update($data);
+            
+            // إذا تم رفع صورة جديدة، التأكد من تحديثها بشكل مباشر
+            if ($request->hasFile('image') && isset($data['image_path'])) {
+                DB::table('maids')
+                    ->where('id', $maid->id)
+                    ->update(['image_path' => $data['image_path']]);
+                $maid->refresh();
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error updating maid: ' . $e->getMessage());
+            \Log::error('Data: ' . json_encode($data));
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'حدث خطأ أثناء تحديث الخادمة: ' . $e->getMessage()]);
+        }
 
         // تحديث المهارات مع الترجمة التلقائية
         $maid->skills()->delete();
