@@ -600,7 +600,7 @@
             }
             
             .maid-image-wrapper {
-                height: 160px;
+                height: 400px;
             }
             
             .maid-info {
