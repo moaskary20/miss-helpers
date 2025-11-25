@@ -100,8 +100,8 @@
         
         @media (max-width: 576px) {
             .profile-avatar {
-                width: 420px;
-                height: 420px;
+                width: 352px;
+                height: 352px;
                 border-radius: 18px;
                 border: 10px solid white;
                 box-shadow: 0 25px 60px rgba(0,0,0,0.6);
