@@ -185,7 +185,7 @@
         }
         .maid-image-wrapper {
             position: relative;
-            height: 400px;
+            height: 653px;
             overflow: hidden;
             display: flex;
             align-items: center;
