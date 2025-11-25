@@ -1214,7 +1214,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 @media (max-width: 991.98px) {
     .maid-image-wrapper {
-        height: 200px;
+        height: 400px;
     }
     
     .maid-name {
