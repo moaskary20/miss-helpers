@@ -1087,7 +1087,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .maid-image-wrapper {
     position: relative;
-    height: 250px;
+    height: 400px;
     overflow: hidden;
     display: flex;
     align-items: center;

@@ -185,7 +185,7 @@
         }
         .maid-image-wrapper {
             position: relative;
-            height: 220px;
+            height: 400px;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -494,7 +494,7 @@
             }
             
             .maid-image-wrapper {
-                height: 180px;
+                height: 400px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
