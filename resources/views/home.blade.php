@@ -424,7 +424,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="col-lg-6">
                 <video class="w-100 rounded-3 shadow" controls preload="metadata" poster="/images/hero-bg.jpg">
-                    <source src="https://misshelpers.com/wp-content/uploads/2025/05/ei.mp4" type="video/mp4">
+                    <source src="https://misshelpers.com/images/video.mp4" type="video/mp4">
                     {{ __('messages.video_not_supported') }}
                 </video>
             </div>
