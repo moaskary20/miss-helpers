@@ -1047,7 +1047,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <i class="bi bi-eye me-1"></i>
                                     {{ __('messages.views') }} {{ $maid->views_count ?? rand(40, 80) }}
                                 </span>
-                                <span class="nationality-badge">{{ $maid->nationality }}</span>
+                                <span class="nationality-badge">{{ \App\Helpers\TranslationHelper::translateMaidValue($maid->nationality ?? 'غير محدد') }}</span>
                             </div>
                             
                             <div class="maid-actions-bottom">

@@ -922,7 +922,7 @@
                                         {{ __('messages.views') }} {{ $maid->views_count ?? rand(40, 80) }}
                                     </span>
                                     <span class="nationality-badge">
-                                        {{ $maid->nationality ?? 'غير محدد' }}
+                                        {{ \App\Helpers\TranslationHelper::translateMaidValue($maid->nationality ?? 'غير محدد') }}
                                     </span>
                                 </div>
                                 
