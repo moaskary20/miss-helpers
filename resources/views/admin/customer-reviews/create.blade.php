@@ -119,14 +119,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="job_title" class="form-label">المسمى الوظيفي <span class="text-danger">*</span></label>
+                                <label for="job_title" class="form-label">المسمى الوظيفي</label>
                                 <input type="text" 
                                        class="form-control @error('job_title') is-invalid @enderror" 
                                        id="job_title" 
                                        name="job_title" 
                                        value="{{ old('job_title') }}" 
-                                       placeholder="مثال: مدير شركة، رجل أعمال، إلخ"
-                                       required>
+                                       placeholder="مثال: مدير شركة، رجل أعمال، إلخ">
                                 @error('job_title')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -135,14 +134,13 @@
                         
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="service_received" class="form-label">الخدمة المقدمة <span class="text-danger">*</span></label>
+                                <label for="service_received" class="form-label">الخدمة المقدمة</label>
                                 <input type="text" 
                                        class="form-control @error('service_received') is-invalid @enderror" 
                                        id="service_received" 
                                        name="service_received" 
                                        value="{{ old('service_received') }}" 
-                                       placeholder="مثال: تنظيف منزل، طبخ، رعاية أطفال"
-                                       required>
+                                       placeholder="مثال: تنظيف منزل، طبخ، رعاية أطفال">
                                 @error('service_received')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -196,7 +194,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // معاينة الصورة
-    const imageInput = document.getElementById('customer_image');
+    const imageInput = document.getElementById('customer_photo');
     const previewContainer = document.createElement('div');
     previewContainer.className = 'mt-2';
     previewContainer.innerHTML = '<img id="image-preview" class="img-thumbnail" style="max-width: 200px; display: none;">';
